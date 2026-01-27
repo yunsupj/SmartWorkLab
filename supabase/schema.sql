@@ -32,6 +32,8 @@ create table reviews (
   transparency_source_count int default 0, -- For Transparency Meter
   status review_status default 'pending',
   author text default 'SmartWorkLab AI',
+  smart_score jsonb, -- { roi: number, privacy: number, integration: number, total: number }
+  competitors jsonb, -- Array of competitor names
   rating integer check (rating >= 0 and rating <= 5),
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   unique(tool_id, locale)
