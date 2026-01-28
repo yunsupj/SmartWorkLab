@@ -17,6 +17,24 @@ export default function SavingsCalculator() {
   const [currentSpend, setCurrentSpend] = useState<number>(20);
   const [toolName, setToolName] = useState(t('currentTool'));
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setIsSubmitting(true);
+
+    // Dynamic import to avoid SSR issues with Supabase client if not handled
+    const { supabase } = await import('@/lib/supabase');
+
+    if (supabase) {
+        await supabase.from('leads').insert([{ email, source: 'savings_calculator' }]);
+        setIsSubmitted(true);
+        setEmail('');
+    }
+    setIsSubmitting(false);
+  };
 
   // Mock Data - In real app, fetch from Supabase based on category
   const alternatives: Alternative[] = [
@@ -63,13 +81,25 @@ export default function SavingsCalculator() {
 
           <div>
              <label className="block text-xs uppercase tracking-wider text-slate-500 mb-1">Email (For Full Report)</label>
-             <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('enterEmail')}
-                className="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white focus:border-cyan-500 outline-none transition-colors placeholder:text-slate-600"
-             />
+             <form onSubmit={handleEmailSubmit} className="relative">
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={isSubmitted ? "Thanks! Report sent." : t('enterEmail')}
+                    disabled={isSubmitted || isSubmitting}
+                    className="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white focus:border-cyan-500 outline-none transition-colors placeholder:text-slate-600 disabled:opacity-50"
+                />
+                {!isSubmitted && (
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="absolute right-2 top-2 bottom-2 bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-400 px-3 rounded text-xs font-bold transition-all"
+                    >
+                        {isSubmitting ? '...' : 'GET'}
+                    </button>
+                )}
+             </form>
           </div>
         </div>
 

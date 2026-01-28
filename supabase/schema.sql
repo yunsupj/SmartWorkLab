@@ -63,3 +63,31 @@ create policy "Public reviews are viewable by everyone" on reviews
 
 create policy "Public metrics are viewable by everyone" on metrics
   for select using (true);
+
+-- Profiles Table (for authenticated users)
+create table profiles (
+  id uuid references auth.users on delete cascade primary key,
+  email text,
+  role text default 'user',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Leads Table (for calculator email capture)
+create table leads (
+  id uuid default gen_random_uuid() primary key,
+  email text not null,
+  source text default 'calculator',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table profiles enable row level security;
+alter table leads enable row level security;
+
+create policy "Users can insert their own profile" on profiles
+  for insert with check (auth.uid() = id);
+
+create policy "Users can view their own profile" on profiles
+  for select using (auth.uid() = id);
+
+create policy "Public can insert leads" on leads
+  for insert with check (true);

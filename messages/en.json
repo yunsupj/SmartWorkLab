@@ -20,9 +20,9 @@
     "reasoning": "Recommended because: {reason}",
     "enterEmail": "Enter email for full report...",
     "reasons": {
-      "Claude": "offers superior reasoning capabilities at a lower API cost.",
-      "Gemini": "provides a massive context window for a fraction of the price.",
-      "DeepSeek": "delivers GPT-4 class coding performance for free/cheap."
+      "Claude": "Highest ROI for Python developers and reasoning tasks.",
+      "Gemini": "Best value for massive context windows (1M+ tokens).",
+      "DeepSeek": "Unbeatable price-to-performance ratio for coding."
     }
   },
   "PromoTicker": {
