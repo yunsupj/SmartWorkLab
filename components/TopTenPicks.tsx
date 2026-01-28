@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/routing';
 import TransparencyMeter from './TransparencyMeter';
+import { getTranslations } from 'next-intl/server';
 
 interface Tool {
   id: string; // Changed from number to string (uuid)
@@ -10,7 +11,8 @@ interface Tool {
   summary: string;
 }
 
-export default function TopTenPicks({ initialTools = [] }: { initialTools?: Tool[] }) {
+export default async function TopTenPicks({ initialTools = [] }: { initialTools?: Tool[] }) {
+  const t = await getTranslations('TopTenPicks');
   const tools = initialTools;
 
   if (!tools || tools.length === 0) {
@@ -25,7 +27,7 @@ export default function TopTenPicks({ initialTools = [] }: { initialTools?: Tool
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-        <span className="text-cyan-400">#</span> Top Picks of the Month
+        <span className="text-cyan-400">#</span> {t('title')}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,7 +56,7 @@ export default function TopTenPicks({ initialTools = [] }: { initialTools?: Tool
         href={`/reviews/${tool.id}`}
         className="text-cyan-400 text-sm font-bold hover:text-cyan-300 transition-colors flex items-center gap-1"
       >
-        Read Honest Review →
+        {t('readReview')}
       </Link>
           </div>
         ))}

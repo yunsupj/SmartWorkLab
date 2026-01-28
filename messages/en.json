@@ -27,5 +27,9 @@
   },
   "PromoTicker": {
     "source": "Source"
+  },
+  "TopTenPicks": {
+    "title": "# Top Picks of the Month",
+    "readReview": "Read Honest Review →"
   }
 }

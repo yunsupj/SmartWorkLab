@@ -27,5 +27,9 @@
   },
   "PromoTicker": {
     "source": "출처"
+  },
+  "TopTenPicks": {
+    "title": "# 이달의 추천 AI 도구",
+    "readReview": "솔직한 리뷰 읽기 →"
   }
 }
