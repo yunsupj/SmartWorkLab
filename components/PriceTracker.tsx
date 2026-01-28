@@ -12,8 +12,11 @@ const INITIAL_PRICES = [
 export default function PriceTracker() {
   const [prices, setPrices] = useState(INITIAL_PRICES);
 
+  const [mounted, setMounted] = useState(false);
+
   // Simulate live updates
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setPrices(current => current.map(item => ({
         ...item,
@@ -22,6 +25,17 @@ export default function PriceTracker() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  if (!mounted) {
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            {INITIAL_PRICES.map((item) => (
+                <div key={item.name} className="bg-slate-900 border border-slate-800 p-4 rounded-lg h-24 animate-pulse">
+                </div>
+            ))}
+        </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

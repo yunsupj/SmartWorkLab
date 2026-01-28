@@ -43,6 +43,10 @@ async function getTool(id: string, locale: string) {
     transparency: review?.transparency_source_count || 0,
     author: review?.author || 'SmartWorkLab AI',
     summary: review?.summary || tool.description,
+    // ... (rest of merged data)
+    title: review?.title || tool.name + ' Review',
+    smartScore: review?.smart_score || { roi: 0, privacy: 0, integration: 0, total: 0 },
+    competitors: review?.competitors || [],
     pros: review?.pros || [],
     cons: review?.cons || [],
     criticalFlaws: review?.critical_flaws || [],
@@ -56,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!tool) return { title: 'Tool Not Found' };
 
   return {
-    title: `${tool.name} Review - Honest Analysis`,
+    title: tool.title, // Use localized title
     description: tool.summary,
   };
 }
@@ -107,7 +111,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         <div className="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full uppercase tracking-wider">
           {tool.category} Review
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{tool.name}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">{tool.title}</h1>
         <div className="flex justify-center items-center gap-2">
            <span className="text-2xl font-bold text-yellow-500">{tool.rating}</span>
            <span className="text-slate-500">/ 5.0</span>
@@ -116,6 +120,31 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
 
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         <div className="md:col-span-2 space-y-8">
+           {/* Smart Score Section */}
+           <section className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-cyan-400">Smart Score</h2>
+                <div className="text-2xl font-mono font-bold text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded">
+                  {tool.smartScore.total}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                   <div className="flex justify-between text-sm mb-1 text-slate-400"><span>ROI (Productivity)</span><span>{tool.smartScore.roi}/10</span></div>
+                   <div className="h-2 bg-slate-800 rounded-full"><div className="h-full bg-cyan-600 rounded-full" style={{ width: `${tool.smartScore.roi * 10}%` }}></div></div>
+                </div>
+                <div>
+                   <div className="flex justify-between text-sm mb-1 text-slate-400"><span>Privacy & Security</span><span>{tool.smartScore.privacy}/10</span></div>
+                   <div className="h-2 bg-slate-800 rounded-full"><div className={`h-full rounded-full ${tool.smartScore.privacy < 6 ? 'bg-red-500' : 'bg-cyan-600'}`} style={{ width: `${tool.smartScore.privacy * 10}%` }}></div></div>
+                </div>
+                <div>
+                   <div className="flex justify-between text-sm mb-1 text-slate-400"><span>Ease of Integration</span><span>{tool.smartScore.integration}/10</span></div>
+                   <div className="h-2 bg-slate-800 rounded-full"><div className="h-full bg-cyan-600 rounded-full" style={{ width: `${tool.smartScore.integration * 10}%` }}></div></div>
+                </div>
+              </div>
+           </section>
+
            <section className="bg-slate-900 border border-slate-800 rounded-xl p-6">
              <h2 className="text-xl font-bold mb-4 text-cyan-400">Honest Analysis</h2>
              <p className="text-slate-300 leading-relaxed mb-6">{tool.summary}</p>
@@ -170,6 +199,21 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
             <h3 className="text-slate-400 uppercase text-xs tracking-widest mb-2">Pricing</h3>
             <p className="text-2xl font-mono font-bold">{tool.price}</p>
           </div>
+
+           {/* Competitors Component */}
+          {tool.competitors?.length > 0 && (
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+               <h3 className="text-slate-400 uppercase text-xs tracking-widest mb-4">Competitors</h3>
+               <div className="space-y-3">
+                 {tool.competitors.map((comp: any) => (
+                   <div key={comp.name} className="text-sm">
+                     <span className="font-bold text-white block">{comp.name}</span>
+                     <span className="text-slate-500 text-xs">{comp.visualComparison}</span>
+                   </div>
+                 ))}
+               </div>
+            </div>
+          )}
 
           <button className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition-colors">
             Visit Website

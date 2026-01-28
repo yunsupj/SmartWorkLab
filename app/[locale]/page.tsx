@@ -1,24 +1,28 @@
-import {useTranslations} from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
 import PriceTracker from '@/components/PriceTracker';
 import TopTenPicks from '@/components/TopTenPicks';
 
-// Data Fetching
-async function getTopTools() {
-  if (!supabase) return [];
+// Data Fetching Component
+async function TopToolsFetcher() {
+  if (!supabase) return <div className="text-red-400 text-center">Database connection client missing.</div>;
 
-  // Fetch tools with their latest review metadata
-  const { data: tools } = await supabase
+  const { data: tools, error } = await supabase
     .from('tools')
     .select(`
       id, name, category,
       reviews!inner ( rating, transparency_source_count, summary )
     `)
-    .eq('reviews.locale', 'en') // Default to EN for listing or pass locale
+    .eq('reviews.locale', 'en')
     .limit(10);
 
-  // Transform to TopTenPicks shape
-  return tools?.map(t => ({
+  if (error) {
+    console.error("Supabase Error:", error);
+    return <div className="text-red-400 text-center">Failed to load tools. Please try again later.</div>;
+  }
+
+  const formattedTools = tools?.map(t => ({
     id: t.id,
     name: t.name,
     category: t.category,
@@ -26,17 +30,13 @@ async function getTopTools() {
     transparency: t.reviews[0]?.transparency_source_count || 0,
     summary: t.reviews[0]?.summary || ''
   })) || [];
+
+  return <TopTenPicks initialTools={formattedTools} />;
 }
 
 export default async function HomePage({params}: {params: Promise<{locale: string}>}) {
-  const t = useTranslations('Index');
   const { locale } = await params;
-
-  // We can pass locale to fetcher if needed
-  const tools = await getTopTools();
-
-  // Note: Client components (PriceTracker, TopTenPicks) might need props update
-  // to accept data instead of internal mock.
+  const t = await getTranslations({locale, namespace: 'Index'});
 
   return (
     <main className="min-h-screen p-8 max-w-7xl mx-auto">
@@ -51,11 +51,14 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
 
       <section className="mb-16">
         <h2 className="text-sm font-mono text-cyan-400 mb-4 uppercase tracking-wider">Live Market Data</h2>
+        {/* PriceTracker is a client component, wrapped in Suspense if it fetches, checking... it's a mock inside */}
         <PriceTracker />
       </section>
 
       <section>
-         <TopTenPicks initialTools={tools} />
+         <Suspense fallback={<div className="text-slate-500 animate-pulse text-center p-12">Loading Top Honest Picks...</div>}>
+           <TopToolsFetcher />
+         </Suspense>
       </section>
     </main>
   );
