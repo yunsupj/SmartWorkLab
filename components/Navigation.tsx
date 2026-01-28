@@ -3,6 +3,7 @@
 import {usePathname, useRouter} from '@/i18n/routing';
 import {useLocale, useTranslations} from 'next-intl';
 import {ChangeEvent, useTransition} from 'react';
+import { Link } from '@/i18n/routing';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
@@ -19,15 +20,15 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
+    <nav className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-40">
       <div className="flex items-center gap-6">
-        <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
           SmartWorkLab
-        </div>
+        </Link>
         <div className="flex gap-4 text-sm font-medium text-slate-400">
-          <a href="#" className="hover:text-cyan-400 transition-colors">{t('tools')}</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">{t('reviews')}</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">{t('metrics')}</a>
+          <Link href="/" className="hover:text-cyan-400 transition-colors">{t('tools')}</Link>
+          <Link href="/" className="hover:text-cyan-400 transition-colors">{t('reviews')}</Link>
+          <Link href="/" className="hover:text-cyan-400 transition-colors">{t('metrics')}</Link>
         </div>
       </div>
 
@@ -44,8 +45,8 @@ export default function Navigation() {
           <option value="de">🇩🇪 DE</option>
         </select>
 
-        <button className="text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded transition-all shadow-[0_0_10px_rgba(8,145,178,0.3)]">
-          {t('login')}
+        <button className="text-xs font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-4 py-2 rounded-full transition-all shadow-[0_0_15px_rgba(8,145,178,0.4)] animate-pulse hover:animate-none">
+          {t('getRoiReport')}
         </button>
       </div>
     </nav>

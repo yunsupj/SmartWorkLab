@@ -7,6 +7,25 @@
     "tools": "Tools",
     "reviews": "Reviews",
     "metrics": "Metrics",
-    "login": "Login"
+    "getRoiReport": "Get ROI Report"
+  },
+  "SavingsCalculator": {
+    "title": "💰 AI Savings Calculator",
+    "currentTool": "Current Tool",
+    "monthlySpend": "Monthly Spend ($)",
+    "switchTo": "Switch to",
+    "save": " & Save:",
+    "perYear": "Per Year",
+    "cta": "Switch & Save Now →",
+    "reasoning": "Recommended because: {reason}",
+    "enterEmail": "Enter email for full report...",
+    "reasons": {
+      "Claude": "offers superior reasoning capabilities at a lower API cost.",
+      "Gemini": "provides a massive context window for a fraction of the price.",
+      "DeepSeek": "delivers GPT-4 class coding performance for free/cheap."
+    }
+  },
+  "PromoTicker": {
+    "source": "Source"
   }
 }

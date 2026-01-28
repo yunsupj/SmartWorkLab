@@ -7,6 +7,25 @@
     "tools": "도구",
     "reviews": "리뷰",
     "metrics": "지표",
-    "login": "로그인"
+    "getRoiReport": "ROI 보고서 받기"
+  },
+  "SavingsCalculator": {
+    "title": "💰 AI 비용 절감 계산기",
+    "currentTool": "현재 사용 중인 도구",
+    "monthlySpend": "월 지출비용 ($)",
+    "switchTo": "추천 도구:",
+    "save": " 절약액:",
+    "perYear": "년",
+    "cta": "지금 바꾸고 절약하기 →",
+    "reasoning": "추천 이유: {reason}",
+    "enterEmail": "상세 리포트를 위한 이메일 입력...",
+    "reasons": {
+      "Claude": "더 저렴한 API 비용으로 뛰어난 추론 능력을 제공합니다.",
+      "Gemini": "압도적인 컨텍스트 윈도우를 훨씬 저렴하게 제공합니다.",
+      "DeepSeek": "GPT-4급 코딩 성능을 무료 혹은 매우 저렴하게 이용 가능합니다."
+    }
+  },
+  "PromoTicker": {
+    "source": "출처"
   }
 }
