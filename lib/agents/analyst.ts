@@ -22,7 +22,7 @@ export class AnalystAgent {
       "Combines multiple models"
     ];
 
-    // Strict Logic Gate: Must have at least 2 cons
+    // Strict Logic Gate: Must have at least 2 cons AND critical flaw detection
     if (extractedCons.length < 2) {
       console.log(`❌ Analyst Agent: Rejected ${tool.name} - Insufficient 'Honest' Data (Cons < 2)`);
       return {

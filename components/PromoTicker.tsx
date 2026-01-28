@@ -24,8 +24,8 @@ export default function PromoTicker() {
               {promo.text}
             </Link>
             {promo.source && (
-               <a href={promo.source} target="_blank" rel="noopener noreferrer" className="text-[10px] text-slate-500 hover:text-cyan-400 flex items-center gap-0.5 border border-slate-700/50 rounded px-1" title={t('source')}>
-                 Details ↗
+               <a href={promo.source} target="_blank" rel="noopener noreferrer" className="ml-2 text-[10px] text-slate-400 hover:text-cyan-400 flex items-center gap-1 border border-slate-700/50 bg-slate-900/50 rounded px-1.5 py-0.5 transition-colors" title={t('source')}>
+                 <span>ℹ️</span> Details
                </a>
             )}
             <span className="opacity-50 mx-2">|</span>

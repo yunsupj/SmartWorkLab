@@ -162,7 +162,10 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
              </div>
            </section>
 
-           <section className="bg-red-950/20 border border-red-900/50 rounded-xl p-6">
+           <section className="bg-red-950/20 border border-red-900/50 rounded-xl p-6 relative group">
+             <div className="absolute top-4 right-4 text-red-500 hover:text-red-400 cursor-help" title="We prioritize honest, critical feedback to save you time and money.">
+               <span className="text-xs border border-red-500/50 rounded px-2 py-1">?</span>
+             </div>
              <h2 className="text-xl font-bold mb-4 text-red-400 flex items-center gap-2">
                {t('criticalFlaws')}
              </h2>
@@ -171,8 +174,8 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                  <li key={flaw}>{flaw}</li>
                ))}
              </ul>
-             <p className="mt-4 text-xs text-red-400/80 uppercase tracking-widest">
-               {t('flagged')}
+             <p className="mt-4 text-xs text-red-400/80 uppercase tracking-widest flex items-center gap-2">
+               🛡️ {t('flagged')}
              </p>
            </section>
         </div>
