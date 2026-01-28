@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
 import PriceTracker from '@/components/PriceTracker';
 import TopTenPicks from '@/components/TopTenPicks';
+import SavingsCalculator from '@/components/SavingsCalculator';
 
 // Data Fetching Component
 async function TopToolsFetcher() {
@@ -53,6 +54,11 @@ export default async function HomePage({params}: {params: Promise<{locale: strin
         <h2 className="text-sm font-mono text-cyan-400 mb-4 uppercase tracking-wider">Live Market Data</h2>
         {/* PriceTracker is a client component, wrapped in Suspense if it fetches, checking... it's a mock inside */}
         <PriceTracker />
+      </section>
+
+      <section className="mb-24">
+        <h2 className="text-sm font-mono text-green-400 mb-6 uppercase tracking-wider text-center">ROI Calculator</h2>
+        <SavingsCalculator />
       </section>
 
       <section>
