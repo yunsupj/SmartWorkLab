@@ -1,15 +1,27 @@
 import Link from 'next/link';
 import TransparencyMeter from './TransparencyMeter';
 
-// Mock Data
-const TOOLS = [
-  { id: 1, name: 'Cursor AI', category: 'Coding', rating: 4.8, transparency: 8, summary: 'The best AI code editor, period.' },
-  { id: 2, name: 'Perplexity', category: 'Search', rating: 4.7, transparency: 9, summary: 'Replaces Google for 90% of queries.' },
-  { id: 3, name: 'Midjourney', category: 'Image', rating: 4.9, transparency: 5, summary: 'Unmatched image quality, terrible UX.' },
-  // ... more tools
-];
+interface Tool {
+  id: string; // Changed from number to string (uuid)
+  name: string;
+  category: string;
+  rating: number;
+  transparency: number;
+  summary: string;
+}
 
-export default function TopTenPicks() {
+export default function TopTenPicks({ initialTools = [] }: { initialTools?: Tool[] }) {
+  const tools = initialTools;
+
+  if (!tools || tools.length === 0) {
+    return (
+      <div className="text-center py-12 bg-slate-900 rounded-lg border border-slate-800">
+        <p className="text-slate-400 mb-2">No tools seeded yet.</p>
+        <p className="text-xs text-slate-600">Run npm run seed</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -17,7 +29,7 @@ export default function TopTenPicks() {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {TOOLS.map((tool, index) => (
+        {tools.map((tool, index) => (
           <div key={tool.id} className="bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-cyan-500/30 transition-all hover:-translate-y-1">
             <div className="flex justify-between items-start mb-4">
               <div>

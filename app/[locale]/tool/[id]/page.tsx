@@ -1,32 +1,58 @@
 import { notFound } from 'next/navigation';
 import TransparencyMeter from '@/components/TransparencyMeter';
+import { supabase } from '@/lib/supabase';
 
-// Mock Data Fetcher
-async function getTool(id: string) {
-  // Simulate DB fetch
-  if (id === '1') {
-    return {
-      id: '1',
-      name: 'SuperAI Writer',
-      category: 'Writing Assistant',
-      price: 'Free / $20/mo',
-      rating: 4.5,
-      reviewCount: 120,
-      transparency: 9,
-      author: 'SmartWorkLab AI',
-      summary: 'A powerful tool for automated content generation with some caveats.',
-      pros: ['Fast generation', 'Good tone enforcement'],
-      cons: ['Expensive for hobbyists', 'Limited export formats'],
-      criticalFlaws: ['Data privacy concerns in free tier'],
-      updatedAt: '2023-10-27',
-    };
-  }
-  return null;
+// Real Data Fetcher
+async function getTool(id: string, locale: string) {
+  if (!supabase) return null;
+
+  // Get Tool
+  const { data: tool } = await supabase
+    .from('tools')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (!tool) return null;
+
+  // Get Review for locale
+  const { data: review } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('tool_id', id)
+    .eq('locale', locale)
+    .single();
+
+  // Get Metrics
+  const { data: metrics } = await supabase
+    .from('metrics')
+    .select('*')
+    .eq('tool_id', id)
+    .order('timestamp', { ascending: false })
+    .limit(1)
+    .single();
+
+  // Merge Data
+  return {
+    id: tool.id,
+    name: tool.name,
+    category: tool.category,
+    price: tool.price_model === 'Free' ? 'Free' : tool.price_model === 'Freemium' ? 'Freemium' : '$' + (metrics?.price_current || 0),
+    rating: review?.rating || 0,
+    reviewCount: 1, // Mock count
+    transparency: review?.transparency_source_count || 0,
+    author: review?.author || 'SmartWorkLab AI',
+    summary: review?.summary || tool.description,
+    pros: review?.pros || [],
+    cons: review?.cons || [],
+    criticalFlaws: review?.critical_flaws || [],
+    updatedAt: review?.created_at || new Date().toISOString(),
+  };
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const tool = await getTool(id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }) {
+  const { id, locale } = await params;
+  const tool = await getTool(id, locale);
   if (!tool) return { title: 'Tool Not Found' };
 
   return {
@@ -35,9 +61,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function ToolPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const tool = await getTool(id);
+export default async function ToolPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
+  const { id, locale } = await params;
+  const tool = await getTool(id, locale);
 
   if (!tool) {
     notFound();
@@ -100,7 +126,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                    <span>✓</span> Pros
                  </h3>
                  <ul className="space-y-2 text-slate-300 text-sm">
-                   {tool.pros.map(pro => (
+                   {tool.pros.map((pro: string) => (
                      <li key={pro} className="flex gap-2">
                        <span className="text-slate-600">•</span> {pro}
                      </li>
@@ -112,7 +138,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                     <span>✕</span> Cons
                  </h3>
                  <ul className="space-y-2 text-slate-300 text-sm">
-                   {tool.cons.map(con => (
+                   {tool.cons.map((con: string) => (
                      <li key={con} className="flex gap-2">
                        <span className="text-slate-600">•</span> {con}
                      </li>
@@ -127,7 +153,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                ⚠️ Critical Flaws Detected
              </h2>
              <ul className="list-disc pl-5 space-y-2 text-red-200">
-               {tool.criticalFlaws.map(flaw => (
+               {tool.criticalFlaws.map((flaw: string) => (
                  <li key={flaw}>{flaw}</li>
                ))}
              </ul>

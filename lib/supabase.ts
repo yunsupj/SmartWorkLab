@@ -1,10 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
-// These should be in .env.local
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!; // Service role for backend admin tasks
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-// Fallback for build time or missing keys to prevent crash
 const options = {
   auth: {
     persistSession: false,
@@ -12,6 +11,14 @@ const options = {
   }
 };
 
-export const supabaseAdmin = (supabaseUrl && supabaseKey)
-  ? createClient(supabaseUrl, supabaseKey, options)
+// Public client (for fetching data in Server Components or Client)
+// Uses Anon Key
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
+
+// Admin client (for seeding, writing protected data)
+// Uses Service Role Key (Server-side ONLY)
+export const supabaseAdmin = (supabaseUrl && supabaseServiceKey)
+  ? createClient(supabaseUrl, supabaseServiceKey, options)
   : null;
