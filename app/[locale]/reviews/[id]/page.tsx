@@ -43,7 +43,6 @@ async function getTool(id: string, locale: string) {
     transparency: review?.transparency_source_count || 0,
     author: review?.author || 'SmartWorkLab AI',
     summary: review?.summary || tool.description,
-    // ... (rest of merged data)
     title: review?.title || tool.name + ' Review',
     smartScore: review?.smart_score || { roi: 0, privacy: 0, integration: 0, total: 0 },
     competitors: review?.competitors || [],
@@ -67,7 +66,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function ToolPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
   const { id, locale } = await params;
-  const tool = await getTool(id, locale);
+  let tool = null;
+
+  try {
+    tool = await getTool(id, locale);
+  } catch (err) {
+    console.error("Failed to fetch tool data:", err);
+  }
 
   if (!tool) {
     notFound();

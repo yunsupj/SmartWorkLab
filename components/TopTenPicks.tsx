@@ -51,11 +51,11 @@ export default function TopTenPicks({ initialTools = [] }: { initialTools?: Tool
             </div>
 
             <Link
-              href={`/tool/${tool.id}`}
-              className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-white text-sm py-2 rounded transition-colors"
-            >
-              Read Honest Review
-            </Link>
+        href={`/reviews/${tool.id}`}
+        className="text-cyan-400 text-sm font-bold hover:text-cyan-300 transition-colors flex items-center gap-1"
+      >
+        Read Honest Review →
+      </Link>
           </div>
         ))}
       </div>
