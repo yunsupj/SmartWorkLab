@@ -45,9 +45,9 @@ export default function Navigation() {
           <option value="de">🇩🇪 DE</option>
         </select>
 
-        <button className="text-xs font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-4 py-2 rounded-full transition-all shadow-[0_0_15px_rgba(8,145,178,0.4)] animate-pulse hover:animate-none">
+        <Link href="/login" className="text-xs font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-4 py-2 rounded-full transition-all shadow-[0_0_15px_rgba(8,145,178,0.4)] animate-pulse hover:animate-none flex items-center">
           {t('getRoiReport')}
-        </button>
+        </Link>
       </div>
     </nav>
   );

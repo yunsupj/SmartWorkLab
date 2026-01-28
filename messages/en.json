@@ -51,5 +51,12 @@
     "pricing": "Pricing",
     "competitors": "Competitors",
     "visitWebsite": "Visit Website"
+  },
+  "Login": {
+    "title": "Get ROI Report",
+    "description": "Sign in to access your detailed, personalized AI cost-saving analysis and receive weekly optimization tips.",
+    "google": "Continue with Google",
+    "discord": "Continue with Discord",
+    "terms": "By signing up, you agree to our Terms of Service and honest data policy."
   }
 }
