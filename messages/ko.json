@@ -29,7 +29,27 @@
     "source": "출처"
   },
   "TopTenPicks": {
-    "title": "# 이달의 추천 AI 도구",
+    "title": "이달의 추천 AI 도구",
     "readReview": "솔직한 리뷰 읽기 →"
+  },
+  "TransparencyMeter": {
+    "score": "투명성 점수",
+    "analyzed": "{count}개의 출처 분석됨",
+    "desc": "GitHub, Reddit, 사용자 제보를 기반으로 분석된 지표입니다."
+  },
+  "ReviewPage": {
+    "reviewLabel": "리뷰",
+    "smartScore": "스마트 점수",
+    "roi": "ROI (생산성)",
+    "privacy": "개인정보 & 보안",
+    "integration": "연동성",
+    "analysis": "솔직한 분석",
+    "pros": "장점",
+    "cons": "단점",
+    "criticalFlaws": "⚠️ 치명적 단점 발견됨",
+    "flagged": "SmartWorkLab 품질 관리팀이 식별함",
+    "pricing": "가격 정책",
+    "competitors": "경쟁사 비교",
+    "visitWebsite": "웹사이트 방문하기"
   }
 }

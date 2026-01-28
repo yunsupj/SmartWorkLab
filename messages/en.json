@@ -29,7 +29,27 @@
     "source": "Source"
   },
   "TopTenPicks": {
-    "title": "# Top Picks of the Month",
+    "title": "Top Picks of the Month",
     "readReview": "Read Honest Review →"
+  },
+  "TransparencyMeter": {
+    "score": "Transparency Score",
+    "analyzed": "{count} Sources Analyzed",
+    "desc": "Metric based on analyzed GitHub repos, Reddit threads, and user reports."
+  },
+  "ReviewPage": {
+    "reviewLabel": "Review",
+    "smartScore": "Smart Score",
+    "roi": "ROI (Productivity)",
+    "privacy": "Privacy & Security",
+    "integration": "Ease of Integration",
+    "analysis": "Honest Analysis",
+    "pros": "Pros",
+    "cons": "Cons",
+    "criticalFlaws": "⚠️ Critical Flaws Detected",
+    "flagged": "Flagged by SmartWorkLab Quality Control",
+    "pricing": "Pricing",
+    "competitors": "Competitors",
+    "visitWebsite": "Visit Website"
   }
 }
