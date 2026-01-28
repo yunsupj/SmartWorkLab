@@ -27,8 +27,8 @@ export default function Navigation() {
         </Link>
         <div className="flex gap-4 text-sm font-medium text-slate-400">
           <Link href="/" className="hover:text-cyan-400 transition-colors">{t('tools')}</Link>
-          <Link href="/" className="hover:text-cyan-400 transition-colors">{t('reviews')}</Link>
-          <Link href="/" className="hover:text-cyan-400 transition-colors">{t('metrics')}</Link>
+          <Link href="/reviews" className="hover:text-cyan-400 transition-colors">{t('reviews')}</Link>
+          <Link href="/metrics" className="hover:text-cyan-400 transition-colors">{t('metrics')}</Link>
         </div>
       </div>
 

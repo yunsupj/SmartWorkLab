@@ -20,9 +20,9 @@ export default function SavingsCalculator() {
 
   // Mock Data - In real app, fetch from Supabase based on category
   const alternatives: Alternative[] = [
-    { name: 'Claude 3 Haiku (API)', monthlyCost: 5, savings: Math.max(0, currentSpend - 5), promoLink: '/reviews/claude-3', reasonKey: 'Claude' },
-    { name: 'Gemini 1.5 Flash (API)', monthlyCost: 2, savings: Math.max(0, currentSpend - 2), promoLink: '/reviews/gemini-flash', reasonKey: 'Gemini' },
-    { name: 'DeepSeek Coder (API)', monthlyCost: 0, savings: Math.max(0, currentSpend - 0), promoLink: '/reviews/deepseek', reasonKey: 'DeepSeek' },
+    { name: 'Claude 3 Haiku (API)', monthlyCost: 5, savings: Math.max(0, currentSpend - 5), promoLink: '/reviews/cursor-ai', reasonKey: 'Claude' },
+    { name: 'Gemini 1.5 Flash (API)', monthlyCost: 2, savings: Math.max(0, currentSpend - 2), promoLink: '/reviews/cursor-ai', reasonKey: 'Gemini' },
+    { name: 'DeepSeek Coder (API)', monthlyCost: 0, savings: Math.max(0, currentSpend - 0), promoLink: '/reviews/cursor-ai', reasonKey: 'DeepSeek' },
   ];
 
   const bestAlternative = alternatives.sort((a, b) => b.savings - a.savings)[0];

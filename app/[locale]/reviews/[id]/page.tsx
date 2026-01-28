@@ -50,6 +50,7 @@ async function getTool(id: string, locale: string) {
     cons: review?.cons || [],
     criticalFlaws: review?.critical_flaws || [],
     updatedAt: review?.created_at || new Date().toISOString(),
+    websiteUrl: tool.affiliate_link || tool.website_url || '#',
   };
 }
 
@@ -220,9 +221,14 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
             </div>
           )}
 
-          <button className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition-colors">
+          <a
+             href={tool.websiteUrl}
+             target="_blank"
+             rel="noopener noreferrer"
+             className="block w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition-colors text-center"
+           >
             Visit Website
-          </button>
+          </a>
         </div>
       </div>
     </div>
