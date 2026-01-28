@@ -7,6 +7,56 @@
     "tools": "Werkzeuge",
     "reviews": "Bewertungen",
     "metrics": "Metriken",
-    "login": "Anmelden"
+    "getRoiReport": "Get ROI Report"
+  },
+  "SavingsCalculator": {
+    "title": "💰 AI Savings Calculator",
+    "currentTool": "Current Tool",
+    "monthlySpend": "Monthly Spend ($)",
+    "switchTo": "Switch to",
+    "save": " & Save:",
+    "perYear": "Per Year",
+    "cta": "Switch & Save Now →",
+    "reasoning": "Recommended because: {reason}",
+    "enterEmail": "Enter email for full report...",
+    "reasons": {
+      "Claude": "Highest ROI for Python developers and reasoning tasks.",
+      "Gemini": "Best value for massive context windows (1M+ tokens).",
+      "DeepSeek": "Unbeatable price-to-performance ratio for coding."
+    }
+  },
+  "PromoTicker": {
+    "source": "Source"
+  },
+  "TopTenPicks": {
+    "title": "Top Picks of the Month",
+    "readReview": "Read Honest Review →"
+  },
+  "TransparencyMeter": {
+    "score": "Transparency Score",
+    "analyzed": "{count} Sources Analyzed",
+    "desc": "Metric based on analyzed GitHub repos, Reddit threads, and user reports."
+  },
+  "ReviewPage": {
+    "reviewLabel": "Review",
+    "smartScore": "Smart Score",
+    "roi": "ROI (Productivity)",
+    "privacy": "Privacy & Security",
+    "integration": "Ease of Integration",
+    "analysis": "Honest Analysis",
+    "pros": "Pros",
+    "cons": "Cons",
+    "criticalFlaws": "⚠️ Critical Flaws Detected",
+    "flagged": "Flagged by SmartWorkLab Quality Control",
+    "pricing": "Pricing",
+    "competitors": "Competitors",
+    "visitWebsite": "Visit Website"
+  },
+  "Login": {
+    "title": "Get ROI Report",
+    "description": "Sign in to access your detailed, personalized AI cost-saving analysis and receive weekly optimization tips.",
+    "google": "Continue with Google",
+    "discord": "Continue with Discord",
+    "terms": "By signing up, you agree to our Terms of Service and honest data policy."
   }
 }
