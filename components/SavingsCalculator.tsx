@@ -25,13 +25,35 @@ export default function SavingsCalculator() {
     if (!email) return;
     setIsSubmitting(true);
 
-    // Dynamic import to avoid SSR issues with Supabase client if not handled
     const { supabase } = await import('@/lib/supabase');
 
     if (supabase) {
-        await supabase.from('leads').insert([{ email, source: 'savings_calculator' }]);
-        setIsSubmitted(true);
-        setEmail('');
+        // Generate Report Data
+        const annualSavings = bestAlternative.savings * 12;
+        const reportData = {
+            current_tool: toolName,
+            monthly_spend: currentSpend,
+            recommended_tool: bestAlternative.name,
+            annual_savings: annualSavings,
+            currency: 'USD',
+            optimization_tips: [
+                `Switching to ${bestAlternative.name} saves $${annualSavings}/year.`,
+                `Use the API directly to avoid per-seat licensing costs.`,
+                `Consolidate team accounts to leverage bulk discounts.`
+            ],
+            generated_at: new Date().toISOString()
+        };
+
+        const { error } = await supabase.from('leads').insert([{
+            email,
+            source: 'savings_calculator',
+            report_data: reportData
+        }]);
+
+        if (!error) {
+            setIsSubmitted(true);
+            setEmail('');
+        }
     }
     setIsSubmitting(false);
   };
@@ -117,6 +139,10 @@ export default function SavingsCalculator() {
 
           <Link
             href={bestAlternative.promoLink}
+            onClick={async () => {
+                const { trackClick } = await import('@/lib/analytics');
+                trackClick('savings_calc_cta_' + bestAlternative.name);
+            }}
             className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full text-sm transition-all hover:scale-105 shadow-lg shadow-green-900/20"
           >
             {t('cta')}

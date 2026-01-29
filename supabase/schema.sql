@@ -89,5 +89,20 @@ create policy "Users can insert their own profile" on profiles
 create policy "Users can view their own profile" on profiles
   for select using (auth.uid() = id);
 
-create policy "Public can insert leads" on leads
+    for insert with check (true);
+
+-- Click Analytics Table
+create table click_analytics (
+  id uuid default gen_random_uuid() primary key,
+  element_id text not null, -- e.g. 'savings-calc-btn', 'affiliate-link-cursor'
+  tool_id uuid references tools(id) on delete set null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table click_analytics enable row level security;
+
+create policy "Public can insert clicks" on click_analytics
   for insert with check (true);
+
+-- Update leads to store report
+alter table leads add column report_data jsonb;

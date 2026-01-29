@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import TransparencyMeter from '@/components/TransparencyMeter';
+import AdPlaceholder from '@/components/AdPlaceholder';
 import { supabase } from '@/lib/supabase';
 
 // Real Data Fetcher
@@ -131,6 +132,8 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
               </div>
            </section>
 
+           <AdPlaceholder slotId="1234567890" label="Sponsored" className="mb-6" />
+
            <section className="bg-slate-900 border border-slate-800 rounded-xl p-6">
              <h2 className="text-xl font-bold mb-4 text-cyan-400">{t('analysis')}</h2>
              <p className="text-slate-300 leading-relaxed mb-6">{tool.summary}</p>
@@ -189,6 +192,8 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
             <p className="text-2xl font-mono font-bold">{tool.price}</p>
           </div>
 
+          <AdPlaceholder slotId="0987654321" format="rectangle" label="Partner Ad" />
+
            {/* Competitors Component */}
           {tool.competitors?.length > 0 && (
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
@@ -218,6 +223,10 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
              href={tool.websiteUrl}
              target="_blank"
              rel="noopener noreferrer"
+             onClick={async () => {
+                 const { trackClick } = await import('@/lib/analytics');
+                 trackClick('visit_website_' + tool.name, tool.id);
+             }}
              className="block w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition-colors text-center"
            >
             {t('visitWebsite')}
