@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import TransparencyMeter from '@/components/TransparencyMeter';
 import { supabase } from '@/lib/supabase';
 
@@ -193,12 +194,22 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
                <h3 className="text-slate-400 uppercase text-xs tracking-widest mb-4">{t('competitors')}</h3>
                <div className="space-y-3">
-                 {tool.competitors.map((comp: any) => (
-                   <div key={comp.name} className="text-sm">
-                     <span className="font-bold text-white block">{comp.name}</span>
-                     <span className="text-slate-500 text-xs">{comp.visualComparison}</span>
-                   </div>
-                 ))}
+                 {tool.competitors.map((comp: any) => {
+                   const compName = typeof comp === 'string' ? comp : comp.name;
+                   const slug = `${tool.name.toLowerCase().replace(/\s+/g, '-')}-vs-${compName.toLowerCase().replace(/\s+/g, '-')}`;
+                   return (
+                     <div key={compName} className="flex flex-col gap-1">
+                        <Link
+                            href={`/${locale}/compare/${slug}`}
+                            className="text-sm font-bold text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1"
+                        >
+                            <span>vs {compName}</span>
+                            <span>→</span>
+                        </Link>
+                        <span className="text-slate-500 text-xs">{typeof comp === 'string' ? '' : comp.visualComparison}</span>
+                     </div>
+                   );
+                 })}
                </div>
             </div>
           )}

@@ -3,6 +3,12 @@
     "title": "SmartWorkLab - AI Tools & SaaS Platform",
     "description": "Discover the best AI tools and SaaS products."
   },
+  "Comparison": {
+    "title_suffix": "Complete Comparison (2025)",
+    "winner": "Winner",
+    "tie": "It's a Tie",
+    "cons_first": "Cons First"
+  },
   "Navigation": {
     "tools": "Tools",
     "reviews": "Reviews",
