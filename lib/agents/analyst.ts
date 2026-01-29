@@ -9,14 +9,14 @@ export class AnalystAgent {
     // For this prototype, we will simulate the logic.
 
     // 1. Logic Gate: Check for cons
-    // Simulating extraction from comments
-    const extractedCons = [
+    // Use manual data if available (Priority for Batch Generation)
+    const extractedCons = tool.manualCons || [
       "Export feature is buggy",
       "Expensive compared to competitors",
       "Vague data privacy"
     ];
 
-    const extractedPros = [
+    const extractedPros = tool.manualPros || [
       "Intuitive UI",
       "Great Slack integration",
       "Combines multiple models"

@@ -1,0 +1,3602 @@
+[
+  {
+    "analysis": {
+      "toolName": "Cursor",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Native VS Code fork",
+        "Codebase indexing",
+        "Privacy mode"
+      ],
+      "cons": [
+        "Subscription required for advanced models",
+        "Occasional slow indexing",
+        "Learning curve for new shortcuts"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "An AI-powered code editor built on VS Code that helps engineers build software faster."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Cursor Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Cursor and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Cursor Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Subscription required for advanced models\n- Occasional slow indexing\n- Learning curve for new shortcuts\n\n## Why It's Trending\n- Native VS Code fork\n- Codebase indexing\n- Privacy mode\n\n## Who is this for?\nBased on our analysis, Cursor is best for users who prioritize **Native VS Code fork**. However, if **Subscription required for advanced models** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Cursor 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Cursor을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Cursor 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Subscription required for advanced models\n- Occasional slow indexing\n- Learning curve for new shortcuts\n\n## 왜 트렌딩인가?\n- Native VS Code fork\n- Codebase indexing\n- Privacy mode\n\n## 누구에게 적합한가?\n분석 결과, **Native VS Code fork**을 중시하는 분들께 추천합니다. 하지만 **Subscription required for advanced models**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Cursor",
+      "websiteUrl": "https://cursor.sh",
+      "tagline": "An AI-powered code editor built on VS Code that helps engineers build software faster.",
+      "description": "An AI-powered code editor built on VS Code that helps engineers build software faster.",
+      "source": "Manual",
+      "sourceUrl": "https://cursor.sh",
+      "pricing": "$20/mo",
+      "userComments": [],
+      "manualPros": [
+        "Native VS Code fork",
+        "Codebase indexing",
+        "Privacy mode"
+      ],
+      "manualCons": [
+        "Subscription required for advanced models",
+        "Occasional slow indexing",
+        "Learning curve for new shortcuts"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Claude 3.5 Sonnet",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Superior reasoning",
+        "Large context window",
+        "Human-like writing"
+      ],
+      "cons": [
+        "Rate limits on free tier",
+        "No internet browsing capability",
+        "Fewer plugins than ChatGPT"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Anthropic's most intelligent AI model, excelling at coding, writing, and analysis."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Claude 3.5 Sonnet Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Claude 3.5 Sonnet and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Claude 3.5 Sonnet Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Rate limits on free tier\n- No internet browsing capability\n- Fewer plugins than ChatGPT\n\n## Why It's Trending\n- Superior reasoning\n- Large context window\n- Human-like writing\n\n## Who is this for?\nBased on our analysis, Claude 3.5 Sonnet is best for users who prioritize **Superior reasoning**. However, if **Rate limits on free tier** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo (Pro)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Claude 3.5 Sonnet 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Claude 3.5 Sonnet을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Claude 3.5 Sonnet 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Rate limits on free tier\n- No internet browsing capability\n- Fewer plugins than ChatGPT\n\n## 왜 트렌딩인가?\n- Superior reasoning\n- Large context window\n- Human-like writing\n\n## 누구에게 적합한가?\n분석 결과, **Superior reasoning**을 중시하는 분들께 추천합니다. 하지만 **Rate limits on free tier**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Claude 3.5 Sonnet",
+      "websiteUrl": "https://anthropic.com/claude",
+      "tagline": "Anthropic's most intelligent AI model, excelling at coding, writing, and analysis.",
+      "description": "Anthropic's most intelligent AI model, excelling at coding, writing, and analysis.",
+      "source": "Manual",
+      "sourceUrl": "https://anthropic.com/claude",
+      "pricing": "$20/mo (Pro)",
+      "userComments": [],
+      "manualPros": [
+        "Superior reasoning",
+        "Large context window",
+        "Human-like writing"
+      ],
+      "manualCons": [
+        "Rate limits on free tier",
+        "No internet browsing capability",
+        "Fewer plugins than ChatGPT"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "ChatGPT (GPT-4o)",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Multimodal capabilities",
+        "Custom GPTs",
+        "Internet access"
+      ],
+      "cons": [
+        "Lazy coding habits sometimes",
+        "Privacy concerns with data training",
+        "Rate limits during peak hours"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The industry-leading AI chatbot for conversation, coding, and creative work."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "ChatGPT (GPT-4o) Honest Review: Is it worth the hype?",
+        "summary": "We analyzed ChatGPT (GPT-4o) and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# ChatGPT (GPT-4o) Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Lazy coding habits sometimes\n- Privacy concerns with data training\n- Rate limits during peak hours\n\n## Why It's Trending\n- Multimodal capabilities\n- Custom GPTs\n- Internet access\n\n## Who is this for?\nBased on our analysis, ChatGPT (GPT-4o) is best for users who prioritize **Multimodal capabilities**. However, if **Lazy coding habits sometimes** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo (Plus)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "ChatGPT (GPT-4o) 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "ChatGPT (GPT-4o)을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# ChatGPT (GPT-4o) 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Lazy coding habits sometimes\n- Privacy concerns with data training\n- Rate limits during peak hours\n\n## 왜 트렌딩인가?\n- Multimodal capabilities\n- Custom GPTs\n- Internet access\n\n## 누구에게 적합한가?\n분석 결과, **Multimodal capabilities**을 중시하는 분들께 추천합니다. 하지만 **Lazy coding habits sometimes**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "ChatGPT (GPT-4o)",
+      "websiteUrl": "https://chat.openai.com",
+      "tagline": "The industry-leading AI chatbot for conversation, coding, and creative work.",
+      "description": "The industry-leading AI chatbot for conversation, coding, and creative work.",
+      "source": "Manual",
+      "sourceUrl": "https://chat.openai.com",
+      "pricing": "$20/mo (Plus)",
+      "userComments": [],
+      "manualPros": [
+        "Multimodal capabilities",
+        "Custom GPTs",
+        "Internet access"
+      ],
+      "manualCons": [
+        "Lazy coding habits sometimes",
+        "Privacy concerns with data training",
+        "Rate limits during peak hours"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Perplexity AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Real-time web search",
+        "Cited sources",
+        "Access to multiple models (Claude, GPT)"
+      ],
+      "cons": [
+        "Search results can be biased",
+        "Limited creative writing ability",
+        "Pro features expensive for casual use"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "An AI-powered answer engine that provides accurate, cited answers to complex questions."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Perplexity AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Perplexity AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Perplexity AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Search results can be biased\n- Limited creative writing ability\n- Pro features expensive for casual use\n\n## Why It's Trending\n- Real-time web search\n- Cited sources\n- Access to multiple models (Claude, GPT)\n\n## Who is this for?\nBased on our analysis, Perplexity AI is best for users who prioritize **Real-time web search**. However, if **Search results can be biased** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo (Pro)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Perplexity AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Perplexity AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Perplexity AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Search results can be biased\n- Limited creative writing ability\n- Pro features expensive for casual use\n\n## 왜 트렌딩인가?\n- Real-time web search\n- Cited sources\n- Access to multiple models (Claude, GPT)\n\n## 누구에게 적합한가?\n분석 결과, **Real-time web search**을 중시하는 분들께 추천합니다. 하지만 **Search results can be biased**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Perplexity AI",
+      "websiteUrl": "https://perplexity.ai",
+      "tagline": "An AI-powered answer engine that provides accurate, cited answers to complex questions.",
+      "description": "An AI-powered answer engine that provides accurate, cited answers to complex questions.",
+      "source": "Manual",
+      "sourceUrl": "https://perplexity.ai",
+      "pricing": "$20/mo (Pro)",
+      "userComments": [],
+      "manualPros": [
+        "Real-time web search",
+        "Cited sources",
+        "Access to multiple models (Claude, GPT)"
+      ],
+      "manualCons": [
+        "Search results can be biased",
+        "Limited creative writing ability",
+        "Pro features expensive for casual use"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Midjourney",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Best-in-class image quality",
+        "Artistic style control",
+        "Active community"
+      ],
+      "cons": [
+        "Discord-only interface",
+        "No free tier currently",
+        "Steep prompting learning curve"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "A generative artificial intelligence program that generates images from natural language descriptions."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Midjourney Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Midjourney and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Midjourney Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Discord-only interface\n- No free tier currently\n- Steep prompting learning curve\n\n## Why It's Trending\n- Best-in-class image quality\n- Artistic style control\n- Active community\n\n## Who is this for?\nBased on our analysis, Midjourney is best for users who prioritize **Best-in-class image quality**. However, if **Discord-only interface** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Midjourney 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Midjourney을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Midjourney 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Discord-only interface\n- No free tier currently\n- Steep prompting learning curve\n\n## 왜 트렌딩인가?\n- Best-in-class image quality\n- Artistic style control\n- Active community\n\n## 누구에게 적합한가?\n분석 결과, **Best-in-class image quality**을 중시하는 분들께 추천합니다. 하지만 **Discord-only interface**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Midjourney",
+      "websiteUrl": "https://midjourney.com",
+      "tagline": "A generative artificial intelligence program that generates images from natural language descriptions.",
+      "description": "A generative artificial intelligence program that generates images from natural language descriptions.",
+      "source": "Manual",
+      "sourceUrl": "https://midjourney.com",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Best-in-class image quality",
+        "Artistic style control",
+        "Active community"
+      ],
+      "manualCons": [
+        "Discord-only interface",
+        "No free tier currently",
+        "Steep prompting learning curve"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "GitHub Copilot",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Deep IDE integration",
+        "Context awareness",
+        "Chat in IDE"
+      ],
+      "cons": [
+        "Can suggest insecure code",
+        "Lags on large files",
+        "Requires subscription"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Your AI pair programmer that helps you write code faster and with less work."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "GitHub Copilot Honest Review: Is it worth the hype?",
+        "summary": "We analyzed GitHub Copilot and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# GitHub Copilot Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Can suggest insecure code\n- Lags on large files\n- Requires subscription\n\n## Why It's Trending\n- Deep IDE integration\n- Context awareness\n- Chat in IDE\n\n## Who is this for?\nBased on our analysis, GitHub Copilot is best for users who prioritize **Deep IDE integration**. However, if **Can suggest insecure code** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "GitHub Copilot 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "GitHub Copilot을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# GitHub Copilot 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Can suggest insecure code\n- Lags on large files\n- Requires subscription\n\n## 왜 트렌딩인가?\n- Deep IDE integration\n- Context awareness\n- Chat in IDE\n\n## 누구에게 적합한가?\n분석 결과, **Deep IDE integration**을 중시하는 분들께 추천합니다. 하지만 **Can suggest insecure code**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "GitHub Copilot",
+      "websiteUrl": "https://github.com/features/copilot",
+      "tagline": "Your AI pair programmer that helps you write code faster and with less work.",
+      "description": "Your AI pair programmer that helps you write code faster and with less work.",
+      "source": "Manual",
+      "sourceUrl": "https://github.com/features/copilot",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Deep IDE integration",
+        "Context awareness",
+        "Chat in IDE"
+      ],
+      "manualCons": [
+        "Can suggest insecure code",
+        "Lags on large files",
+        "Requires subscription"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "DeepSeek Coder",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Open source weights",
+        "Huge context window",
+        "Very cheap API"
+      ],
+      "cons": [
+        "Less polished UI",
+        "Server instability sometimes",
+        "Chinese data regulations concerns"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "An open-source code language model that offers high performance at a low cost."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "DeepSeek Coder Honest Review: Is it worth the hype?",
+        "summary": "We analyzed DeepSeek Coder and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# DeepSeek Coder Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Less polished UI\n- Server instability sometimes\n- Chinese data regulations concerns\n\n## Why It's Trending\n- Open source weights\n- Huge context window\n- Very cheap API\n\n## Who is this for?\nBased on our analysis, DeepSeek Coder is best for users who prioritize **Open source weights**. However, if **Less polished UI** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree / API usage\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "DeepSeek Coder 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "DeepSeek Coder을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# DeepSeek Coder 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Less polished UI\n- Server instability sometimes\n- Chinese data regulations concerns\n\n## 왜 트렌딩인가?\n- Open source weights\n- Huge context window\n- Very cheap API\n\n## 누구에게 적합한가?\n분석 결과, **Open source weights**을 중시하는 분들께 추천합니다. 하지만 **Less polished UI**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "DeepSeek Coder",
+      "websiteUrl": "https://deepseek.com",
+      "tagline": "An open-source code language model that offers high performance at a low cost.",
+      "description": "An open-source code language model that offers high performance at a low cost.",
+      "source": "Manual",
+      "sourceUrl": "https://deepseek.com",
+      "pricing": "Free / API usage",
+      "userComments": [],
+      "manualPros": [
+        "Open source weights",
+        "Huge context window",
+        "Very cheap API"
+      ],
+      "manualCons": [
+        "Less polished UI",
+        "Server instability sometimes",
+        "Chinese data regulations concerns"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Jasper",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Brand voice training",
+        "Marketing templates",
+        "SEO mode"
+      ],
+      "cons": [
+        "Expensive",
+        "Repetitive output over time",
+        "Generic feeling content without heavy editing"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI writer and AI marketing software for enterprise teams."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Jasper Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Jasper and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Jasper Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Expensive\n- Repetitive output over time\n- Generic feeling content without heavy editing\n\n## Why It's Trending\n- Brand voice training\n- Marketing templates\n- SEO mode\n\n## Who is this for?\nBased on our analysis, Jasper is best for users who prioritize **Brand voice training**. However, if **Expensive** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$39/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Jasper 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Jasper을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Jasper 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Expensive\n- Repetitive output over time\n- Generic feeling content without heavy editing\n\n## 왜 트렌딩인가?\n- Brand voice training\n- Marketing templates\n- SEO mode\n\n## 누구에게 적합한가?\n분석 결과, **Brand voice training**을 중시하는 분들께 추천합니다. 하지만 **Expensive**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Jasper",
+      "websiteUrl": "https://jasper.ai",
+      "tagline": "AI writer and AI marketing software for enterprise teams.",
+      "description": "AI writer and AI marketing software for enterprise teams.",
+      "source": "Manual",
+      "sourceUrl": "https://jasper.ai",
+      "pricing": "$39/mo",
+      "userComments": [],
+      "manualPros": [
+        "Brand voice training",
+        "Marketing templates",
+        "SEO mode"
+      ],
+      "manualCons": [
+        "Expensive",
+        "Repetitive output over time",
+        "Generic feeling content without heavy editing"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Notion AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Seamless integration",
+        "Great for summarizing",
+        "Database automation"
+      ],
+      "cons": [
+        "Separate cost from Notion plan",
+        "Slower than dedicated LLMs",
+        "Limited model customizability"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Integrated AI assistant within Notion for writing, summarizing, and brainstorming."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Notion AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Notion AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Notion AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Separate cost from Notion plan\n- Slower than dedicated LLMs\n- Limited model customizability\n\n## Why It's Trending\n- Seamless integration\n- Great for summarizing\n- Database automation\n\n## Who is this for?\nBased on our analysis, Notion AI is best for users who prioritize **Seamless integration**. However, if **Separate cost from Notion plan** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo add-on\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Notion AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Notion AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Notion AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Separate cost from Notion plan\n- Slower than dedicated LLMs\n- Limited model customizability\n\n## 왜 트렌딩인가?\n- Seamless integration\n- Great for summarizing\n- Database automation\n\n## 누구에게 적합한가?\n분석 결과, **Seamless integration**을 중시하는 분들께 추천합니다. 하지만 **Separate cost from Notion plan**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Notion AI",
+      "websiteUrl": "https://notion.so",
+      "tagline": "Integrated AI assistant within Notion for writing, summarizing, and brainstorming.",
+      "description": "Integrated AI assistant within Notion for writing, summarizing, and brainstorming.",
+      "source": "Manual",
+      "sourceUrl": "https://notion.so",
+      "pricing": "$10/mo add-on",
+      "userComments": [],
+      "manualPros": [
+        "Seamless integration",
+        "Great for summarizing",
+        "Database automation"
+      ],
+      "manualCons": [
+        "Separate cost from Notion plan",
+        "Slower than dedicated LLMs",
+        "Limited model customizability"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "ElevenLabs",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Unmatched voice realism",
+        "Voice cloning",
+        "Multilingual support"
+      ],
+      "cons": [
+        "Credit system runs out fast",
+        "Voice cloning ethics concerns",
+        "Expensive for high volume"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The most realistic AI text-to-speech and voice cloning software."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "ElevenLabs Honest Review: Is it worth the hype?",
+        "summary": "We analyzed ElevenLabs and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# ElevenLabs Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Credit system runs out fast\n- Voice cloning ethics concerns\n- Expensive for high volume\n\n## Why It's Trending\n- Unmatched voice realism\n- Voice cloning\n- Multilingual support\n\n## Who is this for?\nBased on our analysis, ElevenLabs is best for users who prioritize **Unmatched voice realism**. However, if **Credit system runs out fast** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$5/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "ElevenLabs 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "ElevenLabs을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# ElevenLabs 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Credit system runs out fast\n- Voice cloning ethics concerns\n- Expensive for high volume\n\n## 왜 트렌딩인가?\n- Unmatched voice realism\n- Voice cloning\n- Multilingual support\n\n## 누구에게 적합한가?\n분석 결과, **Unmatched voice realism**을 중시하는 분들께 추천합니다. 하지만 **Credit system runs out fast**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "ElevenLabs",
+      "websiteUrl": "https://elevenlabs.io",
+      "tagline": "The most realistic AI text-to-speech and voice cloning software.",
+      "description": "The most realistic AI text-to-speech and voice cloning software.",
+      "source": "Manual",
+      "sourceUrl": "https://elevenlabs.io",
+      "pricing": "$5/mo",
+      "userComments": [],
+      "manualPros": [
+        "Unmatched voice realism",
+        "Voice cloning",
+        "Multilingual support"
+      ],
+      "manualCons": [
+        "Credit system runs out fast",
+        "Voice cloning ethics concerns",
+        "Expensive for high volume"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Runway",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Gen-2/3 video control",
+        "Motion brush features",
+        "Professional toolset"
+      ],
+      "cons": [
+        "Short generation duration",
+        "Expensive credits",
+        "Wait times for rendering"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Applied AI research company building the next generation of creativity tools for video."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Runway Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Runway and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Runway Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Short generation duration\n- Expensive credits\n- Wait times for rendering\n\n## Why It's Trending\n- Gen-2/3 video control\n- Motion brush features\n- Professional toolset\n\n## Who is this for?\nBased on our analysis, Runway is best for users who prioritize **Gen-2/3 video control**. However, if **Short generation duration** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$12/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Runway 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Runway을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Runway 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Short generation duration\n- Expensive credits\n- Wait times for rendering\n\n## 왜 트렌딩인가?\n- Gen-2/3 video control\n- Motion brush features\n- Professional toolset\n\n## 누구에게 적합한가?\n분석 결과, **Gen-2/3 video control**을 중시하는 분들께 추천합니다. 하지만 **Short generation duration**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Runway",
+      "websiteUrl": "https://runwayml.com",
+      "tagline": "Applied AI research company building the next generation of creativity tools for video.",
+      "description": "Applied AI research company building the next generation of creativity tools for video.",
+      "source": "Manual",
+      "sourceUrl": "https://runwayml.com",
+      "pricing": "$12/mo",
+      "userComments": [],
+      "manualPros": [
+        "Gen-2/3 video control",
+        "Motion brush features",
+        "Professional toolset"
+      ],
+      "manualCons": [
+        "Short generation duration",
+        "Expensive credits",
+        "Wait times for rendering"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Canva Magic Studio",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Extremely easy to use",
+        "All-in-one platform",
+        "Magic resize/switch"
+      ],
+      "cons": [
+        "Generic stock feel",
+        "Limited advanced vector editing",
+        "AI image generation quality varies"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "A suite of AI-powered design tools integrated into Canva."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Canva Magic Studio Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Canva Magic Studio and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Canva Magic Studio Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Generic stock feel\n- Limited advanced vector editing\n- AI image generation quality varies\n\n## Why It's Trending\n- Extremely easy to use\n- All-in-one platform\n- Magic resize/switch\n\n## Who is this for?\nBased on our analysis, Canva Magic Studio is best for users who prioritize **Extremely easy to use**. However, if **Generic stock feel** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$15/mo (Pro)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Canva Magic Studio 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Canva Magic Studio을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Canva Magic Studio 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Generic stock feel\n- Limited advanced vector editing\n- AI image generation quality varies\n\n## 왜 트렌딩인가?\n- Extremely easy to use\n- All-in-one platform\n- Magic resize/switch\n\n## 누구에게 적합한가?\n분석 결과, **Extremely easy to use**을 중시하는 분들께 추천합니다. 하지만 **Generic stock feel**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Canva Magic Studio",
+      "websiteUrl": "https://canva.com",
+      "tagline": "A suite of AI-powered design tools integrated into Canva.",
+      "description": "A suite of AI-powered design tools integrated into Canva.",
+      "source": "Manual",
+      "sourceUrl": "https://canva.com",
+      "pricing": "$15/mo (Pro)",
+      "userComments": [],
+      "manualPros": [
+        "Extremely easy to use",
+        "All-in-one platform",
+        "Magic resize/switch"
+      ],
+      "manualCons": [
+        "Generic stock feel",
+        "Limited advanced vector editing",
+        "AI image generation quality varies"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Zapier AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Connects 6000+ apps",
+        "Natural language actions",
+        "Reliable"
+      ],
+      "cons": [
+        "Gets expensive quickly",
+        "Complex debugging",
+        "Task limits on lower tiers"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Automation platform that now includes AI steps to build intelligent workflows."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Zapier AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Zapier AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Zapier AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Gets expensive quickly\n- Complex debugging\n- Task limits on lower tiers\n\n## Why It's Trending\n- Connects 6000+ apps\n- Natural language actions\n- Reliable\n\n## Who is this for?\nBased on our analysis, Zapier AI is best for users who prioritize **Connects 6000+ apps**. However, if **Gets expensive quickly** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Zapier AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Zapier AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Zapier AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Gets expensive quickly\n- Complex debugging\n- Task limits on lower tiers\n\n## 왜 트렌딩인가?\n- Connects 6000+ apps\n- Natural language actions\n- Reliable\n\n## 누구에게 적합한가?\n분석 결과, **Connects 6000+ apps**을 중시하는 분들께 추천합니다. 하지만 **Gets expensive quickly**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Zapier AI",
+      "websiteUrl": "https://zapier.com",
+      "tagline": "Automation platform that now includes AI steps to build intelligent workflows.",
+      "description": "Automation platform that now includes AI steps to build intelligent workflows.",
+      "source": "Manual",
+      "sourceUrl": "https://zapier.com",
+      "pricing": "$20/mo",
+      "userComments": [],
+      "manualPros": [
+        "Connects 6000+ apps",
+        "Natural language actions",
+        "Reliable"
+      ],
+      "manualCons": [
+        "Gets expensive quickly",
+        "Complex debugging",
+        "Task limits on lower tiers"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Beautiful.ai",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Stunning templates",
+        "Auto-formatting",
+        "Time saver"
+      ],
+      "cons": [
+        "Rigid layouts",
+        "Subscription only (no one-off)",
+        "Export limitations"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Presentation software that uses AI to design slides for you."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Beautiful.ai Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Beautiful.ai and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Beautiful.ai Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Rigid layouts\n- Subscription only (no one-off)\n- Export limitations\n\n## Why It's Trending\n- Stunning templates\n- Auto-formatting\n- Time saver\n\n## Who is this for?\nBased on our analysis, Beautiful.ai is best for users who prioritize **Stunning templates**. However, if **Rigid layouts** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$12/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Beautiful.ai 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Beautiful.ai을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Beautiful.ai 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Rigid layouts\n- Subscription only (no one-off)\n- Export limitations\n\n## 왜 트렌딩인가?\n- Stunning templates\n- Auto-formatting\n- Time saver\n\n## 누구에게 적합한가?\n분석 결과, **Stunning templates**을 중시하는 분들께 추천합니다. 하지만 **Rigid layouts**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Beautiful.ai",
+      "websiteUrl": "https://beautiful.ai",
+      "tagline": "Presentation software that uses AI to design slides for you.",
+      "description": "Presentation software that uses AI to design slides for you.",
+      "source": "Manual",
+      "sourceUrl": "https://beautiful.ai",
+      "pricing": "$12/mo",
+      "userComments": [],
+      "manualPros": [
+        "Stunning templates",
+        "Auto-formatting",
+        "Time saver"
+      ],
+      "manualCons": [
+        "Rigid layouts",
+        "Subscription only (no one-off)",
+        "Export limitations"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Copy.ai",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Workflow automation",
+        "Good for short copy",
+        "Unlimited words on paid"
+      ],
+      "cons": [
+        "Fact-checking needed",
+        "Can likely be replaced by ChatGPT",
+        "Expensive pro tier"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI-powered copywriter that generates high-quality copy for your business."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Copy.ai Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Copy.ai and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Copy.ai Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Fact-checking needed\n- Can likely be replaced by ChatGPT\n- Expensive pro tier\n\n## Why It's Trending\n- Workflow automation\n- Good for short copy\n- Unlimited words on paid\n\n## Who is this for?\nBased on our analysis, Copy.ai is best for users who prioritize **Workflow automation**. However, if **Fact-checking needed** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$36/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Copy.ai 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Copy.ai을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Copy.ai 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Fact-checking needed\n- Can likely be replaced by ChatGPT\n- Expensive pro tier\n\n## 왜 트렌딩인가?\n- Workflow automation\n- Good for short copy\n- Unlimited words on paid\n\n## 누구에게 적합한가?\n분석 결과, **Workflow automation**을 중시하는 분들께 추천합니다. 하지만 **Fact-checking needed**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Copy.ai",
+      "websiteUrl": "https://copy.ai",
+      "tagline": "AI-powered copywriter that generates high-quality copy for your business.",
+      "description": "AI-powered copywriter that generates high-quality copy for your business.",
+      "source": "Manual",
+      "sourceUrl": "https://copy.ai",
+      "pricing": "$36/mo",
+      "userComments": [],
+      "manualPros": [
+        "Workflow automation",
+        "Good for short copy",
+        "Unlimited words on paid"
+      ],
+      "manualCons": [
+        "Fact-checking needed",
+        "Can likely be replaced by ChatGPT",
+        "Expensive pro tier"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Synthesia",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Realistic avatars",
+        "Easy localization",
+        "No camera needed"
+      ],
+      "cons": [
+        "Avatars can feel uncanny",
+        "Strict moderation policies",
+        "Limited customizability of movement"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Create professional AI videos from text in 120+ languages."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Synthesia Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Synthesia and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Synthesia Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Avatars can feel uncanny\n- Strict moderation policies\n- Limited customizability of movement\n\n## Why It's Trending\n- Realistic avatars\n- Easy localization\n- No camera needed\n\n## Who is this for?\nBased on our analysis, Synthesia is best for users who prioritize **Realistic avatars**. However, if **Avatars can feel uncanny** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$22/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Synthesia 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Synthesia을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Synthesia 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Avatars can feel uncanny\n- Strict moderation policies\n- Limited customizability of movement\n\n## 왜 트렌딩인가?\n- Realistic avatars\n- Easy localization\n- No camera needed\n\n## 누구에게 적합한가?\n분석 결과, **Realistic avatars**을 중시하는 분들께 추천합니다. 하지만 **Avatars can feel uncanny**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Synthesia",
+      "websiteUrl": "https://synthesia.io",
+      "tagline": "Create professional AI videos from text in 120+ languages.",
+      "description": "Create professional AI videos from text in 120+ languages.",
+      "source": "Manual",
+      "sourceUrl": "https://synthesia.io",
+      "pricing": "$22/mo",
+      "userComments": [],
+      "manualPros": [
+        "Realistic avatars",
+        "Easy localization",
+        "No camera needed"
+      ],
+      "manualCons": [
+        "Avatars can feel uncanny",
+        "Strict moderation policies",
+        "Limited customizability of movement"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Otter.ai",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Great transcription accuracy",
+        "Zoom/Meet integration",
+        "Searchable audio"
+      ],
+      "cons": [
+        "Limited free minutes",
+        "Speaker identification errors",
+        "Privacy concerns with recordings"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI meeting assistant that records audio, writes notes, and generates summaries."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Otter.ai Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Otter.ai and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Otter.ai Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited free minutes\n- Speaker identification errors\n- Privacy concerns with recordings\n\n## Why It's Trending\n- Great transcription accuracy\n- Zoom/Meet integration\n- Searchable audio\n\n## Who is this for?\nBased on our analysis, Otter.ai is best for users who prioritize **Great transcription accuracy**. However, if **Limited free minutes** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Otter.ai 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Otter.ai을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Otter.ai 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited free minutes\n- Speaker identification errors\n- Privacy concerns with recordings\n\n## 왜 트렌딩인가?\n- Great transcription accuracy\n- Zoom/Meet integration\n- Searchable audio\n\n## 누구에게 적합한가?\n분석 결과, **Great transcription accuracy**을 중시하는 분들께 추천합니다. 하지만 **Limited free minutes**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Otter.ai",
+      "websiteUrl": "https://otter.ai",
+      "tagline": "AI meeting assistant that records audio, writes notes, and generates summaries.",
+      "description": "AI meeting assistant that records audio, writes notes, and generates summaries.",
+      "source": "Manual",
+      "sourceUrl": "https://otter.ai",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Great transcription accuracy",
+        "Zoom/Meet integration",
+        "Searchable audio"
+      ],
+      "manualCons": [
+        "Limited free minutes",
+        "Speaker identification errors",
+        "Privacy concerns with recordings"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Surfer SEO",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Data-driven recommendations",
+        "SERP analysis",
+        "Content editor"
+      ],
+      "cons": [
+        "Very expensive",
+        "Keyword stuffing encouragement",
+        "Overwhelming interface"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "A content intelligence tool that merges content creation with SEO."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Surfer SEO Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Surfer SEO and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Surfer SEO Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Very expensive\n- Keyword stuffing encouragement\n- Overwhelming interface\n\n## Why It's Trending\n- Data-driven recommendations\n- SERP analysis\n- Content editor\n\n## Who is this for?\nBased on our analysis, Surfer SEO is best for users who prioritize **Data-driven recommendations**. However, if **Very expensive** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$89/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Surfer SEO 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Surfer SEO을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Surfer SEO 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Very expensive\n- Keyword stuffing encouragement\n- Overwhelming interface\n\n## 왜 트렌딩인가?\n- Data-driven recommendations\n- SERP analysis\n- Content editor\n\n## 누구에게 적합한가?\n분석 결과, **Data-driven recommendations**을 중시하는 분들께 추천합니다. 하지만 **Very expensive**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Surfer SEO",
+      "websiteUrl": "https://surferseo.com",
+      "tagline": "A content intelligence tool that merges content creation with SEO.",
+      "description": "A content intelligence tool that merges content creation with SEO.",
+      "source": "Manual",
+      "sourceUrl": "https://surferseo.com",
+      "pricing": "$89/mo",
+      "userComments": [],
+      "manualPros": [
+        "Data-driven recommendations",
+        "SERP analysis",
+        "Content editor"
+      ],
+      "manualCons": [
+        "Very expensive",
+        "Keyword stuffing encouragement",
+        "Overwhelming interface"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "ClickUp Brain",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Unified search",
+        "Automated status updates",
+        "Integrated with tasks"
+      ],
+      "cons": [
+        "ClickUp itself is slow",
+        "Steep learning curve",
+        "Search relevance issues"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI knowledge manager tailored for your tasks, docs, and people."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "ClickUp Brain Honest Review: Is it worth the hype?",
+        "summary": "We analyzed ClickUp Brain and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# ClickUp Brain Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- ClickUp itself is slow\n- Steep learning curve\n- Search relevance issues\n\n## Why It's Trending\n- Unified search\n- Automated status updates\n- Integrated with tasks\n\n## Who is this for?\nBased on our analysis, ClickUp Brain is best for users who prioritize **Unified search**. However, if **ClickUp itself is slow** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$7/mo add-on\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "ClickUp Brain 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "ClickUp Brain을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# ClickUp Brain 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- ClickUp itself is slow\n- Steep learning curve\n- Search relevance issues\n\n## 왜 트렌딩인가?\n- Unified search\n- Automated status updates\n- Integrated with tasks\n\n## 누구에게 적합한가?\n분석 결과, **Unified search**을 중시하는 분들께 추천합니다. 하지만 **ClickUp itself is slow**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "ClickUp Brain",
+      "websiteUrl": "https://clickup.com",
+      "tagline": "AI knowledge manager tailored for your tasks, docs, and people.",
+      "description": "AI knowledge manager tailored for your tasks, docs, and people.",
+      "source": "Manual",
+      "sourceUrl": "https://clickup.com",
+      "pricing": "$7/mo add-on",
+      "userComments": [],
+      "manualPros": [
+        "Unified search",
+        "Automated status updates",
+        "Integrated with tasks"
+      ],
+      "manualCons": [
+        "ClickUp itself is slow",
+        "Steep learning curve",
+        "Search relevance issues"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Tome",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Unique storytelling format",
+        "Great visuals",
+        "Mobile responsive"
+      ],
+      "cons": [
+        "Not a traditional slide deck",
+        "Export options limited",
+        "Credit consumption"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI-powered storytelling format for work and ideas."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Tome Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Tome and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Tome Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not a traditional slide deck\n- Export options limited\n- Credit consumption\n\n## Why It's Trending\n- Unique storytelling format\n- Great visuals\n- Mobile responsive\n\n## Who is this for?\nBased on our analysis, Tome is best for users who prioritize **Unique storytelling format**. However, if **Not a traditional slide deck** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$16/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Tome 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Tome을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Tome 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not a traditional slide deck\n- Export options limited\n- Credit consumption\n\n## 왜 트렌딩인가?\n- Unique storytelling format\n- Great visuals\n- Mobile responsive\n\n## 누구에게 적합한가?\n분석 결과, **Unique storytelling format**을 중시하는 분들께 추천합니다. 하지만 **Not a traditional slide deck**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Tome",
+      "websiteUrl": "https://tome.app",
+      "tagline": "AI-powered storytelling format for work and ideas.",
+      "description": "AI-powered storytelling format for work and ideas.",
+      "source": "Manual",
+      "sourceUrl": "https://tome.app",
+      "pricing": "$16/mo",
+      "userComments": [],
+      "manualPros": [
+        "Unique storytelling format",
+        "Great visuals",
+        "Mobile responsive"
+      ],
+      "manualCons": [
+        "Not a traditional slide deck",
+        "Export options limited",
+        "Credit consumption"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Gamma",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Fast deck generation",
+        "Interactive embeds",
+        "Flexible layout"
+      ],
+      "cons": [
+        "Limited theme customization",
+        "AI images often weird",
+        "PDF export loses interactivity"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "A new medium for presenting ideas, powered by AI."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Gamma Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Gamma and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Gamma Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited theme customization\n- AI images often weird\n- PDF export loses interactivity\n\n## Why It's Trending\n- Fast deck generation\n- Interactive embeds\n- Flexible layout\n\n## Who is this for?\nBased on our analysis, Gamma is best for users who prioritize **Fast deck generation**. However, if **Limited theme customization** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$15/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Gamma 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Gamma을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Gamma 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited theme customization\n- AI images often weird\n- PDF export loses interactivity\n\n## 왜 트렌딩인가?\n- Fast deck generation\n- Interactive embeds\n- Flexible layout\n\n## 누구에게 적합한가?\n분석 결과, **Fast deck generation**을 중시하는 분들께 추천합니다. 하지만 **Limited theme customization**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Gamma",
+      "websiteUrl": "https://gamma.app",
+      "tagline": "A new medium for presenting ideas, powered by AI.",
+      "description": "A new medium for presenting ideas, powered by AI.",
+      "source": "Manual",
+      "sourceUrl": "https://gamma.app",
+      "pricing": "$15/mo",
+      "userComments": [],
+      "manualPros": [
+        "Fast deck generation",
+        "Interactive embeds",
+        "Flexible layout"
+      ],
+      "manualCons": [
+        "Limited theme customization",
+        "AI images often weird",
+        "PDF export loses interactivity"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Fireflies.ai",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Works with all video platforms",
+        "Action item detection",
+        "CRM integration"
+      ],
+      "cons": [
+        "Bot can be intrusive",
+        "Transcription not perfect",
+        "Expensive team plans"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI notetaker that transcribes, summarizes, and analyzes meetings."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Fireflies.ai Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Fireflies.ai and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Fireflies.ai Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Bot can be intrusive\n- Transcription not perfect\n- Expensive team plans\n\n## Why It's Trending\n- Works with all video platforms\n- Action item detection\n- CRM integration\n\n## Who is this for?\nBased on our analysis, Fireflies.ai is best for users who prioritize **Works with all video platforms**. However, if **Bot can be intrusive** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Fireflies.ai 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Fireflies.ai을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Fireflies.ai 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Bot can be intrusive\n- Transcription not perfect\n- Expensive team plans\n\n## 왜 트렌딩인가?\n- Works with all video platforms\n- Action item detection\n- CRM integration\n\n## 누구에게 적합한가?\n분석 결과, **Works with all video platforms**을 중시하는 분들께 추천합니다. 하지만 **Bot can be intrusive**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Fireflies.ai",
+      "websiteUrl": "https://fireflies.ai",
+      "tagline": "AI notetaker that transcribes, summarizes, and analyzes meetings.",
+      "description": "AI notetaker that transcribes, summarizes, and analyzes meetings.",
+      "source": "Manual",
+      "sourceUrl": "https://fireflies.ai",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Works with all video platforms",
+        "Action item detection",
+        "CRM integration"
+      ],
+      "manualCons": [
+        "Bot can be intrusive",
+        "Transcription not perfect",
+        "Expensive team plans"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Writesonic",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "GPT-4 support",
+        "Article writer 5.0",
+        "SEO focused"
+      ],
+      "cons": [
+        "Word limits",
+        "Quality varies by niche",
+        "UI feels cluttered"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI writer optimized for SEO content and articles."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Writesonic Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Writesonic and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Writesonic Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Word limits\n- Quality varies by niche\n- UI feels cluttered\n\n## Why It's Trending\n- GPT-4 support\n- Article writer 5.0\n- SEO focused\n\n## Who is this for?\nBased on our analysis, Writesonic is best for users who prioritize **GPT-4 support**. However, if **Word limits** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$16/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Writesonic 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Writesonic을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Writesonic 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Word limits\n- Quality varies by niche\n- UI feels cluttered\n\n## 왜 트렌딩인가?\n- GPT-4 support\n- Article writer 5.0\n- SEO focused\n\n## 누구에게 적합한가?\n분석 결과, **GPT-4 support**을 중시하는 분들께 추천합니다. 하지만 **Word limits**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Writesonic",
+      "websiteUrl": "https://writesonic.com",
+      "tagline": "AI writer optimized for SEO content and articles.",
+      "description": "AI writer optimized for SEO content and articles.",
+      "source": "Manual",
+      "sourceUrl": "https://writesonic.com",
+      "pricing": "$16/mo",
+      "userComments": [],
+      "manualPros": [
+        "GPT-4 support",
+        "Article writer 5.0",
+        "SEO focused"
+      ],
+      "manualCons": [
+        "Word limits",
+        "Quality varies by niche",
+        "UI feels cluttered"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Suno",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Incredible musicality",
+        "Fun to use",
+        "Fast generation"
+      ],
+      "cons": [
+        "Vocals can sound robotic",
+        "Copyright ambiguity",
+        "Short song duration limits"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Make a song about anything with AI."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Suno Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Suno and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Suno Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Vocals can sound robotic\n- Copyright ambiguity\n- Short song duration limits\n\n## Why It's Trending\n- Incredible musicality\n- Fun to use\n- Fast generation\n\n## Who is this for?\nBased on our analysis, Suno is best for users who prioritize **Incredible musicality**. However, if **Vocals can sound robotic** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$8/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Suno 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Suno을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Suno 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Vocals can sound robotic\n- Copyright ambiguity\n- Short song duration limits\n\n## 왜 트렌딩인가?\n- Incredible musicality\n- Fun to use\n- Fast generation\n\n## 누구에게 적합한가?\n분석 결과, **Incredible musicality**을 중시하는 분들께 추천합니다. 하지만 **Vocals can sound robotic**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Suno",
+      "websiteUrl": "https://suno.com",
+      "tagline": "Make a song about anything with AI.",
+      "description": "Make a song about anything with AI.",
+      "source": "Manual",
+      "sourceUrl": "https://suno.com",
+      "pricing": "$8/mo",
+      "userComments": [],
+      "manualPros": [
+        "Incredible musicality",
+        "Fun to use",
+        "Fast generation"
+      ],
+      "manualCons": [
+        "Vocals can sound robotic",
+        "Copyright ambiguity",
+        "Short song duration limits"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Pika",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Lip sync features",
+        "Specific animation control",
+        "Discord community"
+      ],
+      "cons": [
+        "Watermarks on free",
+        "Short clips only",
+        "Distortion in complex motion"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "An idea-to-video platform that brings your creativity to motion."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Pika Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Pika and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Pika Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Watermarks on free\n- Short clips only\n- Distortion in complex motion\n\n## Why It's Trending\n- Lip sync features\n- Specific animation control\n- Discord community\n\n## Who is this for?\nBased on our analysis, Pika is best for users who prioritize **Lip sync features**. However, if **Watermarks on free** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Pika 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Pika을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Pika 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Watermarks on free\n- Short clips only\n- Distortion in complex motion\n\n## 왜 트렌딩인가?\n- Lip sync features\n- Specific animation control\n- Discord community\n\n## 누구에게 적합한가?\n분석 결과, **Lip sync features**을 중시하는 분들께 추천합니다. 하지만 **Watermarks on free**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Pika",
+      "websiteUrl": "https://pika.art",
+      "tagline": "An idea-to-video platform that brings your creativity to motion.",
+      "description": "An idea-to-video platform that brings your creativity to motion.",
+      "source": "Manual",
+      "sourceUrl": "https://pika.art",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Lip sync features",
+        "Specific animation control",
+        "Discord community"
+      ],
+      "manualCons": [
+        "Watermarks on free",
+        "Short clips only",
+        "Distortion in complex motion"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Grammarly",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Ubiquitous integration",
+        "Tone detection",
+        "Plagiarism checker"
+      ],
+      "cons": [
+        "Can be overly prescriptive",
+        "Privacy concerns (keylogging fears)",
+        "Expensive for teams"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI writing assistance that helps you write clearly and effectively."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Grammarly Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Grammarly and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Grammarly Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Can be overly prescriptive\n- Privacy concerns (keylogging fears)\n- Expensive for teams\n\n## Why It's Trending\n- Ubiquitous integration\n- Tone detection\n- Plagiarism checker\n\n## Who is this for?\nBased on our analysis, Grammarly is best for users who prioritize **Ubiquitous integration**. However, if **Can be overly prescriptive** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$12/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Grammarly 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Grammarly을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Grammarly 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Can be overly prescriptive\n- Privacy concerns (keylogging fears)\n- Expensive for teams\n\n## 왜 트렌딩인가?\n- Ubiquitous integration\n- Tone detection\n- Plagiarism checker\n\n## 누구에게 적합한가?\n분석 결과, **Ubiquitous integration**을 중시하는 분들께 추천합니다. 하지만 **Can be overly prescriptive**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Grammarly",
+      "websiteUrl": "https://grammarly.com",
+      "tagline": "AI writing assistance that helps you write clearly and effectively.",
+      "description": "AI writing assistance that helps you write clearly and effectively.",
+      "source": "Manual",
+      "sourceUrl": "https://grammarly.com",
+      "pricing": "$12/mo",
+      "userComments": [],
+      "manualPros": [
+        "Ubiquitous integration",
+        "Tone detection",
+        "Plagiarism checker"
+      ],
+      "manualCons": [
+        "Can be overly prescriptive",
+        "Privacy concerns (keylogging fears)",
+        "Expensive for teams"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Grok",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Real-time data from X",
+        "Edgy/Fun mode",
+        "Less filtered"
+      ],
+      "cons": [
+        "Requires X subscription",
+        "Can be biased/unreliable",
+        "Access limitation"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "An AI modeled after the Hitchhiker's Guide to the Galaxy, with real-time X access."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Grok Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Grok and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Grok Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Requires X subscription\n- Can be biased/unreliable\n- Access limitation\n\n## Why It's Trending\n- Real-time data from X\n- Edgy/Fun mode\n- Less filtered\n\n## Who is this for?\nBased on our analysis, Grok is best for users who prioritize **Real-time data from X**. However, if **Requires X subscription** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nRequires X Premium+\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Grok 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Grok을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Grok 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Requires X subscription\n- Can be biased/unreliable\n- Access limitation\n\n## 왜 트렌딩인가?\n- Real-time data from X\n- Edgy/Fun mode\n- Less filtered\n\n## 누구에게 적합한가?\n분석 결과, **Real-time data from X**을 중시하는 분들께 추천합니다. 하지만 **Requires X subscription**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Grok",
+      "websiteUrl": "https://x.ai",
+      "tagline": "An AI modeled after the Hitchhiker's Guide to the Galaxy, with real-time X access.",
+      "description": "An AI modeled after the Hitchhiker's Guide to the Galaxy, with real-time X access.",
+      "source": "Manual",
+      "sourceUrl": "https://x.ai",
+      "pricing": "Requires X Premium+",
+      "userComments": [],
+      "manualPros": [
+        "Real-time data from X",
+        "Edgy/Fun mode",
+        "Less filtered"
+      ],
+      "manualCons": [
+        "Requires X subscription",
+        "Can be biased/unreliable",
+        "Access limitation"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Mistral",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Open weights",
+        "Efficient performance",
+        "Uncensored options"
+      ],
+      "cons": [
+        "Technical setup required",
+        "Smaller community than Llama",
+        "Less tooling"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Advanced open-weight models from Europe."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Mistral Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Mistral and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Mistral Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Technical setup required\n- Smaller community than Llama\n- Less tooling\n\n## Why It's Trending\n- Open weights\n- Efficient performance\n- Uncensored options\n\n## Who is this for?\nBased on our analysis, Mistral is best for users who prioritize **Open weights**. However, if **Technical setup required** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree / API\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Mistral 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Mistral을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Mistral 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Technical setup required\n- Smaller community than Llama\n- Less tooling\n\n## 왜 트렌딩인가?\n- Open weights\n- Efficient performance\n- Uncensored options\n\n## 누구에게 적합한가?\n분석 결과, **Open weights**을 중시하는 분들께 추천합니다. 하지만 **Technical setup required**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Mistral",
+      "websiteUrl": "https://mistral.ai",
+      "tagline": "Advanced open-weight models from Europe.",
+      "description": "Advanced open-weight models from Europe.",
+      "source": "Manual",
+      "sourceUrl": "https://mistral.ai",
+      "pricing": "Free / API",
+      "userComments": [],
+      "manualPros": [
+        "Open weights",
+        "Efficient performance",
+        "Uncensored options"
+      ],
+      "manualCons": [
+        "Technical setup required",
+        "Smaller community than Llama",
+        "Less tooling"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Gemini 1.5 Pro",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Massive context window (1M+)",
+        "Google Workspace integration",
+        "Fast"
+      ],
+      "cons": [
+        "Heavy filtering",
+        "UI can be sluggish",
+        "History of launch issues"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Google's most capable AI model, built from the ground up to be multimodal."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Gemini 1.5 Pro Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Gemini 1.5 Pro and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Gemini 1.5 Pro Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Heavy filtering\n- UI can be sluggish\n- History of launch issues\n\n## Why It's Trending\n- Massive context window (1M+)\n- Google Workspace integration\n- Fast\n\n## Who is this for?\nBased on our analysis, Gemini 1.5 Pro is best for users who prioritize **Massive context window (1M+)**. However, if **Heavy filtering** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo (Advanced)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Gemini 1.5 Pro 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Gemini 1.5 Pro을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Gemini 1.5 Pro 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Heavy filtering\n- UI can be sluggish\n- History of launch issues\n\n## 왜 트렌딩인가?\n- Massive context window (1M+)\n- Google Workspace integration\n- Fast\n\n## 누구에게 적합한가?\n분석 결과, **Massive context window (1M+)**을 중시하는 분들께 추천합니다. 하지만 **Heavy filtering**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Gemini 1.5 Pro",
+      "websiteUrl": "https://gemini.google.com",
+      "tagline": "Google's most capable AI model, built from the ground up to be multimodal.",
+      "description": "Google's most capable AI model, built from the ground up to be multimodal.",
+      "source": "Manual",
+      "sourceUrl": "https://gemini.google.com",
+      "pricing": "$20/mo (Advanced)",
+      "userComments": [],
+      "manualPros": [
+        "Massive context window (1M+)",
+        "Google Workspace integration",
+        "Fast"
+      ],
+      "manualCons": [
+        "Heavy filtering",
+        "UI can be sluggish",
+        "History of launch issues"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Llama 3",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Industry standard for open source",
+        "Run locally",
+        "Huge ecosystem"
+      ],
+      "cons": [
+        "Requires hardware to run",
+        "Base models need fine-tuning",
+        "Safety guardrails can be annoying"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Meta's open source large language model."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Llama 3 Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Llama 3 and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Llama 3 Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Requires hardware to run\n- Base models need fine-tuning\n- Safety guardrails can be annoying\n\n## Why It's Trending\n- Industry standard for open source\n- Run locally\n- Huge ecosystem\n\n## Who is this for?\nBased on our analysis, Llama 3 is best for users who prioritize **Industry standard for open source**. However, if **Requires hardware to run** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree (Open Source)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Llama 3 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Llama 3을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Llama 3 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Requires hardware to run\n- Base models need fine-tuning\n- Safety guardrails can be annoying\n\n## 왜 트렌딩인가?\n- Industry standard for open source\n- Run locally\n- Huge ecosystem\n\n## 누구에게 적합한가?\n분석 결과, **Industry standard for open source**을 중시하는 분들께 추천합니다. 하지만 **Requires hardware to run**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Llama 3",
+      "websiteUrl": "https://lama.meta.com",
+      "tagline": "Meta's open source large language model.",
+      "description": "Meta's open source large language model.",
+      "source": "Manual",
+      "sourceUrl": "https://lama.meta.com",
+      "pricing": "Free (Open Source)",
+      "userComments": [],
+      "manualPros": [
+        "Industry standard for open source",
+        "Run locally",
+        "Huge ecosystem"
+      ],
+      "manualCons": [
+        "Requires hardware to run",
+        "Base models need fine-tuning",
+        "Safety guardrails can be annoying"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Hugging Face",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Central hub for AI",
+        "Spaces for hosting",
+        "Transformers library"
+      ],
+      "cons": [
+        "Not for non-technical users",
+        "Compute can get pricey",
+        "Overwhelming choice"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The platform where the machine learning community collaborates on models, datasets, and applications."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Hugging Face Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Hugging Face and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Hugging Face Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not for non-technical users\n- Compute can get pricey\n- Overwhelming choice\n\n## Why It's Trending\n- Central hub for AI\n- Spaces for hosting\n- Transformers library\n\n## Who is this for?\nBased on our analysis, Hugging Face is best for users who prioritize **Central hub for AI**. However, if **Not for non-technical users** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree / Compute costs\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Hugging Face 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Hugging Face을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Hugging Face 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not for non-technical users\n- Compute can get pricey\n- Overwhelming choice\n\n## 왜 트렌딩인가?\n- Central hub for AI\n- Spaces for hosting\n- Transformers library\n\n## 누구에게 적합한가?\n분석 결과, **Central hub for AI**을 중시하는 분들께 추천합니다. 하지만 **Not for non-technical users**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Hugging Face",
+      "websiteUrl": "https://huggingface.co",
+      "tagline": "The platform where the machine learning community collaborates on models, datasets, and applications.",
+      "description": "The platform where the machine learning community collaborates on models, datasets, and applications.",
+      "source": "Manual",
+      "sourceUrl": "https://huggingface.co",
+      "pricing": "Free / Compute costs",
+      "userComments": [],
+      "manualPros": [
+        "Central hub for AI",
+        "Spaces for hosting",
+        "Transformers library"
+      ],
+      "manualCons": [
+        "Not for non-technical users",
+        "Compute can get pricey",
+        "Overwhelming choice"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Replit AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Zero setup environment",
+        "AI debugger",
+        "Deployment included"
+      ],
+      "cons": [
+        "Browser lag on large projects",
+        "Vendor lock-in",
+        "Not full local IDE"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI-powered software development platform that lets you build, test, and deploy directly from the browser."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Replit AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Replit AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Replit AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Browser lag on large projects\n- Vendor lock-in\n- Not full local IDE\n\n## Why It's Trending\n- Zero setup environment\n- AI debugger\n- Deployment included\n\n## Who is this for?\nBased on our analysis, Replit AI is best for users who prioritize **Zero setup environment**. However, if **Browser lag on large projects** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Replit AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Replit AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Replit AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Browser lag on large projects\n- Vendor lock-in\n- Not full local IDE\n\n## 왜 트렌딩인가?\n- Zero setup environment\n- AI debugger\n- Deployment included\n\n## 누구에게 적합한가?\n분석 결과, **Zero setup environment**을 중시하는 분들께 추천합니다. 하지만 **Browser lag on large projects**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Replit AI",
+      "websiteUrl": "https://replit.com",
+      "tagline": "AI-powered software development platform that lets you build, test, and deploy directly from the browser.",
+      "description": "AI-powered software development platform that lets you build, test, and deploy directly from the browser.",
+      "source": "Manual",
+      "sourceUrl": "https://replit.com",
+      "pricing": "$20/mo",
+      "userComments": [],
+      "manualPros": [
+        "Zero setup environment",
+        "AI debugger",
+        "Deployment included"
+      ],
+      "manualCons": [
+        "Browser lag on large projects",
+        "Vendor lock-in",
+        "Not full local IDE"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "V0.dev",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Instant UI code",
+        "Tailwind/Shadcn native",
+        "Copy-paste ready"
+      ],
+      "cons": [
+        "Limited to UI only",
+        "Can produce messy DOM",
+        "Credits system"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Generative UI system by Vercel that builds React components from text."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "V0.dev Honest Review: Is it worth the hype?",
+        "summary": "We analyzed V0.dev and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# V0.dev Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to UI only\n- Can produce messy DOM\n- Credits system\n\n## Why It's Trending\n- Instant UI code\n- Tailwind/Shadcn native\n- Copy-paste ready\n\n## Who is this for?\nBased on our analysis, V0.dev is best for users who prioritize **Instant UI code**. However, if **Limited to UI only** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "V0.dev 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "V0.dev을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# V0.dev 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to UI only\n- Can produce messy DOM\n- Credits system\n\n## 왜 트렌딩인가?\n- Instant UI code\n- Tailwind/Shadcn native\n- Copy-paste ready\n\n## 누구에게 적합한가?\n분석 결과, **Instant UI code**을 중시하는 분들께 추천합니다. 하지만 **Limited to UI only**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "V0.dev",
+      "websiteUrl": "https://v0.dev",
+      "tagline": "Generative UI system by Vercel that builds React components from text.",
+      "description": "Generative UI system by Vercel that builds React components from text.",
+      "source": "Manual",
+      "sourceUrl": "https://v0.dev",
+      "pricing": "$20/mo",
+      "userComments": [],
+      "manualPros": [
+        "Instant UI code",
+        "Tailwind/Shadcn native",
+        "Copy-paste ready"
+      ],
+      "manualCons": [
+        "Limited to UI only",
+        "Can produce messy DOM",
+        "Credits system"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Phind",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Optimized for coding questions",
+        "VS Code extension",
+        "Fast"
+      ],
+      "cons": [
+        "Smaller index than Google",
+        "Hallucinates libraries sometimes",
+        "UI is basic"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Intelligent search engine for developers."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Phind Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Phind and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Phind Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Smaller index than Google\n- Hallucinates libraries sometimes\n- UI is basic\n\n## Why It's Trending\n- Optimized for coding questions\n- VS Code extension\n- Fast\n\n## Who is this for?\nBased on our analysis, Phind is best for users who prioritize **Optimized for coding questions**. However, if **Smaller index than Google** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$20/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Phind 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Phind을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Phind 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Smaller index than Google\n- Hallucinates libraries sometimes\n- UI is basic\n\n## 왜 트렌딩인가?\n- Optimized for coding questions\n- VS Code extension\n- Fast\n\n## 누구에게 적합한가?\n분석 결과, **Optimized for coding questions**을 중시하는 분들께 추천합니다. 하지만 **Smaller index than Google**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Phind",
+      "websiteUrl": "https://phind.com",
+      "tagline": "Intelligent search engine for developers.",
+      "description": "Intelligent search engine for developers.",
+      "source": "Manual",
+      "sourceUrl": "https://phind.com",
+      "pricing": "$20/mo",
+      "userComments": [],
+      "manualPros": [
+        "Optimized for coding questions",
+        "VS Code extension",
+        "Fast"
+      ],
+      "manualCons": [
+        "Smaller index than Google",
+        "Hallucinates libraries sometimes",
+        "UI is basic"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Blackbox AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "VS Code extension",
+        "Code search",
+        "Cheap pricing options"
+      ],
+      "cons": [
+        "Quality varies",
+        "Aggressive marketing",
+        "Privacy policy questions"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI coding assistant that helps you code faster."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Blackbox AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Blackbox AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Blackbox AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Quality varies\n- Aggressive marketing\n- Privacy policy questions\n\n## Why It's Trending\n- VS Code extension\n- Code search\n- Cheap pricing options\n\n## Who is this for?\nBased on our analysis, Blackbox AI is best for users who prioritize **VS Code extension**. However, if **Quality varies** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$0.99/week\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Blackbox AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Blackbox AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Blackbox AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Quality varies\n- Aggressive marketing\n- Privacy policy questions\n\n## 왜 트렌딩인가?\n- VS Code extension\n- Code search\n- Cheap pricing options\n\n## 누구에게 적합한가?\n분석 결과, **VS Code extension**을 중시하는 분들께 추천합니다. 하지만 **Quality varies**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Blackbox AI",
+      "websiteUrl": "https://www.blackbox.ai",
+      "tagline": "AI coding assistant that helps you code faster.",
+      "description": "AI coding assistant that helps you code faster.",
+      "source": "Manual",
+      "sourceUrl": "https://www.blackbox.ai",
+      "pricing": "$0.99/week",
+      "userComments": [],
+      "manualPros": [
+        "VS Code extension",
+        "Code search",
+        "Cheap pricing options"
+      ],
+      "manualCons": [
+        "Quality varies",
+        "Aggressive marketing",
+        "Privacy policy questions"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Tabnine",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Local processing (Privacy)",
+        "Enterprise grade",
+        "Context aware"
+      ],
+      "cons": [
+        "Not as smart as Copilot",
+        "Slower suggestions sometimes",
+        "Setup for enterprise is complex"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI assistant for software developers."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Tabnine Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Tabnine and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Tabnine Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not as smart as Copilot\n- Slower suggestions sometimes\n- Setup for enterprise is complex\n\n## Why It's Trending\n- Local processing (Privacy)\n- Enterprise grade\n- Context aware\n\n## Who is this for?\nBased on our analysis, Tabnine is best for users who prioritize **Local processing (Privacy)**. However, if **Not as smart as Copilot** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$12/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Tabnine 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Tabnine을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Tabnine 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Not as smart as Copilot\n- Slower suggestions sometimes\n- Setup for enterprise is complex\n\n## 왜 트렌딩인가?\n- Local processing (Privacy)\n- Enterprise grade\n- Context aware\n\n## 누구에게 적합한가?\n분석 결과, **Local processing (Privacy)**을 중시하는 분들께 추천합니다. 하지만 **Not as smart as Copilot**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Tabnine",
+      "websiteUrl": "https://tabnine.com",
+      "tagline": "AI assistant for software developers.",
+      "description": "AI assistant for software developers.",
+      "source": "Manual",
+      "sourceUrl": "https://tabnine.com",
+      "pricing": "$12/mo",
+      "userComments": [],
+      "manualPros": [
+        "Local processing (Privacy)",
+        "Enterprise grade",
+        "Context aware"
+      ],
+      "manualCons": [
+        "Not as smart as Copilot",
+        "Slower suggestions sometimes",
+        "Setup for enterprise is complex"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Superhuman AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Speed",
+        "Keyboard shortcuts",
+        "AI summary/drafting"
+      ],
+      "cons": [
+        "Very expensive for email",
+        "Elitist marketing",
+        "Gmail dependency"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The fastest email experience ever made, now with AI."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Superhuman AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Superhuman AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Superhuman AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Very expensive for email\n- Elitist marketing\n- Gmail dependency\n\n## Why It's Trending\n- Speed\n- Keyboard shortcuts\n- AI summary/drafting\n\n## Who is this for?\nBased on our analysis, Superhuman AI is best for users who prioritize **Speed**. However, if **Very expensive for email** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$30/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Superhuman AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Superhuman AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Superhuman AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Very expensive for email\n- Elitist marketing\n- Gmail dependency\n\n## 왜 트렌딩인가?\n- Speed\n- Keyboard shortcuts\n- AI summary/drafting\n\n## 누구에게 적합한가?\n분석 결과, **Speed**을 중시하는 분들께 추천합니다. 하지만 **Very expensive for email**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Superhuman AI",
+      "websiteUrl": "https://superhuman.com",
+      "tagline": "The fastest email experience ever made, now with AI.",
+      "description": "The fastest email experience ever made, now with AI.",
+      "source": "Manual",
+      "sourceUrl": "https://superhuman.com",
+      "pricing": "$30/mo",
+      "userComments": [],
+      "manualPros": [
+        "Speed",
+        "Keyboard shortcuts",
+        "AI summary/drafting"
+      ],
+      "manualCons": [
+        "Very expensive for email",
+        "Elitist marketing",
+        "Gmail dependency"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Mem",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Self-organizing",
+        "AI chat with notes",
+        "Fast capture"
+      ],
+      "cons": [
+        "Unconventional structure",
+        "Sync reliability issues",
+        "Mobile app needs work"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The self-organizing workspace."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Mem Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Mem and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Mem Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Unconventional structure\n- Sync reliability issues\n- Mobile app needs work\n\n## Why It's Trending\n- Self-organizing\n- AI chat with notes\n- Fast capture\n\n## Who is this for?\nBased on our analysis, Mem is best for users who prioritize **Self-organizing**. However, if **Unconventional structure** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Mem 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Mem을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Mem 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Unconventional structure\n- Sync reliability issues\n- Mobile app needs work\n\n## 왜 트렌딩인가?\n- Self-organizing\n- AI chat with notes\n- Fast capture\n\n## 누구에게 적합한가?\n분석 결과, **Self-organizing**을 중시하는 분들께 추천합니다. 하지만 **Unconventional structure**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Mem",
+      "websiteUrl": "https://mem.ai",
+      "tagline": "The self-organizing workspace.",
+      "description": "The self-organizing workspace.",
+      "source": "Manual",
+      "sourceUrl": "https://mem.ai",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Self-organizing",
+        "AI chat with notes",
+        "Fast capture"
+      ],
+      "manualCons": [
+        "Unconventional structure",
+        "Sync reliability issues",
+        "Mobile app needs work"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Descript",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Edit via text",
+        "Overdub voice cloning",
+        "Studio sound"
+      ],
+      "cons": [
+        "Performance on long video",
+        "Cloud dependency",
+        "Learning the 'doc' paradigm"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "All-in-one video and audio editing, as easy as a doc."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Descript Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Descript and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Descript Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Performance on long video\n- Cloud dependency\n- Learning the 'doc' paradigm\n\n## Why It's Trending\n- Edit via text\n- Overdub voice cloning\n- Studio sound\n\n## Who is this for?\nBased on our analysis, Descript is best for users who prioritize **Edit via text**. However, if **Performance on long video** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$12/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Descript 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Descript을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Descript 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Performance on long video\n- Cloud dependency\n- Learning the 'doc' paradigm\n\n## 왜 트렌딩인가?\n- Edit via text\n- Overdub voice cloning\n- Studio sound\n\n## 누구에게 적합한가?\n분석 결과, **Edit via text**을 중시하는 분들께 추천합니다. 하지만 **Performance on long video**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Descript",
+      "websiteUrl": "https://descript.com",
+      "tagline": "All-in-one video and audio editing, as easy as a doc.",
+      "description": "All-in-one video and audio editing, as easy as a doc.",
+      "source": "Manual",
+      "sourceUrl": "https://descript.com",
+      "pricing": "$12/mo",
+      "userComments": [],
+      "manualPros": [
+        "Edit via text",
+        "Overdub voice cloning",
+        "Studio sound"
+      ],
+      "manualCons": [
+        "Performance on long video",
+        "Cloud dependency",
+        "Learning the 'doc' paradigm"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Framer AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Design to Code match",
+        "Smooth animations",
+        "AI site generation"
+      ],
+      "cons": [
+        "CMS is limited",
+        "Learning curve for non-designers",
+        "Export lock-in"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The internet is your canvas. Design and publish your dream site."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Framer AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Framer AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Framer AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- CMS is limited\n- Learning curve for non-designers\n- Export lock-in\n\n## Why It's Trending\n- Design to Code match\n- Smooth animations\n- AI site generation\n\n## Who is this for?\nBased on our analysis, Framer AI is best for users who prioritize **Design to Code match**. However, if **CMS is limited** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$15/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Framer AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Framer AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Framer AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- CMS is limited\n- Learning curve for non-designers\n- Export lock-in\n\n## 왜 트렌딩인가?\n- Design to Code match\n- Smooth animations\n- AI site generation\n\n## 누구에게 적합한가?\n분석 결과, **Design to Code match**을 중시하는 분들께 추천합니다. 하지만 **CMS is limited**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Framer AI",
+      "websiteUrl": "https://framer.com",
+      "tagline": "The internet is your canvas. Design and publish your dream site.",
+      "description": "The internet is your canvas. Design and publish your dream site.",
+      "source": "Manual",
+      "sourceUrl": "https://framer.com",
+      "pricing": "$15/mo",
+      "userComments": [],
+      "manualPros": [
+        "Design to Code match",
+        "Smooth animations",
+        "AI site generation"
+      ],
+      "manualCons": [
+        "CMS is limited",
+        "Learning curve for non-designers",
+        "Export lock-in"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Webflow",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Professional grade",
+        "Clean code export",
+        "Hosting included"
+      ],
+      "cons": [
+        "Steep learning curve",
+        "Expensive for simple sites",
+        "CMS limits"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Build with the power of code — without writing any."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Webflow Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Webflow and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Webflow Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Steep learning curve\n- Expensive for simple sites\n- CMS limits\n\n## Why It's Trending\n- Professional grade\n- Clean code export\n- Hosting included\n\n## Who is this for?\nBased on our analysis, Webflow is best for users who prioritize **Professional grade**. However, if **Steep learning curve** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$14/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Webflow 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Webflow을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Webflow 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Steep learning curve\n- Expensive for simple sites\n- CMS limits\n\n## 왜 트렌딩인가?\n- Professional grade\n- Clean code export\n- Hosting included\n\n## 누구에게 적합한가?\n분석 결과, **Professional grade**을 중시하는 분들께 추천합니다. 하지만 **Steep learning curve**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Webflow",
+      "websiteUrl": "https://webflow.com",
+      "tagline": "Build with the power of code — without writing any.",
+      "description": "Build with the power of code — without writing any.",
+      "source": "Manual",
+      "sourceUrl": "https://webflow.com",
+      "pricing": "$14/mo",
+      "userComments": [],
+      "manualPros": [
+        "Professional grade",
+        "Clean code export",
+        "Hosting included"
+      ],
+      "manualCons": [
+        "Steep learning curve",
+        "Expensive for simple sites",
+        "CMS limits"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "ChatPDF",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Simple utility",
+        "Fast analysis",
+        "Citations"
+      ],
+      "cons": [
+        "Limited to PDFs",
+        "Can check file size limits",
+        "Competitors offer this for free"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Chat with any PDF."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "ChatPDF Honest Review: Is it worth the hype?",
+        "summary": "We analyzed ChatPDF and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# ChatPDF Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to PDFs\n- Can check file size limits\n- Competitors offer this for free\n\n## Why It's Trending\n- Simple utility\n- Fast analysis\n- Citations\n\n## Who is this for?\nBased on our analysis, ChatPDF is best for users who prioritize **Simple utility**. However, if **Limited to PDFs** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$5/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "ChatPDF 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "ChatPDF을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# ChatPDF 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to PDFs\n- Can check file size limits\n- Competitors offer this for free\n\n## 왜 트렌딩인가?\n- Simple utility\n- Fast analysis\n- Citations\n\n## 누구에게 적합한가?\n분석 결과, **Simple utility**을 중시하는 분들께 추천합니다. 하지만 **Limited to PDFs**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "ChatPDF",
+      "websiteUrl": "https://chatpdf.com",
+      "tagline": "Chat with any PDF.",
+      "description": "Chat with any PDF.",
+      "source": "Manual",
+      "sourceUrl": "https://chatpdf.com",
+      "pricing": "$5/mo",
+      "userComments": [],
+      "manualPros": [
+        "Simple utility",
+        "Fast analysis",
+        "Citations"
+      ],
+      "manualCons": [
+        "Limited to PDFs",
+        "Can check file size limits",
+        "Competitors offer this for free"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "ScholarAI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Access to real papers",
+        "Hallucination reduction",
+        "Good for students"
+      ],
+      "cons": [
+        "Niche use case",
+        "Requires subscription for full text",
+        "Plugin dependency"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Access scientific literature with AI."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "ScholarAI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed ScholarAI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# ScholarAI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Niche use case\n- Requires subscription for full text\n- Plugin dependency\n\n## Why It's Trending\n- Access to real papers\n- Hallucination reduction\n- Good for students\n\n## Who is this for?\nBased on our analysis, ScholarAI is best for users who prioritize **Access to real papers**. However, if **Niche use case** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "ScholarAI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "ScholarAI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# ScholarAI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Niche use case\n- Requires subscription for full text\n- Plugin dependency\n\n## 왜 트렌딩인가?\n- Access to real papers\n- Hallucination reduction\n- Good for students\n\n## 누구에게 적합한가?\n분석 결과, **Access to real papers**을 중시하는 분들께 추천합니다. 하지만 **Niche use case**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "ScholarAI",
+      "websiteUrl": "https://scholarai.io",
+      "tagline": "Access scientific literature with AI.",
+      "description": "Access scientific literature with AI.",
+      "source": "Manual",
+      "sourceUrl": "https://scholarai.io",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Access to real papers",
+        "Hallucination reduction",
+        "Good for students"
+      ],
+      "manualCons": [
+        "Niche use case",
+        "Requires subscription for full text",
+        "Plugin dependency"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Consensus",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Scientific focus",
+        "Summary of consensus",
+        "Citations"
+      ],
+      "cons": [
+        "Limited to academic queries",
+        "Sometimes misses niche papers",
+        "UI is basic"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI Search Engine for Research."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Consensus Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Consensus and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Consensus Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to academic queries\n- Sometimes misses niche papers\n- UI is basic\n\n## Why It's Trending\n- Scientific focus\n- Summary of consensus\n- Citations\n\n## Who is this for?\nBased on our analysis, Consensus is best for users who prioritize **Scientific focus**. However, if **Limited to academic queries** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$8/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Consensus 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Consensus을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Consensus 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited to academic queries\n- Sometimes misses niche papers\n- UI is basic\n\n## 왜 트렌딩인가?\n- Scientific focus\n- Summary of consensus\n- Citations\n\n## 누구에게 적합한가?\n분석 결과, **Scientific focus**을 중시하는 분들께 추천합니다. 하지만 **Limited to academic queries**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Consensus",
+      "websiteUrl": "https://consensus.app",
+      "tagline": "AI Search Engine for Research.",
+      "description": "AI Search Engine for Research.",
+      "source": "Manual",
+      "sourceUrl": "https://consensus.app",
+      "pricing": "$8/mo",
+      "userComments": [],
+      "manualPros": [
+        "Scientific focus",
+        "Summary of consensus",
+        "Citations"
+      ],
+      "manualCons": [
+        "Limited to academic queries",
+        "Sometimes misses niche papers",
+        "UI is basic"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Elicit",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Extracts data from papers",
+        "Literature review automation",
+        "Trusted by researchers"
+      ],
+      "cons": [
+        "Credit system",
+        "Complex queries take time",
+        "PDF parsing errors"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The AI Research Assistant."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Elicit Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Elicit and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Elicit Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Credit system\n- Complex queries take time\n- PDF parsing errors\n\n## Why It's Trending\n- Extracts data from papers\n- Literature review automation\n- Trusted by researchers\n\n## Who is this for?\nBased on our analysis, Elicit is best for users who prioritize **Extracts data from papers**. However, if **Credit system** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Elicit 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Elicit을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Elicit 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Credit system\n- Complex queries take time\n- PDF parsing errors\n\n## 왜 트렌딩인가?\n- Extracts data from papers\n- Literature review automation\n- Trusted by researchers\n\n## 누구에게 적합한가?\n분석 결과, **Extracts data from papers**을 중시하는 분들께 추천합니다. 하지만 **Credit system**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Elicit",
+      "websiteUrl": "https://elicit.com",
+      "tagline": "The AI Research Assistant.",
+      "description": "The AI Research Assistant.",
+      "source": "Manual",
+      "sourceUrl": "https://elicit.com",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Extracts data from papers",
+        "Literature review automation",
+        "Trusted by researchers"
+      ],
+      "manualCons": [
+        "Credit system",
+        "Complex queries take time",
+        "PDF parsing errors"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Tldraw",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Make-real AI features",
+        "Simple UI",
+        "Open source"
+      ],
+      "cons": [
+        "Limited features vs Miro",
+        "Experimental AI",
+        "Browser based"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "A very good whiteboard."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Tldraw Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Tldraw and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Tldraw Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited features vs Miro\n- Experimental AI\n- Browser based\n\n## Why It's Trending\n- Make-real AI features\n- Simple UI\n- Open source\n\n## Who is this for?\nBased on our analysis, Tldraw is best for users who prioritize **Make-real AI features**. However, if **Limited features vs Miro** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Tldraw 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Tldraw을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Tldraw 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Limited features vs Miro\n- Experimental AI\n- Browser based\n\n## 왜 트렌딩인가?\n- Make-real AI features\n- Simple UI\n- Open source\n\n## 누구에게 적합한가?\n분석 결과, **Make-real AI features**을 중시하는 분들께 추천합니다. 하지만 **Limited features vs Miro**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Tldraw",
+      "websiteUrl": "https://tldraw.com",
+      "tagline": "A very good whiteboard.",
+      "description": "A very good whiteboard.",
+      "source": "Manual",
+      "sourceUrl": "https://tldraw.com",
+      "pricing": "Free",
+      "userComments": [],
+      "manualPros": [
+        "Make-real AI features",
+        "Simple UI",
+        "Open source"
+      ],
+      "manualCons": [
+        "Limited features vs Miro",
+        "Experimental AI",
+        "Browser based"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Excalidraw",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Hand-drawn style",
+        "End-to-end encryption",
+        "Mermaid support"
+      ],
+      "cons": [
+        "No native AI",
+        "Limited collaboration on free",
+        "Simple tools only"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Virtual whiteboard for sketching hand-drawn like diagrams."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Excalidraw Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Excalidraw and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Excalidraw Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- No native AI\n- Limited collaboration on free\n- Simple tools only\n\n## Why It's Trending\n- Hand-drawn style\n- End-to-end encryption\n- Mermaid support\n\n## Who is this for?\nBased on our analysis, Excalidraw is best for users who prioritize **Hand-drawn style**. However, if **No native AI** is a dealbreaker for you, consider alternatives.\n\n## Pricing\nFree / $7/mo (Plus)\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Excalidraw 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Excalidraw을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Excalidraw 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- No native AI\n- Limited collaboration on free\n- Simple tools only\n\n## 왜 트렌딩인가?\n- Hand-drawn style\n- End-to-end encryption\n- Mermaid support\n\n## 누구에게 적합한가?\n분석 결과, **Hand-drawn style**을 중시하는 분들께 추천합니다. 하지만 **No native AI**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Excalidraw",
+      "websiteUrl": "https://excalidraw.com",
+      "tagline": "Virtual whiteboard for sketching hand-drawn like diagrams.",
+      "description": "Virtual whiteboard for sketching hand-drawn like diagrams.",
+      "source": "Manual",
+      "sourceUrl": "https://excalidraw.com",
+      "pricing": "Free / $7/mo (Plus)",
+      "userComments": [],
+      "manualPros": [
+        "Hand-drawn style",
+        "End-to-end encryption",
+        "Mermaid support"
+      ],
+      "manualCons": [
+        "No native AI",
+        "Limited collaboration on free",
+        "Simple tools only"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Krea AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Real-time painting",
+        "Upscaler quality",
+        "Innovative interface"
+      ],
+      "cons": [
+        "Waitlist sometimes",
+        "Features change often",
+        "Browser intensive"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "Real-time AI generation and upscale."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Krea AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Krea AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Krea AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Waitlist sometimes\n- Features change often\n- Browser intensive\n\n## Why It's Trending\n- Real-time painting\n- Upscaler quality\n- Innovative interface\n\n## Who is this for?\nBased on our analysis, Krea AI is best for users who prioritize **Real-time painting**. However, if **Waitlist sometimes** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$10/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Krea AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Krea AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Krea AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Waitlist sometimes\n- Features change often\n- Browser intensive\n\n## 왜 트렌딩인가?\n- Real-time painting\n- Upscaler quality\n- Innovative interface\n\n## 누구에게 적합한가?\n분석 결과, **Real-time painting**을 중시하는 분들께 추천합니다. 하지만 **Waitlist sometimes**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Krea AI",
+      "websiteUrl": "https://krea.ai",
+      "tagline": "Real-time AI generation and upscale.",
+      "description": "Real-time AI generation and upscale.",
+      "source": "Manual",
+      "sourceUrl": "https://krea.ai",
+      "pricing": "$10/mo",
+      "userComments": [],
+      "manualPros": [
+        "Real-time painting",
+        "Upscaler quality",
+        "Innovative interface"
+      ],
+      "manualCons": [
+        "Waitlist sometimes",
+        "Features change often",
+        "Browser intensive"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "Magnific AI",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Incredible detail hallucination",
+        "Control over creativity",
+        "Professional outputs"
+      ],
+      "cons": [
+        "Extremely expensive",
+        "Slow processing",
+        "No free trial"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "The most advanced AI upscaler and enhancer."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "Magnific AI Honest Review: Is it worth the hype?",
+        "summary": "We analyzed Magnific AI and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# Magnific AI Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Extremely expensive\n- Slow processing\n- No free trial\n\n## Why It's Trending\n- Incredible detail hallucination\n- Control over creativity\n- Professional outputs\n\n## Who is this for?\nBased on our analysis, Magnific AI is best for users who prioritize **Incredible detail hallucination**. However, if **Extremely expensive** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$39/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "Magnific AI 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "Magnific AI을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# Magnific AI 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Extremely expensive\n- Slow processing\n- No free trial\n\n## 왜 트렌딩인가?\n- Incredible detail hallucination\n- Control over creativity\n- Professional outputs\n\n## 누구에게 적합한가?\n분석 결과, **Incredible detail hallucination**을 중시하는 분들께 추천합니다. 하지만 **Extremely expensive**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "Magnific AI",
+      "websiteUrl": "https://magnific.ai",
+      "tagline": "The most advanced AI upscaler and enhancer.",
+      "description": "The most advanced AI upscaler and enhancer.",
+      "source": "Manual",
+      "sourceUrl": "https://magnific.ai",
+      "pricing": "$39/mo",
+      "userComments": [],
+      "manualPros": [
+        "Incredible detail hallucination",
+        "Control over creativity",
+        "Professional outputs"
+      ],
+      "manualCons": [
+        "Extremely expensive",
+        "Slow processing",
+        "No free trial"
+      ]
+    }
+  },
+  {
+    "analysis": {
+      "toolName": "HeyGen",
+      "isApproved": true,
+      "smartScore": {
+        "roi": 7,
+        "privacy": 5,
+        "integration": 9,
+        "total": 7
+      },
+      "criticalFlaws": [
+        "Vague data privacy policy",
+        "Export bugs"
+      ],
+      "pros": [
+        "Video translation lipsync",
+        "High quality avatars",
+        "Easy to use"
+      ],
+      "cons": [
+        "Expensive credits",
+        "Strict content moderation",
+        "Can still look AI generated"
+      ],
+      "competitors": [
+        {
+          "name": "Notion AI",
+          "visualComparison": "Notion is cheaper ($10) but less flexible."
+        },
+        {
+          "name": "Jasper",
+          "visualComparison": "Jasper has better templates but worse UI."
+        }
+      ],
+      "category": "Productivity",
+      "summary": "AI video generation platform for scalable video creation."
+    },
+    "drafts": {
+      "en": {
+        "locale": "en",
+        "title": "HeyGen Honest Review: Is it worth the hype?",
+        "summary": "We analyzed HeyGen and found significant pros but some critical flaws. Here is the honest truth.",
+        "body": "\n# HeyGen Review: The Honest Truth\n\n**Smart Score: 7/10**\n\n## ⚠️ The Reality Check (Cons First)\nBefore you buy, you need to know about these flaws:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Expensive credits\n- Strict content moderation\n- Can still look AI generated\n\n## Why It's Trending\n- Video translation lipsync\n- High quality avatars\n- Easy to use\n\n## Who is this for?\nBased on our analysis, HeyGen is best for users who prioritize **Video translation lipsync**. However, if **Expensive credits** is a dealbreaker for you, consider alternatives.\n\n## Pricing\n$24/mo\n"
+      },
+      "ko": {
+        "locale": "ko",
+        "title": "HeyGen 솔직 리뷰: 과연 돈 값을 할까?",
+        "summary": "HeyGen을 분석했습니다. 장점도 있지만 치명적인 단점도 발견했습니다.",
+        "body": "\n# HeyGen 리뷰: 솔직한 분석\n\n**스마트 스코어: 7/10**\n\n## ⚠️ 현실 체크 (단점 먼저)\n구매하기 전에 다음 단점들을 꼭 확인하세요:\n- **Vague data privacy policy**\n- **Export bugs**\n\n- Expensive credits\n- Strict content moderation\n- Can still look AI generated\n\n## 왜 트렌딩인가?\n- Video translation lipsync\n- High quality avatars\n- Easy to use\n\n## 누구에게 적합한가?\n분석 결과, **Video translation lipsync**을 중시하는 분들께 추천합니다. 하지만 **Expensive credits**이(가) 중요하시다면 다른 대안을 고려해보세요.\n\n## 한국어 지원 및 결제\n현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.\n"
+      }
+    },
+    "toolData": {
+      "name": "HeyGen",
+      "websiteUrl": "https://heygen.com",
+      "tagline": "AI video generation platform for scalable video creation.",
+      "description": "AI video generation platform for scalable video creation.",
+      "source": "Manual",
+      "sourceUrl": "https://heygen.com",
+      "pricing": "$24/mo",
+      "userComments": [],
+      "manualPros": [
+        "Video translation lipsync",
+        "High quality avatars",
+        "Easy to use"
+      ],
+      "manualCons": [
+        "Expensive credits",
+        "Strict content moderation",
+        "Can still look AI generated"
+      ]
+    }
+  }
+]

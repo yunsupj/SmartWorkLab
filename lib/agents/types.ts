@@ -3,10 +3,12 @@ export interface RawToolData {
   websiteUrl: string;
   tagline: string;
   description: string;
-  source: 'ProductHunt' | 'Reddit' | 'Twitter';
+  source: 'ProductHunt' | 'Reddit' | 'Twitter' | 'Manual';
   sourceUrl: string;
   pricing?: string;
   userComments: string[]; // For sentiment analysis
+  manualPros?: string[]; // Pre-researched pros
+  manualCons?: string[]; // Pre-researched cons
 }
 
 export interface SmartScore {

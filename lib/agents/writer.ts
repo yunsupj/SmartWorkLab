@@ -28,7 +28,7 @@ ${analysis.cons.map(c => `- ${c}`).join('\n')}
 ${analysis.pros.map(p => `- ${p}`).join('\n')}
 
 ## Who is this for?
-If you need deep Slack integration, this is for you. If you value privacy above all, likely skip.
+Based on our analysis, ${tool.name} is best for users who prioritize **${analysis.pros[0] || 'efficiency'}**. However, if **${analysis.cons[0] || 'price'}** is a dealbreaker for you, consider alternatives.
 
 ## Pricing
 ${tool.pricing || "Unknown"}
@@ -36,7 +36,6 @@ ${tool.pricing || "Unknown"}
     };
 
     // 2. Generate Korean Localized Draft
-    // Highlighting 'Korean Language Support' implies checking for it.
     const koDraft: ContentDraft = {
       locale: 'ko',
       title: `${tool.name} 솔직 리뷰: 과연 돈 값을 할까?`,
@@ -56,10 +55,10 @@ ${analysis.cons.map(c => `- ${c}`).join('\n')}
 ${analysis.pros.map(p => `- ${p}`).join('\n')}
 
 ## 누구에게 적합한가?
-슬랙 연동이 필수라면 강력 추천합니다. 하지만 개인정보 보호가 최우선이라면 피하는 것이 좋습니다.
+분석 결과, **${analysis.pros[0] || '효율성'}**을 중시하는 분들께 추천합니다. 하지만 **${analysis.cons[0] || '가격'}**이(가) 중요하시다면 다른 대안을 고려해보세요.
 
 ## 한국어 지원 및 결제
-현재 한국어 지원은 제한적이며, 해외 결제가 필요합니다.
+현재 한국어 지원이 제한적일 수 있으며, 해외 결제가 필요할 수 있습니다.
 `
     };
 
