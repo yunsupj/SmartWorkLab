@@ -119,15 +119,15 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
               <div className="space-y-4">
                 <div>
                    <div className="flex justify-between text-sm mb-1 text-slate-400"><span>{t('roi')}</span><span>{tool.smartScore.roi}/10</span></div>
-                   <div className="h-2 bg-slate-800 rounded-full"><div className="h-full bg-cyan-600 rounded-full" style={{ width: `${tool.smartScore.roi * 10}%` }}></div></div>
+                   <div className="h-2 bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-cyan-600 rounded-full transition-all duration-1000 ease-out" style={{ width: `${tool.smartScore.roi * 10}%` }}></div></div>
                 </div>
                 <div>
                    <div className="flex justify-between text-sm mb-1 text-slate-400"><span>{t('privacy')}</span><span>{tool.smartScore.privacy}/10</span></div>
-                   <div className="h-2 bg-slate-800 rounded-full"><div className={`h-full rounded-full ${tool.smartScore.privacy < 6 ? 'bg-red-500' : 'bg-cyan-600'}`} style={{ width: `${tool.smartScore.privacy * 10}%` }}></div></div>
+                   <div className="h-2 bg-slate-800 rounded-full overflow-hidden"><div className={`h-full rounded-full transition-all duration-1000 ease-out ${tool.smartScore.privacy < 6 ? 'bg-red-500' : 'bg-cyan-600'}`} style={{ width: `${tool.smartScore.privacy * 10}%` }}></div></div>
                 </div>
                 <div>
                    <div className="flex justify-between text-sm mb-1 text-slate-400"><span>{t('integration')}</span><span>{tool.smartScore.integration}/10</span></div>
-                   <div className="h-2 bg-slate-800 rounded-full"><div className="h-full bg-cyan-600 rounded-full" style={{ width: `${tool.smartScore.integration * 10}%` }}></div></div>
+                   <div className="h-2 bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-cyan-600 rounded-full transition-all duration-1000 ease-out" style={{ width: `${tool.smartScore.integration * 10}%` }}></div></div>
                 </div>
               </div>
            </section>

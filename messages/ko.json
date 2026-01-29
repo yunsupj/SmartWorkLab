@@ -3,6 +3,12 @@
     "title": "스마트워크랩 - AI 도구 & SaaS 플랫폼",
     "description": "최고의 AI 도구와 SaaS 제품을 찾아보세요."
   },
+  "Comparison": {
+    "title_suffix": "완벽 비교 분석 (2025)",
+    "winner": "승자",
+    "tie": "무승부",
+    "cons_first": "단점 먼저 보기"
+  },
   "Navigation": {
     "tools": "도구",
     "reviews": "리뷰",
