@@ -42,48 +42,49 @@ async function main() {
     const { toolData, analysis, drafts } = post;
     console.log(`\nProcessing: ${toolData.name}`);
 
-    // 1. Upsert Tool (Manual Check to avoid unique constraint error)
-    let toolId: string | null = null;
+    // 1. Upsert Product (Manual Check to avoid unique constraint error)
+    let productId: string | null = null;
 
-    // Check if tool exists
-    const { data: existingTool } = await supabase
-        .from('tools')
+    // Check if product exists
+    const { data: existingProduct } = await supabase
+        .from('products')
         .select('id')
         .eq('name', toolData.name)
         .single();
 
-    if (existingTool) {
-        toolId = existingTool.id;
+    if (existingProduct) {
+        productId = existingProduct.id;
         // Update existing (optional, but good for syncing)
-        await supabase.from('tools').update({
+        await supabase.from('products').update({
             category: analysis.category,
             description: toolData.description,
             website_url: toolData.websiteUrl,
-        }).eq('id', toolId);
+        }).eq('id', productId);
     } else {
         // Insert new
-        const { data: newTool, error: insertError } = await supabase
-            .from('tools')
+        const { data: newProduct, error: insertError } = await supabase
+            .from('products')
             .insert({
                 name: toolData.name,
                 category: analysis.category,
                 description: toolData.description,
                 price_model: 'Freemium',
                 website_url: toolData.websiteUrl,
+                external_link_url: toolData.websiteUrl, // Standardized
                 affiliate_link: null
             })
             .select('id')
             .single();
 
         if (insertError) {
-             console.error(`❌ Failed to insert tool ${toolData.name}: ${insertError.message}`);
+             console.error(`❌ Failed to insert product ${toolData.name}: ${insertError.message}`);
              continue;
         }
-        toolId = newTool?.id;
+        productId = newProduct?.id;
     }
 
-    if (!toolId) continue;
-    const tool = { id: toolId }; // Mock object for next steps
+    if (!productId) continue;
+    const tool = { id: productId }; // Mock object for next steps
 
     // 2. Insert Reviews
     for (const locale of ['en', 'ko']) {
@@ -93,7 +94,7 @@ async function main() {
         const { error: reviewError } = await supabase
           .from('reviews')
           .upsert({
-            tool_id: tool.id,
+            product_id: tool.id,
             locale: locale,
             title: draft.title,
             summary: draft.summary,
@@ -105,7 +106,7 @@ async function main() {
             competitors: analysis.competitors,
             status: 'approved', // Auto-approve for seed
             rating: Math.round((analysis.smartScore?.total || 7) / 2) // Rough 5-star map
-          }, { onConflict: 'tool_id, locale' }); // Composite key match? No, unique constraint is tool_id, locale
+          }, { onConflict: 'product_id, locale' }); // Composite key match
 
         if (reviewError) {
              console.error(`   ❌ Failed to insert ${locale} review: ${reviewError.message}`);

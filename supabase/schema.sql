@@ -2,13 +2,15 @@
 create type price_model_type as enum ('Free', 'Paid', 'Freemium');
 
 -- Tools Table
-create table tools (
+-- Tools -> Products Table
+create table products (
   id uuid default gen_random_uuid() primary key,
   name text not null,
   category text not null,
   description text,
   price_model price_model_type default 'Freemium',
   affiliate_link text,
+  external_link_url text, -- Standardized link field
   api_available boolean default false,
   website_url text,
   image_url text,
@@ -21,7 +23,7 @@ create type review_status as enum ('pending', 'approved', 'insufficient_data');
 -- Reviews Table (Multi-language support)
 create table reviews (
   id uuid default gen_random_uuid() primary key,
-  tool_id uuid references tools(id) on delete cascade not null,
+  product_id uuid references products(id) on delete cascade not null,
   locale text not null, -- 'en', 'ko', 'de'
   title text not null,
   body text,
@@ -36,13 +38,13 @@ create table reviews (
   competitors jsonb, -- Array of competitor names
   rating integer check (rating >= 0 and rating <= 5),
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  unique(tool_id, locale)
+  unique(product_id, locale)
 );
 
 -- Metrics Table (Real-time data)
 create table metrics (
   id uuid default gen_random_uuid() primary key,
-  tool_id uuid references tools(id) on delete cascade not null,
+  product_id uuid references products(id) on delete cascade not null,
   price_current numeric,
   sentiment_score numeric, -- Reddit/Twitter score
   source text, -- 'reddit', 'twitter', 'internal'
@@ -50,12 +52,12 @@ create table metrics (
 );
 
 -- Enable RLS (Row Level Security)
-alter table tools enable row level security;
+alter table products enable row level security;
 alter table reviews enable row level security;
 alter table metrics enable row level security;
 
 -- Create policies (Public read access)
-create policy "Public tools are viewable by everyone" on tools
+create policy "Public products are viewable by everyone" on products
   for select using (true);
 
 create policy "Public reviews are viewable by everyone" on reviews
@@ -95,7 +97,7 @@ create policy "Users can view their own profile" on profiles
 create table click_analytics (
   id uuid default gen_random_uuid() primary key,
   element_id text not null, -- e.g. 'savings-calc-btn', 'affiliate-link-cursor'
-  tool_id uuid references tools(id) on delete set null,
+  product_id uuid references products(id) on delete set null,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 

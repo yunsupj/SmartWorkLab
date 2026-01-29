@@ -46,7 +46,7 @@ export async function getComparisonData(slug: string, locale: string): Promise<C
   if (!supabase) return null;
 
   const { data: tools } = await supabase
-    .from('tools')
+    .from('products')
     .select('*, reviews!inner(*)')
     .eq('reviews.locale', locale)
     .in('name', [getNameFromSlug(slugA), getNameFromSlug(slugB)]);

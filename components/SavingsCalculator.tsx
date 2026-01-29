@@ -91,12 +91,13 @@ export default function SavingsCalculator() {
             <label className="block text-xs uppercase tracking-wider text-slate-500 mb-1">{t('monthlySpend')}</label>
             <input
               type="number"
-              value={currentSpend.toString()}
+              value={currentSpend === 0 ? '' : currentSpend}
               onChange={(e) => {
-                const val = parseInt(e.target.value, 10);
+                const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
                 setCurrentSpend(isNaN(val) ? 0 : val);
               }}
               min="0"
+              placeholder="0"
               className="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white focus:border-cyan-500 outline-none transition-colors"
             />
           </div>

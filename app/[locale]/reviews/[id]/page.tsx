@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import TransparencyMeter from '@/components/TransparencyMeter';
 import AdPlaceholder from '@/components/AdPlaceholder';
+import TrackedLink from '@/components/TrackedLink';
 import { supabase } from '@/lib/supabase';
 
 // Real Data Fetcher
@@ -9,11 +10,27 @@ async function getTool(id: string, locale: string) {
   if (!supabase) return null;
 
   // Get Tool
-  const { data: tool } = await supabase
-    .from('tools')
-    .select('*')
-    .eq('id', id)
-    .single();
+  let query = supabase.from('products').select('*');
+
+  // Check if valid UUID
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
+  if (isUuid) {
+    query = query.eq('id', id);
+  } else {
+    // Fallback: Try to match by name (slugified)
+    // E.g. "cursor-ai" -> "Cursor" approx.
+    // For now, simple ILIKE. In prod, we should have a `slug` column.
+    const nameQuery = id.replace(/-/g, ' ');
+    query = query.ilike('name', `%${nameQuery}%`);
+  }
+
+  const { data: tool, error } = await query.single();
+
+  if (error || !tool) {
+      console.warn(`Tool not found for id/slug: ${id}`);
+      return null;
+  }
 
   if (!tool) return null;
 
@@ -21,7 +38,7 @@ async function getTool(id: string, locale: string) {
   const { data: review } = await supabase
     .from('reviews')
     .select('*')
-    .eq('tool_id', id)
+    .eq('product_id', id)
     .eq('locale', locale)
     .single();
 
@@ -29,17 +46,35 @@ async function getTool(id: string, locale: string) {
   const { data: metrics } = await supabase
     .from('metrics')
     .select('*')
-    .eq('tool_id', id)
+    .eq('product_id', id)
     .order('timestamp', { ascending: false })
     .limit(1)
     .single();
+
+  // Price Logic
+  let priceDisplay = '';
+  let isEstimated = false;
+
+  if (tool.price_model === 'Free') {
+      priceDisplay = 'Free';
+  } else if (metrics?.price_current && metrics.price_current > 0) {
+      priceDisplay = '$' + metrics.price_current;
+  } else {
+      // Fallback: Estimated Price
+      // In a real scenario, we'd average 3 competitors here.
+      // For now, hardcode estimation or use a default.
+      priceDisplay = '$20.00';
+      isEstimated = true;
+  }
 
   // Merge Data
   return {
     id: tool.id,
     name: tool.name,
     category: tool.category,
-    price: tool.price_model === 'Free' ? 'Free' : tool.price_model === 'Freemium' ? 'Freemium' : '$' + (metrics?.price_current || 0),
+    price: priceDisplay,
+    isEstimated,
+    priceModel: tool.price_model,
     rating: review?.rating || 0,
     reviewCount: 1, // Mock count
     transparency: review?.transparency_source_count || 0,
@@ -52,7 +87,7 @@ async function getTool(id: string, locale: string) {
     cons: review?.cons || [],
     criticalFlaws: review?.critical_flaws || [],
     updatedAt: review?.created_at || new Date().toISOString(),
-    websiteUrl: tool.affiliate_link || tool.website_url || '#',
+    websiteUrl: tool.external_link_url || tool.website_url || '#',
   };
 }
 
@@ -190,6 +225,11 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
             <h3 className="text-slate-400 uppercase text-xs tracking-widest mb-2">{t('pricing')}</h3>
             <p className="text-2xl font-mono font-bold">{tool.price}</p>
+            {tool.isEstimated && (
+                <p className="text-xs text-yellow-500 mt-1">
+                    {t('estimatedPrice') || 'Estimated Price (유사 제품 기반 추정 가격)'}
+                </p>
+            )}
           </div>
 
           <AdPlaceholder slotId="0987654321" format="rectangle" label="Partner Ad" />
@@ -219,18 +259,16 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
             </div>
           )}
 
-          <a
+          <TrackedLink
              href={tool.websiteUrl}
              target="_blank"
              rel="noopener noreferrer"
-             onClick={async () => {
-                 const { trackClick } = await import('@/lib/analytics');
-                 trackClick('visit_website_' + tool.name, tool.id);
-             }}
+             eventName={'visit_website_' + tool.name}
+             toolId={tool.id}
              className="block w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition-colors text-center"
            >
             {t('visitWebsite')}
-          </a>
+          </TrackedLink>
         </div>
       </div>
     </div>

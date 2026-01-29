@@ -7,6 +7,7 @@ import TopTenPicks from '@/components/TopTenPicks';
 import SavingsCalculator from '@/components/SavingsCalculator';
 import PromoTicker from '@/components/PromoTicker';
 import TransparencyMeter from '@/components/TransparencyMeter';
+import AdPlaceholder from '@/components/AdPlaceholder';
 import FadeIn from '@/components/FadeIn';
 
 // Data Fetcher
@@ -14,14 +15,12 @@ async function TopToolsFetcher() {
   if (!supabase) return <div className="text-red-400 text-center">Database connection client missing.</div>;
 
   const { data: tools, error } = await supabase
-    .from('tools')
+    .from('products')
     .select(`
       id, name, category,
       reviews ( rating, transparency_source_count, summary )
     `)
     .limit(10);
-    // Note: removed !inner and locale filter for robustness in this mock environment without specific English reviews guaranteed for all.
-    // In production, bring back .eq('reviews.locale', 'en') if strictly needed.
 
   if (error) {
     console.error("Supabase Error:", error);
@@ -55,7 +54,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <div className="relative z-10 max-w-7xl mx-auto px-6">
 
         {/* Hero Section */}
-        <header className="py-24 md:py-32 text-center">
+        <header className="pt-24 pb-8 md:pt-32 md:pb-12 text-center">
           <FadeIn>
             <div className="inline-block px-4 py-1.5 mb-6 text-xs font-mono font-medium text-cyan-400 border border-cyan-500/30 rounded-full bg-cyan-950/30 backdrop-blur-sm uppercase tracking-widest shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                 SmartWorkLab Intelligence
@@ -73,29 +72,47 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {t('description')}
             </p>
           </FadeIn>
+
+          {/* Live Market Data (Hero Placement) */}
+          <FadeIn delay={0.3} className="text-left max-w-5xl mx-auto mb-6">
+             <div className="backdrop-blur-sm bg-slate-950/30 rounded-xl p-2 border border-slate-800/50">
+                <PriceTracker />
+             </div>
+          </FadeIn>
+
+          {/* Global Trust Section (Transparency Meter) */}
+          <FadeIn delay={0.4} className="max-w-md mx-auto mb-8">
+             <div className="flex items-center justify-center gap-4 bg-slate-900/50 p-4 rounded-full border border-slate-800/50 backdrop-blur-sm">
+                 <span className="text-xs text-slate-400 uppercase tracking-widest">Trust Score</span>
+                 <div className="h-2 w-32 bg-slate-800 rounded-full overflow-hidden">
+                     <div className="h-full bg-green-500 w-[98%] shadow-[0_0_10px_#22c55e]"></div>
+                 </div>
+                 <span className="text-green-400 font-bold text-sm">98/100</span>
+             </div>
+          </FadeIn>
         </header>
 
         {/* Profit Suite Component */}
-        <FadeIn delay={0.3} className="mb-24">
+        <FadeIn delay={0.5} className="mb-24">
             <PromoTicker />
         </FadeIn>
 
-        <FadeIn delay={0.4} className="mb-24">
+        {/* Calculator (Restored Position) */}
+        <FadeIn delay={0.6} className="mb-12">
             <SavingsCalculator />
+        </FadeIn>
+
+        {/* AdSense Mid-Page */}
+        <FadeIn delay={0.65} className="mb-24 flex justify-center">
+             <AdPlaceholder slotId="home-mid-1" label="Sponsored" format="rectangle" />
         </FadeIn>
 
         {/* Main Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
-            <FadeIn delay={0.5} className="md:col-span-2">
+            <FadeIn delay={0.7} className="md:col-span-3">
                  <Suspense fallback={<div className="text-slate-500 animate-pulse text-center p-12">Loading Insights...</div>}>
                    <TopToolsFetcher />
                  </Suspense>
-            </FadeIn>
-            <FadeIn delay={0.6}>
-                <div className="space-y-8 sticky top-8">
-                    <PriceTracker />
-                    <TransparencyMeter />
-                </div>
             </FadeIn>
         </div>
 

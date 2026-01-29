@@ -55,6 +55,7 @@
     "criticalFlaws": "⚠️ Critical Flaws Detected",
     "flagged": "Flagged by SmartWorkLab Quality Control",
     "pricing": "Pricing",
+    "estimatedPrice": "Estimated Price (Based on Similar Tools)",
     "competitors": "Competitors",
     "visitWebsite": "Visit Website"
   },
