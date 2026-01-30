@@ -23,7 +23,7 @@ const MOCK_REVIEW = {
   }
 };
 
-export const runtime = 'edge';
+
 
 export default function AdminReviewPage() {
   const [activeTab, setActiveTab] = useState<'en' | 'ko'>('en');

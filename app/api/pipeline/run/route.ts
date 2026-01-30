@@ -5,7 +5,7 @@ import { WriterAgent } from '@/lib/agents/writer';
 import { PublisherAgent } from '@/lib/agents/publisher';
 import { FinalPost } from '@/lib/agents/types';
 
-export const runtime = 'edge';
+
 
 export async function POST() {
   try {

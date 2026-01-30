@@ -1,13 +1,11 @@
 'use server';
 
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '@/lib/supabase';
 
 export async function trackProductConnect(productId: string) {
   if (!productId) return;
+
+  if (!supabase) return;
 
   // 1. Increment Click Count (Atomic Update)
   const { error } = await supabase.rpc('increment_click_count', { product_id: productId });
@@ -29,6 +27,8 @@ export async function trackProductConnect(productId: string) {
 
 export async function trackProductView(productId: string) {
     if (!productId) return;
+
+    if (!supabase) return;
 
     // Increment View Count
     const { error } = await supabase.rpc('increment_view_count', { product_id: productId });

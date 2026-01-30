@@ -7,7 +7,7 @@ import { notFound, redirect } from 'next/navigation';
 // In production, use Supabase Auth Middleware protection
 const ADMIN_EMAILS = ['admin@smartworklab.com', 'yuun@example.com']; // Replace with real admin logic
 
-export const runtime = 'edge';
+
 
 export default async function AdminPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -7,12 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Slider } from '@/components/ui/Slider';
 import { Combobox, Option } from '@/components/ui/Combobox';
 import TrackedLink from '@/components/TrackedLink';
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase Client for client-side usage
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '@/lib/supabase';
 
 interface Alternative {
   name: string;
@@ -43,6 +38,8 @@ export default function SavingsCalculator() {
   // Fetch Products for Combobox & Resolve Target IDs
   useEffect(() => {
     const fetchProducts = async () => {
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from('products')
         .select('id, name');
@@ -102,6 +99,8 @@ export default function SavingsCalculator() {
         currency: 'USD',
         generated_at: new Date().toISOString()
     };
+
+    if (!supabase) return;
 
     const { error } = await supabase.from('leads').insert([{
         email,

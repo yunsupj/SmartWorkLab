@@ -110,7 +110,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { trackProductView } from '@/lib/tracking';
 
-export const runtime = 'edge';
+
 
 export default async function ToolPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
   const { id, locale } = await params;

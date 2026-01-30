@@ -1,6 +1,6 @@
 import { Link } from '@/i18n/routing';
 
-export const runtime = 'edge';
+
 
 export default function ReviewsIndex() {
   return (

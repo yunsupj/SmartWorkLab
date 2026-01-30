@@ -7,7 +7,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import "../globals.css";
 
-export const runtime = 'edge';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
