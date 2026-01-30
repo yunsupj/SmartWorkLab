@@ -1,30 +1,21 @@
-import { RawToolData } from './types';
+export type TaskCategory = 'Copywriting' | 'Coding' | 'Design' | 'Research' | 'SEO';
 
-export class ScoutAgent {
-  async findTrendingTools(): Promise<RawToolData[]> {
-    console.log('🔍 Scout Agent: Scanning Product Hunt, Reddit, and X...');
+export const MARKET_RATES: Record<TaskCategory, number> = {
+  Copywriting: 50, // per hour
+  Coding: 120,     // per hour
+  Design: 80,      // per hour
+  Research: 40,    // per hour
+  SEO: 70,         // per hour
+};
 
-    // MOCK DATA - In production, this would use API calls
-    // Simulating finding a trending tool
-    const mockTool: RawToolData = {
-      name: "Nebula AI Workspace",
-      websiteUrl: "https://example.com/nebula",
-      tagline: "The all-in-one AI workspace for teams",
-      description: "Nebula combines distinct AI models into a single interface.",
-      source: 'ProductHunt',
-      sourceUrl: "https://producthunt.com/posts/nebula",
-      pricing: "$20/mo",
-      userComments: [
-        "It's great but the export feature is buggy.",
-        "Too expensive for what it offers compared to Notion.",
-        "I love the UI but data privacy policy is vague.",
-        "Integration with Slack is amazing though!",
-        "Support never replies.",
-        "Best tool I've used this year despite the bugs."
-      ]
-    };
+export const Scout = {
+  fetchMarketRates: async () => {
+    // In a real scenario, this could fetch from an external API or DB
+    // For now, we return our benchmark constants
+    return MARKET_RATES;
+  },
 
-    console.log(`✅ Scout Agent: Found trending tool "${mockTool.name}"`);
-    return [mockTool];
+  getRateForCategory: (category: string): number => {
+    return MARKET_RATES[category as TaskCategory] || 40; // Default fallback
   }
-}
+};

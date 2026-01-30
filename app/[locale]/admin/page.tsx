@@ -18,7 +18,7 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
   // 1. Fetch Metrics
   const { count: leadCount } = await supabase.from('leads').select('*', { count: 'exact', head: true });
   const { count: toolCount } = await supabase.from('tools').select('*', { count: 'exact', head: true });
-  const { count: reviewCount } = await supabase.from('reviews').select('*', { count: 'exact', head: true });
+  const { count: reviewCount } = await supabase.from('expert_reports').select('*', { count: 'exact', head: true });
 
   // 2. Fetch Recent Leads
   const { data: leads } = await supabase

@@ -36,7 +36,7 @@ async function getTool(id: string, locale: string) {
 
   // Get Review for locale
   const { data: review } = await supabase
-    .from('reviews')
+    .from('expert_reports')
     .select('*')
     .eq('product_id', id)
     .eq('locale', locale)

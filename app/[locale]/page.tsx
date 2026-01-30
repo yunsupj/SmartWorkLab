@@ -20,7 +20,7 @@ async function TopToolsFetcher() {
     .from('products')
     .select(`
       id, name, category,
-      reviews ( rating, transparency_source_count, summary )
+      expert_reports ( rating, transparency_source_count, summary )
     `)
     .limit(10);
 
@@ -33,9 +33,12 @@ async function TopToolsFetcher() {
     id: t.id,
     name: t.name,
     category: t.category,
-    rating: t.reviews?.[0]?.rating || 0,
-    transparency: t.reviews?.[0]?.transparency_source_count || 0,
-    summary: t.reviews?.[0]?.summary || ''
+    // @ts-ignore - Supabase types might not auto-update immediately
+    rating: t.expert_reports?.[0]?.rating || 0,
+    // @ts-ignore
+    transparency: t.expert_reports?.[0]?.transparency_source_count || 0,
+    // @ts-ignore
+    summary: t.expert_reports?.[0]?.summary || ''
   })) || [];
 
   return <TopTenPicks initialTools={formattedTools} />;
