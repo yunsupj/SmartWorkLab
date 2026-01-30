@@ -1,0 +1,7 @@
+name = "blog_pipeline"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+# Define env vars here if needed, or in the dashboard

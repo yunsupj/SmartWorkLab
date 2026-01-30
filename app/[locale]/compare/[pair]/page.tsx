@@ -25,6 +25,8 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
+export const runtime = 'edge';
+
 export default async function ComparisonPage({ params }: Props) {
   const { pair, locale } = params;
   const data = await getComparisonData(pair, locale);

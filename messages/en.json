@@ -23,6 +23,8 @@
     "save": " & Save:",
     "perYear": "Per Year",
     "cta": "Switch & Save Now →",
+    "socialProof": "Users in similar roles saved an average of $300/year using our recommendations.",
+    "verified": "Verified Data",
     "reasoning": "Recommended because: {reason}",
     "enterEmail": "Enter email for full report...",
     "reasons": {
@@ -65,5 +67,9 @@
     "google": "Continue with Google",
     "discord": "Continue with Discord",
     "terms": "By signing up, you agree to our Terms of Service and honest data policy."
+  },
+  "Footer": {
+    "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
+    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
   }
 }

@@ -4,7 +4,10 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import PromoTicker from '@/components/PromoTicker';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import "../globals.css";
+
+export const runtime = 'edge';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +45,9 @@ export default async function LocaleLayout({
           <main className="min-h-screen">
             {children}
           </main>
+          <div className="mt-auto">
+             <Footer />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

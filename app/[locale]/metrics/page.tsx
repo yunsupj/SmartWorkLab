@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 export default function MetricsPage() {
   return (
     <div className="max-w-4xl mx-auto p-8 text-white">

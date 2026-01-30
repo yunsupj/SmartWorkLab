@@ -1,5 +1,4 @@
 
-import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
 import PriceTracker from '@/components/PriceTracker';
@@ -9,8 +8,11 @@ import PromoTicker from '@/components/PromoTicker';
 import TransparencyMeter from '@/components/TransparencyMeter';
 import AdPlaceholder from '@/components/AdPlaceholder';
 import FadeIn from '@/components/FadeIn';
-
 // Data Fetcher
+import { getTranslations } from 'next-intl/server';
+
+export const runtime = 'edge';
+
 async function TopToolsFetcher() {
   if (!supabase) return <div className="text-red-400 text-center">Database connection client missing.</div>;
 

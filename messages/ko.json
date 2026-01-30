@@ -23,6 +23,8 @@
     "save": " 절약액:",
     "perYear": "년",
     "cta": "지금 바꾸고 절약하기 →",
+    "socialProof": "유사한 직업군의 사용자들은 평균적으로 연간 $300을 절약했습니다.",
+    "verified": "검증된 데이터",
     "reasoning": "추천 이유: {reason}",
     "enterEmail": "상세 리포트를 위한 이메일 입력...",
     "reasons": {
@@ -65,5 +67,9 @@
     "google": "Google로 계속하기",
     "discord": "Discord로 계속하기",
     "terms": "가입 시 서비스 이용약관 및 정직한 데이터 정책에 동의하게 됩니다."
+  },
+  "Footer": {
+    "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
+    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
   }
 }

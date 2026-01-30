@@ -1,5 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+export const runtime = 'edge';
+
 export default function LoginPage() {
   const t = useTranslations('Login');
 
