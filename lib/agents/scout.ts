@@ -17,5 +17,17 @@ export const Scout = {
 
   getRateForCategory: (category: string): number => {
     return MARKET_RATES[category as TaskCategory] || 40; // Default fallback
+  },
+
+  // Mock Analysis for "Track A"
+  analyzeEmailSubscriptions: async () => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Return mock detected tools
+    return [
+      { toolName: 'Midjourney Standard', monthlyCost: 30, hoursSaved: 12, taskCategory: 'Design' },
+      { toolName: 'GitHub Copilot', monthlyCost: 10, hoursSaved: 20, taskCategory: 'Coding' },
+    ];
   }
 };

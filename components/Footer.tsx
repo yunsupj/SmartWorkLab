@@ -20,6 +20,11 @@ export default function Footer() {
              </p>
         </div>
 
+        <div className="flex justify-center gap-6 text-xs text-slate-500 mt-4">
+             <a href="/privacy" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
+             <a href="/terms" className="hover:text-cyan-400 transition-colors">Terms of Service</a>
+        </div>
+
         <p className="text-xs text-slate-600">
           &copy; {new Date().getFullYear()} SmartWorkLab. All rights reserved.
         </p>

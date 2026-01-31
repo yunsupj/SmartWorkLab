@@ -1,18 +1,23 @@
 'use client';
 
+import { useState } from 'react';
 import ROISummaryCards from './ROISummaryCards';
 import CostComparisonChart from './CostComparisonChart';
 import EfficiencyDonutChart from './EfficiencyDonutChart';
+import AddToolModal from './AddToolModal';
 import { User } from '@supabase/supabase-js';
 import { ROIReport } from '@/lib/agents/analyst';
 import { PlusCircle } from 'lucide-react';
 
 export default function Dashboard({ user, report }: { user: User; report: ROIReport }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Builder';
   const hasData = report.totalHoursSaved > 0;
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6 md:p-12 pb-24">
+      <AddToolModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       <header className="mb-12 flex justify-between items-end">
         <div>
             <h1 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight">
@@ -22,7 +27,10 @@ export default function Dashboard({ user, report }: { user: User; report: ROIRep
         </div>
 
         {hasData && (
-             <button className="hidden md:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-700 transition-colors">
+             <button
+                onClick={() => setIsModalOpen(true)}
+                className="hidden md:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-700 transition-colors"
+             >
                 <PlusCircle className="w-4 h-4" />
                 <span>Add Tool</span>
             </button>
@@ -38,7 +46,10 @@ export default function Dashboard({ user, report }: { user: User; report: ROIRep
             <p className="text-slate-400 max-w-md text-center mb-8">
                 Connect your first AI tool to generate a verified efficiency report and see how much you are saving.
             </p>
-            <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-cyan-500/20 transition-all transform hover:scale-105">
+            <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-cyan-500/20 transition-all transform hover:scale-105"
+            >
                 Add Your First Tool
             </button>
         </div>
