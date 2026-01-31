@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-const BASE_URL = 'https://smartworklab.com'; // Replace with actual domain
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://smartworklab.store';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cookieStore = await cookies();

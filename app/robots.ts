@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const BASE_URL = 'https://smartworklab.com'; // Replace with actual domain
+  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://smartworklab.store';
 
   return {
     rules: {
