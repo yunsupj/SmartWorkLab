@@ -6,9 +6,10 @@ import ReviewForm from './ReviewForm';
 
 interface ReviewActionsProps {
   toolName: string;
+  toolId: string;
 }
 
-export default function ReviewActions({ toolName }: ReviewActionsProps) {
+export default function ReviewActions({ toolName, toolId }: ReviewActionsProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   if (isEditing) {
@@ -23,7 +24,7 @@ export default function ReviewActions({ toolName }: ReviewActionsProps) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <ReviewForm toolName={toolName} />
+        <ReviewForm toolName={toolName} toolId={toolId} />
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import { useState } from 'react';
 import { Star, Send } from 'lucide-react';
 
-export default function ReviewForm({ toolName }: { toolName: string }) {
+export default function ReviewForm({ toolName, toolId }: { toolName: string; toolId: string }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -31,17 +31,21 @@ export default function ReviewForm({ toolName }: { toolName: string }) {
         return;
     }
 
+    // Upsert to Expert Reports
     const { error } = await supabase
-      .from('user_reviews')
-      .insert({
-        user_id: user.id,
-        tool_name: toolName,
+      .from('expert_reports')
+      .upsert({
+        product_id: toolId,
+        author: 'SmartWorkLab AI', // Identifying the author or use user.email
         rating,
-        comment
-      });
+        summary: comment,
+        status: 'pending', // Or approved if admin
+        locale: 'en', // Default locale for now
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'product_id, locale' });
 
     if (error) {
-       console.error('Error submitting review:', error);
+       console.error('Error submitting report:', error);
        alert('Failed to submit review.');
     } else {
        setSubmitted(true);

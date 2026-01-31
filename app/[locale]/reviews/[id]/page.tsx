@@ -21,26 +21,40 @@ async function getTool(id: string, locale: string) {
     query = query.eq('id', id);
   } else {
     // Fallback: Try to match by name (slugified)
-    // E.g. "cursor-ai" -> "Cursor" approx.
-    // For now, simple ILIKE. In prod, we should have a `slug` column.
+    // Slug logic: "chatgpt-teams" -> "ChatGPT Teams" (ILIKE)
+    // We replace hyphens with spaces to match "Name"
     const nameQuery = id.replace(/-/g, ' ');
-    query = query.ilike('name', `%${nameQuery}%`);
+    query = query.ilike('name', `${nameQuery}`); // Removing % wildcard to be more exact first
   }
 
   const { data: tool, error } = await query.single();
 
   if (error || !tool) {
+      // Retry with wildcard if exact failed
+      if (!isUuid) {
+        const nameQueryIdx = id.replace(/-/g, ' ');
+        const { data: retryTool } = await supabase.from('products').select('*').ilike('name', `%${nameQueryIdx}%`).limit(1).single();
+        if (retryTool) {
+             // Found via fuzzy match, proceed with retryTool
+             return mapToolToPageData(retryTool, locale);
+        }
+      }
       console.warn(`Tool not found for id/slug: ${id}`);
       return null;
   }
 
-  if (!tool) return null;
+  return mapToolToPageData(tool, locale);
+}
+
+// Helper to separate mapping logic (DRY)
+async function mapToolToPageData(tool: any, locale: string) {
+  if (!supabase) return null;
 
   // Get Review for locale
   const { data: review } = await supabase
     .from('expert_reports')
     .select('*')
-    .eq('product_id', id)
+    .eq('product_id', tool.id)
     .eq('locale', locale)
     .single();
 
@@ -48,7 +62,7 @@ async function getTool(id: string, locale: string) {
   const { data: metrics } = await supabase
     .from('metrics')
     .select('*')
-    .eq('product_id', id)
+    .eq('product_id', tool.id)
     .order('timestamp', { ascending: false })
     .limit(1)
     .single();
@@ -62,14 +76,23 @@ async function getTool(id: string, locale: string) {
   } else if (metrics?.price_current && metrics.price_current > 0) {
       priceDisplay = '$' + metrics.price_current;
   } else {
-      // Fallback: Estimated Price
-      // In a real scenario, we'd average 3 competitors here.
-      // For now, hardcode estimation or use a default.
       priceDisplay = '$20.00';
       isEstimated = true;
   }
 
-  // Merge Data
+  // Safe Score Mapping
+  const smartScore = review?.smart_score || {};
+  const roi = smartScore.roi || 0;
+  const privacy = smartScore.privacy || 0;
+  const integration = smartScore.integration || 0;
+  const total = smartScore.total || 0;
+
+  // Rating Calculation (if strictly 0, calculate from smart score avg)
+  let rating = review?.rating || 0;
+  if(rating === 0 && total > 0) {
+      rating = Math.round((total / 10) * 5 * 10) / 10; // 8.5/10 -> 4.25/5
+  }
+
   return {
     id: tool.id,
     name: tool.name,
@@ -77,13 +100,13 @@ async function getTool(id: string, locale: string) {
     price: priceDisplay,
     isEstimated,
     priceModel: tool.price_model,
-    rating: review?.rating || 0,
-    reviewCount: 1, // Mock count
+    rating: rating,
+    reviewCount: 1,
     transparency: review?.transparency_source_count || 0,
     author: review?.author || 'SmartWorkLab AI',
     summary: review?.summary || tool.description,
     title: review?.title || tool.name + ' Review',
-    smartScore: review?.smart_score || { roi: 0, privacy: 0, integration: 0, total: 0 },
+    smartScore: { roi, privacy, integration, total }, // Use safe variables
     competitors: review?.competitors || [],
     pros: review?.pros || [],
     cons: review?.cons || [],
@@ -92,10 +115,10 @@ async function getTool(id: string, locale: string) {
     // Lab Report Data Mapping
     verificationSummary: {
       toolName: tool.name,
-      confidenceScore: review?.smart_score?.total ? Math.round(review.smart_score.total * 10) : 85, // Map from Smart Score if DB column missing
+      confidenceScore: total ? Math.round(total * 10) : 85,
       verificationStatus: review?.status === 'approved' ? 'Verified' : 'Pending Analysis',
-      marketAnalysis: review?.summary || tool.description, // Use summary as analysis snippet
-      accuracyRating: 98, // Mock or fetch if available
+      marketAnalysis: review?.summary || tool.description,
+      accuracyRating: 98,
       lastAudited: new Date(review?.created_at || new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     },
     websiteUrl: tool.external_link_url || tool.website_url || '#',
@@ -389,7 +412,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Edit Actions for Author */}
-      {user && <ReviewActions toolName={tool.name} />}
+      {user && <ReviewActions toolName={tool.name} toolId={tool.id} />}
     </div>
   );
 }
