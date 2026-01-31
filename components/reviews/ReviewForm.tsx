@@ -2,16 +2,18 @@
 
 import { createBrowserClient } from '@supabase/ssr';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Star, Send, Sliders } from 'lucide-react';
 
 export default function ReviewForm({ toolName, toolId }: { toolName: string; toolId: string }) {
+  const router = useRouter();
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const [scores, setScores] = useState({ roi: 5, privacy: 5, integration: 5 });
+  const [scores, setScores] = useState({ roi: 5, privacy: 5, integration: 5, accuracy: 9 });
 
   // Initialize Supabase Client
   const supabase = createBrowserClient(
@@ -33,28 +35,36 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
         return;
     }
 
-    // Calculate Total Smart Score (Simple Average for now)
-    const totalScore = parseFloat(((scores.roi + scores.privacy + scores.integration) / 3).toFixed(1));
+    // Calculate Total Smart Score (Simple Average)
+    const totalScore = parseFloat(((scores.roi + scores.privacy + scores.integration + scores.accuracy) / 4).toFixed(1));
 
     // Upsert to Expert Reports
     const { error } = await supabase
       .from('expert_reports')
       .upsert({
         product_id: toolId,
-        author: 'SmartWorkLab AI', // Identifying the author or use user.email
+        author: 'SmartWorkLab AI',
         rating,
         summary: comment,
-        smart_score: { ...scores, total: totalScore }, // JSON payload
-        status: 'pending', // Or approved if admin
-        locale: 'en', // Default locale for now
+        smart_score: {
+            roi: scores.roi,
+            privacy: scores.privacy,
+            integration: scores.integration,
+            accuracy: scores.accuracy,
+            productivity_score: scores.roi, // Mapping ROI to productivity as requested
+            total: totalScore
+        },
+        status: 'pending',
+        locale: 'en',
         updated_at: new Date().toISOString()
       }, { onConflict: 'product_id, locale' });
 
     if (error) {
        console.error('Error submitting report:', error);
-       alert('Failed to submit review.');
+       alert(`Failed to submit review: ${error.message} (Code: ${error.code})`);
     } else {
        setSubmitted(true);
+       router.refresh(); // Refresh server components to show new aggregation
     }
 
     setIsSubmitting(false);
@@ -134,6 +144,18 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
                         type="range" min="1" max="10"
                         value={scores.integration}
                         onChange={(e) => setScores({...scores, integration: parseInt(e.target.value)})}
+                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                     />
+                </div>
+                <div>
+                     <div className="flex justify-between text-sm mb-1 text-slate-400">
+                        <span>Accuracy Rating</span>
+                        <span className="text-cyan-400">{scores.accuracy}/10</span>
+                     </div>
+                     <input
+                        type="range" min="1" max="10"
+                        value={scores.accuracy}
+                        onChange={(e) => setScores({...scores, accuracy: parseInt(e.target.value)})}
                         className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
                      />
                 </div>
