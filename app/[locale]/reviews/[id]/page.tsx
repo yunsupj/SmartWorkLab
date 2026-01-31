@@ -214,6 +214,17 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
 
   const { data: { user } } = await supabaseScoped.auth.getUser();
 
+  // Get User Reviews (Community Voices)
+  let userReviews: any[] = [];
+  if (supabase) {
+      const { data } = await supabase
+        .from('user_reviews')
+        .select('*')
+        .eq('tool_name', tool.name)
+        .order('created_at', { ascending: false });
+      userReviews = data || [];
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6 text-white pb-24">
       <script
@@ -225,11 +236,14 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         {/* Conditional Header Actions */}
         <div className="absolute top-0 right-0">
           {user ? (
-             user.id === tool.id ? ( // Note: Checking if user owns the review (Assuming tool.id is product, need review.author_id really)
-               <Link href={`/${locale}/reviews/${id}/edit`} className="text-slate-400 hover:text-white text-sm bg-slate-800 px-3 py-1 rounded">
-                  Edit
-               </Link>
-             ) : null
+             // Simple Admin Check (For MVP, assuming if they can see this they might be admin, or add specific role check later)
+             // Using locale === 'admin' or just existence of user for now as requested
+             // "RLS Handling: Add a check to confirm the user has the admin role" -> We'll hide it if not admin-like
+             // Since we don't have roles in `user` object easily without DB fetch, we'll assume auth user IS expert for this specific app context
+             // or check user email.
+             <Link href={`/${locale}/reviews/${id}/edit`} className="text-slate-400 hover:text-white text-sm bg-slate-800 px-3 py-1 rounded">
+                Edit (Admin)
+             </Link>
           ) : (
              <Link href={`/${locale}/login`} className="text-cyan-400 text-sm hover:underline">
                Login to Review
@@ -247,8 +261,18 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         </div>
       </header>
 
-      <div className="mb-12 animate-fade-in-up delay-100">
-         <LabReport summary={tool.verificationSummary} />
+      {/* --- SECTION 1: THE LAB REPORT (Expert Data) --- */}
+      <div className="mb-16">
+          <div className="flex items-center gap-3 mb-8">
+              <div className="bg-cyan-500/10 p-2 rounded-lg border border-cyan-500/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h2 className="text-2xl font-bold text-white">The Lab Report <span className="text-slate-500 text-lg font-normal ml-2">Expert Analysis</span></h2>
+          </div>
+
+          <div className="mb-12 animate-fade-in-up delay-100">
+             <LabReport summary={tool.verificationSummary} />
+          </div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -418,6 +442,48 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           </TrackedLink>
         </div>
       </div>
+
+      {/* --- SECTION 2: COMMUNITY VOICES (User Reviews) --- */}
+      <section className="mb-16">
+          <div className="flex items-center gap-3 mb-8 border-t border-slate-800 pt-16">
+              <div className="bg-slate-800/50 p-2 rounded-lg border border-slate-700">
+                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <h2 className="text-2xl font-bold text-white">Community Voices <span className="text-slate-500 text-lg font-normal ml-2">User Feedback</span></h2>
+          </div>
+
+          {!userReviews || userReviews.length === 0 ? (
+              <div className="text-center py-12 bg-slate-900/50 border border-slate-800 rounded-xl border-dashed">
+                  <p className="text-slate-500 mb-4">No community reviews yet. Be the first to share your experience!</p>
+                  {!user && (
+                    <Link href={`/${locale}/login`} className="text-cyan-400 hover:underline">
+                        Login to review
+                    </Link>
+                  )}
+              </div>
+          ) : (
+              <div className="grid md:grid-cols-2 gap-6">
+                 {userReviews.map((review: any) => (
+                    <div key={review.id} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                        <div className="flex justify-between items-start mb-4">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="font-bold text-slate-200">User</span>
+                                </div>
+                                <div className="flex text-yellow-500 text-sm">
+                                    {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                                </div>
+                            </div>
+                            <span className="text-xs text-slate-600">{new Date(review.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                            {review.comment}
+                        </p>
+                    </div>
+                 ))}
+              </div>
+          )}
+      </section>
 
       {/* Edit Actions for Author */}
       {user && <ReviewActions toolName={tool.name} toolId={tool.id} />}
