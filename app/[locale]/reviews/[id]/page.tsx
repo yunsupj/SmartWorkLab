@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 import TransparencyMeter from '@/components/TransparencyMeter';
 import AdPlaceholder from '@/components/AdPlaceholder';
 import TrackedLink from '@/components/TrackedLink';
@@ -158,7 +160,20 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     }
   };
 
-  const { data: { user } } = await supabase.auth.getUser();
+  // Create Scoped Supabase Client for Auth Check
+  const cookieStore = await cookies();
+  const supabaseScoped = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() { return cookieStore.getAll(); },
+        setAll(cookiesToSet) { try { cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options)) } catch {} },
+      },
+    }
+  );
+
+  const { data: { user } } = await supabaseScoped.auth.getUser();
 
   return (
     <div className="max-w-4xl mx-auto p-6 text-white pb-24">
