@@ -131,12 +131,39 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     notFound();
   }
 
-  // JSON-LD (keep as is or localize if needed, typically English is fine for strict schema but localized is better)
-  const jsonLd = { /* ... */ };
+  // JSON-LD (Rich Snippets)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    applicationCategory: tool.category,
+    operatingSystem: 'Web, SaaS',
+    offers: {
+      '@type': 'Offer',
+      price: tool.price.replace('$', '').replace('Free', '0'),
+      priceCurrency: 'USD',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: tool.rating,
+      reviewCount: tool.reviewCount,
+      bestRating: "5",
+      worstRating: "1"
+    },
+    description: tool.summary,
+    author: {
+        '@type': 'Organization',
+        name: 'SmartWorkLab',
+        url: 'https://smartworklab.com'
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 text-white pb-24">
-      {/* ... script ... */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <header className="mb-10 text-center">
         <div className="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full uppercase tracking-wider">

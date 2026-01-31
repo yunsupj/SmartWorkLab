@@ -26,9 +26,10 @@ export default async function MetricsPage({ params }: { params: Promise<{ locale
 
   const {
     data: { user },
+    error: authError
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (authError || !user) {
     redirect(`/${locale}/login?error=unauthorized`);
   }
 
@@ -46,5 +47,5 @@ export default async function MetricsPage({ params }: { params: Promise<{ locale
   // Calculate Reports via Agent
   const report = Analyst.calculateROI((usageData as UsageData[]) || []);
 
-  return <Dashboard user={user} report={report} />;
+  return <Dashboard user={user} report={report} usageData={(usageData as UsageData[]) || []} />;
 }

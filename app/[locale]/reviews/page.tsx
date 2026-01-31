@@ -30,6 +30,14 @@ export default async function ReviewsPage({ params }: { params: Promise<{ locale
     redirect(`/${locale}/login?error=unauthorized`);
   }
 
+  // Generate all reports concurrently
+  const reportsPromises = TOOLS_TO_REVIEW.map(async (tool) => {
+    const report = await Analyst.generateVerificationSummary(tool);
+    return { tool, report };
+  });
+
+  const toolReports = await Promise.all(reportsPromises);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6 md:p-12 pb-24">
       <header className="mb-12 max-w-4xl mx-auto text-center">
@@ -43,9 +51,7 @@ export default async function ReviewsPage({ params }: { params: Promise<{ locale
       </header>
 
       <div className="max-w-4xl mx-auto space-y-16">
-        {TOOLS_TO_REVIEW.map((tool) => {
-           const report = Analyst.generateVerificationSummary(tool);
-
+        {toolReports.map(({ tool, report }) => {
            return (
              <section key={tool} id={tool.toLowerCase().replace(/\s+/g, '-')} className="animate-fade-in-up">
                 <div className="flex items-center gap-4 mb-6">

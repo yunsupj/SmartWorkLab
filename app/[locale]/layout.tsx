@@ -5,6 +5,7 @@ import {getMessages} from 'next-intl/server';
 import PromoTicker from '@/components/PromoTicker';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import AuthProvider from '@/components/AuthProvider';
 import "../globals.css";
 
 
@@ -20,8 +21,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SmartWorkLab",
-  description: "AI Tools & SaaS Platform",
+  title: {
+    default: "SmartWorkLab | Quantify Your AI ROI",
+    template: "%s | SmartWorkLab"
+  },
+  description: "The premier platform for auditing AI tools, calculating efficiency ROI, and verifying software value with expert engineering reviews.",
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://smartworklab.com',
+    siteName: 'SmartWorkLab',
+    images: [
+      {
+        url: '/og-image.jpg', // Placeholder
+        width: 1200,
+        height: 630,
+        alt: 'SmartWorkLab Dashboard',
+      },
+    ],
+  },
+    viewport: "width=device-width, initial-scale=1",
+    themeColor: "#0f172a",
 };
 
 export default async function LocaleLayout({
@@ -40,11 +60,13 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-white`}
       >
         <NextIntlClientProvider messages={messages}>
-          <PromoTicker />
-          <Navigation />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <AuthProvider>
+            <PromoTicker />
+            <Navigation />
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </AuthProvider>
           <div className="mt-auto">
              <Footer />
           </div>

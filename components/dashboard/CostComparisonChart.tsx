@@ -46,7 +46,7 @@ export default function CostComparisonChart({ report }: { report: ROIReport }) {
           <Tooltip
             cursor={{ fill: '#1e293b', opacity: 0.4 }}
             contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', color: '#f8fafc' }}
-            formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
+            formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Cost']}
           />
           <Bar dataKey="traditionalCost" name="Traditional Cost" fill="#334155" radius={[4, 4, 0, 0]} barSize={40} />
           <Bar dataKey="aiCost" name="AI Optimized" fill="#06b6d4" radius={[4, 4, 0, 0]} barSize={40}>

@@ -1,3 +1,4 @@
+import { AIProvider } from '@/lib/ai/provider';
 import { Scout } from './scout';
 
 export interface UsageData {
@@ -81,18 +82,55 @@ export const Analyst = {
     };
   },
 
-  generateVerificationSummary: (toolName: string) => {
-    // In a real app, this would analyze user_tool_usage data for specific tool patterns
-    // For now, we return a deterministic mock based on the tool name
-    const confidenceScore = 90 + (toolName.length % 10); // Pseudo-random 90-99
+  // Real AI Semantic Analysis
+  generateVerificationSummary: async (toolName: string) => {
+    // If no key, fall back to determinstic mock
+    if (!process.env.OPENAI_API_KEY && !process.env.GEMINI_API_KEY) {
+         const confidenceScore = 90 + (toolName.length % 10);
+         return {
+           toolName,
+           confidenceScore,
+           verificationStatus: 'Verified',
+           marketAnalysis: `Confirmed market dominance in ${toolName.includes('GPT') ? 'LLM' : 'Efficiency'} sector.`,
+           accuracyRating: 98.5,
+           lastAudited: new Date().toLocaleDateString()
+         };
+    }
 
-    return {
-      toolName,
-      confidenceScore,
-      verificationStatus: 'Verified',
-      marketAnalysis: `Confirmed market dominance in ${toolName.includes('GPT') ? 'LLM' : 'Efficiency'} sector.`,
-      accuracyRating: 98.5,
-      lastAudited: new Date().toLocaleDateString()
-    };
+    const prompt = `
+      Analyze the SaaS tool "${toolName}".
+      1. Confidence Score (0-100): How widely recognized and trusted is this tool?
+      2. Market Analysis: 1 sentence explaining its primary value proposition.
+      3. Accuracy Rating (0-100): How consistent is its output (if AI) or uptime?
+
+      Output JSON:
+      {
+        "confidenceScore": 95,
+        "marketAnalysis": "...",
+        "accuracyRating": 98
+      }
+    `;
+
+    try {
+       const aiData = await AIProvider.generateJSON<any>(prompt, "Verification stats for SaaS tool");
+       return {
+          toolName,
+          confidenceScore: aiData.confidenceScore || 85,
+          verificationStatus: 'Verified by AI',
+          marketAnalysis: aiData.marketAnalysis || "Verified tool.",
+          accuracyRating: aiData.accuracyRating || 90,
+          lastAudited: new Date().toLocaleDateString()
+       };
+    } catch (e) {
+       console.error("Analyst AI Failed:", e);
+       return {
+           toolName,
+           confidenceScore: 80,
+           verificationStatus: 'AI Analysis Failed',
+           marketAnalysis: "Could not verify real-time data.",
+           accuracyRating: 0,
+           lastAudited: new Date().toLocaleDateString()
+       };
+    }
   }
 };
