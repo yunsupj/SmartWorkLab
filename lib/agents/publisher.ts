@@ -10,20 +10,53 @@ export class PublisherAgent {
 
     // 1. Save to Supabase
     if (supabaseAdmin) {
-      const { error } = await supabaseAdmin
-        .from('reviews')
+      // First, find the product_id if not present
+      let toolId = undefined;
+
+      const { data: product } = await supabaseAdmin
+          .from('products')
+          .select('id')
+          .ilike('name', post.analysis.toolName)
+          .single();
+
+      if (product) {
+          toolId = product.id;
+      } else {
+          console.warn(`⚠️ Tool "${post.analysis.toolName}" not found in products table. Adding placeholder...`);
+          // Optional: Insert into products if not exist, but for now we warn
+      }
+
+      if (!toolId) {
+          console.error("❌ Cannot publish review: Product ID missing.");
+          return;
+      }
+
+      // Upsert EN Review
+      const { error: upsertError } = await supabaseAdmin
+        .from('expert_reports')
         .upsert({
-          tool_id: undefined, // Ideally we resolve this or insert into tools table first.
-          // For MVP we might need a tools insert here or assume it's done.
-          // Let's assume we insert into 'tools' first then 'reviews'.
-          // SKIPPING ACTUAL DB CALL for safety if mocked, but showing logic:
-          status: 'pending_review',
+          product_id: toolId,
+          locale: 'en', // Currently pipeline processes one tool, multiple drafts.
+                        // If we want to support multiple locales, we need to iterate post.drafts
+          title: post.drafts.en?.title || `${post.analysis.toolName} Review`,
+          summary: post.drafts.en?.summary || post.analysis.summary,
+          rating: post.analysis.smartScore?.total ? Math.round((post.analysis.smartScore.total / 10) * 5 * 10) / 10 : 0,
+          status: 'published', // Auto-publish for now
           smart_score: post.analysis.smartScore,
           critical_flaws: post.analysis.criticalFlaws,
-          competitors: post.analysis.competitors
-        });
+          competitors: post.analysis.competitors,
+          pros: post.analysis.pros,
+          cons: post.analysis.cons,
+          author: 'SmartWorkLab AI',
+          // We can also upsert KO version if we iterate. For MVP, let's just do EN or primary.
+        }, { onConflict: 'product_id, locale' });
 
-      if (error) console.error('Supabase Error:', error);
+      if (upsertError) {
+          console.error('Supabase Upsert Error:', upsertError);
+      } else {
+          console.log(`✅ Upserted expert_report for ${post.analysis.toolName} (EN)`);
+      }
+
     } else {
       console.log('⚠️ Publisher Agent: Supabase keys missing, skipping DB write.');
     }

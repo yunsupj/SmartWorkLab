@@ -308,7 +308,15 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
              <h2 className="text-xl font-bold mb-4 text-cyan-400">{t('analysis')}</h2>
              <div className="prose prose-invert max-w-none mb-6 text-slate-300 leading-relaxed">
                 <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
-                  {tool.summary}
+                  {`
+## ROI Formula
+We calculate ROI based on time saved vs cost:
+
+$$
+\\text{ROI} = \\frac{(\\text{Hours Saved} \\times \\text{Hourly Rate}) - \\text{Cost}}{\\text{Cost}} \\times 100
+$$
+
+` + tool.summary}
                 </ReactMarkdown>
              </div>
 
