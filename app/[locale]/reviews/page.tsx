@@ -24,11 +24,12 @@ export default async function ReviewsPage({ params }: { params: Promise<{ locale
     }
   );
 
+  // Check Auth (Optional for this page now)
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect(`/${locale}/login?error=unauthorized`);
-  }
+  // if (!user) {
+  //   redirect(`/${locale}/login?error=unauthorized`);
+  // }
 
   // Generate all reports concurrently
   const reportsPromises = TOOLS_TO_REVIEW.map(async (tool) => {

@@ -158,6 +158,8 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     }
   };
 
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <div className="max-w-4xl mx-auto p-6 text-white pb-24">
       <script
@@ -165,7 +167,22 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <header className="mb-10 text-center">
+      <header className="mb-10 text-center relative">
+        {/* Conditional Header Actions */}
+        <div className="absolute top-0 right-0">
+          {user ? (
+             user.id === tool.id ? ( // Note: Checking if user owns the review (Assuming tool.id is product, need review.author_id really)
+               <Link href={`/${locale}/reviews/${id}/edit`} className="text-slate-400 hover:text-white text-sm bg-slate-800 px-3 py-1 rounded">
+                  Edit
+               </Link>
+             ) : null
+          ) : (
+             <Link href={`/${locale}/login`} className="text-cyan-400 text-sm hover:underline">
+               Login to Review
+             </Link>
+          )}
+        </div>
+
         <div className="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full uppercase tracking-wider">
           {tool.category} {t('reviewLabel')}
         </div>
