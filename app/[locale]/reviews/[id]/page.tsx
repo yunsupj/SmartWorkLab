@@ -146,6 +146,10 @@ import { trackProductView } from '@/lib/tracking';
 import RoiImpactCard from '@/components/reviews/RoiImpactCard';
 import ReviewActions from '@/components/reviews/ReviewActions';
 import LabReport from '@/components/reviews/LabReport';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 
 
@@ -278,7 +282,11 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
 
            <section className="bg-slate-900 border border-slate-800 rounded-xl p-6">
              <h2 className="text-xl font-bold mb-4 text-cyan-400">{t('analysis')}</h2>
-             <p className="text-slate-300 leading-relaxed mb-6">{tool.summary}</p>
+             <div className="prose prose-invert max-w-none mb-6 text-slate-300 leading-relaxed">
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                  {tool.summary}
+                </ReactMarkdown>
+             </div>
 
              <div className="grid sm:grid-cols-2 gap-6">
                <div>

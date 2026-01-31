@@ -2,7 +2,7 @@
 
 import { createBrowserClient } from '@supabase/ssr';
 import { useState } from 'react';
-import { Star, Send } from 'lucide-react';
+import { Star, Send, Sliders } from 'lucide-react';
 
 export default function ReviewForm({ toolName, toolId }: { toolName: string; toolId: string }) {
   const [rating, setRating] = useState(0);
@@ -10,6 +10,8 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const [scores, setScores] = useState({ roi: 5, privacy: 5, integration: 5 });
 
   // Initialize Supabase Client
   const supabase = createBrowserClient(
@@ -31,6 +33,9 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
         return;
     }
 
+    // Calculate Total Smart Score (Simple Average for now)
+    const totalScore = parseFloat(((scores.roi + scores.privacy + scores.integration) / 3).toFixed(1));
+
     // Upsert to Expert Reports
     const { error } = await supabase
       .from('expert_reports')
@@ -39,6 +44,7 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
         author: 'SmartWorkLab AI', // Identifying the author or use user.email
         rating,
         summary: comment,
+        smart_score: { ...scores, total: totalScore }, // JSON payload
         status: 'pending', // Or approved if admin
         locale: 'en', // Default locale for now
         updated_at: new Date().toISOString()
@@ -68,37 +74,81 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
       <h3 className="text-lg font-bold text-white mb-4">Submit Your Expert Review</h3>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-6">
-            <label className="block text-slate-400 text-sm mb-2">Rate {toolName}</label>
-            <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                        key={star}
-                        type="button"
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHoverRating(star)}
-                        onMouseLeave={() => setHoverRating(0)}
-                        className="focus:outline-none transition-colors"
-                    >
-                        <Star
-                            className={`w-8 h-8 ${
-                                (hoverRating || rating) >= star
-                                ? 'text-yellow-400 fill-yellow-400'
-                                : 'text-slate-700'
-                            }`}
-                        />
-                    </button>
-                ))}
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+                <label className="block text-slate-400 text-sm mb-4">Overall Rating</label>
+                <div className="flex gap-1 mb-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                            key={star}
+                            type="button"
+                            onClick={() => setRating(star)}
+                            onMouseEnter={() => setHoverRating(star)}
+                            onMouseLeave={() => setHoverRating(0)}
+                            className="focus:outline-none transition-colors"
+                        >
+                            <Star
+                                className={`w-8 h-8 ${
+                                    (hoverRating || rating) >= star
+                                    ? 'text-yellow-400 fill-yellow-400'
+                                    : 'text-slate-700'
+                                }`}
+                            />
+                        </button>
+                    ))}
+                </div>
+                <p className="text-xs text-slate-500">How would you grade this tool overall?</p>
+            </div>
+
+            <div className="space-y-4">
+                <div>
+                     <div className="flex justify-between text-sm mb-1 text-slate-400">
+                        <span>ROI Score</span>
+                        <span className="text-cyan-400">{scores.roi}/10</span>
+                     </div>
+                     <input
+                        type="range" min="1" max="10"
+                        value={scores.roi}
+                        onChange={(e) => setScores({...scores, roi: parseInt(e.target.value)})}
+                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                     />
+                </div>
+                <div>
+                     <div className="flex justify-between text-sm mb-1 text-slate-400">
+                        <span>Privacy & Security</span>
+                        <span className="text-cyan-400">{scores.privacy}/10</span>
+                     </div>
+                     <input
+                        type="range" min="1" max="10"
+                        value={scores.privacy}
+                        onChange={(e) => setScores({...scores, privacy: parseInt(e.target.value)})}
+                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                     />
+                </div>
+                <div>
+                     <div className="flex justify-between text-sm mb-1 text-slate-400">
+                        <span>Integration Ease</span>
+                        <span className="text-cyan-400">{scores.integration}/10</span>
+                     </div>
+                     <input
+                        type="range" min="1" max="10"
+                        value={scores.integration}
+                        onChange={(e) => setScores({...scores, integration: parseInt(e.target.value)})}
+                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                     />
+                </div>
             </div>
         </div>
 
         <div className="mb-6">
-            <label className="block text-slate-400 text-sm mb-2">Analyst Commentary</label>
+            <label className="block text-slate-400 text-sm mb-2">
+                Analyst Commentary <span className="text-xs text-slate-600">(Supports Markdown & LaTeX: $E=mc^2$)</span>
+            </label>
             <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-white focus:outline-none focus:border-cyan-500 transition-colors h-32 resize-none"
-                placeholder="Share your experience with detailed pros and cons..."
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-white focus:outline-none focus:border-cyan-500 transition-colors h-48 font-mono text-sm"
+                placeholder="## Analysis\n\nThis tool is **excellent** because..."
                 required
             />
         </div>
@@ -108,10 +158,10 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
             disabled={isSubmitting || rating === 0}
             className="w-full bg-white text-slate-900 font-bold py-3 rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-            {isSubmitting ? 'Submitting...' : (
+            {isSubmitting ? 'Submitting Report...' : (
                 <>
                     <Send className="w-4 h-4" />
-                    Submit Review
+                    Submit Expert Report
                 </>
             )}
         </button>
