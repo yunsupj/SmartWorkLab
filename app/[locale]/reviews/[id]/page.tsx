@@ -111,6 +111,7 @@ import { getTranslations } from 'next-intl/server';
 // ... existing generateMetadata and getTool functions ...
 
 import { trackProductView } from '@/lib/tracking';
+import ReviewForm from '@/components/reviews/ReviewForm';
 
 
 
@@ -355,7 +356,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
               </div>
           )}
 
-          <TrackedLink
+           <TrackedLink
              href={tool.affiliateLink || tool.websiteUrl}
              target="_blank"
              rel="noopener noreferrer"
@@ -371,6 +372,16 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           </TrackedLink>
         </div>
       </div>
+
+      {/* Submit Review Section - Only for Logged In Users */}
+      {user && (
+         <div className="mt-16 border-t border-slate-800 pt-12 animate-fade-in-up">
+            <h2 className="text-2xl font-bold mb-8 text-center">Add Your Expert Review</h2>
+            <div className="max-w-2xl mx-auto">
+                <ReviewForm toolName={tool.name} />
+            </div>
+         </div>
+      )}
     </div>
   );
 }

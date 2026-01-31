@@ -62,7 +62,7 @@ export default async function TopTenPicks({ initialTools = [] }: { initialTools?
 
             {/* CTA Button */}
             <Link
-                href="/reviews"
+                href={`/reviews/${tool.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-white font-medium py-2 rounded-lg border border-slate-700 hover:border-cyan-500/50 transition-all text-sm group-hover:shadow-[0_0_15px_rgba(6,182,212,0.1)]"
             >
                 Read Full Lab Report

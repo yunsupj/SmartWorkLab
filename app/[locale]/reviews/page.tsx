@@ -2,8 +2,9 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Analyst } from '@/lib/agents/analyst';
+import Link from 'next/link';
 import LabReport from '@/components/reviews/LabReport';
-import ReviewForm from '@/components/reviews/ReviewForm';
+// import ReviewForm from '@/components/reviews/ReviewForm'; // Removed from list view
 
 // Mock list of tools for now (in real app, fetch from DB)
 const TOOLS_TO_REVIEW = ['ChatGPT Teams', 'Claude 3.5 Sonnet', 'Cursor AI', 'Midjourney v6'];
@@ -62,7 +63,14 @@ export default async function ReviewsPage({ params }: { params: Promise<{ locale
 
                 <LabReport summary={report} />
 
-                <ReviewForm toolName={tool} />
+                <div className="flex justify-end">
+                   <Link
+                     href={`/${locale}/reviews/${tool.toLowerCase().replace(/\s+/g, '-')}`}
+                     className="bg-cyan-950 hover:bg-cyan-900 border border-cyan-800 text-cyan-400 px-6 py-2 rounded-lg font-bold transition-all text-sm flex items-center gap-2"
+                   >
+                     Read Full Lab Report →
+                   </Link>
+                </div>
              </section>
            );
         })}
