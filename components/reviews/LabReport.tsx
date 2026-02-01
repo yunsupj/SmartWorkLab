@@ -45,7 +45,7 @@ export default function LabReport({ summary }: { summary: VerificationSummary })
 
         <div className="bg-slate-950/50 rounded-lg p-4 border border-slate-800/50 border-l-4 border-l-purple-500">
            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Market Position</p>
-           <p className="text-sm text-slate-300 leading-snug mt-1">
+           <p className="text-sm text-slate-300 leading-snug mt-1 line-clamp-2">
              {summary.marketAnalysis}
            </p>
         </div>

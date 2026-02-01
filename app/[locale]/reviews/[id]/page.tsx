@@ -261,7 +261,6 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
         </div>
       </header>
 
-      {/* --- SECTION 1: THE LAB REPORT (Expert Data) --- */}
       <div className="mb-16">
           <div className="flex items-center gap-3 mb-8">
               <div className="bg-cyan-500/10 p-2 rounded-lg border border-cyan-500/20">
@@ -273,6 +272,24 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           <div className="mb-12 animate-fade-in-up delay-100">
              <LabReport summary={tool.verificationSummary} />
           </div>
+
+          {/* Full Width Whitepaper Section */}
+          <section className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 md:p-12 mb-12">
+             <h3 className="text-xl text-cyan-400 font-mono uppercase tracking-widest mb-8 border-b border-slate-800 pb-4">
+                 Executive Summary & Technical Review
+             </h3>
+             <div className="prose prose-invert prose-lg max-w-none text-slate-300 leading-loose">
+                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                  {`
+## 1. ROI Evaluation
+$$
+\\text{ROI} = \\frac{(\\text{Hours Saved} \\times \\text{Hourly Rate}) - \\text{Cost}}{\\text{Cost}} \\times 100
+$$
+
+` + tool.summary}
+                </ReactMarkdown>
+             </div>
+          </section>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -306,18 +323,10 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
 
            <section className="bg-slate-900 border border-slate-800 rounded-xl p-6">
              <h2 className="text-xl font-bold mb-4 text-cyan-400">{t('analysis')}</h2>
-             <div className="prose prose-invert max-w-none mb-6 text-slate-300 leading-relaxed">
-                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
-                  {`
-## ROI Formula
-We calculate ROI based on time saved vs cost:
-
-$$
-\\text{ROI} = \\frac{(\\text{Hours Saved} \\times \\text{Hourly Rate}) - \\text{Cost}}{\\text{Cost}} \\times 100
-$$
-
-` + tool.summary}
-                </ReactMarkdown>
+             <div className="mb-6">
+                <p className="text-slate-400 italic text-sm">
+                    Detailed technical analysis is available in the <a href="#expert-analysis" className="text-cyan-400 hover:underline">Executive Summary</a> above.
+                </p>
              </div>
 
              <div className="grid sm:grid-cols-2 gap-6">
