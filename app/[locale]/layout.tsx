@@ -64,7 +64,7 @@ export default async function LocaleLayout({
           <AuthProvider>
             <Script
               async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXX"
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4002042064918650"
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
