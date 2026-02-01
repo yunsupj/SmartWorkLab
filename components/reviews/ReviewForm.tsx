@@ -7,6 +7,7 @@ import { Star, Send, Sliders } from 'lucide-react';
 
 export default function ReviewForm({ toolName, toolId }: { toolName: string; toolId: string }) {
   const router = useRouter();
+  const [title, setTitle] = useState('');
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -44,6 +45,7 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
       .upsert({
         product_id: toolId,
         author: 'SmartWorkLab AI',
+        title: title || `${toolName} Review`, // Fallback
         rating,
         summary: comment,
         smart_score: {
@@ -84,6 +86,20 @@ export default function ReviewForm({ toolName, toolId }: { toolName: string; too
       <h3 className="text-lg font-bold text-white mb-4">Submit Your Expert Review</h3>
 
       <form onSubmit={handleSubmit}>
+        <div className="mb-6">
+            <label className="block text-slate-400 text-sm mb-2">
+                Report Title <span className="text-red-500">*</span>
+            </label>
+            <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-500 transition-colors placeholder:text-slate-600"
+                placeholder="e.g., Cursor AI — Transcending the Limits of Developer Productivity"
+                required
+            />
+        </div>
+
         <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
                 <label className="block text-slate-400 text-sm mb-4">Overall Rating</label>
