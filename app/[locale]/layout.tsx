@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
+import Script from 'next/script';
 import PromoTicker from '@/components/PromoTicker';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -61,6 +62,12 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
+            <Script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXX"
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
             <PromoTicker />
             <Navigation />
             <main className="min-h-screen">
