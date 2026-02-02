@@ -172,31 +172,34 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
     notFound();
   }
 
-  // JSON-LD (Rich Snippets)
+  // JSON-LD (Rich Snippets: Review)
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: tool.name,
-    applicationCategory: tool.category,
-    operatingSystem: 'Web, SaaS',
-    offers: {
-      '@type': 'Offer',
-      price: tool.price.replace('$', '').replace('Free', '0'),
-      priceCurrency: 'USD',
+    '@type': 'Review',
+    itemReviewed: {
+        '@type': 'SoftwareApplication',
+        name: tool.title, // As requested: Title used for itemReviewed
+        applicationCategory: tool.category,
+        operatingSystem: 'Web, SaaS',
+        offers: {
+            '@type': 'Offer',
+            price: tool.price.replace('$', '').replace('Free', '0'),
+            priceCurrency: 'USD',
+        }
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: tool.rating,
-      reviewCount: tool.reviewCount,
-      bestRating: "5",
-      worstRating: "1"
+    reviewRating: {
+        '@type': 'Rating',
+        ratingValue: tool.rating,
+        bestRating: '5',
+        worstRating: '1'
     },
-    description: tool.summary,
     author: {
         '@type': 'Organization',
-        name: 'SmartWorkLab',
+        name: 'SmartWorkLab Research Team',
         url: 'https://smartworklab.com'
-    }
+    },
+    reviewBody: tool.summary ? tool.summary.substring(0, 200) + (tool.summary.length > 200 ? '...' : '') : '',
+    datePublished: tool.updatedAt
   };
 
   // Create Scoped Supabase Client for Auth Check
