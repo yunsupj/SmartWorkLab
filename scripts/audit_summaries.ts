@@ -26,11 +26,13 @@ async function auditSummaries() {
       const firstLine = summary.split('\n')[0].substring(0, 100);
 
       // Check for the reported repetitive phrase
+      const productName = Array.isArray(r.products) ? r.products[0]?.name : (r.products as any)?.name;
+
       if (summary.includes('We analyzed') && summary.includes('found significant pros')) {
           duplicateCount++;
-          console.log(`[REPETITIVE] ${r.products?.name}: ${firstLine}...`);
+          console.log(`[REPETITIVE] ${productName}: ${firstLine}...`);
       } else if (summary.length < 200) {
-          console.log(`[SHORT] ${r.products?.name}: ${summary}`);
+          console.log(`[SHORT] ${productName}: ${summary}`);
       }
   });
 
@@ -39,9 +41,13 @@ async function auditSummaries() {
   // Specific checks for deep dive targets
   const targets = ['Jasper', 'Surfer', 'ClickUp'];
   targets.forEach(t => {
-      const found = reports.find(r => r.products?.name.toLowerCase().includes(t.toLowerCase()));
+      const found = reports.find(r => {
+          const pName = Array.isArray(r.products) ? r.products[0]?.name : (r.products as any)?.name;
+          return pName?.toLowerCase().includes(t.toLowerCase());
+      });
       if (found) {
-          console.log(`\n[TARGET] ${found.products?.name} Summary Length: ${found.summary.length}`);
+          const pName = Array.isArray(found.products) ? found.products[0]?.name : (found.products as any)?.name;
+          console.log(`\n[TARGET] ${pName} Summary Length: ${found.summary.length}`);
       } else {
           console.log(`\n[TARGET] ${t} NOT FOUND`);
       }
