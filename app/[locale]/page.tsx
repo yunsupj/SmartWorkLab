@@ -9,6 +9,7 @@ import TransparencyMeter from '@/components/TransparencyMeter';
 import AdPlaceholder from '@/components/AdPlaceholder';
 import FadeIn from '@/components/FadeIn';
 import RoiCalculator from '@/components/RoiCalculator';
+import AgencyCTA from '@/components/AgencyCTA';
 // Data Fetcher
 import { getTranslations } from 'next-intl/server';
 
@@ -128,6 +129,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
              <div className="max-w-4xl mx-auto">
                 <RoiCalculator />
              </div>
+        </FadeIn>
+
+        {/* Agency Lead Gen CTA */}
+        <FadeIn delay={0.9} className="mb-12">
+             <AgencyCTA />
         </FadeIn>
 
       </div>
