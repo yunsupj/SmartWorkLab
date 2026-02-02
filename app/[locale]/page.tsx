@@ -8,6 +8,7 @@ import PromoTicker from '@/components/PromoTicker';
 import TransparencyMeter from '@/components/TransparencyMeter';
 import AdPlaceholder from '@/components/AdPlaceholder';
 import FadeIn from '@/components/FadeIn';
+import RoiCalculator from '@/components/RoiCalculator';
 // Data Fetcher
 import { getTranslations } from 'next-intl/server';
 
@@ -119,7 +120,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                    <TopToolsFetcher />
                  </Suspense>
             </FadeIn>
+
         </div>
+
+        {/* ROI Calculator Widget */}
+        <FadeIn delay={0.8} className="mb-24">
+             <div className="max-w-4xl mx-auto">
+                <RoiCalculator />
+             </div>
+        </FadeIn>
 
       </div>
     </div>
