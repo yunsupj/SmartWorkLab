@@ -147,6 +147,7 @@ import RoiImpactCard from '@/components/reviews/RoiImpactCard';
 import ReviewActions from '@/components/reviews/ReviewActions';
 import LabReport from '@/components/reviews/LabReport';
 import RoiCalculator from '@/components/RoiCalculator';
+import RelatedReports from '@/components/reviews/RelatedReports';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -509,6 +510,11 @@ $$
       {/* ROI Calculator for this Tool */}
       <section className="mb-16 animate-fade-in-up">
            <RoiCalculator showCta={false} />
+      </section>
+
+      {/* Recommended Next Readings */}
+      <section className="mb-24">
+         <RelatedReports currentToolId={tool.id} category={tool.category} />
       </section>
 
       {/* Edit Actions for Author */}
