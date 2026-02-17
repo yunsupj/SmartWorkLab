@@ -21,7 +21,10 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: `${data.toolA.name} vs ${data.toolB.name}: ${t('title_suffix')}`,
-    description: data.verdict.reason
+    description: data.verdict.reason,
+    alternates: {
+      canonical: `/en/compare/${pair}`
+    }
   };
 }
 
@@ -33,6 +36,14 @@ export default async function ComparisonPage({ params }: Props) {
 
   if (!data) {
     notFound();
+  }
+
+  // Thin Content Check: If verdict reasoning is too short or generic, redirect to main review
+  // This helps avoid "Duplicate without user-selected canonical" errors for low-value comparisons
+  if (data.verdict.reason.length < 50 || data.verdict.reason.includes('similar value profiles')) {
+     // Assuming toolA is the primary one we want to rank for if comparison is bad
+      const { redirect } = await import('next/navigation'); // Dynamic import to avoid top-level issues if any
+      redirect(`/${locale}/reviews/${data.toolA.id}`);
   }
 
   const { toolA, toolB, verdict } = data;
