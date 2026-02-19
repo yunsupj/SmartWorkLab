@@ -15,7 +15,7 @@ import { getTranslations } from 'next-intl/server';
 
 
 
-async function TopToolsFetcher() {
+async function TopToolsFetcher({ locale }: { locale: string }) {
   if (!supabase) return <div className="text-red-400 text-center">Database connection client missing.</div>;
 
   const { data: tools, error } = await supabase
@@ -24,6 +24,7 @@ async function TopToolsFetcher() {
       id, name, category,
       expert_reports ( rating, transparency_source_count, summary )
     `)
+    .eq('expert_reports.locale', locale)
     .limit(10);
 
   if (error) {
@@ -118,7 +119,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="grid md:grid-cols-3 gap-8 mb-24">
             <FadeIn delay={0.7} className="md:col-span-3">
                  <Suspense fallback={<div className="text-slate-500 animate-pulse text-center p-12">Loading Insights...</div>}>
-                   <TopToolsFetcher />
+                   <TopToolsFetcher locale={locale} />
                  </Suspense>
             </FadeIn>
 
