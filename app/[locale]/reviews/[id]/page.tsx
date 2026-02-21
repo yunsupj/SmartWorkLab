@@ -283,7 +283,7 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
           </div>
 
           {/* Full Width Whitepaper Section */}
-          <section className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 md:p-12 mb-12">
+          <section className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 md:p-12 mb-12 overflow-hidden box-border">
              <h3 className="text-xl text-cyan-400 font-mono uppercase tracking-widest mb-8 border-b border-slate-800 pb-4">
                  Executive Summary & Technical Review
              </h3>

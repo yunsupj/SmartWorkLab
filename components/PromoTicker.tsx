@@ -19,7 +19,7 @@ export default function PromoTicker() {
           <div key={idx} className="flex items-center gap-2">
             <Link
               href={promo.link}
-              className="text-xs font-mono font-bold tracking-wider hover:text-white transition-colors"
+              className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[80vw] md:max-w-none font-mono font-bold tracking-wider hover:text-white transition-colors"
             >
               {promo.text}
             </Link>
