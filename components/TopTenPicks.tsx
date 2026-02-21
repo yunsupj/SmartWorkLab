@@ -41,7 +41,7 @@ export default async function TopTenPicks({ initialTools = [] }: { initialTools?
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tools.map((tool, index) => (
-          <div key={tool.id} className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-xl p-6 hover:border-cyan-500/30 transition-all hover:-translate-y-1 group relative overflow-hidden">
+          <div key={tool.id} className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-xl p-6 hover:border-cyan-500/30 transition-all hover:-translate-y-1 group relative overflow-hidden max-w-[100vw] box-border">
              {/* Spotlight Effect */}
              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none group-hover:bg-cyan-500/10 transition-colors"></div>
 

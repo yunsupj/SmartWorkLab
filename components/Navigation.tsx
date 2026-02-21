@@ -53,9 +53,9 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-40">
-      <div className="flex items-center gap-6">
-        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent flex items-center gap-2">
+    <nav className="flex items-center justify-between px-2 py-4 sm:p-4 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-40 w-full box-border">
+      <div className="flex items-center gap-3 sm:gap-6 shrink">
+        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent flex items-center gap-2 shrink-0">
           SmartWorkLab
           {user && (
              <span className="relative flex h-2 w-2" title="Online">
@@ -72,13 +72,13 @@ export default function Navigation() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 shrink">
         {/* Locale Switcher */}
         <select
           defaultValue={locale}
           disabled={isPending}
           onChange={onSelectChange}
-          className="bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+          className="bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded px-1 sm:px-2 py-1 focus:outline-none focus:ring-1 focus:ring-cyan-500 shrink-0"
         >
           <option value="en">🇺🇸 EN</option>
           <option value="ko">🇰🇷 KO</option>
@@ -87,13 +87,14 @@ export default function Navigation() {
 
         {!loading && (
             user ? (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 shrink">
                     <Link
                         href="/metrics"
-                        className="text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-full transition-all border border-slate-700 flex items-center gap-2"
+                        className="text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white px-3 sm:px-4 py-2 rounded-full transition-all border border-slate-700 flex items-center gap-2 shrink"
                     >
-                        <LayoutDashboard className="w-3 h-3" />
-                         Dashboard
+                        <LayoutDashboard className="w-3 h-3 shrink-0" />
+                         <span className="hidden sm:inline">Dashboard</span>
+                         <span className="inline sm:hidden">DB</span>
                     </Link>
                     <button
                         onClick={handleSignOut}

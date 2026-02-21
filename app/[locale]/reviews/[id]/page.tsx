@@ -288,15 +288,17 @@ export default async function ToolPage({ params }: { params: Promise<{ id: strin
                  Executive Summary & Technical Review
              </h3>
              <div className="prose prose-invert prose-lg max-w-none text-slate-300 leading-loose">
-                <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
-                  {`
+                <div className="overflow-x-auto whitespace-nowrap max-[480px]:[&_.katex]:text-[80%] pb-4 max-w-[100vw] box-border">
+                  <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                    {`
 ## 1. ROI Evaluation
 $$
 \\text{ROI} = \\frac{(\\text{Hours Saved} \\times \\text{Hourly Rate}) - \\text{Cost}}{\\text{Cost}} \\times 100
 $$
 
 ` + tool.summary}
-                </ReactMarkdown>
+                  </ReactMarkdown>
+                </div>
              </div>
           </section>
       </div>
