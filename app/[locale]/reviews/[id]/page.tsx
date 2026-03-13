@@ -135,7 +135,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     title: tool.title, // Use localized title
     description: tool.summary,
     alternates: {
-        canonical: `https://www.smartworklab.store/en/reviews/${id}`,
+        canonical: `https://smartworklab.store/${locale}/reviews/${id}`,
     }
   };
 }

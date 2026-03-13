@@ -22,10 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://smartworklab.com'),
-  alternates: {
-    canonical: './',
-  },
+  metadataBase: new URL('https://smartworklab.store'),
   title: {
     default: "SmartWorkLab | Quantify Your AI ROI",
     template: "%s | SmartWorkLab"

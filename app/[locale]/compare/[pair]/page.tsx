@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
     title: `${data.toolA.name} vs ${data.toolB.name}: ${t('title_suffix')}`,
     description: data.verdict.reason,
     alternates: {
-      canonical: `/en/compare/${pair}`
+      canonical: `https://smartworklab.store/${locale}/compare/${pair}`
     }
   };
 }

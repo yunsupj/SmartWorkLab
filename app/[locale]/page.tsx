@@ -47,6 +47,15 @@ async function TopToolsFetcher({ locale }: { locale: string }) {
   return <TopTenPicks initialTools={formattedTools} />;
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return {
+    alternates: {
+      canonical: `https://smartworklab.store/${locale}`
+    }
+  };
+}
+
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations('Index');
