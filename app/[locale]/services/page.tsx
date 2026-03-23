@@ -5,9 +5,11 @@ import ServiceInquiry from '@/components/ServiceInquiry';
 import RsvpDemoModule from '@/components/demos/RsvpDemoModule';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'AI Development Services | SmartWorkLab',
-  description: 'Custom AI development from RSVP microsites to enterprise RAG systems and production ML pipelines. Entry ($499), Growth ($1,500+), and Enterprise tiers — built by ML engineers.',
+  description: 'Custom AI development from RSVP microsites to enterprise RAG systems and production ML pipelines. Entry ($299 launch), Growth ($1,500+), and Enterprise tiers — built by ML engineers.',
   alternates: { canonical: 'https://smartworklab.store/en/services' },
 };
 
@@ -123,15 +125,18 @@ const TECH_STACKS: Record<string, string[]> = {
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
 
-  let services: AgencyService[] = STATIC_SERVICES;
-  if (supabase) {
-    const { data } = await supabase
-      .from('agency_services')
-      .select('*')
-      .eq('status', 'available')
-      .order('display_order', { ascending: true });
-    if (data && data.length > 0) services = data;
-  }
+  // NOTE: Always use STATIC_SERVICES as source of truth.
+  // The Supabase agency_services table has stale rows (old $499 price, old demo URL).
+  // Re-enable DB fetch after running the SQL migration that updates those rows.
+  const services: AgencyService[] = STATIC_SERVICES;
+  // if (supabase) {
+  //   const { data } = await supabase
+  //     .from('agency_services')
+  //     .select('*')
+  //     .eq('status', 'available')
+  //     .order('display_order', { ascending: true });
+  //   if (data && data.length > 0) services = data;
+  // }
 
   return (
     <div className="bg-slate-950 text-white min-h-screen">
