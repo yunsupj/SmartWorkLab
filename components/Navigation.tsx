@@ -74,11 +74,11 @@ export default function Navigation() {
                </span>
             )}
           </Link>
-          <div className="hidden lg:flex gap-4 text-sm font-medium text-slate-400">
-            <Link href="/" className="hover:text-cyan-400 transition-colors">{t('tools')}</Link>
-            <Link href="/reviews" className="hover:text-cyan-400 transition-colors">{t('reviews')}</Link>
-            <Link href="/metrics" className="hover:text-cyan-400 transition-colors">{t('metrics')}</Link>
-            <Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link>
+          <div className="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
+            <Link href="/lab" className="hover:text-cyan-400 transition-colors">Lab</Link>
+            <Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link>
+            <Link href="/projects" className="hover:text-cyan-400 transition-colors">Projects</Link>
+            <Link href="/about" className="hover:text-cyan-400 transition-colors">Contact</Link>
           </div>
         </div>
 
@@ -132,9 +132,9 @@ export default function Navigation() {
                       </button>
                   </div>
               ) : (
-                  <Link href="/login" className="text-[10px] sm:text-xs font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all shadow-[0_0_15px_rgba(8,145,178,0.4)] animate-pulse hover:animate-none flex items-center shrink-0">
-                      <span className="hidden min-[400px]:inline">{t('getRoiReport')}</span>
-                      <span className="inline min-[400px]:hidden">Get ROI</span>
+                  <Link href="/services" className="text-[10px] sm:text-xs font-bold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all shadow-[0_0_15px_rgba(8,145,178,0.4)] hover:shadow-[0_0_20px_rgba(8,145,178,0.5)] flex items-center shrink-0">
+                      <span className="hidden min-[400px]:inline">Get Started</span>
+                      <span className="inline min-[400px]:hidden">Start</span>
                   </Link>
               )
           )}
@@ -176,20 +176,20 @@ export default function Navigation() {
         </div>
 
         <div className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
-            <span>{t('tools')}</span>
+          <Link href="/lab" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+            <span>Lab</span>
             <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/reviews" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
-            <span>{t('reviews')}</span>
+          <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+            <span>Services</span>
             <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/metrics" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
-            <span>{t('metrics')}</span>
+          <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+            <span>Projects</span>
             <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
           </Link>
           <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
-            <span>About</span>
+            <span>Contact</span>
             <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
           </Link>
 
@@ -209,11 +209,11 @@ export default function Navigation() {
             </button>
           ) : (
             <Link
-               href="/login"
+               href="/services"
                onClick={() => setIsMobileMenuOpen(false)}
                className="mx-4 mt-2 py-3 text-center text-sm font-bold bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg shadow-lg hover:shadow-cyan-900/50 transition-all flex justify-center items-center"
             >
-               {t('getRoiReport')}
+               Get Started
             </Link>
           )}
         </div>

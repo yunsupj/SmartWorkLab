@@ -40,7 +40,7 @@ const STATIC_SERVICES: AgencyService[] = [
     id: '1', slug: 'rsvp-event-sites', tier: 'tier_1', tier_label: 'Entry',
     name: 'RSVP & Event Microsites',
     tagline: 'Beautiful event sites, built in days.',
-    description: 'Custom-designed event microsites with RSVP forms, photo guestbooks, countdown timers, and automated reminder emails. Perfect for birthday parties, weddings, and brand activations.',
+    description: 'Custom-designed event microsites with RSVP forms, photo guestbooks, countdown timers, and automated reminder emails. Get a custom domain like yourname-rsvp.com for maximum charm. Perfect for birthday parties, weddings, and brand activations.',
     price_usd: 499, price_label: 'Starting at $499', is_recurring: false, billing_cycle: 'one-time',
     features: [
       'Custom design & branding',
@@ -175,7 +175,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
       {/* ── 3-Tier Service Cards ── */}
       <section className="max-w-7xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {services.map((svc, idx) => {
             const a = ACCENT[svc.accent_color ?? 'cyan'] ?? ACCENT.cyan;
             const Icon = ICON_MAP[svc.icon_name ?? 'Sparkles'] ?? Sparkles;
@@ -185,7 +185,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             return (
               <div
                 key={svc.id}
-                className={`group relative flex flex-col bg-slate-900/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} ${isEnterprise ? 'lg:scale-105' : ''}`}
+                className={`group relative flex flex-col h-full bg-slate-900/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} ${isEnterprise ? 'lg:scale-105' : ''}`}
               >
                 {/* "Most Popular" banner on Enterprise */}
                 {isEnterprise && (
@@ -197,7 +197,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 {/* Glow orb */}
                 <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none`} />
 
-                <div className="relative z-10 p-8 flex flex-col flex-1">
+                <div className="relative z-10 p-8 flex flex-col flex-1 h-full">
                   {/* Icon + tier badge */}
                   <div className="flex items-start justify-between mb-5">
                     <div className={`w-11 h-11 rounded-xl ${a.badge} border flex items-center justify-center flex-shrink-0`}>

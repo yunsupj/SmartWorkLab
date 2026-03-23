@@ -81,7 +81,7 @@ export const RSVP_THEMES: RsvpThemeConfig[] = [
   },
   {
     id: 'corporate-slate',
-    label: '💼 Corporate Slate',
+    label: '💼 Corporate',
     gradient: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)',
     accentColor: 'text-slate-700',
     accentBorder: 'border-slate-300',
@@ -90,6 +90,55 @@ export const RSVP_THEMES: RsvpThemeConfig[] = [
     demoTitle: "Corporate Event",
     demoSubtitle: "Professional gatherings, flawlessly managed",
     buttonBg: 'from-slate-500 to-slate-700',
+  },
+  // ── Kids / Character themes ──────────────────────────────────────────────
+  {
+    id: 'hero-red',
+    label: '🕷️ Hero Red',
+    gradient: 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 40%, #fecaca 70%, #fcd3d3 100%)',
+    accentColor: 'text-red-700',
+    accentBorder: 'border-red-400',
+    accentBg: 'bg-red-50',
+    stickers: ['🕷️', '🦸', '⚡', '💥', '🕸️', '🌟'],
+    demoTitle: "Super Hero Party! 🕷️",
+    demoSubtitle: "Your friendly neighborhood celebration",
+    buttonBg: 'from-red-500 to-rose-600',
+  },
+  {
+    id: 'royal-pink',
+    label: '👸 Royal Pink',
+    gradient: 'linear-gradient(135deg, #fdf4ff 0%, #fae8ff 40%, #f5d0fe 70%, #e9d5ff 100%)',
+    accentColor: 'text-fuchsia-700',
+    accentBorder: 'border-fuchsia-300',
+    accentBg: 'bg-fuchsia-50',
+    stickers: ['👸', '👑', '💎', '🌸', '🦄', '✨'],
+    demoTitle: "Royal Princess Ball 👑",
+    demoSubtitle: "Every guest is treated like royalty",
+    buttonBg: 'from-fuchsia-400 to-pink-500',
+  },
+  {
+    id: 'puppy-blue',
+    label: '🐾 Puppy Blue',
+    gradient: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 40%, #bae6fd 70%, #7dd3fc 100%)',
+    accentColor: 'text-sky-700',
+    accentBorder: 'border-sky-300',
+    accentBg: 'bg-sky-50',
+    stickers: ['🐾', '🐶', '🦴', '⭐', '🎖️', '🌈'],
+    demoTitle: "Sheriff Pup Party! 🐾",
+    demoSubtitle: "Paws, badges, and birthday adventures",
+    buttonBg: 'from-sky-400 to-blue-500',
+  },
+  {
+    id: 'safari-adventure',
+    label: '🦁 Safari',
+    gradient: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 40%, #fde68a 70%, #fcd34d 100%)',
+    accentColor: 'text-amber-800',
+    accentBorder: 'border-amber-400',
+    accentBg: 'bg-amber-50',
+    stickers: ['🦁', '🐘', '🦒', '🌿', '🌍', '✨'],
+    demoTitle: "Safari Adventure! 🦁",
+    demoSubtitle: "A wild and wonderful celebration",
+    buttonBg: 'from-amber-400 to-orange-500',
   },
 ];
 
@@ -200,7 +249,7 @@ export default function RsvpDemoModule({ compact = false }: RsvpDemoModuleProps)
       {/* Config note (non-compact only) */}
       {!compact && (
         <p className="mt-4 text-center text-xs text-slate-600 font-mono">
-          Theme: <code className="text-slate-400">{activeTheme.id}</code> · 6 variants available · Fully customizable
+          Theme: <code className="text-slate-400">{activeTheme.id}</code> · 10 variants · Fully customizable
         </p>
       )}
     </div>
