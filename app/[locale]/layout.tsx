@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import Script from 'next/script';
-import PromoTicker from '@/components/PromoTicker';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AuthProvider from '@/components/AuthProvider';
@@ -24,21 +23,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://smartworklab.store'),
   title: {
-    default: "SmartWorkLab | Quantify Your AI ROI",
+    default: "SmartWorkLab | Expert Tech Blog & AI Development Agency",
     template: "%s | SmartWorkLab"
   },
-  description: "The premier platform for auditing AI tools, calculating efficiency ROI, and verifying software value with expert engineering reviews.",
+  description: "Deep-dive ML implementations, paper reviews, and agentic workflow breakdowns. SmartWorkLab also builds custom AI systems — from RSVP microsites to enterprise RAG pipelines.",
+  keywords: ['ML engineering', 'AI agency', 'RAG chatbots', 'VTON', 'agentic workflows', 'machine learning blog'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://smartworklab.com',
+    url: 'https://smartworklab.store',
     siteName: 'SmartWorkLab',
     images: [
       {
-        url: '/og-image.jpg', // Placeholder
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'SmartWorkLab Dashboard',
+        alt: 'SmartWorkLab — Expert Tech Blog & AI Agency',
       },
     ],
   },
@@ -74,7 +74,6 @@ export default async function LocaleLayout({
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
-            <PromoTicker />
             <Navigation />
             <main className="min-h-screen">
               {children}
