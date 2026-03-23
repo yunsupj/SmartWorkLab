@@ -2,12 +2,23 @@
 
 import { useEffect, useState } from 'react';
 
-export default function TableOfContents({ content }: { content: string }) {
+interface Heading { id: string; text: string; level: number; }
+
+interface TableOfContentsProps {
+  content?: string;     // legacy: parse headings from raw markdown
+  headings?: Heading[]; // new: pre-computed headings (from tech_posts.toc_headings)
+}
+
+export default function TableOfContents({ content, headings: headingsProp }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
-  const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
+  const [headings, setHeadings] = useState<Heading[]>(headingsProp ?? []);
+
 
   useEffect(() => {
-    // Parse headings from markdown content
+    // If headings were pre-computed (from DB), skip markdown parsing
+    if (!content) return;
+
+    // Parse headings from markdown content (legacy path)
     const matches = content.match(/^(#{2,3})\s+(.+)$/gm);
 
     if (matches) {

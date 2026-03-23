@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SmartWorkLab — Expert Tech Blog & B2B AI Agency
 
-## Getting Started
+> **Live site:** [smartworklab.store](https://smartworklab.store) · **Stack:** Next.js 15 · Supabase · Vercel · `next-intl`
 
-First, run the development server:
+SmartWorkLab is a high-end expert tech blog and B2B AI development agency. We publish deep-dive ML implementations, paper reviews, and agentic workflow breakdowns — and build custom AI systems for clients.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Architecture
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full single source of truth: database schema, component mapping, URL taxonomy, and migration phases.
+
+---
+
+## Project Structure
+
+```
+app/
+├── [locale]/
+│   ├── page.tsx              ← Homepage
+│   ├── lab/                  ← Tech blog (deep-dive posts)
+│   │   ├── page.tsx          ← Post listing index
+│   │   └── [slug]/page.tsx   ← Individual post (MDX + LaTeX + code)
+│   ├── services/             ← B2B Agency (tier cards + inquiry)
+│   │   └── page.tsx
+│   ├── about/
+│   ├── login/
+│   ├── privacy/
+│   └── terms/
+components/
+├── lab/                      ← Blog-specific components
+│   ├── ProjectShowcaseCard.tsx
+│   ├── TechPostMetaPanel.tsx
+│   └── RelatedPosts.tsx
+├── agency/                   ← Agency/services components
+│   └── ServicesTierCTA.tsx
+└── ...                       ← Shared components (Navigation, Footer, etc.)
+supabase/
+├── schema.sql                ← v1 schema (products, reviews — maintained for SEO)
+└── migrations/
+    └── 20260322_smartworklab_v2.sql  ← v2: tech_posts, agency_services
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## URL Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | Description |
+|---|---|
+| `/` | Homepage — lab post highlights + agency intro |
+| `/lab` | Tech blog listing |
+| `/lab/[slug]` | Individual deep-dive post |
+| `/lab/series/[series]` | Posts filtered by series |
+| `/services` | B2B agency — 3-tier service showcase |
+| `/about` | About page + methodology |
 
-## Learn More
+### 301 Redirects (Active)
 
-To learn more about Next.js, take a look at the following resources:
+| From | To |
+|---|---|
+| `/[locale]/reviews` | `/[locale]/lab` |
+| `/[locale]/reviews/[id]` | `/[locale]/lab` |
+| `/[locale]/compare/[pair]` | `/[locale]/services` |
+| `/[locale]/metrics` | `/[locale]/services` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development
 
-## Deploy on Vercel
+```bash
+npm install
+npm run dev       # http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SITE_URL=https://smartworklab.store
+```
+
+### Database
+
+Apply the v2 migration in Supabase dashboard → SQL Editor:
+
+```bash
+# supabase/migrations/20260322_smartworklab_v2.sql
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Database | Supabase (PostgreSQL + RLS) |
+| Auth | Supabase Auth |
+| i18n | `next-intl` (EN / KO / DE) |
+| Deployment | Vercel |
+
+---
+
+## Content Series
+
+| Series | Description |
+|---|---|
+| `ML Paper Reviews` | Academic paper breakdowns with implementation notes |
+| `Agentic Workflows` | Multi-step AI agent system walkthroughs |
+| `Spatial AI` | Geospatial ML and H3-based data processing |
+
+---
+
+*See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full migration plan and component mapping.*
