@@ -40,8 +40,8 @@ const STATIC_SERVICES: AgencyService[] = [
     id: '1', slug: 'rsvp-event-sites', tier: 'tier_1', tier_label: 'Entry',
     name: 'RSVP & Event Microsites',
     tagline: 'Beautiful event sites, built in days.',
-    description: 'Custom-designed event microsites with RSVP forms, photo guestbooks, countdown timers, and automated reminder emails. Get a custom domain like yourname-rsvp.com for maximum charm. Perfect for birthday parties, weddings, and brand activations.',
-    price_usd: 499, price_label: 'Starting at $499', is_recurring: false, billing_cycle: 'one-time',
+    description: 'Custom-designed event microsites with RSVP forms, photo guestbooks, countdown timers, and automated reminder emails. Get a custom domain like yourname-rsvp.com for maximum charm.',
+    price_usd: 299, price_label: '$299', is_recurring: false, billing_cycle: 'limited launch · scales to $499',
     features: [
       'Custom design & branding',
       'RSVP form + Supabase backend',
@@ -49,6 +49,7 @@ const STATIC_SERVICES: AgencyService[] = [
       'Automated email reminders (Resend)',
       'Google Calendar integration',
       'Mobile-first responsive',
+      'Custom domain (yourname-rsvp.com)',
     ],
     deliverables: ['Deployed Next.js site on Vercel', 'Custom domain setup', 'Source code handoff', '30-day support'],
     timeline_days: 7, case_study_slug: null,
@@ -59,7 +60,7 @@ const STATIC_SERVICES: AgencyService[] = [
     id: '2', slug: 'rag-chatbots', tier: 'tier_2', tier_label: 'Growth',
     name: 'RAG Chatbots & Knowledge Bases',
     tagline: 'Your documents, instantly queryable.',
-    description: 'Production-grade Retrieval-Augmented Generation (RAG) systems built on your private data. Supports PDFs, Notion exports, and Confluence wikis with a branded chat UI.',
+    description: 'Production-grade RAG systems built on your private data. SOC 2-ready architecture with encrypted vector storage and role-based access control.',
     price_usd: null, price_label: 'From $1,500', is_recurring: false, billing_cycle: 'one-time',
     features: [
       'Document ingestion (PDF, Notion, Confluence)',
@@ -68,6 +69,10 @@ const STATIC_SERVICES: AgencyService[] = [
       'Admin dashboard for doc management',
       'Multi-tenant auth (Supabase)',
       'Custom LLM routing (GPT-4o / Claude)',
+      '🔐 End-to-end encryption at rest & in transit',
+      '🔐 Role-based access control (RBAC)',
+      '🔐 GDPR-compliant data handling',
+      '🔐 Private VPC deployment available',
     ],
     deliverables: ['Deployed RAG application', 'Admin CMS', 'Embedding pipeline', 'Monitoring dashboard', '60-day support'],
     timeline_days: 21, case_study_slug: null, demo_url: null,
@@ -81,14 +86,19 @@ const STATIC_SERVICES: AgencyService[] = [
     price_usd: null, price_label: 'Custom Quote', is_recurring: false, billing_cycle: 'one-time',
     features: [
       'Custom ML model development & fine-tuning',
-      'VTON / Diffusion model pipelines',
+      'VTON / Diffusion model inference pipelines',
       'Agentic workflow orchestration (LangGraph / CrewAI)',
       'Spatial data processing (H3, PostGIS)',
       'GPU inference deployment (Modal / Replicate)',
       'Full CI/CD + monitoring stack',
+      'Multi-item VTON with single inference pass',
+      'Model quantization & latency optimization',
+      'Custom training data pipelines',
+      'A/B experiment framework',
+      'Real-time inference API with SLA guarantees',
     ],
     deliverables: ['Production ML system', 'Model artifacts & weights', 'Inference API', 'Technical documentation', '90-day SLA support'],
-    timeline_days: 60, case_study_slug: null, demo_url: null,
+    timeline_days: 60, case_study_slug: 'vton-multi-item-synthesis', demo_url: null,
     status: 'available', display_order: 3, icon_name: 'Cpu', accent_color: 'green',
   },
 ];
@@ -225,13 +235,21 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                     )}
                   </div>
 
-                  {/* Features */}
+                  {/* Features — scrollable on Enterprise to keep grid balanced */}
                   {svc.features && (
-                    <ul className="space-y-2.5 mb-6">
+                    <ul className={`space-y-2.5 mb-6 ${
+                      svc.slug === 'enterprise-ai-agents'
+                        ? 'max-h-56 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent'
+                        : ''
+                    }`}>
                       {svc.features.map((f, i) => (
                         <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300">
-                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${a.text}`} />
-                          {f}
+                          {f.startsWith('🔐') ? (
+                            <span className="flex-shrink-0 mt-0.5 text-base leading-none">{f.slice(0, 2)}</span>
+                          ) : (
+                            <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${a.text}`} />
+                          )}
+                          {f.startsWith('🔐') ? f.slice(2).trim() : f}
                         </li>
                       ))}
                     </ul>
@@ -258,6 +276,16 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
                   {/* CTA buttons */}
                   <div className="mt-auto flex flex-col gap-3">
+                    {/* VTON case study link on Enterprise */}
+                    {svc.case_study_slug && (
+                      <a
+                        href={`/${(svc as any).locale ?? 'en'}/lab/${svc.case_study_slug}`}
+                        className={`inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full text-xs font-mono border ${a.border} ${a.text} hover:${a.bg} transition-all`}
+                      >
+                        📖 Technical Case Study: VTON Multi-Item Synthesis
+                      </a>
+                    )}
+
                     {/* Live demo link (Tier 1 only) */}
                     {svc.demo_url && (
                       <a
@@ -297,7 +325,85 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
+      {/* ── Comparison Table ── */}
+      <section className="max-w-4xl mx-auto px-6 pb-24">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold text-white mb-2">Why Not Just DIY?</h2>
+          <p className="text-slate-400 text-sm">The real cost of generic tools adds up quickly.</p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-800 overflow-hidden">
+          {/* Table header */}
+          <div className="grid grid-cols-3 bg-slate-900 border-b border-slate-800">
+            <div className="px-6 py-4 text-xs font-mono text-slate-500 uppercase tracking-widest">Feature</div>
+            <div className="px-6 py-4 text-xs font-mono text-red-400/80 uppercase tracking-widest border-l border-slate-800">
+              DIY / Generic Tools
+            </div>
+            <div className="px-6 py-4 text-xs font-mono text-cyan-400 uppercase tracking-widest border-l border-slate-800">
+              SmartWorkLab Build
+            </div>
+          </div>
+
+          {/* Rows */}
+          {[
+            {
+              feature: 'Initial Setup',
+              diy: 'Hours of config & debugging',
+              swl: 'Handled end-to-end by us',
+            },
+            {
+              feature: 'Ongoing Maintenance',
+              diy: 'You own every bug & update',
+              swl: 'No maintenance burden — SLA included',
+            },
+            {
+              feature: 'Performance',
+              diy: 'Generic templates, slow cold starts',
+              swl: 'Optimized for Core Web Vitals & edge delivery',
+            },
+            {
+              feature: 'Custom Domain',
+              diy: 'Extra cost, manual DNS setup',
+              swl: 'Included — yourname-rsvp.com ready to go',
+            },
+            {
+              feature: 'Design Quality',
+              diy: 'Drag-and-drop limitations',
+              swl: 'Pixel-perfect, brand-matched UI',
+            },
+            {
+              feature: 'Security',
+              diy: 'Shared SaaS infrastructure',
+              swl: 'Private Supabase + RBAC + encryption at rest',
+            },
+            {
+              feature: 'Support',
+              diy: 'Community forums / ticket queue',
+              swl: '30–90 day direct engineer support',
+            },
+          ].map(({ feature, diy, swl }, i) => (
+            <div
+              key={feature}
+              className={`grid grid-cols-3 border-b border-slate-800/60 last:border-0 ${
+                i % 2 === 0 ? 'bg-slate-950/30' : ''
+              }`}
+            >
+              <div className="px-6 py-4 text-sm font-semibold text-slate-300">{feature}</div>
+              <div className="px-6 py-4 text-sm text-red-400/70 border-l border-slate-800/60 flex items-start gap-2">
+                <span className="text-red-500 mt-0.5 flex-shrink-0">✕</span>
+                {diy}
+              </div>
+              <div className="px-6 py-4 text-sm text-cyan-300/90 border-l border-slate-800/60 flex items-start gap-2">
+                <span className="text-cyan-400 mt-0.5 flex-shrink-0">✓</span>
+                {swl}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Process Timeline ── */}
+
       <section className="max-w-4xl mx-auto px-6 pb-24">
         <h2 className="text-2xl font-bold text-center mb-12 text-white">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">

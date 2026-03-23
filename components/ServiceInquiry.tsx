@@ -1,51 +1,54 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { ArrowRight } from 'lucide-react';
 
+/**
+ * ServiceInquiry — B2B project inquiry form / CTA block.
+ * Replaces the old affiliate-era "AI comparison portal" copy.
+ */
 export default function ServiceInquiry() {
-  // Using a fallback if translation hook fails or namespace is missing,
-  // but typically we'd set up proper i18n for this new component.
-  // For now, hardcoding english with some structure as per previous Footer.tsx
-
   return (
-    <div className="bg-gradient-to-r from-slate-900 to-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-12 text-left relative overflow-hidden group my-12">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none group-hover:bg-cyan-500/10 transition-colors"></div>
+    <div className="relative bg-slate-900/60 border border-slate-800 rounded-2xl p-8 overflow-hidden group">
+      {/* Gradient accent */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none group-hover:bg-cyan-500/8 transition-colors" />
 
-        <div className="relative z-10">
-            <div className="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full bg-cyan-950/30 backdrop-blur-sm uppercase tracking-widest">
-                Enterprise Services
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Need a Custom AI Agent Website?
-            </h3>
-            <p className="text-slate-400 mb-8 max-w-2xl leading-relaxed">
-                Stop losing leads to outdated infrastructure. We build high-performance, SEO-optimized AI comparison portals and agency landing pages (like this one) for forward-thinking businesses.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <a
-                    href="mailto:smartworklab.store@gmail.com?subject=Inquiry: AI Website Build Service"
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-slate-900 transition-all bg-cyan-400 rounded-lg hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
-                >
-                    <span>Request a Build Quote</span>
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-500 border-t border-slate-800 pt-4 mt-6">
-                 <div>
-                    <span className="text-slate-400 font-bold mr-2">Average Delivery:</span>
-                    2-3 Weeks
-                </div>
-                <div>
-                     <span className="text-slate-400 font-bold mr-2">Tech Stack:</span>
-                     Next.js 15, Supabase, Tailwind
-                </div>
-                <div>
-                     <span className="text-slate-400 font-bold mr-2">Includes:</span>
-                     SEO, Analytics, Admin Dashboard
-                </div>
-            </div>
+      <div className="relative z-10 text-center max-w-lg mx-auto">
+        <div className="inline-block px-3 py-1 mb-4 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full bg-cyan-950/30 uppercase tracking-widest">
+          Start a Project
         </div>
+
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+          Ready to Ship Something Real?
+        </h3>
+        <p className="text-slate-400 mb-8 leading-relaxed text-sm">
+          Describe your project below. We'll scope it, quote it, and get back to you within 24 hours — no fluff, no NDAs required to start.
+        </p>
+
+        {/* Quick-action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+          <a
+            href="mailto:smartworklab.store@gmail.com?subject=[Project Inquiry]"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full hover:shadow-[0_0_24px_rgba(34,211,238,0.35)] transition-all hover:-translate-y-0.5"
+          >
+            Email Us Directly <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="https://cal.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-300 border border-slate-700 rounded-full hover:border-slate-600 hover:text-white hover:bg-slate-800 transition-all"
+          >
+            Book a 30-min Call
+          </a>
+        </div>
+
+        {/* Trust strip */}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 border-t border-slate-800 pt-6">
+          <span className="text-slate-500">⚡ Response within 24 hours</span>
+          <span className="text-slate-500">🔒 NDA available on request</span>
+          <span className="text-slate-500">🚀 Fast delivery SLAs</span>
+        </div>
+      </div>
     </div>
   );
 }
