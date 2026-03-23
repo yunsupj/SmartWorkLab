@@ -1,7 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Database, Cpu, ExternalLink, Check, Clock, Users, Zap } from 'lucide-react';
-import ServiceInquiry from '@/components/ServiceInquiry';
 import RsvpDemoModule from '@/components/demos/RsvpDemoModule';
 import type { Metadata } from 'next';
 
@@ -317,10 +316,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
                 {/* Tier 1 only: Interactive RSVP Demo */}
                 {svc.slug === 'rsvp-event-sites' && (
-                  <div className="border-t border-slate-800/60 p-6 bg-slate-950/40">
-                    <p className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-4 text-center">
-                      ✦ Interactive Preview — Try the themes
-                    </p>
+                  <div className="border-t border-slate-800/60 pt-5 pb-6 px-6 bg-slate-950/40">
                     <RsvpDemoModule compact={true} />
                   </div>
                 )}
@@ -406,10 +402,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           ))}
         </div>
       </section>
-
       {/* ── Process Timeline ── */}
-
-      <section className="max-w-4xl mx-auto px-6 pb-24">
+      <section className="max-w-4xl mx-auto px-6 pt-8 pb-20">
         <h2 className="text-2xl font-bold text-center mb-12 text-white">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connector line */}
@@ -429,13 +423,6 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             </div>
           ))}
         </div>
-      </section>
-
-      {/* ── Service Inquiry Form ── */}
-      <section className="max-w-3xl mx-auto px-6 pb-32">
-        <h2 className="text-2xl font-bold text-center text-white mb-3">Start a Project</h2>
-        <p className="text-center text-slate-400 mb-10 text-sm">Describe your project and we'll respond within 24 hours.</p>
-        <ServiceInquiry />
       </section>
     </div>
   );

@@ -64,7 +64,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white flex flex-col min-h-screen`}
       >
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
@@ -75,13 +75,11 @@ export default async function LocaleLayout({
               strategy="afterInteractive"
             />
             <Navigation />
-            <main className="min-h-screen">
+            <main className="flex-1">
               {children}
             </main>
           </AuthProvider>
-          <div className="mt-auto">
-             <Footer />
-          </div>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
