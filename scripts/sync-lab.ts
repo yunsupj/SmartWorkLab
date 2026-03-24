@@ -53,6 +53,7 @@ async function syncLabPosts() {
       is_published: frontmatter.is_published ?? true,
       author: frontmatter.author || 'SmartWorkLab Engineering',
       published_at: frontmatter.published_at || new Date().toISOString(),
+      cover_image_url: frontmatter.cover_image_url || null,
     };
 
     const { error } = await supabase

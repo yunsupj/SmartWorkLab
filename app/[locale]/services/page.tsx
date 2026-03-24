@@ -199,17 +199,19 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             return (
               <div
                 key={svc.id}
-                className={`group relative flex flex-col h-full bg-slate-900/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} ${isEnterprise ? 'lg:scale-105' : ''}`}
+                className={`group relative flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} mt-4`}
               >
-                {/* "Most Popular" banner on Enterprise */}
+                {/* Background and clipped glow layer */}
+                <div className={`absolute inset-0 bg-slate-900/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden pointer-events-none z-0`}>
+                  <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16`} />
+                </div>
+
+                {/* Absolute Floating Badge on Enterprise */}
                 {isEnterprise && (
-                  <div className={`text-center py-2 text-xs font-bold font-mono uppercase tracking-widest ${a.bg} ${a.text} border-b ${a.border}`}>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 text-[10px] font-bold font-mono uppercase tracking-widest bg-slate-950 border border-green-500/50 rounded-full text-green-400 z-20 shadow-[0_0_20px_rgba(34,197,94,0.15)] whitespace-nowrap">
                     ⭐ Most Advanced
                   </div>
                 )}
-
-                {/* Glow orb */}
-                <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none`} />
 
                 <div className="relative z-10 p-8 flex flex-col flex-1 h-full">
                   {/* Expert-Led Implementation Badge */}

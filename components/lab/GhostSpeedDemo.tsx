@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Database, Zap, Clock, RotateCcw } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Database, Zap, Clock, RotateCcw, XCircle } from 'lucide-react';
 
 export default function GhostSpeedDemo() {
   const [mode, setMode] = useState<'waterfall' | 'parallel'>('parallel');
@@ -12,10 +12,17 @@ export default function GhostSpeedDemo() {
   const [hasFinished, setHasFinished] = useState(false);
   const [savedTime, setSavedTime] = useState<number | null>(null);
 
-  // Baseline waterfall estimate: 13 requests * 60ms average = 780ms
-  const WATERFALL_ESTIMATE = 780;
+  const activeIntervals = useRef<NodeJS.Timeout[]>([]);
+
+  const WATERFALL_ESTIMATE = 3800; // Estimated 3.8s for waterfall sequence
+
+  const clearTimers = () => {
+    activeIntervals.current.forEach(clearInterval);
+    activeIntervals.current = [];
+  };
 
   const resetSimulation = () => {
+    clearTimers();
     setIsRunning(false);
     setHasFinished(false);
     setProgress(Array(13).fill(0));
@@ -24,28 +31,36 @@ export default function GhostSpeedDemo() {
     setSavedTime(null);
   };
 
+  const stopSimulation = () => {
+    clearTimers();
+    setIsRunning(false);
+  };
+
   const startSimulation = () => {
     resetSimulation();
     setIsRunning(true);
 
     if (mode === 'parallel') {
-      const intervals = Array(13).fill(null).map((_, i) => {
-        const speed = Math.random() * 20 + 30; // Random speed between 30 and 50ms
+      const ints = Array(13).fill(null).map((_, i) => {
+        const speed = Math.random() * 15 + 15; // Fast execution
         let prog = 0;
         return setInterval(() => {
           prog += 10;
           if (prog >= 100) {
             prog = 100;
-            clearInterval(intervals[i]);
             setCompleted(prev => { const n = [...prev]; n[i] = true; return n; });
+            setProgress(prev => { const n = [...prev]; n[i] = prog; return n; });
+            clearInterval(ints[i]);
+          } else {
+            setProgress(prev => { const n = [...prev]; n[i] = prog; return n; });
           }
-          setProgress(prev => { const n = [...prev]; n[i] = prog; return n; });
         }, speed);
       });
+      activeIntervals.current = ints;
     } else {
       let currentIndex = 0;
       let prog = 0;
-      
+
       const interval = setInterval(() => {
         if (currentIndex >= 13) {
           clearInterval(interval);
@@ -61,7 +76,8 @@ export default function GhostSpeedDemo() {
         } else {
           setProgress(prev => { const n = [...prev]; n[currentIndex] = prog; return n; });
         }
-      }, 15); // Quick sequential execution
+      }, 55); // ~275ms per query * 13 = ~3.5s sequence
+      activeIntervals.current = [interval];
     }
   };
 
@@ -81,20 +97,20 @@ export default function GhostSpeedDemo() {
   }, [isRunning, completed, mode, totalTime]);
 
   return (
-    <div className="w-full bg-[#0a0f1c] p-8 border border-slate-800 rounded-2xl shadow-2xl font-sans text-white my-10 flex flex-col justify-center">
-      
+    <div className="w-full bg-[#0a0f1c] p-8 pb-12 border border-slate-800 rounded-2xl shadow-2xl font-sans text-white my-10 flex flex-col justify-center">
+
       {/* ── Top Header Control ── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-slate-800/80 pb-6">
-        
+
         {/* Architecture Toggle */}
         <div className="flex bg-slate-900 border border-slate-800 p-1 rounded-xl w-fit shadow-inner">
-          <button 
+          <button
             onClick={() => { setMode('waterfall'); resetSimulation(); }}
             className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${mode === 'waterfall' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'text-slate-500 hover:text-slate-300 border border-transparent'}`}
           >
             Legacy Waterfall
           </button>
-          <button 
+          <button
             onClick={() => { setMode('parallel'); resetSimulation(); }}
             className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${mode === 'parallel' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' : 'text-slate-500 hover:text-slate-300 border border-transparent'}`}
           >
@@ -104,16 +120,25 @@ export default function GhostSpeedDemo() {
 
         {/* Action Controls & Timings */}
         <div className="flex items-center gap-6">
-          
+
           <div className="flex items-center gap-3">
-            <button 
-              onClick={startSimulation}
-              disabled={isRunning}
-              className={`px-6 py-2.5 text-sm font-bold flex items-center gap-2 rounded-full transition-all ${isRunning ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-white text-slate-900 hover:bg-slate-200'}`}
-            >
-              <Zap className="w-4 h-4" fill={isRunning ? 'currentColor' : 'none'} />
-              {isRunning ? 'Running...' : 'Execute Fetches'}
-            </button>
+            {!isRunning ? (
+              <button
+                onClick={startSimulation}
+                className="px-6 py-2.5 text-sm font-bold flex items-center gap-2 rounded-full transition-all bg-white text-slate-900 hover:bg-slate-200"
+              >
+                <Zap className="w-4 h-4" />
+                Execute Fetches
+              </button>
+            ) : (
+              <button
+                onClick={stopSimulation}
+                className="px-6 py-2.5 text-sm font-bold flex items-center gap-2 rounded-full transition-all bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 border border-rose-500/50 shadow-[0_0_15px_rgba(244,63,94,0.2)]"
+              >
+                <XCircle className="w-4 h-4" />
+                Stop Simulation
+              </button>
+            )}
             <button
               onClick={resetSimulation}
               disabled={isRunning || (!hasFinished && totalTime === 0)}
@@ -136,26 +161,27 @@ export default function GhostSpeedDemo() {
       </div>
 
       {/* ── B2B Savings ROI Callout ── */}
-      <div className={`transition-all duration-700 overflow-hidden ${hasFinished && mode === 'parallel' && savedTime ? 'max-h-24 opacity-100 mb-8' : 'max-h-0 opacity-0 mb-0'}`}>
-        <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-4 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-          <Zap className="w-5 h-5 text-emerald-400" />
-          <p className="text-emerald-50 text-sm font-medium">
-            By avoiding the waterfall cascade, Ghost Speed <strong className="text-emerald-400 text-lg mx-1">Saves {savedTime}ms</strong> per user session.
+      <div className={`transition-all duration-700 overflow-hidden ${hasFinished && mode === 'parallel' && savedTime ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-6 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+          <Zap className="w-6 h-6 text-emerald-400" />
+          <p className="text-emerald-50 text-base font-medium">
+            By avoiding the waterfall cascade, Ghost Speed <strong className="text-emerald-400 text-xl font-bold mx-1">Saves {savedTime}ms</strong> per user session.
           </p>
         </div>
       </div>
+      <div className="pb-10" />
 
       {/* ── Fetch Progress Grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 px-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-3 px-10">
         {progress.map((prog, idx) => (
           <div key={idx} className="flex items-center gap-4 group">
-            <div className="w-24 text-right text-[10px] font-mono text-slate-600 group-hover:text-slate-400 transition-colors">
+            <div className="w-12 text-right text-[10px] font-mono text-slate-600 group-hover:text-slate-400 transition-colors">
               QUERY_{String(idx + 1).padStart(2, '0')}
             </div>
             <div className="flex-1 h-3 relative bg-slate-900/50 rounded-full overflow-hidden border border-slate-800/80">
-              <div 
-                className={`absolute top-0 left-0 h-full transition-all duration-100 ${completed[idx] ? (mode === 'parallel' ? 'bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]' : 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]') : 'bg-slate-700'}`} 
-                style={{ width: `${Math.max(1, typeof window !== 'undefined' ? prog : 0)}%` }} 
+              <div
+                className={`absolute top-0 left-0 h-full transition-all duration-100 ${completed[idx] ? (mode === 'parallel' ? 'bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]' : 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]') : 'bg-slate-700'}`}
+                style={{ width: `${Math.max(1, typeof window !== 'undefined' ? prog : 0)}%` }}
               />
             </div>
             <div className="w-6 flex justify-end">
