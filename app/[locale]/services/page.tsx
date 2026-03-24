@@ -189,7 +189,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
       {/* ── 3-Tier Service Cards ── */}
       <section className="max-w-7xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {services.map((svc, idx) => {
             const a = ACCENT[svc.accent_color ?? 'cyan'] ?? ACCENT.cyan;
             const Icon = ICON_MAP[svc.icon_name ?? 'Sparkles'] ?? Sparkles;
@@ -212,6 +212,11 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none`} />
 
                 <div className="relative z-10 p-8 flex flex-col flex-1 h-full">
+                  {/* Expert-Led Implementation Badge */}
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-6 text-[9px] font-mono font-bold uppercase tracking-widest border border-slate-700/50 rounded-full text-slate-400 bg-slate-800/30 w-fit">
+                    Expert-Led Implementation
+                  </div>
+
                   {/* Icon + tier badge */}
                   <div className="flex items-start justify-between mb-5">
                     <div className={`w-11 h-11 rounded-xl ${a.badge} border flex items-center justify-center flex-shrink-0`}>
@@ -223,7 +228,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </div>
 
                   {/* Name + tagline */}
-                  <h2 className="text-xl font-bold text-white mb-1 leading-snug">{svc.name}</h2>
+                  <h2 className="text-xl font-bold text-white mb-1 leading-snug font-[family-name:var(--font-geist-sans)]">{svc.name}</h2>
                   {svc.tagline && (
                     <p className={`text-sm font-medium mb-3 ${a.text}`}>{svc.tagline}</p>
                   )}
@@ -240,24 +245,26 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </div>
 
                   {/* Features — scrollable on Enterprise to keep grid balanced */}
-                  {svc.features && (
-                    <ul className={`space-y-2.5 mb-6 ${
-                      svc.slug === 'enterprise-ai-agents'
-                        ? 'max-h-56 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent'
-                        : ''
-                    }`}>
-                      {svc.features.map((f, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300">
-                          {f.startsWith('🔐') ? (
-                            <span className="flex-shrink-0 mt-0.5 text-base leading-none">{f.slice(0, 2)}</span>
-                          ) : (
-                            <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${a.text}`} />
-                          )}
-                          {f.startsWith('🔐') ? f.slice(2).trim() : f}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <div className="flex-grow">
+                    {svc.features && (
+                      <ul className={`space-y-2.5 mb-6 ${
+                        svc.slug === 'enterprise-ai-agents'
+                          ? 'max-h-56 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent'
+                          : ''
+                      }`}>
+                        {svc.features.map((f, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300 leading-relaxed">
+                            {f.startsWith('🔐') ? (
+                              <span className="flex-shrink-0 mt-0.5 text-base leading-none">{f.slice(0, 2)}</span>
+                            ) : (
+                              <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${a.text}`} />
+                            )}
+                            {f.startsWith('🔐') ? f.slice(2).trim() : f}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
 
                   {/* Tech stack badges */}
                   {stack.length > 0 && (
@@ -290,17 +297,15 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                       </a>
                     )}
 
-                    {/* Live demo link (Tier 1 only) */}
+                    {/* Theme Gallery link (replaces Live Demo) */}
                     {svc.demo_url && (
-                      <a
-                        href={svc.demo_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/${(svc as any).locale ?? 'en'}/services/rsvp/themes`}
                         className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${a.btnFrom} ${a.btnTo} transition-all duration-300 hover:shadow-lg ${a.btnShadow} hover:-translate-y-0.5`}
                       >
                         <ExternalLink className="w-4 h-4" />
-                        Live Demo
-                      </a>
+                        Explore Theme Gallery
+                      </Link>
                     )}
 
                     {/* Quote CTA */}
@@ -314,20 +319,16 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </div>
                 </div>
 
-                {/* Tier 1 only: Interactive RSVP Demo */}
-                {svc.slug === 'rsvp-event-sites' && (
-                  <div className="border-t border-slate-800/60 pt-5 pb-6 px-6 bg-slate-950/40">
-                    <RsvpDemoModule compact={true} />
-                  </div>
-                )}
+
               </div>
             );
           })}
         </div>
       </section>
 
+
       {/* ── Comparison Table ── */}
-      <section className="max-w-4xl mx-auto px-6 pb-24">
+      <section className="max-w-4xl mx-auto px-6 pb-2.5">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold text-white mb-2">Why Not Just DIY?</h2>
           <p className="text-slate-400 text-sm">The real cost of generic tools adds up quickly.</p>
@@ -402,8 +403,9 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           ))}
         </div>
       </section>
+
       {/* ── Process Timeline ── */}
-      <section className="max-w-4xl mx-auto px-6 pt-8 pb-20">
+      <section className="max-w-4xl mx-auto px-6 pt-8 pb-0">
         <h2 className="text-2xl font-bold text-center mb-12 text-white">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connector line */}

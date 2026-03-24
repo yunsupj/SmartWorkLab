@@ -9,12 +9,14 @@ export default function Footer() {
   const t = useTranslations('Footer');
 
   return (
-    <footer className="border-t border-slate-800 bg-slate-950 py-12 text-slate-400 text-sm mt-24">
+    <footer className="border-t border-slate-800 bg-slate-950 py-12 text-slate-400 text-sm mt-0">
       <div className="max-w-4xl mx-auto px-6 text-center space-y-4">
         <p className="font-semibold text-slate-300">SmartWorkLab AI</p>
 
         {/* Service Utility Section */}
-        <ServiceInquiry />
+        <div className="pb-2.5">
+          <ServiceInquiry />
+        </div>
 
         <div className="grid md:grid-cols-2 gap-8 text-left max-w-2xl mx-auto mb-8">
             <div className="space-y-4">
