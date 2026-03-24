@@ -66,13 +66,7 @@ export default async function LabPostPage({ params }: Props) {
   return (
     <TechPostLayout post={post}>
       {/* SVG Simulation slot (only when post has a demo) */}
-      {post.has_svg_demo && (
-        <SimulationSlot
-          demoId={post.slug}
-          title={`${post.title} — Interactive Demo`}
-          description="Step through the architecture interactively"
-        />
-      )}
+
 
       {/* Rendered Markdown + KaTeX + Code */}
       {post.body_mdx ? (

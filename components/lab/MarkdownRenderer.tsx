@@ -1,10 +1,16 @@
 'use client';
-
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+
+import rehypeRaw from 'rehype-raw';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import CodeBlock from './CodeBlock';
 import 'katex/dist/katex.min.css';
+import SimulationSlot from './SimulationSlot';
+import GhostSpeedDemo from './GhostSpeedDemo';
+import MermaidEffect from './MermaidEffect';
 
 interface MarkdownRendererProps {
   content: string;
@@ -21,66 +27,59 @@ interface MarkdownRendererProps {
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="
-      prose prose-invert prose-slate prose-lg max-w-none
-
-      /* Headings */
-      prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
-      prose-h1:text-4xl prose-h2:text-3xl prose-h2:border-b prose-h2:border-slate-800 prose-h2:pb-3
-      prose-h3:text-xl prose-h3:text-slate-200
-
-      /* Body text */
-      prose-p:text-slate-300 prose-p:leading-relaxed
-
-      /* Links */
-      prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
-
-      /* Inline code — overridden by CodeBlock for fenced blocks */
-      prose-code:text-cyan-300 prose-code:bg-slate-900 prose-code:rounded
-      prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono
-      prose-code:before:content-none prose-code:after:content-none
-
-      /* Blockquotes */
-      prose-blockquote:border-l-cyan-500 prose-blockquote:bg-slate-900/50
-      prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-slate-400
-      prose-blockquote:not-italic
-
-      /* Tables */
-      prose-table:border-collapse
-      prose-th:bg-slate-900 prose-th:text-slate-300 prose-th:font-semibold
-      prose-td:border-slate-800 prose-th:border-slate-700
-
-      /* Lists */
-      prose-li:text-slate-300 prose-li:marker:text-cyan-500
-
-      /* HR */
-      prose-hr:border-slate-800
-
-      /* Pre / code blocks — remove default prose styling, CodeBlock handles it */
+      prose prose-invert prose-slate max-w-[85ch] mx-auto
+      prose-p:text-xl prose-p:leading-8
+      prose-li:text-xl prose-li:leading-8
+      prose-headings:mt-12 prose-headings:mb-6
+      prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-100
+      prose-strong:text-cyan-400
+      prose-code:text-pink-400 prose-code:bg-slate-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-img:rounded-xl prose-img:border prose-img:border-slate-800
+      lg:prose-xl
+      prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
+      prose-blockquote:border-l-cyan-500 prose-blockquote:bg-slate-900/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-slate-400 prose-blockquote:not-italic
+      prose-li:marker:text-cyan-500
       prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-0
     ">
       <ReactMarkdown
         remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex]}
-        components={{
-          // Fenced code blocks + inline code routed through CodeBlock
-          code({ className, children, ...props }) {
-            const isInline = !className;
-            return (
-              <CodeBlock className={className} inline={isInline}>
+        rehypePlugins={[rehypeRaw, rehypeKatex]}
+        components={({
+          code({ className, children, ...props }: any) {
+            const match = /language-(\w+)/.exec(className || '');
+
+            if (match && match[1] === 'mermaid') {
+              return <MermaidEffect chart={String(children)} />;
+            }
+
+            return !className ? (
+              <code className={className} {...props}>{children}</code>
+            ) : match ? (
+              <SyntaxHighlighter
+                style={atomDark as any}
+                language={match[1]}
+                PreTag="div"
+                className="rounded-xl border border-slate-800 !bg-slate-900/50 my-6 text-sm"
+                {...props}
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            ) : (
+              <CodeBlock className={className} inline={!className}>
                 {children}
               </CodeBlock>
             );
           },
 
           // Heading anchors — add id for TOC scroll targeting
-          h2({ children, ...props }) {
+          h2({ children, ...props }: any) {
             const id = String(children)
               .toLowerCase()
               .replace(/[^\w\s-]/g, '')
               .replace(/\s+/g, '-');
             return <h2 id={id} {...props}>{children}</h2>;
           },
-          h3({ children, ...props }) {
+          h3({ children, ...props }: any) {
             const id = String(children)
               .toLowerCase()
               .replace(/[^\w\s-]/g, '')
@@ -89,7 +88,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           },
 
           // Callout-style blockquotes
-          blockquote({ children }) {
+          blockquote({ children }: any) {
             return (
               <blockquote className="pl-5 border-l-4 border-cyan-500 bg-slate-900/50 rounded-r-xl py-3 pr-4 my-6 text-slate-400">
                 {children}
@@ -98,28 +97,40 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           },
 
           // Tables with dark theme
-          table({ children }) {
+          table({ children }: any) {
             return (
               <div className="overflow-x-auto my-8 rounded-xl border border-slate-800">
                 <table className="w-full text-sm">{children}</table>
               </div>
             );
           },
-          th({ children }) {
+          th({ children }: any) {
             return (
               <th className="px-4 py-3 text-left font-semibold text-slate-300 bg-slate-900 border-b border-slate-700">
                 {children}
               </th>
             );
           },
-          td({ children }) {
+          td({ children }: any) {
             return (
               <td className="px-4 py-3 text-slate-400 border-b border-slate-800/60">
                 {children}
               </td>
             );
           },
-        }}
+          'simulation-slot': (props: any) => {
+            const demoid = props['demo-id'] || props.demoid;
+            const title = props.title;
+            if (demoid === 'ghost-speed') {
+              return (
+                <SimulationSlot>
+                  <GhostSpeedDemo />
+                </SimulationSlot>
+              );
+            }
+            return <SimulationSlot />;
+          },
+        } as any)}
       >
         {content}
       </ReactMarkdown>
