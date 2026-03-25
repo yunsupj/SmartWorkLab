@@ -1,12 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import ContactModal from '@/components/ContactModal';
 
 /**
  * ServiceInquiry — B2B project inquiry form / CTA block.
  * Replaces the old affiliate-era "AI comparison portal" copy.
  */
 export default function ServiceInquiry() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="relative bg-slate-900/60 border border-slate-800 rounded-2xl p-8 overflow-hidden group">
       {/* Gradient accent */}
@@ -26,19 +30,19 @@ export default function ServiceInquiry() {
 
         {/* Quick-action buttons */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-          <a
-            href="mailto:smartworklab.store@gmail.com?subject=[Project Inquiry]"
+          <button
+            onClick={() => setIsModalOpen(true)}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full hover:shadow-[0_0_24px_rgba(34,211,238,0.35)] transition-all hover:-translate-y-0.5"
           >
             Email Us Directly <ArrowRight className="w-4 h-4" />
-          </a>
+          </button>
           <a
-            href="https://cal.com"
+            href="https://cal.com/yunsup-jung-rqc4g5/15min"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-300 border border-slate-700 rounded-full hover:border-slate-600 hover:text-white hover:bg-slate-800 transition-all"
           >
-            Book a 30-min Call
+            Book a 15-min Strategy Session
           </a>
         </div>
 
@@ -49,6 +53,9 @@ export default function ServiceInquiry() {
           <span className="text-slate-500">🚀 Fast delivery SLAs</span>
         </div>
       </div>
+
+      {/* Render the Contact Overlay directly from within the Inquiry scope */}
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

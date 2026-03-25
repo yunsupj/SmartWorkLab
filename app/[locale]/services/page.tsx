@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Database, Cpu, ExternalLink, Check, Clock, Users, Zap } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import QuoteButton from '@/components/QuoteButton';
 import RsvpDemoModule from '@/components/demos/RsvpDemoModule';
 import type { Metadata } from 'next';
 
@@ -316,14 +317,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                       </Link>
                     )}
 
-                    {/* Quote CTA */}
-                    <a
-                      href={`mailto:smartworklab.store@gmail.com?subject=[Inquiry] ${encodeURIComponent(svc.name)}`}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border transition-all duration-300 hover:bg-slate-800"
-                      style={{ borderColor: 'rgb(51,65,85)', color: 'rgb(148,163,184)' }}
-                    >
-                      {t('get_quote')} <ArrowRight className="w-4 h-4" />
-                    </a>
+                    {/* Quote CTA Client State Component Wrapper */}
+                    <QuoteButton serviceName={svc.name} label={t('get_quote')} />
                   </div>
                 </div>
 

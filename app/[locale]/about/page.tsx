@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, Globe } from 'lucide-react';
 import Image from 'next/image';
 
 export const metadata = {
@@ -43,8 +43,8 @@ export default function AboutPage() {
                     Building the core analysis engine that powers SmartWorkLab's verified metrics.
                 </p>
                 <div className="flex gap-4">
-                    <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Github className="w-5 h-5"/></a>
-                    <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Linkedin className="w-5 h-5"/></a>
+                    <a href="https://github.com/yunsupj" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Github className="w-5 h-5"/></a>
+                    <a href="https://www.linkedin.com/in/yunsupjung/" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Linkedin className="w-5 h-5"/></a>
                 </div>
             </div>
 
@@ -63,8 +63,7 @@ export default function AboutPage() {
                     Ensuring SmartWorkLab delivers actionable insights that drive real operational efficiency.
                 </p>
                 <div className="flex gap-4">
-                     <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Twitter className="w-5 h-5"/></a>
-                    <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400"><Linkedin className="w-5 h-5"/></a>
+                     <a href="https://yuunchloe.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 hover:text-white transition-colors text-slate-400" title="yuunchloe.com"><Globe className="w-5 h-5"/></a>
                 </div>
             </div>
         </div>
