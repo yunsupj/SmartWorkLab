@@ -4,6 +4,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import Script from 'next/script';
 import Navigation from '@/components/Navigation';
+import ScrollRestorer from '@/components/ScrollRestorer';
 import Footer from '@/components/Footer';
 import AuthProvider from '@/components/AuthProvider';
 import "../globals.css";
@@ -74,6 +75,7 @@ export default async function LocaleLayout({
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
+            <ScrollRestorer />
             <Navigation />
             <main className="flex-1">
               {children}

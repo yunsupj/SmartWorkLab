@@ -71,5 +71,44 @@
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
     "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
+  },
+  "Home": {
+    "hero_badge": "SmartWorkLab / Engineering",
+    "hero_title": "Exploring the limits of AI and Frontend Architecture.",
+    "hero_subtitle": "We build, tear down, and analyze high-performance systems. Deep dives, paper implementations, and production-grade architecture.",
+    "cta_lab": "Enter The Lab",
+    "cta_services": "Enterprise Solutions",
+    "weekly_top": "Weekly Top Research",
+    "recent_deep_dives": "Recent Deep Dives",
+    "footer_title": "Production-Ready Engineering.",
+    "footer_p": "Partner with engineers who understand scale. We implement the architectures we research.",
+    "footer_cta": "Contact Engineering Team"
+  },
+  "Services": {
+    "hero_badge": "SmartWorkLab · AI Agency",
+    "hero_title1": "We Build AI.",
+    "hero_title2": "You Scale.",
+    "hero_subtitle": "From polished event microsites to production RAG systems and custom VTON inference pipelines — built by ML engineers, shipped fast.",
+    "tier_entry": "Entry",
+    "tier_growth": "Growth",
+    "tier_enterprise": "Enterprise",
+    "svc1_name": "RSVP & Event Microsites",
+    "svc2_name": "RAG Chatbots & Knowledge Bases",
+    "svc3_name": "Enterprise AI Agents & Custom ML",
+    "svc1_tagline": "Beautiful event sites, built in days.",
+    "svc2_tagline": "Your documents, instantly queryable.",
+    "svc3_tagline": "Custom models. Real production deployments.",
+    "svc1_features": "Custom design & branding|RSVP form + Supabase backend|Photo guestbook with Polaroid layout|Automated email reminders (Resend)|Google Calendar integration|Mobile-first responsive|Custom domain (yourname-rsvp.com)",
+    "svc2_features": "Document ingestion (PDF, Notion, Confluence)|Vector embeddings (pgvector / Pinecone)|Streaming chat UI with citation display|Admin dashboard for doc management|Multi-tenant auth (Supabase)|Custom LLM routing (GPT-4o / Claude)|🔐 End-to-end encryption at rest & in transit|🔐 Role-based access control (RBAC)|🔐 GDPR-compliant data handling|🔐 Private VPC deployment available",
+    "svc3_features": "Custom ML model development & fine-tuning|VTON / Diffusion model inference pipelines|Agentic workflow orchestration (LangGraph / CrewAI)|Spatial data processing (H3, PostGIS)|GPU inference deployment (Modal / Replicate)|Full CI/CD + monitoring stack|Multi-item VTON with single inference pass|Model quantization & latency optimization|Custom training data pipelines|A/B experiment framework|Real-time inference API with SLA guarantees",
+    "get_quote": "Get a Free Quote"
+  },
+  "Contact": {
+    "form_name": "Name",
+    "form_email": "Email",
+    "form_message": "Message",
+    "form_submit": "Send Message",
+    "success_title": "Message Sent!",
+    "success_desc": "We will get back to you within 24 hours."
   }
 }

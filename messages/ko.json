@@ -71,5 +71,44 @@
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
     "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
+  },
+  "Home": {
+    "hero_badge": "SmartWorkLab / 자동화 및 엔지니어링",
+    "hero_title": "AI 모델과 프론트엔드 아키텍처의 한계를 탐구합니다.",
+    "hero_subtitle": "고성능 시스템을 구축하고, 분해하며, 분석합니다. 심층 리뷰, 논문 구현 및 프로덕션 수준의 아키텍처 연구.",
+    "cta_lab": "연구실 입장하기",
+    "cta_services": "엔터프라이즈 솔루션",
+    "weekly_top": "주간 추천 연구 (Weekly Top Research)",
+    "recent_deep_dives": "최신 딥 다이브 (Recent Deep Dives)",
+    "footer_title": "프로덕션 레벨의 엔지니어링.",
+    "footer_p": "확장성을 이해하는 엔지니어와 파트너가 되십시오. 우리는 연구한 아키텍처를 직접 구현합니다.",
+    "footer_cta": "엔지니어링 팀에 문의하기"
+  },
+  "Services": {
+    "hero_badge": "SmartWorkLab · AI 에이전시",
+    "hero_title1": "우리는 AI를 구축합니다.",
+    "hero_title2": "당신은 비즈니스를 확장하세요.",
+    "hero_subtitle": "세련된 이벤트 마이크로사이트부터 프로덕션 RAG 시스템, 맞춤형 VTON 인퍼런스 파이프라인까지 — ML 엔지니어가 직접 구축하고 빠르게 배포합니다.",
+    "tier_entry": "엔트리 (Entry)",
+    "tier_growth": "그로스 (Growth)",
+    "tier_enterprise": "엔터프라이즈 (Enterprise)",
+    "svc1_name": "RSVP & 이벤트 마이크로사이트",
+    "svc2_name": "RAG 챗봇 & 지식 기반 시스템",
+    "svc3_name": "엔터프라이즈 AI 에이전트 & 맞춤형 ML",
+    "svc1_tagline": "단 며칠 만에 완성되는 아름다운 이벤트 사이트.",
+    "svc2_tagline": "당신의 문서를 즉시 검색 가능하게 만듭니다.",
+    "svc3_tagline": "맞춤형 모델과 실제 프로덕션 배포.",
+    "svc1_features": "맞춤형 디자인 파운데이션 브랜딩|RSVP 폼 + Supabase 백엔드|폴라로이드 레이아웃의 사진 방명록|자동 이메일 알림 (Resend)|Google 캘린더 연동|모바일 퍼스트 반응형 웹|커스텀 도메인 지원 (yourname-rsvp.com)",
+    "svc2_features": "문서 데이터 수집 (PDF, Notion, Confluence)|벡터 임베딩 파이프라인 (pgvector / Pinecone)|출처 인용이 포함된 실시간 채팅 UI|문서 관리를 위한 관리자 대시보드|다중 테넌트 인증 구성 (Supabase)|맞춤형 LLM 라우팅 (GPT-4o / Claude)|🔐 전송 및 저장 시 종단 간(End-to-end) 암호화|🔐 역할 기반 접근 제어 (RBAC)|🔐 GDPR 준수 데이터 처리|🔐 프라이빗 VPC 배포 가능",
+    "svc3_features": "맞춤형 AI 모델 개발 및 파인튜닝|VTON / Diffusion 모델 인퍼런스 파이프라인|에이전트 워크플로우 오케스트레이션 (LangGraph / CrewAI)|공간 데이터 처리 (H3, PostGIS)|GPU 인퍼런스 배포 (Modal / Replicate)|완벽한 CI/CD 및 모니터링 스택 구축|단일 인퍼런스 패스로 다중 아이템 VTON 구현|모델 양자화 및 레이턴시 최적화|맞춤형 학습 데이터 파이프라인|A/B 테스트 실험 프레임워크|SLA 보장의 실시간 인퍼런스 API",
+    "get_quote": "무료 견적 받기"
+  },
+  "Contact": {
+    "form_name": "이름",
+    "form_email": "이메일",
+    "form_message": "메시지",
+    "form_submit": "메시지 보내기",
+    "success_title": "메시지 전송 완료!",
+    "success_desc": "24시간 이내에 답변 드리겠습니다."
   }
 }

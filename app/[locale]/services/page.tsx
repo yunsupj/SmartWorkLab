@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Database, Cpu, ExternalLink, Check, Clock, Users, Zap } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import RsvpDemoModule from '@/components/demos/RsvpDemoModule';
 import type { Metadata } from 'next';
 
@@ -123,11 +124,16 @@ const TECH_STACKS: Record<string, string[]> = {
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const t = await getTranslations('Services');
 
   // NOTE: Always use STATIC_SERVICES as source of truth.
-  // The Supabase agency_services table has stale rows (old $499 price, old demo URL).
-  // Re-enable DB fetch after running the SQL migration that updates those rows.
-  const services: AgencyService[] = STATIC_SERVICES;
+  // We override explicit fields per-language with next-intl mapping.
+  const services: AgencyService[] = STATIC_SERVICES.map(svc => {
+    if (svc.slug === 'rsvp-event-sites') return { ...svc, tier_label: t('tier_entry'), name: t('svc1_name'), tagline: t('svc1_tagline'), features: t('svc1_features').split('|') };
+    if (svc.slug === 'rag-chatbots') return { ...svc, tier_label: t('tier_growth'), name: t('svc2_name'), tagline: t('svc2_tagline'), features: t('svc2_features').split('|') };
+    if (svc.slug === 'enterprise-ai-agents') return { ...svc, tier_label: t('tier_enterprise'), name: t('svc3_name'), tagline: t('svc3_tagline'), features: t('svc3_features').split('|') };
+    return svc;
+  });
   // if (supabase) {
   //   const { data } = await supabase
   //     .from('agency_services')
@@ -154,21 +160,21 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         <div className="relative z-10 max-w-5xl mx-auto px-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-mono text-green-400 border border-green-500/30 rounded-full bg-green-950/30 uppercase tracking-widest">
             <Sparkles className="w-3 h-3" />
-            SmartWorkLab · AI Agency
+            {t('hero_badge')}
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
-              We Build AI.
+              {t('hero_title1')}
             </span>
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-green-400">
-              You Scale.
+              {t('hero_title2')}
             </span>
           </h1>
 
           <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10">
-            From polished event microsites to production RAG systems and custom VTON inference pipelines — built by ML engineers, shipped fast.
+            {t('hero_subtitle')}
           </p>
 
           {/* Social proof strip */}
@@ -316,7 +322,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border transition-all duration-300 hover:bg-slate-800"
                       style={{ borderColor: 'rgb(51,65,85)', color: 'rgb(148,163,184)' }}
                     >
-                      Get a Free Quote <ArrowRight className="w-4 h-4" />
+                      {t('get_quote')} <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
                 </div>

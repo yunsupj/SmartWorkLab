@@ -58,5 +58,44 @@
     "google": "Continue with Google",
     "discord": "Continue with Discord",
     "terms": "By signing up, you agree to our Terms of Service and honest data policy."
+  },
+  "Home": {
+    "hero_badge": "SmartWorkLab / Engineering",
+    "hero_title": "Die Grenzen von KI und Frontend-Architektur erkunden.",
+    "hero_subtitle": "Wir bauen, zerlegen und analysieren Hochleistungssysteme. Deep Dives, Paper-Implementierungen und produktionsreife Architektur.",
+    "cta_lab": "Das Labor betreten",
+    "cta_services": "Enterprise-Lösungen",
+    "weekly_top": "Wöchentliche Top-Forschung",
+    "recent_deep_dives": "Aktuelle Deep Dives",
+    "footer_title": "Produktionsreifes Engineering.",
+    "footer_p": "Arbeiten Sie mit Ingenieuren zusammen, die Skalierung verstehen. Wir implementieren die Architekturen, die wir erforschen.",
+    "footer_cta": "Engineering-Team kontaktieren"
+  },
+  "Services": {
+    "hero_badge": "SmartWorkLab · KI-Agentur",
+    "hero_title1": "Wir bauen KI.",
+    "hero_title2": "Sie skalieren.",
+    "hero_subtitle": "Von polierten Event-Microsites über Produktions-RAG-Systeme bis hin zu maßgeschneiderten VTON-Inferenzpipelines — von ML-Ingenieuren entwickelt, schnell geliefert.",
+    "tier_entry": "Entry",
+    "tier_growth": "Growth",
+    "tier_enterprise": "Enterprise",
+    "svc1_name": "RSVP & Event Microsites",
+    "svc2_name": "RAG-Chatbots & Wissensdatenbanken",
+    "svc3_name": "Enterprise KI-Agenten & Custom ML",
+    "svc1_tagline": "Wunderschöne Event-Seiten, in Tagen erstellt.",
+    "svc2_tagline": "Ihre Dokumente, sofort abfragbar.",
+    "svc3_tagline": "Maßgeschneiderte Modelle. Echte Produktionsbereitstellungen.",
+    "svc1_features": "Maßgeschneidertes Design & Branding|RSVP-Formular + Supabase Backend|Foto-Gästebuch im Polaroid-Layout|Automatisierte E-Mail-Erinnerungen (Resend)|Google Kalender-Integration|Mobile-First Responsive Webdesign|Benutzerdefinierte Domain (yourname-rsvp.com)",
+    "svc2_features": "Dokumentenaufnahme (PDF, Notion, Confluence)|Vektor-Embeddings (pgvector / Pinecone)|Streaming-Chat-UI mit Quellenanzeige|Admin-Dashboard zur Dokumentenverwaltung|Mandantenfähige Authentifizierung (Supabase)|Benutzerdefiniertes LLM-Routing (GPT-4o / Claude)|🔐 Ende-zu-Ende-Verschlüsselung im Ruhezustand und bei Übertragung|🔐 Rollenbasierte Zugriffskontrolle (RBAC)|🔐 DSGVO-konforme Datenverarbeitung|🔐 Private VPC-Bereitstellung verfügbar",
+    "svc3_features": "Entwicklung und Feintuning von Custom ML-Modellen|VTON / Diffusion Model Inference Pipelines|Agentic Workflow Orchestrierung (LangGraph / CrewAI)|Räumliche Datenverarbeitung (H3, PostGIS)|GPU-Inferenzbereitstellung (Modal / Replicate)|Vollständiger CI/CD- und Überwachungs-Stack|Multi-Item-VTON mit einem einzigen Inferenzdurchlauf|Modellquantisierung und Latenzoptimierung|Benutzerdefinierte Trainingsdaten-Pipelines|A/B-Experiment-Framework|Echtzeit-Inferenz-API mit SLA-Garantien",
+    "get_quote": "Kostenloses Angebot einholen"
+  },
+  "Contact": {
+    "form_name": "Name",
+    "form_email": "E-Mail",
+    "form_message": "Nachricht",
+    "form_submit": "Nachricht senden",
+    "success_title": "Nachricht gesendet!",
+    "success_desc": "Wir werden uns innerhalb von 24 Stunden bei Ihnen melden."
   }
 }

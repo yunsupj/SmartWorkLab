@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
-import { Code2, Cpu, Database, Zap } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import { Code2, Cpu, Database, Zap, Flame } from 'lucide-react';
 
 // Helper to format dates for deep dive metadata
 function formatDate(dateStr: string) {
@@ -16,15 +17,15 @@ function formatDate(dateStr: string) {
 
 // Data Fetcher: Loads Research dynamically from tech_posts
 async function LabPostsFetcher({ locale }: { locale: string }) {
+  const t = await getTranslations('Home');
   if (!supabase) return <div className="text-slate-500 py-12 text-center">Research lab initializing...</div>;
 
-  // Ordering by published_at explicitly to grab the latest ghost-speed or RAG architectures
+  // Fetch all published posts to calculate engagement rankings
   const { data: posts, error } = await supabase
     .from('tech_posts')
     .select('*')
     .eq('is_published', true)
-    .order('published_at', { ascending: false })
-    .limit(4);
+    .eq('locale', locale);
 
   if (error) {
     console.error('Supabase fetch error:', error);
@@ -34,8 +35,39 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
     return <div className="text-slate-500 py-12 text-center">Research DB currently offline.</div>;
   }
 
-  const featured = posts[0];
-  const recent = posts.slice(1);
+  // Calculate Engagement Scores: Score = (Views * 1) + (Likes * 5)
+  const rankedPosts = [...posts].sort((a, b) => {
+    const scoreA = (a.view_count || 0) + ((a.like_count || 0) * 5);
+    const scoreB = (b.view_count || 0) + ((b.like_count || 0) * 5);
+    return scoreB - scoreA;
+  });
+
+  const recentPosts = [...posts].sort((a, b) => 
+    new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+  );
+
+  // 1. Weekly Top Research (Highest score in last 7 days)
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  let featured = rankedPosts.find(p => new Date(p.published_at) >= sevenDaysAgo);
+  if (!featured) featured = rankedPosts[0]; // Fallback if no posts in last 7 days
+
+  // 2. 50/50 Mix for Recent Deep Dives
+  const otherRanked = rankedPosts.filter(p => p.slug !== featured.slug);
+  const otherRecent = recentPosts.filter(p => p.slug !== featured.slug);
+  
+  // Deduplicate and mix (e.g. up to 3 posts: 1 from recent, 1 from top, 1 from recent)
+  const mixedPool = Array.from(new Set([
+    otherRecent[0],
+    otherRanked[0],
+    otherRecent[1],
+    otherRanked[1],
+    otherRecent[2]
+  ])).filter(Boolean);
+
+  const recent = mixedPool.slice(0, 3);
+  
+  // Track Top 3 slugs for the Trending badge
+  const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));
 
   const UPCOMING_RESEARCH = [
     {
@@ -62,7 +94,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
     <div className="w-full">
       {/* Featured Research Card */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">Featured Research</h2>
+        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">{t('weekly_top')}</h2>
         <div className="h-[1px] flex-1 bg-slate-800/60" />
       </div>
 
@@ -87,6 +119,12 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
 
           <div className="p-6 md:p-8 flex flex-col justify-center">
             <div className="flex flex-wrap items-center gap-3 mb-4">
+              {top3Slugs.has(featured.slug) && (
+                <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 rounded-full border border-amber-500/20 flex items-center gap-1.5 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                  <Flame className="w-3 h-3 text-amber-500 fill-amber-500/50" />
+                  Trending
+                </span>
+              )}
               <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400 bg-cyan-500/10 rounded-full border border-cyan-500/20">
                 Latest Deep Dive
               </span>
@@ -113,7 +151,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
 
       {/* Recent Deep Dives Grid */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">Recent Deep Dives</h2>
+        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">{t('recent_deep_dives')}</h2>
         <div className="h-[1px] flex-1 bg-slate-800/60" />
       </div>
 
@@ -122,6 +160,11 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
           <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-2xl border border-slate-800 bg-slate-900/30 p-6 flex flex-col h-full transition-all duration-300 hover:border-slate-600 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)]">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-4">
+                {top3Slugs.has(post.slug) && (
+                  <span className="text-[10px] text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+                    <Flame className="w-2.5 h-2.5 fill-amber-500/50" /> Trending
+                  </span>
+                )}
                 <span className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
               </div>
               <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-200 mb-3 group-hover:text-white transition-colors leading-tight">{post.title}</h4>
@@ -168,13 +211,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     alternates: {
-      canonical: `https://smartworklab.store/${locale}`
+      canonical: `https://smartworklab.store/${locale}`,
+      languages: {
+        'en': `https://smartworklab.store/en`,
+        'ko': `https://smartworklab.store/ko`,
+        'de': `https://smartworklab.store/de`,
+      }
     }
   };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const t = await getTranslations('Home');
 
   return (
     <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-cyan-500/30">
@@ -192,29 +241,29 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <FadeIn>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-mono font-medium text-slate-400">
               <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[pulse_2s_infinite] shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-              SmartWorkLab / Engineering
+              {t('hero_badge')}
             </div>
           </FadeIn>
 
           <FadeIn delay={0.1}>
             <h1 className="text-5xl md:text-7xl font-[family-name:var(--font-geist-sans)] font-bold mb-8 tracking-tight text-white drop-shadow-sm leading-tight">
-              Exploring the limits of AI and Frontend Architecture.
+              {t('hero_title')}
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl font-light">
-              We build, tear down, and analyze high-performance systems. Deep dives, paper implementations, and production-grade architecture.
+              {t('hero_subtitle')}
             </p>
           </FadeIn>
 
           {/* DUAL CTAS */}
           <FadeIn delay={0.3} className="flex flex-wrap items-center gap-4">
             <Link href={`/${locale}/lab`} className="px-6 py-3 bg-white text-slate-950 font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-              Enter The Lab
+              {t('cta_lab')}
             </Link>
             <Link href={`/${locale}/services`} className="px-6 py-3 bg-slate-900 text-white font-bold rounded-full border border-slate-800 hover:bg-slate-800 hover:border-slate-700 transition-colors">
-              Enterprise Solutions
+              {t('cta_services')}
             </Link>
           </FadeIn>
         </header>
@@ -228,10 +277,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* THE SUBTLE B2B FOOTER */}
         <FadeIn delay={0.5} className="mt-12 py-16 border-t border-slate-800/60 text-center flex flex-col items-center">
-            <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-white mb-4 tracking-tight">Production-Ready Engineering.</h3>
-            <p className="text-slate-400 mb-8 max-w-md leading-relaxed">Partner with engineers who understand scale. We implement the architectures we research.</p>
+            <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-white mb-4 tracking-tight">{t('footer_title')}</h3>
+            <p className="text-slate-400 mb-8 max-w-md leading-relaxed">{t('footer_p')}</p>
             <Link href={`/${locale}/services`} className="text-cyan-400 flex items-center gap-2 group font-mono tracking-widest uppercase text-sm font-bold border-b border-cyan-500/30 hover:border-cyan-400 pb-1 transition-colors">
-              Contact Engineering Team <span className="group-hover:translate-x-1 transition-transform">→</span>
+              {t('footer_cta')} <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
         </FadeIn>
 

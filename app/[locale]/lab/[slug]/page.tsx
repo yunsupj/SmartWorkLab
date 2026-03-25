@@ -35,6 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `https://smartworklab.store/${locale}/lab/${slug}`,
+      languages: {
+        'en': `https://smartworklab.store/en/lab/${slug}`,
+        'ko': `https://smartworklab.store/ko/lab/${slug}`,
+        'de': `https://smartworklab.store/de/lab/${slug}`,
+      }
     },
   };
 }
