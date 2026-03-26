@@ -49,13 +49,13 @@ function WarpMode() {
       const rect = containerRef.current.getBoundingClientRect();
       const relativeX = e.clientX - rect.left - rect.width / 2;
       const relativeY = e.clientY - rect.top - rect.height / 2;
-      
+
       setNodes(prev => ({
         ...prev,
         [activeNode]: { x: Math.max(-100, Math.min(100, relativeX)), y: Math.max(-100, Math.min(100, relativeY)) }
       }));
     };
-    
+
     const handleUp = () => setActiveNode(null);
 
     if (activeNode) {
@@ -77,7 +77,7 @@ function WarpMode() {
              A mathematical bounding box simulation of our CV tracking layer ($p' = H \cdot p$). <strong>Drag the glowing shoulder and hip nodes</strong> on the silhouette to warp the output garment array in real-time.
            </p>
          </div>
-         
+
          <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col gap-3">
              <div className="flex justify-between items-center text-xs font-mono font-bold text-slate-400 border-b border-slate-800 pb-2">
                  <span>Left Vector Node</span>
@@ -94,21 +94,21 @@ function WarpMode() {
          </div>
       </div>
 
-      <div 
+      <div
          ref={containerRef}
          className="relative w-64 h-64 md:w-80 md:h-80 shrink-0 border border-dashed border-slate-700 bg-slate-950 rounded-3xl flex items-center justify-center overflow-hidden shadow-inner touch-none"
       >
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-20 pointer-events-none">
           {Array.from({length: 36}).map((_, i) => <div key={i} className="border border-purple-800/40" />)}
         </div>
-        
+
         {/* Render Silhouette Target */}
         <div className="w-32 h-48 border-2 border-slate-700 rounded-xl absolute pointer-events-none flex flex-col items-center justify-center">
              <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest bg-slate-950 px-2 py-1">Customer Body</span>
         </div>
-        
+
         {/* Render Garment Wrapper */}
-        <div 
+        <div
            className="w-32 h-40 bg-purple-500/20 border border-purple-400/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)] will-change-transform z-10 pointer-events-none"
            style={{ transform: `translateX(${skewX}px) translateY(${skewY}px) skewX(${skewX * -0.2}deg) skewY(${skewY * 0.2}deg) scale(${scale})` }}
         >
@@ -116,14 +116,14 @@ function WarpMode() {
         </div>
 
         {/* Draggable Anchor Left */}
-        <div 
+        <div
           className="w-6 h-6 bg-purple-400 rounded-full absolute -ml-3 -mt-3 shadow-[0_0_20px_#a855f7] cursor-grab active:cursor-grabbing active:scale-125 transition-transform z-30 ring-4 ring-purple-400/30"
           style={{ left: `calc(50% + ${nodes.left.x}px)`, top: `calc(50% + ${nodes.left.y}px)` }}
           onPointerDown={() => setActiveNode('left')}
         />
 
         {/* Draggable Anchor Right */}
-        <div 
+        <div
           className="w-6 h-6 bg-purple-400 rounded-full absolute -ml-3 -mt-3 shadow-[0_0_20px_#a855f7] cursor-grab active:cursor-grabbing active:scale-125 transition-transform z-30 ring-4 ring-purple-400/30"
           style={{ left: `calc(50% + ${nodes.right.x}px)`, top: `calc(50% + ${nodes.right.y}px)` }}
           onPointerDown={() => setActiveNode('right')}
@@ -204,7 +204,7 @@ function LayeringMode() {
       <div className="flex-1 space-y-6 w-full text-center md:text-left">
         <div>
            <h3 className="text-xl md:text-2xl font-bold text-white mb-2 flex items-center justify-center md:justify-start gap-2"><Layers className="w-6 h-6 text-green-400" /> Z-Index Alpha Layer Swaping</h3>
-           <p className="text-sm text-slate-400 pb-6 border-b border-slate-800 leading-relaxed text-justify">
+           <p className="text-sm text-slate-400 pb-6 border-b border-slate-800 leading-relaxed text-left">
              "Tucking in" a shirt requires the AI to comprehend depth. Toggling this style executes an instant depth array matrix swap on CPU natively, entirely eliminating GenAI overhead.
            </p>
          </div>
@@ -215,8 +215,8 @@ function LayeringMode() {
                    <h4 className="font-bold text-white uppercase tracking-wider text-sm mb-1">Layer Ordering</h4>
                    <p className="text-xs text-slate-500">Depth Matrix Z-Index</p>
                 </div>
-                <button 
-                  onClick={() => setTucked(!tucked)} 
+                <button
+                  onClick={() => setTucked(!tucked)}
                   className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all ${tucked ? 'bg-green-500 text-slate-950 shadow-[0_0_20px_rgba(34,197,94,0.4)]' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-600'}`}
                 >
                   {tucked ? 'Shirt Tucked In' : 'Shirt Untucked'}
@@ -230,7 +230,7 @@ function LayeringMode() {
             <span className="font-mono text-cyan-950 font-bold tracking-widest">TOP WEAR</span>
             <span className="text-[10px] text-cyan-900 font-bold mt-2 border border-cyan-800/50 px-2 py-0.5 rounded-full">Z-Index: {tucked ? '10' : '30'}</span>
          </div>
-         
+
          <div className={`absolute bottom-0 left-4 right-4 h-36 md:h-44 bg-purple-600/90 backdrop-blur-md rounded-2xl border-2 border-purple-300 flex flex-col items-center justify-center shadow-2xl transition-all duration-700 ease-in-out ${tucked ? 'z-20 scale-100' : 'z-10 scale-95 opacity-80'}`}>
             <span className="font-mono text-purple-100 font-bold tracking-widest">BOTTOM WEAR</span>
             <span className="text-[10px] text-purple-200 font-bold mt-2 border border-purple-400/50 px-2 py-0.5 rounded-full bg-purple-900/50">Z-Index: {tucked ? '20' : '10'}</span>
@@ -248,8 +248,8 @@ function RadarMode() {
   const center = size / 2;
 
   const pf = { x: center, y: center - (f / 100) * (size/2) };
-  const ps = { x: center + (s / 100) * (size/2) * 0.866, y: center + (s / 100) * (size/2) * 0.5 };
-  const pm = { x: center - (m / 100) * (size/2) * 0.866, y: center + (m / 100) * (size/2) * 0.5 };
+  const ps = { x: center - (s / 100) * (size/2) * 0.866, y: center + (s / 100) * (size/2) * 0.5 };
+  const pm = { x: center + (m / 100) * (size/2) * 0.866, y: center + (m / 100) * (size/2) * 0.5 };
 
   return (
     <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center w-full max-w-4xl animate-in fade-in zoom-in-95 duration-500">
@@ -279,20 +279,20 @@ function RadarMode() {
 
        <div className="w-72 h-72 relative bg-slate-950 rounded-full border border-slate-800 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(0,0,0,0.5)] mt-4 md:mt-0">
           <div className="absolute inset-0 bg-radial-gradient from-slate-900 to-transparent opacity-50 rounded-full pointer-events-none" />
-          
+
           <svg width={size} height={size} className="absolute inset-0 mx-auto rotate-180 drop-shadow-xl">
             <polygon points={`${center},0 ${size},${size*0.75} 0,${size*0.75}`} fill="transparent" stroke="#334155" strokeWidth="1" strokeDasharray="4 4" />
             <polygon points={`${center},${center - (50/100)*(size/2)} ${center + (50/100)*(size/2)*0.866},${center + (50/100)*(size/2)*0.5} ${center - (50/100)*(size/2)*0.866},${center + (50/100)*(size/2)*0.5}`} fill="transparent" stroke="#1e293b" strokeWidth="1" />
-            
-            <polygon 
-              points={`${pf.x},${size - pf.y} ${pm.x},${size - pm.y} ${ps.x},${size - ps.y}`} 
-              fill="rgba(245, 158, 11, 0.3)" 
-              stroke="#f59e0b" 
-              strokeWidth="2.5" 
+
+            <polygon
+              points={`${pf.x},${size - pf.y} ${pm.x},${size - pm.y} ${ps.x},${size - ps.y}`}
+              fill="rgba(245, 158, 11, 0.3)"
+              stroke="#f59e0b"
+              strokeWidth="2.5"
               className="transition-all duration-75 ease-out drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]"
             />
           </svg>
-          
+
           <span className="absolute -top-3 bg-slate-900 px-3 py-1 border border-amber-500/30 rounded-full text-[10px] text-amber-500 font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(245,158,11,0.2)]">Formal Vector</span>
           <span className="absolute -bottom-1 -right-4 bg-slate-900 px-3 py-1 border border-rose-500/30 rounded-full text-[10px] text-rose-500 font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(244,63,94,0.2)]">Casual Array</span>
           <span className="absolute -bottom-1 -left-4 bg-slate-900 px-3 py-1 border border-blue-500/30 rounded-full text-[10px] text-blue-500 font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(59,130,246,0.2)]">Minimal</span>
