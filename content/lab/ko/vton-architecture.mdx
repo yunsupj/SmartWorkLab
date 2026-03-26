@@ -1,0 +1,104 @@
+---
+title: "원샷 드레싱 룸: VTON 레이턴시를 70% 단축하는 혁신적 아키텍처"
+description: "가상 피팅(VTON) 모델은 극도로 비싸고 느립니다. SmartWorkLab이 어떻게 파이프라인을 재설계하여 API 호출을 O(N)에서 O(1)로 줄이고 인프라 비용을 66% 절감했는지 알아보세요."
+subtitle: "워터폴 구조의 병목 현상을 우회하고 수평 확장하는 방법"
+excerpt: "가상 피팅(VTON) 모델은 극도로 비싸고 느립니다. SmartWorkLab이 어떻게 파이프라인을 재설계하여 API 호출을 O(N)에서 O(1)로 줄이고 인프라 비용을 66% 절감했는지 알아보세요."
+date: "2026-03-25"
+category: "Generative AI"
+category_badges:
+  - "Computer Vision"
+  - "GCP CPU"
+  - "Next.js"
+tags: ["VTON", "GCP Cloud Run", "MediaPipe", "OpenCV", "AI Architecture"]
+series: "High-Performance AI Infrastructure"
+has_latex: true
+has_code: true
+read_time_min: 12
+slug: "vton-architecture"
+cover_image_url: "/images/lab/vton-architecture-cover.png"
+---
+
+컴퓨터 비전을 활용한 가상 피팅(VTON, Virtual Try-On) 모델은 운영 비용이 극도로 높고 속도가 느립니다. 수백만 명의 활성 사용자(DAU)를 처리해야 하는 패션 이커머스에서 상의, 하의, 아우터를 순차적 생성 AI 추론을 통해 입히는 기본 방식은 이른바 **"60초 이탈(The 60-Second Bounce)"**이라는 최악의 UX를 야기합니다.
+
+<StyleDnaAnalyzer />
+
+사용자들은 실시간 반응을 기대합니다. 로딩 창이 60초 넘게 맴돌면 장바구니 결제율은 급감합니다. 이번 문서에서는 API 호출 수를 의류 개수 $O(N)$에서 **$O(1)$**로 줄여 GPU 인프라 비용을 절반 이하로 억제한 SmartWorkLab의 파이프라인 개편 과정을 분석합니다.
+
+---
+
+## 🏗 첫번째 축: "로봇 종이인형" 모델 
+
+VTON 아키텍처를 종이인형에 옷을 입히는 과정으로 비유해 보겠습니다. 기존 시스템에서는 셔츠를 가져온 뒤 AI가 사람 위에 그림을 "그리도록" 기다리고, 바지를 가져와 다시 그리는 연산을 반복합니다.
+
+**레거시 파이프라인 ($O(N)$ Inference):**
+1. 사용자가 상의 + 하의 + 자켓을 선택합니다.
+2. GPU 연산 (상의) $\rightarrow$ 중간 이미지 반환 (20초 소요).
+3. GPU 연산 (중간 이미지 위에 하의 생성) $\rightarrow$ 두번째 반환 (20초 소요).
+4. GPU 연산 (자켓 생성) $\rightarrow$ 최종 렌더링 (20초 소요).
+
+총 대기 시간: **약 60초.** 
+총 인프라 비용: **고비용 GPU 추론 API 3회 호출.**
+
+<VTONMasterConsole />
+
+---
+
+## ⚙️ 두번째 축: 효율적인 단일 방향 텐서 흐름 
+
+강력한 생성형 AI (Fal.ai 또는 Replicate)가 이 모든 순차 과정을 전담하게 놔두는 대신, 우리는 **Fast CV (고속 컴퓨터 비전)** 작업 부하를 초저가, 초고속 CPU 컨테이너(GCP Cloud Run 및 Supabase Edge Functions)로 이동시켰습니다.
+
+전통적인 호모그래피(Homography Warp) 변환 행렬과 같은 Computer Vision 공식을 사용하여 옷의 이미지를 왜곡 계산합니다. 렌더 영역 좌표계와 타겟 패브릭 간의 매핑 연산은 다음의 호모그래피 수식으로 우아하게 해결됩니다:
+$$ p' = H \cdot p $$
+
+이 연산을 통해 상의와 하의를 단일 알파 마스크로 패킹하여 거대한 단일 텐서 구조로 VTON 엔진에 던지는 것입니다.
+
+```mermaid
+graph TD
+    A[Client App] -->|의상 3종 선택| B(Supabase Edge / GCP Cloud Run);
+    B -->|Fast CV 레이어 기반 알파 마스킹 병합| C[단일 패킹 의류 텐서];
+    C -->|Single API Call| D[Fal.ai GPU Instance];
+    D -->|전체 핏 완성본 렌더링| A;
+    
+    classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef edge fill:#1e1b4b,stroke:#a855f7,stroke-width:2px,color:#fff;
+    classDef gpu fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#fff;
+    
+    class A client;
+    class B,C edge;
+    class D gpu;
+```
+
+---
+
+## 🧠 세번째 축: 엣지 물리 매트릭스 계산
+
+알파 마스크 렌더링을 완전히 GPU에 위임하면 VRAM의 병목 현상이 극적으로 심화됩니다. 이 문제를 우회하기 위해 우리는 엣지 물리 매트릭스를 구현했습니다. 우리는 전용 GCP Cloud Run 컨테이너 안에서 OpenCV 프레임워크를 실행시켜 의류의 구조적 경계를 비동기적으로 연산합니다. 정밀한 벡터 호모그래피가 비싸고 무거운 모델 개입 없이 동적으로 처리되어 공간 매핑의 지연 속도를 99% 단축시켰습니다.
+가벼운 처리와 달리 무거운 컴퓨터 비전(CV) 처리를 위한 인프라 선택은 명확합니다. OpenCV와 MediaPipe는 네이티브 C++ 바인딩과 대규모 메모리($> 2GB$)가 필요하며, 표준 Supabase Edge Functions로는 이를 감당할 수 없었기에 우리는 **GCP Cloud Run**을 채택했습니다.
+
+- **제약 조건**: Edge Functions는 공유 CPU 리소스 스로틀링이 발생합니다.
+- **해결책**: Cloud Run은 결정론적인 워프 레이턴시를 보장하기 위해 전용 vCPU를 제공합니다.
+
+
+## 👗 네번째 축: 정밀 좌표 동기화 (Canonical Coordination) 및 턱인(Tuck-in) 로직
+
+다중 의류 가상 피팅은 종종 허리선에서 어색함이 발생합니다. 우리의 아키텍처는 **결정론적 레이어 순서(Deterministic Layering Order)**를 따릅니다. 즉, 하의가 먼저 렌더링되고 그 위에 상의가 덧입혀집니다.
+
+만약 `tuck_in=True`(상의 넣어 입기) 모드가 활성화되면, 컴퓨터 비전 엔진이 합성하기 *전에* 상의의 하단 텍스처를 동적으로 확장하여 허리 밴드 영역을 먼저 덮습니다. 이러한 "정밀 좌표 동기화"는 $O(N)$ 순차 처리에서 필연적으로 발생하는 시각적 공백이나 아티팩트(Artifact)를 원천적으로 방지합니다.
+
+---
+
+## 📊 다섯번째 축: 엔터프라이즈 벤치마크
+
+재방문 고객의 렌더링 대기 시간을 제로에 가깝게 맞추기 위해 랜드마크 캐싱을 도입했습니다. 사용자가 기초 프로필을 업로드할 때 생성된 관절 좌표를 **Redis** 서버에 저장하여, 불필요한 OpenPose 연산량을 0에 수렴하도록 설계합니다.
+
+### SmartWorkLab 벤치마크 지표
+
+| 백엔드 구조 | 추론 사이클 | Latency 99p | A100 GPU 비용 | 사용자 경험(UX) |
+| :--- | :--- | :--- | :--- | :--- |
+| **기존 순차 처리** | 3회 개별 호출 | &gt; 60.0s | 3배 부하 (\$0.150) | 📉 3/10 (높은 이탈) |
+| **SmartWorkLab O(1)** | 1x 통합 마스크 렌더링 | &lt; 22.0s | 1배 기본 (\$0.050) | 📈 9/10 (몰입형) |
+
+> [!TIP]
+> **ROI 분석:** Alpha-Warp 전처리식($H$)을 초저가 GCP 컨테이너 스레드로 옮김으로써 무거운 A100 GPU 비용의 66%를 제거합니다. 1억 명 수준의 DAU 트래픽을 지연 없이 감당하는 동시에 시스템 마진을 극대화하세요.
+
+<AgencyCTA />

@@ -16,11 +16,14 @@ Every post in /lab must strictly adhere to these 5 pillars to justify our $1,500
 - Use a non-technical analogy for every complex concept.
 - Examples: "Redis as a water bucket," "Loaders as a professional kitchen brigade."
 
-## 4. Interactive Playground (The Stickiness)
-- Every post must end with or include an **Interactive Simulation Slot**.
-- This encourages the user to stay on the page (improving SEO Dwell Time) and proves our frontend engineering capability.
+## 4. Interactive Playground (The "Viral" Engine)
+Every post is a "Mini-App". High Dwell Time is achieved through:
+- **Immediate Activity**: Top of the post must have a "Scan/Test" widget (e.g., AI Style DNA Analyzer).
+- **Tactile Interaction**: Users must drag, drop, or warp elements to see "Engineering in Action".
+- **Social Shareability**: Generate a "Result Card" (e.g., "Your Style DNA: 98% Street") to encourage sharing.
 
 ## 5. The B2B Sales Hook (The Conversion)
+- **Frontmatter**: Must include `description` (min 150 chars) and `category_badges` to fill the Lab Index UI.
 - Transition from "How it works" to "Why it matters for your business."
 - Link the technical win to ROI: Cost reduction, user retention, or faster time-to-market.
 - Always end with a customized `<AgencyCTA />`.
