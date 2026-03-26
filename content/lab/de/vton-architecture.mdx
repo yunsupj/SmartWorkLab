@@ -20,10 +20,9 @@ cover_image_url: "/images/lab/vton-architecture-cover.png"
 
 Modelle für die virtuelle Anprobe (Virtual Try-On, VTON) sind berüchtigt für ihre hohen Kosten und Ineffizienz. Für E-Commerce-Plattformen in der Modebranche, die auf Millionen von Daily Active Users skalieren, führt der bisherige Standard – das schichtweise Hinzufügen von Hemd, dann Hose, dann Oberbekleidung über aufeinanderfolgende Inferenzschritte von generativer KI – zu einem inakzeptablen UX-Szenario, das als **"Der 60-Sekunden-Absprung"** bekannt ist.
 
-<StyleDnaAnalyzer />
-
 Nutzer erwarten Echtzeit-Reaktionen. Wenn ein Ladesymbol für das VTON-System 60 Sekunden lang dreht, brechen sie den Kaufvorgang ab. In diesem Artikel schlüsseln wir auf, wie SmartWorkLab die Standard-VTON-Pipeline neu entwickelt hat, um die API-Aufrufe von $O(N)$ (wobei N die Anzahl der Kleidungsstücke ist) auf **$O(1)$** zu senken. Die Latenzzeiten fielen um 70 %, während die GPU-Kosten um 66 % gesenkt wurden.
 
+<simulation-slot demo-id="style-dna"></simulation-slot>
 ---
 
 ## 🏗 Säule 1: Das "Papierpuppen"-Mentalmodell
@@ -39,8 +38,6 @@ Betrachten Sie VTON wie das Anziehen einer klassischen Papierpuppe. In Legacy-Sy
 Gesamtdauer: **~60 Sekunden.**
 Gesamtkosten: **3x Rechenintensive GPU-Inferenz-API-Aufrufe.**
 
-<VTONMasterConsole />
-
 ---
 
 ## ⚙️ Säule 2: Optimierter Algorithmus
@@ -53,6 +50,8 @@ Wir verwenden klassische Computer-Vision-Algorithmen – wie Homography-Warp-Tra
 $$ p' = H \cdot p $$
 
 Wir verpacken Oberteil, Unterteil und Oberbekleidung in einem *einzigen* Eingabe-Tensor, wobei alle Alpha-Masken erhalten bleiben. Dieser dichte, einzelne Matrix-Input wird dann als Gesamtelement an das generative KI-Modell gesendet. Diese architektonische Trennung ist das exakte Geheimnis hinter unserer 70%igen Latenzreduktion.
+
+<simulation-slot demo-id="vton-console"></simulation-slot>
 
 ```mermaid
 graph TD

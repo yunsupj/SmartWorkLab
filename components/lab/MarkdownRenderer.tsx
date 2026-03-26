@@ -13,6 +13,8 @@ import 'katex/dist/katex.min.css';
 import SimulationSlot from './SimulationSlot';
 import GhostSpeedDemo from './GhostSpeedDemo';
 import MermaidEffect from './MermaidEffect';
+import StyleDnaAnalyzer from './StyleDnaAnalyzer';
+import VTONMasterConsole from './VTONMasterConsole';
 
 interface MarkdownRendererProps {
   content: string;
@@ -92,7 +94,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // Callout-style blockquotes
           blockquote({ children }: any) {
             let isTip = false;
-            
+
             // Helper to recursively check and replace '[!TIP]'
             const extractTip = (node: any): any => {
               if (typeof node === 'string') {
@@ -104,8 +106,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               }
               if (React.isValidElement(node)) {
                 return React.cloneElement(
-                  node as React.ReactElement, 
-                  {}, 
+                  node as React.ReactElement,
+                  {},
                   React.Children.map((node.props as any).children, extractTip)
                 );
               }
@@ -155,7 +157,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           'simulation-slot': (props: any) => {
-            const demoid = props['demo-id'] || props.demoid;
+            const demoid = props.id || props['demo-id'] || props.demoid;
             const title = props.title;
             if (demoid === 'ghost-speed') {
               return (
@@ -164,6 +166,9 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 </SimulationSlot>
               );
             }
+            if (demoid === 'style-dna') return <StyleDnaAnalyzer />;
+            if (demoid === 'vton-console') return <VTONMasterConsole />;
+
             return <SimulationSlot />;
           },
         } as any)}

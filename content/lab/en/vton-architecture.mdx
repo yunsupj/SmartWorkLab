@@ -20,9 +20,9 @@ cover_image_url: "/images/lab/vton-architecture-cover.png"
 
 Virtual Try-On (VTON) models are notoriously expensive and slow. For fashion e-commerce platforms scaling to millions of daily active users, the standard approach—layering a shirt, then pants, then outerwear via sequential Generative AI inferences—creates an unacceptable UX nightmare known as **"The 60-Second Bounce"**.
 
-<StyleDnaAnalyzer />
-
 Users expect real-time feedback. When a Try-On loader spins for 60 seconds, they abandon the cart. Today, we break down how SmartWorkLab re-architected the standard VTON pipeline to reduce API calls from $O(N)$ (where N is the number of garments) to **$O(1)$**, slicing latency by 70% and slashing GPU costs by 66%.
+
+<simulation-slot demo-id="style-dna"></simulation-slot>
 
 ---
 
@@ -39,20 +39,20 @@ Think of VTON like dressing a traditional paper doll. In legacy systems, generat
 Total Time: **~60 seconds.**
 Total Cost: **3x Heavy GPU Inference API calls.**
 
-<VTONMasterConsole />
-
 ---
 
 ## ⚙️ Pillar 2: The Action-Packed Tensor Flow
 
 Instead of forcing the Generative AI (via Fal.ai or Replicate) to do the heavy lifting sequentially, we shift the burden to **Fast CV (Computer Vision)** running on extremely cheap, high-speed CPU containers.
 
-At the core of this operation is **MediaPipe**—a cross-platform ML framework developed by Google. We use it to extract 33 precise skeletal keypoints (landmarks) in real-time. Because MediaPipe is heavily optimized for CPU execution, we can completely bypass the GPU when calculating our spatial warp matrix ($H$). 
+At the core of this operation is **MediaPipe**—a cross-platform ML framework developed by Google. We use it to extract 33 precise skeletal keypoints (landmarks) in real-time. Because MediaPipe is heavily optimized for CPU execution, we can completely bypass the GPU when calculating our spatial warp matrix ($H$).
 
 We use classic Computer Vision algorithms—such as Homography Warp tracking transformations—to calculate the distortion of spatial planes directly into an **Alpha-Canvas array**. The math mapping the origin space to the output fabric structure resolves gracefully as:
 $$ p' = H \cdot p $$
 
 We pack the Top, Bottom, and Outerwear into a *single* input tensor, preserving their alpha masks. We then send this dense, single matrix to the GenAI model. This architectural split is the exact secret behind our 70% latency reduction.
+
+<simulation-slot demo-id="vton-console"></simulation-slot>
 
 ```mermaid
 graph TD
@@ -74,9 +74,9 @@ graph TD
 
 ## 🧠 Pillar 3: Infrastructure Physics & The Memory Wall
 
-Rendering Alpha Masks entirely on the GPU causes massive VRAM bottlenecks. To bypass this, we implemented an Edge Physics Matrix. We run OpenCV inside a specialized container to compute the structural boundaries of garments asynchronously. 
+Rendering Alpha Masks entirely on the GPU causes massive VRAM bottlenecks. To bypass this, we implemented an Edge Physics Matrix. We run OpenCV inside a specialized container to compute the structural boundaries of garments asynchronously.
 
-**The Memory Wall**: For heavy CV processing, infrastructure choice is binary. OpenCV and MediaPipe require native C++ bindings and significant memory footprint (> 2GB). Because standard Supabase Edge Functions rely on shared, throttled V8 isolates, they structurally "fail" this requirement. 
+**The Memory Wall**: For heavy CV processing, infrastructure choice is binary. OpenCV and MediaPipe require native C++ bindings and significant memory footprint (> 2GB). Because standard Supabase Edge Functions rely on shared, throttled V8 isolates, they structurally "fail" this requirement.
 
 **Deterministic Performance**: We deployed our CV microservice strictly on **GCP Cloud Run**. Cloud Run provides dedicated vCPUs, guaranteeing that our ($p' = H \cdot p$) transformation resolves in a hyper-predictable 0.2s, completely immune to parallel server load spikes.
 

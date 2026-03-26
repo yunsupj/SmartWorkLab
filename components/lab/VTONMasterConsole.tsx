@@ -109,7 +109,7 @@ function WarpMode() {
         
         {/* Render Garment Wrapper */}
         <div 
-           className="w-32 h-40 bg-purple-500/20 border border-purple-400/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)] transition-transform duration-75 will-change-transform z-10 pointer-events-none"
+           className="w-32 h-40 bg-purple-500/20 border border-purple-400/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)] will-change-transform z-10 pointer-events-none"
            style={{ transform: `translateX(${skewX}px) translateY(${skewY}px) skewX(${skewX * -0.2}deg) skewY(${skewY * 0.2}deg) scale(${scale})` }}
         >
            <span className="text-[9px] font-mono text-white bg-purple-900 px-2 rounded-full border border-purple-500">Outer Canvas</span>
