@@ -36,21 +36,23 @@ Betrachten Sie VTON wie das Anziehen einer klassischen Papierpuppe. In Legacy-Sy
 3. Die GPU überlagert die Hose auf dem Zwischenbild $\rightarrow$ liefert ein neues Bild (20s).
 4. Die GPU berechnet die Jacke über dem neuen Zwischenbild $\rightarrow$ Endresultat (20s).
 
-Gesamtdauer: **~60 Sekunden.** 
+Gesamtdauer: **~60 Sekunden.**
 Gesamtkosten: **3x Rechenintensive GPU-Inferenz-API-Aufrufe.**
 
 <VTONMasterConsole />
 
 ---
 
-## ⚙️ Säule 2: Optimierter Algorithmus 
+## ⚙️ Säule 2: Optimierter Algorithmus
 
-Anstatt der generativen KI (über Fal.ai oder Replicate) die gesamte aufeinanderfolgende Schwerstarbeit zu überlassen, verlagern wir diese Last auf blitzschnelles **Fast CV (Computer Vision)**, das in extrem günstigen Hochgeschwindigkeits-CPU-Containern (wie Google Cloud Run / Supabase Edge Functions) ausgeführt wird.
+Anstatt der generativen KI (über Fal.ai oder Replicate) die gesamte aufeinanderfolgende Schwerstarbeit zu überlassen, verlagern wir diese Last auf blitzschnelles **Fast CV (Computer Vision)**, das in extrem günstigen Hochgeschwindigkeits-CPU-Containern ausgeführt wird.
 
-Wir setzen klassische Algorithmen der Computer Vision – wie etwa die Homographie-Verzerrungsmatrix (Homography Warp) – ein, um die Verzerrung von räumlichen Ebenen exakt zu berechnen. Die mathematische Grundlage, die das Koordinatensystem der Quelle dynamisch auf das des Ausgabetextils abbildet, wird durch die folgende Gleichung elegant gelöst:
+Im Kern dieses Vorgangs steht **MediaPipe** – ein von Google entwickeltes plattformübergreifendes ML-Framework. Wir nutzen es, um 33 präzise skelettale Orientierungspunkte (Landmarks) in Echtzeit zu extrahieren. Da MediaPipe extrem auf CPU-Ausführung optimiert ist, können wir die Spatial-Warp-Matrix ($H$) vollständig ohne GPU berechnen.
+
+Wir verwenden klassische Computer-Vision-Algorithmen – wie Homography-Warp-Tracking-Transformationen – um die Verzerrung von räumlichen Ebenen direkt in ein **Alpha-Canvas-Array** zu berechnen. Die mathematische Abbildung vom Ursprungsraum auf die finale Stoffstruktur lässt sich elegant so auflösen:
 $$ p' = H \cdot p $$
 
-Wir verpacken das Oberteil, die Hose und die Jacke in einen *einzigen* Eingabetensor und speichern dabei ihre Alpha-Maskenstrukturen. Anschließend übergeben wir diese zusammenhängende dichte Matrize in nur einem Durchgang an das GenAI-Modell.
+Wir verpacken Oberteil, Unterteil und Oberbekleidung in einem *einzigen* Eingabe-Tensor, wobei alle Alpha-Masken erhalten bleiben. Dieser dichte, einzelne Matrix-Input wird dann als Gesamtelement an das generative KI-Modell gesendet. Diese architektonische Trennung ist das exakte Geheimnis hinter unserer 70%igen Latenzreduktion.
 
 ```mermaid
 graph TD
@@ -58,11 +60,11 @@ graph TD
     B -->|Fast CV Layer + Alpha Warp| C[Verpackter Kleidungs-Tensor];
     C -->|Single API Call| D[Fal.ai GPU Instanz];
     D -->|Generiert Finales Outfit| A;
-    
+
     classDef client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
     classDef edge fill:#1e1b4b,stroke:#a855f7,stroke-width:2px,color:#fff;
     classDef gpu fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#fff;
-    
+
     class A client;
     class B,C edge;
     class D gpu;
@@ -70,13 +72,15 @@ graph TD
 
 ---
 
-## 🧠 Säule 3: Die Edge-Physik-Matrix
+## 🧠 Säule 3: Infrastruktur-Physik & Die Memory Wall
 
-Das vollständige Rendern von Alpha-Masken auf der GPU verursacht massive VRAM-Engpässe. Um dies zu umgehen, haben wir eine Edge-Physik-Matrix implementiert. Wir führen OpenCV isoliert in einem spezialisierten GCP Cloud Run-Container aus, um die strukturellen Textilgrenzen asynchron zu berechnen. Diese exakten Vektortranslationen erfolgen dynamisch, ohne die teure GPU-Architektur wecken zu müssen, und reduzieren die Latenz beim Spatial-Mapping um 99%.
-Für aufwendige CV-Prozesse ist die Wahl der Infrastruktur binär. Wir haben uns für **GCP Cloud Run** entschieden, da OpenCV und MediaPipe native C++ Bindings und signifikanten Arbeitsspeicher ($> 2GB$) benötigen, was reguläre Supabase Edge Functions nicht bereitstellen können.
+Das Rendern von Alpha-Masken ausschließlich auf der GPU führt zu massiven VRAM-Engpässen. Um dies zu umgehen, haben wir eine Edge-Physik-Matrix implementiert. Wir führen OpenCV isoliert in einem Container aus, um die strukturellen Grenzen von Kleidungsstücken asynchron zu berechnen.
 
-- **Einschränkung**: Edge Functions drosseln geteilte CPUs (Throttling).
-- **Lösung**: Cloud Run bietet dedizierte vCPUs für eine deterministische Warp-Latenz.
+**Die Memory Wall**: Für aufwendige CV-Prozesse ist die Wahl der Infrastruktur binär. OpenCV und MediaPipe benötigen native C++-Bindings und erheblichen Arbeitsspeicher (> 2 GB). Da reguläre Supabase Edge Functions auf geteilte, gedrosselte V8-Isolates setzen, scheitern sie strukturell ("fail") an dieser Anforderung.
+
+**Deterministische Latenz (Deterministic Performance)**: Wir haben unseren CV-Microservice strikt auf **GCP Cloud Run** bereitgestellt. Cloud Run bietet dedizierte vCPUs und garantiert so, dass unsere Warp-Transformation ($p' = H \cdot p$) in vorhersagbaren 0,2s aufgelöst wird, absolut immun gegen plötzliche Serverlast-Spitzen.
+
+**Kostensegregation (Cost Segregation)**: Dies ermöglicht uns einen perfekten Kosten-Split: Wir isolieren die teuren A100 GPU-APIs (\$0.05/Req) strikt für die 'Ästhetik' (Beleuchtung, Schatten, Blending) und lagern die gesamte 'Physik' in unsere hochskalierbaren, extrem günstigen CPU-Container (\$0.0001/Req) aus.
 
 
 ## 👗 Säule 4: Kanonische Koordination & Tuck-in-Logik
@@ -93,10 +97,14 @@ Um die Latenz für wiederkehrende Nutzer so nah wie möglich an den Nullpunkt zu
 
 ### SmartWorkLab ROI Metrik
 
+
+
 | Architektur | Inferenz-Zyklen | Latenz 99p | A100 GPU-Kosten | Nutzererlebnis Score |
 | :--- | :--- | :--- | :--- | :--- |
-| **Legacy Sequenziell** | 3 separierte API Calls | &gt; 60.0s | 3x Compute (\$0.150) | 📉 3/10 (Schwach) |
-| **SmartWorkLab O(1)** | 1 komprimierter Tensor | &lt; 22.0s | 1x Minimal (\$0.050) | 📈 9/10 (Exzellent) |
+| **Legacy Sequenziell** | 3 separierte API Calls | {`> 60.0s`} | 3x Compute (\$0.150) | 📉 3/10 (Schwach) |
+| **SmartWorkLab O(1)** | 1 komprimierter Tensor | {`< 22.0s`} | 1x Minimal (\$0.050) | 📈 9/10 (Exzellent) |
+
+
 
 > [!TIP]
 > **Infrastruktur-ROI:** Die Verschiebung der mathematischen Alpha-Warp-Gleichung ($H$) in eine extrem wirtschaftliche `$0.0001` GCP Cloud Run-Instanz neutralisiert effektiv zwei Drittel aller teuren A100-GPU-API-Aufrufe. Dadurch kann das System agil und verlustfrei auf über 100 Millionen dynamische Echtzeitzugriffe skalieren.

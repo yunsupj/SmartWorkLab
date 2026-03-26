@@ -1,6 +1,8 @@
 'use client';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
 
 import rehypeRaw from 'rehype-raw';
@@ -28,21 +30,21 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="
       prose prose-invert prose-slate max-w-[85ch] mx-auto
-      prose-p:text-xl prose-p:leading-8
-      prose-li:text-xl prose-li:leading-8
+      prose-p:text-lg prose-p:leading-8
+      prose-li:text-lg prose-li:leading-8
       prose-headings:mt-12 prose-headings:mb-6
       prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-100
       prose-strong:text-cyan-400
       prose-code:text-pink-400 prose-code:bg-slate-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-img:rounded-xl prose-img:border prose-img:border-slate-800
-      lg:prose-xl
+      lg:prose-lg
       prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
       prose-blockquote:border-l-cyan-500 prose-blockquote:bg-slate-900/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-slate-400 prose-blockquote:not-italic
       prose-li:marker:text-cyan-500
       prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-0
     ">
       <ReactMarkdown
-        remarkPlugins={[remarkMath]}
+        remarkPlugins={[remarkMath, remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeKatex]}
         components={({
           code({ className, children, ...props }: any) {
@@ -89,6 +91,40 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
           // Callout-style blockquotes
           blockquote({ children }: any) {
+            let isTip = false;
+            
+            // Helper to recursively check and replace '[!TIP]'
+            const extractTip = (node: any): any => {
+              if (typeof node === 'string') {
+                if (node.includes('[!TIP]')) {
+                  isTip = true;
+                  return node.replace('[!TIP]', '💡 TIP');
+                }
+                return node;
+              }
+              if (React.isValidElement(node)) {
+                return React.cloneElement(
+                  node as React.ReactElement, 
+                  {}, 
+                  React.Children.map((node.props as any).children, extractTip)
+                );
+              }
+              if (Array.isArray(node)) {
+                return node.map(extractTip);
+              }
+              return node;
+            };
+
+            const processedChildren = extractTip(children);
+
+            if (isTip) {
+              return (
+                <div className="pl-5 border-l-4 border-amber-500 bg-amber-950/30 rounded-r-xl py-3 pr-4 my-6 text-amber-200/90 font-medium">
+                  {processedChildren}
+                </div>
+              );
+            }
+
             return (
               <blockquote className="pl-5 border-l-4 border-cyan-500 bg-slate-900/50 rounded-r-xl py-3 pr-4 my-6 text-slate-400">
                 {children}
@@ -99,7 +135,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // Tables with dark theme
           table({ children }: any) {
             return (
-              <div className="overflow-x-auto my-8 rounded-xl border border-slate-800">
+              <div className="overflow-x-auto my-8 rounded-xl border border-slate-800 px-3">
                 <table className="w-full text-sm">{children}</table>
               </div>
             );
