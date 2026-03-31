@@ -2,7 +2,7 @@
 import { useState, useRef, useMemo } from 'react';
 
 export default function AvatarAlignerSim() {
-  const [pos, setPos] = useState({ x: -60, y: 100 });
+  const [pos, setPos] = useState({ x: -90, y: 60 });
   const [scale, setScale] = useState(0.4);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
