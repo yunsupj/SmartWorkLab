@@ -15,6 +15,8 @@ import GhostSpeedDemo from './GhostSpeedDemo';
 import MermaidEffect from './MermaidEffect';
 import StyleDnaAnalyzer from './StyleDnaAnalyzer';
 import VTONMasterConsole from './VTONMasterConsole';
+import PoseMatrixCompare from './PoseMatrixCompare';
+import AvatarAlignerSim from './AvatarAlignerSim';
 
 interface MarkdownRendererProps {
   content: string;
@@ -168,6 +170,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
             if (demoid === 'style-dna') return <StyleDnaAnalyzer />;
             if (demoid === 'vton-console') return <VTONMasterConsole />;
+            if (demoid === 'pose-matrix-compare') return <PoseMatrixCompare />;
+            if (demoid === 'avatar-aligner-sim') return <AvatarAlignerSim />;
 
             return <SimulationSlot />;
           },
