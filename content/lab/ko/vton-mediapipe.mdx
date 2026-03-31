@@ -28,17 +28,19 @@ SmartWorkLab은 보이지 않는 신체 부위를 모델이 "추측"하도록 �
 
 만약 수원지가 오염되었다면, 수백억을 들여 더 똑똑한 필터를 만들 것이 아니라 사람들이 탱크에 흙탕물을 붓지 못하게 해야 합니다. **UX 자체가 우리의 정규화(Normalization) 레이어입니다.**
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-8">
+<div className="space-y-12 mt-8">
 
-<div className="space-y-8">
+<div>
 ### 🧠 이론: 2단계 해부학 파이프라인
 실시간으로 신체 자세를 브라우저 내에서 네이티브로 정규화하기 위해, 우리는 Google의 **MediaPipe BlazePose**를 배포했습니다. 이 모델은 고효율적인 2단계 파이프라인으로 작동합니다:
 
 1. **탐지기(Detector)**: 프레임을 빠르게 스캔하여 사람의 몸통 관심 영역(ROI)을 즉각 찾습니다.
 2. **추적기(Tracker)**: 식별된 ROI 영역 내에서만 33개의 매우 정밀한 3D 좌표점을 매핑합니다.
+</div>
 
 <simulation-slot demo-id="pose-matrix-compare"></simulation-slot>
 
+<div>
 *왜 다른 대안이 아닐까요?* **YOLOv8-Pose**는 17개의 관절만 매핑하여 중요 공간 회전 데이터가 부족합니다. **OpenPose (CMU)**는 정밀하지만 실시간 모바일 API에 사용하기 너무 무겁습니다.
 </div>
 
@@ -47,9 +49,9 @@ SmartWorkLab은 보이지 않는 신체 부위를 모델이 "추측"하도록 �
 우리의 **Pickle AI** 아키텍처에서는 "아바타 정렬기(Pinch & Zoom)" UX를 강력하게 규제합니다. 눈먼 업로드 버튼을 누르는 대신, 사용자는 초록색 마네킹 가이드라인에 맞춰 자신의 머리, 어깨, 무릎을 직접 조절해야 합니다.
 
 프론트엔드 React 컴포넌트는 사용자의 페이로드가 우리 서버의 최적 텐서 매트릭스와 수학적으로 일치할 때까지(적합도 > 92%) API 요청을 차단합니다.
+</div>
 
 <simulation-slot demo-id="avatar-aligner-sim"></simulation-slot>
-</div>
 
 </div>
 

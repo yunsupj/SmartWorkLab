@@ -28,17 +28,19 @@ Instead of paying massive scaling bills to train a model to "guess" where a hidd
 
 If you have a contaminated water supply, you don't build a $10M smarter filter—you stop users from pouring mud into the tank. **UX is our normalization layer.**
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-8">
+<div className="space-y-12 mt-8">
 
-<div className="space-y-8">
+<div>
 ### 🧠 Theory: The Anatomical Pipeline
 To normalize body poses in real-time natively inside the browser, we deployed Google's **MediaPipe BlazePose**. It operates on a hyper-efficient two-step pipeline:
 
 1. **The Detector**: Quickly scans the frame to identify the human Torso Region-of-Interest (ROI).
 2. **The Tracker**: Maps 33 highly precise 3D vertices purely within the identified ROI box, drastically slashing compute load.
+</div>
 
 <simulation-slot demo-id="pose-matrix-compare"></simulation-slot>
 
+<div>
 *Why not alternatives?* **YOLOv8-Pose** maps only 17 basic joints (lacking wrist/ankle rotation depth). **OpenPose (CMU)** is remarkably dense but too computationally heavyweight for real-time mobile APIs.
 </div>
 
@@ -47,9 +49,9 @@ To normalize body poses in real-time natively inside the browser, we deployed Go
 In our **Pickle AI** architecture, we enforce the "Avatar Aligner (Pinch & Zoom)". Instead of blindly hitting upload, users must drag, scale, and align their head, shoulders, and knees to a hardcoded glowing green mannequin guideline. 
 
 The frontend React component mathematically blocks the API request until the user payload dynamically aligns with our optimal tensor matrix bounds (Confidence > 92%).
+</div>
 
 <simulation-slot demo-id="avatar-aligner-sim"></simulation-slot>
-</div>
 
 </div>
 

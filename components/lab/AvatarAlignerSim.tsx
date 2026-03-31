@@ -47,7 +47,7 @@ export default function AvatarAlignerSim() {
   return (
     <div className="w-full bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl my-12 font-sans text-slate-300">
       {/* Updated Header with larger text */}
-      <div className={`p-4 border-b transition-colors duration-500 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-6xl mx-auto w-full px-9 ${isAligned ? 'bg-green-950/40 border-green-900/50' : 'bg-slate-900/80 border-slate-800'}`}>
+      <div className={`p-4 border-b transition-colors duration-500 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-6xl mx-auto w-full px-10 ${isAligned ? 'bg-green-950/40 border-green-900/50' : 'bg-slate-900/80 border-slate-800'}`}>
         <div>
           <h3 className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-tight">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isAligned ? "#4ade80" : "#22d3ee"} strokeWidth="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
@@ -65,7 +65,7 @@ export default function AvatarAlignerSim() {
         </div>
       </div>
 
-      <div className="relative w-full h-[520px] md:h-[630px] bg-slate-950 flex items-center justify-center overflow-hidden touch-none">
+      <div className="relative w-full h-[600px] bg-slate-950 flex items-center justify-center overflow-hidden touch-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 opacity-50" />
 
         {/* 1. Scaled Photo (332px x 500px) */}

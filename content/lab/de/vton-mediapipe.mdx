@@ -28,17 +28,19 @@ Anstatt massive Skalierungskosten zu zahlen, um ein Modell darauf zu trainieren,
 
 Wenn Ihr Wassersystem verunreinigt ist, investieren Sie keine 10 Millionen Dollar in einen intelligenteren Filter – Sie verhindern schlicht, dass die Anwender Schlamm in den Wassertank kippen. **UX ist unser Normalisierungs-Layer.**
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-8">
+<div className="space-y-12 mt-8">
 
-<div className="space-y-8">
+<div>
 ### 🧠 Theorie: Die Anatomische Pipeline
 Um Körperhaltungen in Echtzeit nativ im Browser zu normalisieren, verwenden wir Google's **MediaPipe BlazePose**. Es operiert in einer effizienten Pipeline:
 
 1. **Der Detector**: Scannt rasant den Frame und identifiziert die Region of Interest (ROI).
 2. **Der Tracker**: Kartiert ausschließlich innerhalb der definierten ROI 33 hochpräzise 3D-Geometrie-Knoten.
+</div>
 
 <simulation-slot demo-id="pose-matrix-compare"></simulation-slot>
 
+<div>
 *Warum keine Alternativen?* **YOLOv8-Pose** verarbeitet nur schlanke 17 Bias-Punkte (fehlende räumliche 3D-Rotation). **OpenPose (CMU)** ist detailliert, aber unverhältnismäßig schwergewichtig bei mobilen Anwendungen.
 </div>
 
@@ -47,9 +49,9 @@ Um Körperhaltungen in Echtzeit nativ im Browser zu normalisieren, verwenden wir
 In unserer **Pickle AI** Architektur implementieren wir nativ den "Avatar Aligner". Anstatt blind auf "Upload" zu klicken, müssen Nutzer ihr Foto in ein exaktes, leuchtend grünes Mannequin-Raster manuell skalieren. 
 
 Die React-Komponente blockiert API-Anfragen vollständig, solange die Nutzermatrix nicht dynamisch mit unserem mathematisch vorgegebenen Tensor-Toleranzbereich übereinstimmt (Zutrauenswürdigkeit > 92%).
+</div>
 
 <simulation-slot demo-id="avatar-aligner-sim"></simulation-slot>
-</div>
 
 </div>
 
