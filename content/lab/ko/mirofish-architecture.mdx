@@ -1,0 +1,131 @@
+---
+title: "개인화의 착시: 패션 AI의 LLM 비용 폭발 해결기"
+subtitle: "MiroFish V3.2로 API 호출을 O(N)에서 O(K) 하이브리드 아키텍처로 줄인 방법"
+description: "Qwen3.5-Flash를 사용하여 매일 10,000명의 사용자에게 맞춤형 의상을 생성하면 API 비용이 폭발적으로 증가합니다. SmartWorkLab이 결정론적 클러스터링과 제로 코스트 라스트 마일 파이프라인을 사용하여 초개인화를 확장한 방법을 알아보세요."
+excerpt: "실시간 생성에서 스타일리시한 의도를 분리하여 초개인화 트릴레마(Hyper-Personalization Trilemma)를 해결했습니다."
+date: "2026-04-20"
+category: "Generative AI"
+category_badges:
+  - "PostgreSQL"
+  - "LLM Architecture"
+  - "Next.js"
+tags: ["LLMs", "Qwen3.5", "Recommendation Systems", "Database Triggers", "System Architecture"]
+series: "High-Performance AI Infrastructure"
+has_latex: true
+has_code: true
+read_time_min: 14
+slug: "mirofish-architecture"
+cover_image_url: "/images/lab/mirofish-architecture-cover.png"
+---
+
+가상 피팅(Virtual Try-On)과 AI 스타일링은 인프라 측면에서 고유한 과제를 제시합니다: **초개인화 트릴레마 (The Hyper-Personalization Trilemma)**. 10,000명의 활성 사용자에게 매일 3개의 "오늘의 추천 코디(OOTD)"를 생성하고자 하지만, 매일 10,000개의 고유한 스타일 프롬프트를 Qwen3.5-Flash와 같은 LLM으로 라우팅하면 즉각적인 API 파산(API bankruptcy)에 직면하게 됩니다. 이러한 항목을 직접 생성하는 시간 복잡도는 사용자 기반(N)에 비례하여 $O(N)$으로 확장됩니다.
+
+트래픽이 증가할 때 단순히 LLM 생성에만 의존하는 것은 재정적인 자살 행위입니다. 최근 진행된 MiroFish V3.2 백엔드 개편에서, 엔지니어링 팀은 엄격한 목표를 세웠습니다: 1:1 맞춤형 큐레이션 품질을 유지하면서 API 호출의 시간 복잡도를 $O(N)$에서 $O(K)$로 기하급수적으로 줄이는 것이었습니다—여기서 $K$는 엄격하게 제한된, 유한한 스타일 클러스터 세트를 나타냅니다.
+
+우리가 어떻게 "개인화의 착시(Illusion of Personalization)"를 설계했는지 소개합니다.
+
+---
+
+## 🏗 아키텍처의 완전한 분리 (Phase A vs. Phase B)
+
+V3.2 이전에는 사용자가 앱을 열 때마다 Supabase에서 스타일 선호도를 조회하고, 이를 LLM 프롬프트에 담아 Qwen이 의상의 JSON 배열을 반환할 때까지 대기했습니다. 이는 느리고 비용이 많이 들었습니다.
+
+우리는 생성 엔진을 서빙 레이어에서 물리적으로 분리함으로써 이를 해결했습니다.
+
+### N+1 쿼리 방어
+우리는 단일 대량 쿼리로 사용자 메타데이터를 가져와 배치 작업을 시작합니다. 매일 밤 배치 작업이 시작될 때 사용자의 `Style DNA`, `JSONB Rules`(좋아요/싫어요), 그리고 `Timezone`을 추출합니다. 이는 초기 AI 래퍼(wrapper) 앱들을 괴롭히는 전형적인 N+1 데이터베이스 트랩을 방지합니다.
+
+### Phase A: 결정론적 클러스터링 (O(K))
+$N$번의 LLM 호출 대신 사용자들을 결정론적인 시각적 버킷으로 그룹화합니다. 사용자 프로필은 해시되어 예를 들어 `20260420_Minimal_Sunny`와 같은 클러스터 ID에 매핑됩니다. 
+10,000명의 사용자에 대해 알고리즘은 일반적으로 정확히 **30개의 클러스터**를 생성합니다. 
+
+따라서 LLM은 **정확히 30번만 호출**됩니다. 
+각 API 호출은 해당 클러스터에 매핑된 20개의 고품질 의류 구성(낮 10개, 외출(NightOut) 10개)의 밀집된 "캐시 풀"을 생성합니다. 이것들은 고속 인메모리 Redis 레이어에 저장됩니다.
+
+### Phase B: 서빙 레이어 (The Serving Layer)
+실제 사용자 요청 루프 내부—사용자가 앱을 여는 순간—**LLM 호출은 0회**입니다. 사용자가 보는 모든 것은 20개 항목의 캐시 풀에서 직접 가져옵니다. 이 마법은 풀을 검색하고 UI를 렌더링하는 사이에 발생하는 파이프라인에 전적으로 의존합니다.
+
+---
+
+## ⚙️ 제로 코스트 "라스트 마일" 개인화 파이프라인
+
+만약 300명의 사용자가 동일한 `Minimal_Sunny` 클러스터를 공유한다면, 이들이 완전히 똑같은 앱을 보게 되는 것을 어떻게 막을 수 있을까요? 우리는 LLM을 다시 호출하지 않고도 매우 빠른 5단계 Python/Node 파이프라인을 사용해 "1:1 개인화의 착시"를 만들어냅니다.
+
+### 1. 예측형 시간 필터 (Anticipatory Time Filter)
+앱을 사용자의 디바이스 IANA 시간대에 동기화합니다. 사무실 직장인들이 저녁 활동을 계획하기 시작하여 전환율이 가장 높은 심리적 순간인 **오후 3시(15:00)**가 되면, 파이프라인이 자동으로 "NightOut" 항목의 우선순위를 높입니다.
+
+### 2. 하드 필터 (JSONB Veto)
+사용자가 명시한 `style_rules.disliked_categories`를 기반으로 클러스터 항목을 즉시 거부합니다. 예를 들어, 사용자가 치마(skirts)를 거부하면 즉시 목록에서 제외됩니다. 
+UI 충돌을 방지하기 위해 **거부 케스케이드(Veto Cascade)**를 구현합니다: 엄격한 거부 규칙으로 인해 우발적으로 캐시 풀이 0개 항목으로 줄어들 경우, 케스케이드는 UI가 항상 렌더링될 수 있도록 가장 엄격한 필터를 우아하게 롤백합니다.
+
+### 3. 가중치 점수 및 소프트 재정렬 (Weighted Scoring & Soft Re-Rank)
+아이템들은 결정론적 넛지(nudge)를 받습니다. `preferred_colors`에 대해 $+2.0$ 배수를 적용하고 `liked_categories`에 대해 $+1.5$를 적용합니다. 스타일적 응집력을 처리하기 위해 초경량 **32차원 코사인 프록시(32D Cosine Proxy)**를 사용합니다. 엣지 노드에 무거운 수 기가바이트 모델이나 `numpy` 텐서를 로드하는 대신, 밀리초 단위의 재정렬을 위해 임베딩을 단 세 가지 핵심 차원(Vibe, Trend, Dare)으로 축소합니다.
+
+### 4. 1e-9 지터 (동점자 처리기)
+제한된 캐시에 소프트 규칙을 적용할 때, 많은 의상들이 정확히 동일한 점수(예: 4.5)를 받게 됩니다. 동점에 대한 데이터베이스 정렬은 비결정론적이며 리렌더링 시 아이템이 시각적으로 "깜빡거려(flicker)" 착시를 깰 수 있습니다.
+우리는 순위 논리를 방해하지 않으면서 절대적인 계층 구조를 보장하기 위해 극소량의 지터(jitter)를 주입합니다:
+
+```python
+import random
+
+def score_outfit(item, user_prefs):
+    base_score = apply_soft_rules(item, user_prefs)
+    # 1e-9 지터는 동점에 대해 완벽하고 안정적인 셔플을 보장합니다
+    jitter = random.random() * 1e-9 
+    return base_score + jitter
+```
+
+### 5. 초지역적 UI 주입 (Hyper-Local UI Injection)
+마지막으로, UI 텍스트 공간에 사용자의 위치를 동적으로 합성합니다. 일반적인 "오늘의 코디입니다"가 *"Torrance에서의 오후를 위한 가볍고 미니멀한 룩"*으로 변환됩니다.
+우리는 이것을 포춘 쿠키 효과(fortune-cookie effect)라고 부릅니다. AI 컴퓨팅 비용이 전혀 들지 않으면서도 심리적 간극을 메우고, 일반적인 클러스터 결과물이 마치 맞춤형으로 느껴지게 만듭니다.
+
+아래에서 라스트 마일 파이프라인 시뮬레이터를 테스트해보세요:
+
+<simulation-slot demo-id="mirofish-pipeline-sim"></simulation-slot>
+
+---
+
+## ⚡ 암묵적 피드백 (엣지 함수보다 DB 트리거가 우수한 이유)
+
+시스템의 성능은 암묵적 피드백 루프의 품질에 비례합니다. 우리는 "콜드 스타트(Cold Start)" 문제를 우회하면서 `JSONB Rules`를 지속적으로 세밀하게 조정하기 위해 사용자 "좋아요"에서 선호도를 매끄럽게 추출할 방법이 필요했습니다.
+
+**트레이드오프 분석:**
+처음에는 `Like` 이벤트를 Postgres 인스턴스를 업데이트하는 Serverless Edge Functions로 보냈습니다. 하지만 우리는 이를 빠르게 거절했습니다. 엣지 함수는 50-300ms의 HTTP 오버헤드와 콜드 스타트 문제를 겪습니다. 더 치명적인 것은, 엣지 함수에 뮤테이션(mutation) 로직을 둘 경우 DB 트랜잭션이 실패했을 때 복잡한 수동 재시도 로직을 작성해야 한다는 점이었습니다.
+
+**승자:**
+우리는 Native PostgreSQL Triggers와 PL/pgSQL을 사용하여 이 로직을 데이터베이스 레이어로 직접 이동시켰습니다. ~2ms 내에 완벽한 원자성(atomicity)으로 실행됩니다.
+
+의상에 '좋아요' 표시가 되면 데이터베이스는 즉시 카테고리 친화도를 계산하고 `Style DNA` JSONB 열을 네이티브로 업서트합니다:
+
+```sql
+CREATE OR REPLACE FUNCTION update_user_style_dna()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- || 연산자를 사용한 JSONB 부분 병합(Partial deep merge)
+  UPDATE users 
+  SET style_dna = COALESCE(style_dna, '{}'::jsonb) || 
+                  jsonb_build_object(
+                    'preferred_colors', 
+                    array_to_json(ARRAY(
+                      SELECT DISTINCT elements 
+                      FROM (
+                        SELECT jsonb_array_elements_text(COALESCE(style_dna->'preferred_colors', '[]'::jsonb)) AS elements
+                        UNION 
+                        SELECT NEW.item_color AS elements
+                      ) AS unique_colors
+                    ))
+                  )
+  WHERE id = NEW.user_id;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+---
+
+## 🧠 결론: SmartWorkLab의 엔지니어링 철학
+
+진정한 엔지니어링은 AWS 청구서가 불탈 때까지 문제에 LLM 연산 리소스를 쏟아붓는 것이 아닙니다. 훌륭한 엔지니어링은 데이터 파이프라인, 전략적 클러스터링, 그리고 심리적인 UX 타이밍을 효과적으로 활용하는 것입니다. 
+
+$O(N)$의 API 종속성을 제거하고 최적화된 라스트 마일 파이프라인을 마스터함으로써, 우리는 API "비용 폭발"을 해결했을 뿐만 아니라 초개인화를 무한히 확장할 수 있는 아키텍처 프레임워크를 구축했습니다.

@@ -17,6 +17,7 @@ import StyleDnaAnalyzer from './StyleDnaAnalyzer';
 import VTONMasterConsole from './VTONMasterConsole';
 import PoseMatrixCompare from './PoseMatrixCompare';
 import AvatarAlignerSim from './AvatarAlignerSim';
+import MiroFishPipelineSim from './MiroFishPipelineSim';
 
 interface MarkdownRendererProps {
   content: string;
@@ -165,17 +166,18 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               return (
                 <SimulationSlot>
                   <GhostSpeedDemo />
-                </SimulationSlot>
-              );
-            }
-            if (demoid === 'style-dna') return <StyleDnaAnalyzer />;
-            if (demoid === 'vton-console') return <VTONMasterConsole />;
-            if (demoid === 'pose-matrix-compare') return <PoseMatrixCompare />;
-            if (demoid === 'avatar-aligner-sim') return <AvatarAlignerSim />;
+                    </SimulationSlot>
+                  );
+                }
+                if (demoid === 'style-dna') return <StyleDnaAnalyzer />;
+                if (demoid === 'vton-console') return <VTONMasterConsole />;
+                if (demoid === 'pose-matrix-compare') return <PoseMatrixCompare />;
+                if (demoid === 'avatar-aligner-sim') return <AvatarAlignerSim />;
+                if (demoid === 'mirofish-pipeline-sim') return <MiroFishPipelineSim />;
 
-            return <SimulationSlot />;
-          },
-        } as any)}
+                return <SimulationSlot />;
+              },
+            } as any)}
       >
         {content}
       </ReactMarkdown>
