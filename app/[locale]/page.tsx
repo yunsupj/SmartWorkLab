@@ -57,16 +57,19 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   const otherRanked = rankedPosts.filter(p => p.slug !== featured.slug);
   const otherRecent = recentPosts.filter(p => p.slug !== featured.slug);
 
-  // Deduplicate and mix (e.g. up to 3 posts: 1 from recent, 1 from top, 1 from recent)
-  const mixedPool = Array.from(new Set([
-    otherRecent[0],
-    otherRanked[0],
-    otherRecent[1],
-    otherRanked[1],
-    otherRecent[2]
-  ])).filter(Boolean);
+  // Dynamically alternate between recent and ranked posts
+  const combined = [];
+  const maxLength = Math.max(otherRecent.length, otherRanked.length);
+  for (let i = 0; i < maxLength; i++) {
+    if (otherRecent[i]) combined.push(otherRecent[i]);
+    if (otherRanked[i]) combined.push(otherRanked[i]);
+  }
 
-  const recent = mixedPool.slice(0, 6);
+  // Deduplicate by object reference using Set
+  const uniquePool = Array.from(new Set(combined)).filter(Boolean);
+
+  // Safely slice up to 6 items
+  const recent = uniquePool.slice(0, 6);
 
   // Track Top 3 slugs for the Trending badge
   const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));

@@ -49,6 +49,24 @@ async function syncLabPosts() {
     // Explicitly strip -ko or -de from the filename
     const slug = (frontmatter.slug || item.file.replace('.mdx', '')).replace(/-ko$/, '').replace(/-de$/, '').replace(/-en$/, '');
 
+    // 1. Check existing data
+    const { data: existing } = await supabase
+      .from('tech_posts')
+      .select('id, published_at')
+      .eq('slug', slug)
+      .eq('locale', item.locale)
+      .single();
+
+    // 2. Safe Date Logic (Existing DB Date > MDX Date > Current Time)
+    let finalPublishedAt;
+    if (existing && existing.published_at) {
+      finalPublishedAt = existing.published_at; // NEVER overwrite existing
+    } else if (frontmatter.date) {
+      finalPublishedAt = new Date(frontmatter.date).toISOString();
+    } else {
+      finalPublishedAt = new Date().toISOString();
+    }
+
     const postData: any = {
       slug: slug,
       locale: item.locale,
@@ -63,17 +81,9 @@ async function syncLabPosts() {
       has_latex: frontmatter.has_latex ?? false,
       is_published: frontmatter.is_published ?? true,
       author: frontmatter.author || 'SmartWorkLab Engineering',
-      published_at: frontmatter.published_at || new Date().toISOString(),
+      published_at: finalPublishedAt, // <-- Safe Date
       cover_image_url: frontmatter.cover_image_url || null,
     };
-
-    // Safe Upsert pattern: Fetch ID first to avoid unique constraint mismatch
-    const { data: existing } = await supabase
-      .from('tech_posts')
-      .select('id')
-      .eq('slug', slug)
-      .eq('locale', item.locale)
-      .single();
 
     if (existing) {
       postData.id = existing.id;
