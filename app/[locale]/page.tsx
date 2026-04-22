@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { Code2, Cpu, Database, Zap, Flame } from 'lucide-react';
 
+export const revalidate = 60;
+
 // Helper to format dates for deep dive metadata
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
-    timeZone: 'UTC',
+    timeZone: 'America/Los_Angeles',
     month: 'short',
     day: 'numeric',
     year: 'numeric'
@@ -42,7 +44,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
     return scoreB - scoreA;
   });
 
-  const recentPosts = [...posts].sort((a, b) => 
+  const recentPosts = [...posts].sort((a, b) =>
     new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
   );
 
@@ -54,7 +56,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   // 2. 50/50 Mix for Recent Deep Dives
   const otherRanked = rankedPosts.filter(p => p.slug !== featured.slug);
   const otherRecent = recentPosts.filter(p => p.slug !== featured.slug);
-  
+
   // Deduplicate and mix (e.g. up to 3 posts: 1 from recent, 1 from top, 1 from recent)
   const mixedPool = Array.from(new Set([
     otherRecent[0],
@@ -65,7 +67,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   ])).filter(Boolean);
 
   const recent = mixedPool.slice(0, 3);
-  
+
   // Track Top 3 slugs for the Trending badge
   const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));
 
@@ -100,7 +102,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
 
       <Link href={`/${locale}/lab/${featured.slug}`} className="group block mb-16">
         <div className="relative rounded-2xl border border-slate-800 bg-slate-900/40 p-1 transition-all duration-300 hover:border-cyan-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] lg:grid lg:grid-cols-2 gap-0 overflow-hidden">
-          
+
           <div className="lg:order-last p-1">
             {featured.cover_image_url ? (
               <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full overflow-hidden rounded-xl bg-slate-950 mb-0">
@@ -132,10 +134,10 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
                 {formatDate(featured.published_at)} <span className="w-1 h-1 rounded-full bg-slate-700 block"/> {featured.read_time_min} MIN READ
               </span>
             </div>
-            
+
             <h3 className="text-3xl md:text-5xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-100 tracking-tight mb-4 group-hover:text-cyan-50">{featured.title}</h3>
             <p className="text-lg text-slate-400 mb-6 max-w-xl leading-relaxed">{featured.excerpt}</p>
-            
+
             <div className="flex flex-wrap gap-2 mb-8">
               {featured.tags?.map((tag: string) => (
                 <span key={tag} className="text-xs text-slate-400 bg-slate-950 px-3 py-1.5 rounded-md border border-slate-800/80 shadow-md">#{tag}</span>
@@ -170,7 +172,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
               <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-200 mb-3 group-hover:text-white transition-colors leading-tight">{post.title}</h4>
               <p className="text-sm text-slate-400 leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
             </div>
-            
+
             <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-800/50">
               {post.tags?.slice(0, 2).map((tag: string) => (
                 <span key={tag} className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">{tag}</span>
@@ -227,7 +229,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-cyan-500/30">
-      
+
       {/* Background glow establishing deep tech vibe */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-1/4 w-[500px] h-[500px] bg-cyan-900/10 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
@@ -235,7 +237,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-16">
-        
+
         {/* NEW HERO */}
         <header className="mb-24 max-w-4xl">
           <FadeIn>

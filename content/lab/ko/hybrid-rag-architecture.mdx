@@ -103,7 +103,7 @@ SELECT id, title, extracted_keywords FROM posts WHERE id = 42;
 
 ## 🛡 혁신 3: Python 게이트키퍼 (The Python Gatekeeper)
 
-여기서 까얼톡의 검색이 "괜찮은 RAG"에서 **할루시네이션 제로**로 도약합니다. Python 게이트키퍼는 벡터 검색 단계와 최종 LLM 생성 단계 사이에 위치한 냉혹한 15줄짜리 필터 스크립트입니다. 실행 시간은 **0.01초**입니다.
+여기서 깨얼톡의 검색이 "괜찮은 RAG"에서 **할루시네이션 제로**로 도약합니다. Python 게이트키퍼는 벡터 검색 단계와 최종 LLM 생성 단계 사이에 위치한 냉혹한 15줄짜리 필터 스크립트입니다. 실행 시간은 **0.01초**입니다.
 
 **파이프라인:**
 1. `gpt-4o-mini`가 사용자 인텐트를 추출 → `["pharmacy", "late-night"]`
@@ -123,12 +123,12 @@ def gatekeeper_filter(candidates: list, intent_keywords: list[str]) -> list:
     for doc in candidates:
         doc_keywords = set(k.lower() for k in doc.get("extracted_keywords", []))
         doc_title = doc.get("title", "").lower()
-        
+
         # 하드 매칭: 인텐트 키워드 중 최소 하나가 반드시 존재해야 함
-        if any(kw.lower() in doc_keywords or kw.lower() in doc_title 
+        if any(kw.lower() in doc_keywords or kw.lower() in doc_title
                for kw in intent_keywords):
             survivors.append(doc)
-    
+
     return survivors[:5]  # 확실히 관련 있는 상위 5개만 메인 AI에 전달
 ```
 
@@ -154,12 +154,12 @@ if len(gatekeeper_results) == 0:
     # 커뮤니티 데이터가 없음. LLM의 세계 지식으로 폴백.
     fallback_prompt = f"""
     사용자 검색어: "{user_query}"
-    이 쿼리와 일치하는 이웃 게시물이 없습니다. 
-    
+    이 쿼리와 일치하는 이웃 게시물이 없습니다.
+
     일반 지식을 활용하여 유용하고 간결한 답변을 제공하세요.
     응답 앞에 다음을 붙이세요: "아직 이웃 게시물이 없지만, 알려드릴 수 있는 정보입니다:"
-    
-    예시: "아직 이웃 게시물이 없지만, Sepulveda Blvd의 24시간 
+
+    예시: "아직 이웃 게시물이 없지만, Sepulveda Blvd의 24시간
     CVS가 Torrance에서 가장 가까운 심야 약국입니다."
     """
     response = generate_with_fallback(fallback_prompt)
@@ -197,6 +197,6 @@ Python 게이트키퍼를 탑재한 전체 하이브리드 RAG 파이프라인 �
 
 > 무거운 연산은 백그라운드 배치에 속합니다. 런타임 경로는 대형 망치가 아닌 수술용 메스여야 합니다.
 
-까얼톡의 전체 아키텍처 운영 비용은 주니어 엔지니어 한 명의 월간 커피 예산보다 적습니다. Python 게이트키퍼—15줄의 코드—가 할루시네이션을 완전히 제거했습니다.
+깨얼톡의 전체 아키텍처 운영 비용은 주니어 엔지니어 한 명의 월간 커피 예산보다 적습니다. Python 게이트키퍼—15줄의 코드—가 할루시네이션을 완전히 제거했습니다.
 
 더 큰 모델로 인프라와 싸우지 마세요. 로직을 다이어트하세요. 무거운 연산은 백그라운드에 숨기고, 런타임에는 초고속 Python 필터만 남겨두세요.
