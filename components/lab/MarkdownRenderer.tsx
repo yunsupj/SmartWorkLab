@@ -18,6 +18,7 @@ import VTONMasterConsole from './VTONMasterConsole';
 import PoseMatrixCompare from './PoseMatrixCompare';
 import AvatarAlignerSim from './AvatarAlignerSim';
 import MiroFishPipelineSim from './MiroFishPipelineSim';
+import HybridRagSim from './HybridRagSim';
 
 interface MarkdownRendererProps {
   content: string;
@@ -174,6 +175,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 if (demoid === 'pose-matrix-compare') return <PoseMatrixCompare />;
                 if (demoid === 'avatar-aligner-sim') return <AvatarAlignerSim />;
                 if (demoid === 'mirofish-pipeline-sim') return <MiroFishPipelineSim />;
+                if (demoid === 'hybrid-rag-sim') return <SimulationSlot><HybridRagSim /></SimulationSlot>;
 
                 return <SimulationSlot />;
               },
