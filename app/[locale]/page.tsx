@@ -182,7 +182,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
           </Link>
         ))}
 
-        {UPCOMING_RESEARCH.slice(0, Math.max(0, 3 - recent.length)).map((item, i) => (
+        {UPCOMING_RESEARCH.slice(0, Math.max(0, 6 - recent.length)).map((item, i) => (
           <div key={`upcoming-${i}`} className="relative rounded-2xl border border-slate-800/50 bg-slate-900/10 p-6 flex flex-col h-full transition-all duration-300 hover:bg-slate-900/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.02)] group overflow-hidden">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#47556910_1px,transparent_1px),linear-gradient(to_bottom,#47556910_1px,transparent_1px)] bg-[size:16px_16px] opacity-20 group-hover:opacity-40 transition-opacity" />
             <div className="relative z-10 flex-1">
