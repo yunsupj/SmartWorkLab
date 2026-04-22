@@ -3,9 +3,9 @@ import { supabase } from '@/lib/supabase';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Code2, Cpu, Database, Zap, Flame } from 'lucide-react';
+import { Code2, Flame } from 'lucide-react';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 // Helper to format dates for deep dive metadata
 function formatDate(dateStr: string) {
@@ -71,26 +71,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   // Track Top 3 slugs for the Trending badge
   const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));
 
-  const UPCOMING_RESEARCH = [
-    {
-      title: "VTON Chain Orchestration",
-      excerpt: "Solving multi-item clothing synthesis through asynchronous Edge Function pipelines.",
-      status: "In Review",
-      icon: <Cpu size={16} className="text-cyan-400" />
-    },
-    {
-      title: "Style DNA Vector Space",
-      excerpt: "Mapping user aesthetics into 32-dimensional latent space for sub-50ms recommendation.",
-      status: "Simulated",
-      icon: <Zap size={16} className="text-purple-400" />
-    },
-    {
-      title: "Redis Write-Buffer Patterns",
-      excerpt: "Protecting PostgreSQL from viral row-level locking during traffic surges.",
-      status: "Draft",
-      icon: <Database size={16} className="text-emerald-400" />
-    }
-  ];
+
 
   return (
     <div className="w-full">
@@ -182,27 +163,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
           </Link>
         ))}
 
-        {UPCOMING_RESEARCH.slice(0, Math.max(0, 6 - recent.length)).map((item, i) => (
-          <div key={`upcoming-${i}`} className="relative rounded-2xl border border-slate-800/50 bg-slate-900/10 p-6 flex flex-col h-full transition-all duration-300 hover:bg-slate-900/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.02)] group overflow-hidden">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#47556910_1px,transparent_1px),linear-gradient(to_bottom,#47556910_1px,transparent_1px)] bg-[size:16px_16px] opacity-20 group-hover:opacity-40 transition-opacity" />
-            <div className="relative z-10 flex-1">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="p-2 border border-slate-700/50 bg-slate-800/50 rounded-lg shadow-inner">
-                  {item.icon}
-                </div>
-                <span className="text-[10px] text-slate-400 font-mono tracking-widest uppercase flex items-center gap-1.5 border border-slate-700/50 px-2.5 py-1 rounded-full bg-slate-800/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse" />
-                  {item.status}
-                </span>
-              </div>
-              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-400 mb-3 group-hover:text-slate-300 transition-colors leading-tight drop-shadow-sm">{item.title}</h4>
-              <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">{item.excerpt}</p>
-            </div>
-            <div className="relative z-10 mt-auto pt-4 border-t border-slate-800/30 flex items-center text-[10px] text-slate-600 font-mono uppercase tracking-widest">
-               Access Pending <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">...</span>
-            </div>
-          </div>
-        ))}
+
       </div>
     </div>
   );
