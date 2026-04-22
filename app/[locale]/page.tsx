@@ -66,7 +66,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
     otherRecent[2]
   ])).filter(Boolean);
 
-  const recent = mixedPool.slice(0, 3);
+  const recent = mixedPool.slice(0, 6);
 
   // Track Top 3 slugs for the Trending badge
   const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));
