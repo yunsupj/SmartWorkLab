@@ -306,15 +306,17 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                       </a>
                     )}
 
-                    {/* Theme Gallery link (replaces Live Demo) */}
+                    {/* Live Sample link (replaces Theme Gallery) */}
                     {svc.demo_url && (
-                      <Link
-                        href={`/${(svc as any).locale ?? 'en'}/services/rsvp/themes`}
+                      <a
+                        href={svc.demo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${a.btnFrom} ${a.btnTo} transition-all duration-300 hover:shadow-lg ${a.btnShadow} hover:-translate-y-0.5`}
                       >
                         <ExternalLink className="w-4 h-4" />
-                        Explore Theme Gallery
-                      </Link>
+                        View Live Sample
+                      </a>
                     )}
 
                     {/* Quote CTA Client State Component Wrapper */}
