@@ -19,6 +19,7 @@ import PoseMatrixCompare from './PoseMatrixCompare';
 import AvatarAlignerSim from './AvatarAlignerSim';
 import MiroFishPipelineSim from './MiroFishPipelineSim';
 import HybridRagSim from './HybridRagSim';
+import AgenticLoopSim from './AgenticLoopSim';
 
 interface MarkdownRendererProps {
   content: string;
@@ -176,6 +177,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 if (demoid === 'avatar-aligner-sim') return <AvatarAlignerSim />;
                 if (demoid === 'mirofish-pipeline-sim') return <MiroFishPipelineSim />;
                 if (demoid === 'hybrid-rag-sim') return <SimulationSlot><HybridRagSim /></SimulationSlot>;
+                if (demoid === 'agentic-loop-sim') return <SimulationSlot><AgenticLoopSim /></SimulationSlot>;
 
                 return <SimulationSlot />;
               },
