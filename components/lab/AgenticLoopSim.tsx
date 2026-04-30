@@ -175,7 +175,9 @@ export default function AgenticLoopSim() {
   }, []);
 
   useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (logs.length > 0) {
+      logEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }, [logs]);
 
   const runSimulation = useCallback(() => {
@@ -295,13 +297,13 @@ export default function AgenticLoopSim() {
       </div>
 
       {/* ── Main Content: Two Panels ── */}
-      <div className="flex flex-col md:flex-row" style={{ minHeight: '480px' }}>
+      <div className="flex flex-col md:flex-row h-[550px]">
         {/* Left: Agent Chat Log */}
         <div className="w-full md:w-3/5 border-r border-slate-800 flex flex-col">
           <div className="px-4 py-2 border-b border-slate-800/60 bg-slate-900/50">
             <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Agent Interaction Log</span>
           </div>
-          <div className="flex-1 overflow-y-auto p-4 space-y-2" style={{ maxHeight: '420px' }}>
+          <div className="flex-1 overflow-y-auto p-4 space-y-2 relative">
             {logs.length === 0 && (
               <div className="flex items-center justify-center h-full text-slate-600 text-xs">
                 &quot;Start Agentic Loop&quot; 버튼을 눌러 시뮬레이션을 시작하세요
@@ -346,7 +348,7 @@ export default function AgenticLoopSim() {
         </div>
 
         {/* Right: Score Meter & Status */}
-        <div className="w-full md:w-2/5 bg-slate-950 p-6 flex flex-col items-center gap-6">
+        <div className="w-full md:w-2/5 bg-slate-950 p-6 flex flex-col items-center justify-start gap-6 overflow-y-auto">
           {/* Score Gauge */}
           <ScoreGauge score={displayScore} animate={scoreAnimated} />
 
