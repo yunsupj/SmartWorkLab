@@ -24,7 +24,7 @@ export async function sendContactEmail(formData: FormData) {
   try {
     const { data, error } = await resend.emails.send({
       from: 'SmartWorkLab Contact <onboarding@resend.dev>', // Adjust to verfied production domain subsequently
-      to: ['yuun@yuunchloe.com'],
+      to: ['info@yuunchloe.com'],
       subject: `[SmartWorkLab] New Inquiry from ${name}`,
       text: `Client Name: ${name}\nClient Email: ${email}\n\nProject Brief / Architectural Context:\n${brief}`,
       replyTo: email,

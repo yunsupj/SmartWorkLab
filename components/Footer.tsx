@@ -10,10 +10,10 @@ import ServiceInquiry from '@/components/ServiceInquiry';
 export default function Footer() {
   const t = useTranslations('Footer');
   const [copied, setCopied] = useState(false);
-  
+
   const handleCopy = () => {
     if (typeof navigator !== 'undefined') {
-      navigator.clipboard.writeText('yuun@yuunchloe.com');
+      navigator.clipboard.writeText('info@yuunchloe.com');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -36,8 +36,8 @@ export default function Footer() {
                     <a href="/about" className="hover:text-cyan-400 transition-colors">About Us</a>
                     <a href="/sitemap.xml" className="hover:text-cyan-400 transition-colors">Sitemap</a>
                     <div className="flex items-center gap-2 mt-1">
-                       <a href="mailto:yuun@yuunchloe.com" className="hover:text-cyan-400 transition-colors">yuun@yuunchloe.com</a>
-                       <button 
+                       <a href="mailto:info@yuunchloe.com" className="hover:text-cyan-400 transition-colors">info@yuunchloe.com</a>
+                       <button
                          onClick={handleCopy}
                          className="p-1.5 text-slate-500 hover:text-white bg-slate-900 border border-slate-800 rounded-md transition-colors"
                          title="Copy to clipboard"

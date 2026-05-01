@@ -39,4 +39,4 @@ SmartWorkLab은 AI 도구의 투자 대비 효과(ROI) 분석, 소프트웨어 �
 ---
 
 **문의처**
-본 약관에 대한 문의사항은 support@smartworklab.store로 연락 주시기 바랍니다.
+본 약관에 대한 문의사항은 [info@yuunchloe.com](mailto:[EMAIL_ADDRESS])로 연락 주시기 바랍니다.

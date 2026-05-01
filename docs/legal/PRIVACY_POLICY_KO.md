@@ -51,6 +51,6 @@ yuunchloe(이하 "회사")가 운영하는 SmartWorkLab(이하 "서비스")은 �
 ---
 
 **개인정보 관리책임자**
-- **회사명**: yuunchloe (대표: 정윤섭)
-- **문의**: support@smartworklab.store
+- **회사명**: yuunChloe LLC (CTO: 정윤섭)
+- **문의**: info@yuunchloe.com
 - **웹사이트**: [https://smartworklab.store](https://smartworklab.store)
