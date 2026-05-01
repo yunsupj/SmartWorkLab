@@ -19,9 +19,10 @@ slug: "vlm-cost-optimization"
 cover_image_url: "/images/lab/vlm-pipeline-cover.png"
 ---
 
-Sie haben ein Fashion-Produktbild. Ein Nutzer fragt: *"Finde mir etwas Ähnliches, aber formeller."* Der naive Ansatz? Senden Sie das Bild bei jeder einzelnen Suche an ein Vision-Language Model. Herzlichen Glückwunsch — Sie haben gerade $0,03 und 6 Sekunden Latenz für eine Anfrage verbrannt. Skalieren Sie das auf 10.000 tägliche Suchen und Sie bluten $300/Tag allein an Inferenzkosten.
+Sie haben ein Fashion-Produktbild. Ein Nutzer fragt: *"Finde mir etwas Ähnliches, aber formeller."* Der naive Ansatz? Senden Sie das Bild bei jeder einzelnen Suche an ein Vision-Language Model.
 
-Das ist die brutale Ökonomie der Echtzeit-VLM-Inferenz in verbraucherorientierten Anwendungen.
+> **Die brutale Ökonomie der Echtzeit-VLM-Inferenz:**
+> Herzlichen Glückwunsch — Sie haben gerade \$0,03 und 6 Sekunden Latenz für eine Anfrage verbrannt. Skalieren Sie das auf 10.000 tägliche Suchen und Sie bluten \$300/Tag allein an Inferenzkosten.
 
 ---
 
@@ -31,8 +32,8 @@ Die unbequeme Wahrheit: **Vision-Language Models sind im großen Maßstab spekta
 
 | Metrik | Echtzeit VLM | Strukturierte Metadaten-Abfrage |
 |---|---|---|
-| **Kosten pro Suche** | $0,030 | $0,0001 |
-| **Kosten pro 10k Suchen** | $300,00 | $1,00 |
+| **Kosten pro Suche** | \$0,030 | \$0,0001 |
+| **Kosten pro 10k Suchen** | \$300,00 | \$1,00 |
 | **Latenz** | 3,5–6,0s | 45ms |
 | **Skalierungsverhalten** | O(n) pro Nutzer | O(1) pro Artikel |
 
@@ -53,10 +54,10 @@ Die Kernidee: **Trenne die Verstehensphase von der Reasoning-Phase.**
 ```mermaid
 graph TD
     A[Produktbild-Upload] --> B[Base64 Encoding]
-    B --> C["claude-sonnet-4-5-20250929 · JSON Mode"]
+    B --> C["claude-sonnet-<br/>4-5-20250929 · JSON"]
     C --> D[13 Fashion DNA Tags]
-    D --> E[Supabase pgvector Speicher]
-    E --> F["Agent-Suche (Text-Only LLM)"]
+    D --> E["Supabase pgvector<br/>Speicher"]
+    E --> F["Agent-Suche<br/>(Text-Only LLM)"]
     F --> G["Nutzer-Ergebnisse · 45ms"]
     style C fill:#10b981,stroke:#065f46,color:#fff
     style E fill:#d4af37,stroke:#92400e,color:#fff
@@ -93,9 +94,9 @@ Das `claude-sonnet-4-5-20250929` Modell extrahiert 13 strukturierte Attribute au
 
 | Strategie | Kosten/10k Suchen | Jährlich |
 |---|---|---|
-| Echtzeit VLM | $300/Tag | **$108.000** |
-| Vision-at-the-Gate | $1/Tag | **$360** |
-| **Einsparung** | | **$107.640 (99,7%)** |
+| Echtzeit VLM | \$300/Tag | **\$108.000** |
+| Vision-at-the-Gate | \$1/Tag | **\$360** |
+| **Einsparung** | | **\$107.640 (99,7%)** |
 
 > "In der KI-Architektur ist Vision zum Verstehen da, aber Metadaten sind zum Skalieren da."
 

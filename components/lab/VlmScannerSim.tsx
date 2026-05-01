@@ -201,8 +201,14 @@ export default function VlmScannerSim() {
           <div className="relative w-full aspect-square max-w-[240px] bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden flex items-center justify-center">
             <ScanOverlay active={mode === 'metadata-scanning'} />
             {/* Mock outfit visual */}
-            <div className="text-center p-4 z-0">
-              <div className="text-5xl mb-2">🧥</div>
+            <div className="text-center p-4 z-0 flex flex-col items-center">
+              <div className="w-24 h-24 mb-4 rounded-lg overflow-hidden border border-slate-700 shadow-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?q=80&w=400&auto=format&fit=crop"
+                  alt="Denim Trucker Jacket"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="text-xs text-slate-500 font-sans">Denim Trucker Jacket</div>
               <div className="text-[10px] text-slate-600 mt-1">1024 × 1024 · 2.4MB</div>
             </div>

@@ -19,9 +19,10 @@ slug: "vlm-cost-optimization"
 cover_image_url: "/images/lab/vlm-pipeline-cover.png"
 ---
 
-You have a fashion product image. A user asks: *"Find me something similar but more formal."* The naive approach? Send the image to a Vision-Language Model on every single search. Congratulations — you've just burned $0.03 and 6 seconds of latency for one query. Scale that to 10,000 daily searches and you're hemorrhaging $300/day on inference alone.
+You have a fashion product image. A user asks: *"Find me something similar but more formal."* The naive approach? Send the image to a Vision-Language Model on every single search.
 
-This is the brutal economics of real-time VLM inference in consumer-facing applications.
+> **The Brutal Economics of Real-Time VLM:**
+> Congratulations — you've just burned \$0.03 and 6 seconds of latency for one query. Scale that to 10,000 daily searches, and you're hemorrhaging \$300/day on inference alone.
 
 ---
 
@@ -35,8 +36,8 @@ It worked beautifully in demos. It was catastrophically uneconomical in producti
 
 | Metric | Real-Time VLM | Structured Metadata Query |
 |---|---|---|
-| **Cost per search** | $0.030 | $0.0001 |
-| **Cost per 10k searches** | $300.00 | $1.00 |
+| **Cost per search** | \$0.030 | \$0.0001 |
+| **Cost per 10k searches** | \$300.00 | \$1.00 |
 | **Latency** | 3.5–6.0s | 45ms |
 | **Determinism** | Non-deterministic | Deterministic |
 | **Cacheability** | ❌ None | ✅ Full |
@@ -69,10 +70,10 @@ The core insight is deceptively simple: **separate the understanding phase from 
 ```mermaid
 graph TD
     A[Product Image Upload] --> B[Base64 Encoding]
-    B --> C["claude-sonnet-4-5-20250929 · JSON Mode"]
+    B --> C["claude-sonnet-<br/>4-5-20250929 · JSON"]
     C --> D[13 Fashion DNA Tags]
-    D --> E[Supabase pgvector Storage]
-    E --> F["Agent Search (Text-Only LLM)"]
+    D --> E["Supabase pgvector<br/>Storage"]
+    E --> F["Agent Search<br/>(Text-Only LLM)"]
     F --> G[User Results · 45ms]
     style C fill:#10b981,stroke:#065f46,color:#fff
     style E fill:#d4af37,stroke:#92400e,color:#fff
@@ -141,7 +142,7 @@ def extract_fashion_dna(image_path: str) -> dict:
     return json.loads(response.content[0].text)
 ```
 
-This single function call costs approximately **$0.003 per image** — and it only runs once. The resulting 13 tags become the item's permanent DNA in the database.
+This single function call costs approximately **\$0.003 per image** — and it only runs once. The resulting 13 tags become the item's permanent DNA in the database.
 
 ### The Four Pillars of Fashion DNA
 
@@ -232,19 +233,19 @@ Let's do the math on a production deployment with 50,000 product images and 10,0
 
 | Line Item | Calculation | Cost |
 |---|---|---|
-| VLM extraction | 50,000 images × $0.003/image | $150 |
-| Embedding generation | 50,000 × $0.0001/embed | $5 |
-| **Total one-time cost** | | **$155** |
+| VLM extraction | 50,000 images × \$0.003/image | \$150 |
+| Embedding generation | 50,000 × \$0.0001/embed | \$5 |
+| **Total one-time cost** | | **\$155** |
 
 **Daily Operational Cost Comparison:**
 
 | Strategy | Cost per 10k Searches | Monthly (300k) | Annual |
 |---|---|---|---|
-| Real-time VLM | $300/day | $9,000 | **$108,000** |
-| Vision-at-the-Gate | $1/day | $30 | **$360** |
-| **Savings** | | | **$107,640 (99.7%)** |
+| Real-time VLM | \$300/day | \$9,000 | **\$108,000** |
+| Vision-at-the-Gate | \$1/day | \$30 | **\$360** |
+| **Savings** | | | **\$107,640 (99.7%)** |
 
-The $155 one-time ingestion cost pays for itself in **12 hours** of production traffic. After that, every search costs 300× less than the naive approach.
+The \$155 one-time ingestion cost pays for itself in **12 hours** of production traffic. After that, every search costs 300× less than the naive approach.
 
 > "In AI architecture, Vision is for understanding, but Metadata is for scaling."
 
