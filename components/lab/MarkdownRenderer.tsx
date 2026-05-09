@@ -21,6 +21,7 @@ import MiroFishPipelineSim from './MiroFishPipelineSim';
 import HybridRagSim from './HybridRagSim';
 import AgenticLoopSim from './AgenticLoopSim';
 import VlmScannerSim from './VlmScannerSim';
+import RedisBufferSim from './RedisBufferSim';
 
 interface MarkdownRendererProps {
   content: string;
@@ -180,6 +181,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 if (demoid === 'hybrid-rag-sim') return <SimulationSlot><HybridRagSim /></SimulationSlot>;
                 if (demoid === 'agentic-loop-sim') return <SimulationSlot><AgenticLoopSim /></SimulationSlot>;
                 if (demoid === 'vlm-scanner-sim') return <SimulationSlot><VlmScannerSim /></SimulationSlot>;
+                if (demoid === 'redis-buffer-sim') return <SimulationSlot><RedisBufferSim /></SimulationSlot>;
 
                 return <SimulationSlot />;
               },
