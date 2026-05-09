@@ -184,13 +184,13 @@ export default function VlmScannerSim() {
           <span className="text-amber-400"><ScanIcon /></span>
           <span className="font-semibold text-slate-200 tracking-wide font-sans">Vision-at-the-Gate Simulator</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           {isRunning && (
             <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-950/50 border border-amber-800/50 text-amber-400 animate-pulse">
               Processing...
             </div>
           )}
-          <div className="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">claude-sonnet-4-5-20250929</div>
+          <div className="text-[10px] text-slate-500 bg-slate-900 px-2 py-1 rounded whitespace-nowrap shrink-0">claude-sonnet-4-5-20250929</div>
         </div>
       </div>
 
@@ -205,11 +205,11 @@ export default function VlmScannerSim() {
               <div className="w-24 h-24 mb-4 rounded-lg overflow-hidden border border-slate-700 shadow-lg">
                 <img
                   src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?q=80&w=400&auto=format&fit=crop"
-                  alt="Denim Trucker Jacket"
+                  alt="Camel Trench Coat"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="text-xs text-slate-500 font-sans">Denim Trucker Jacket</div>
+              <div className="text-xs text-slate-500 font-sans">Camel Trench Coat</div>
               <div className="text-[10px] text-slate-600 mt-1">1024 × 1024 · 2.4MB</div>
             </div>
             {/* VLM loading bar overlay */}
