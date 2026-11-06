@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { matchesSeries } from '@/lib/series';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   params: Promise<{ locale: string; series: string }>;
@@ -18,8 +19,9 @@ interface TechPost {
 
 export async function generateMetadata({ params }: Props) {
   const { locale, series } = await params;
+  const display = series === 'mochi-sprout' ? (locale === 'ko' ? '모찌 새싹' : 'Mochi Sprout') : series;
   return {
-    title: `Series: ${series} | SmartWorkLab`,
+    title: locale === 'ko' ? `${display} | SmartWorkLab` : `Series: ${display} | SmartWorkLab`,
     alternates: {
       canonical: `https://smartworklab.store/${locale}/lab/series/${series}`,
       languages: {
@@ -32,6 +34,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function SeriesDetailPage({ params }: Props) {
   const { locale, series } = await params;
+  const t = await getTranslations('Lab');
 
   let posts: TechPost[] = [];
   if (supabase) {
@@ -53,7 +56,7 @@ export default async function SeriesDetailPage({ params }: Props) {
   return (
     <div className="bg-[#F7F7F4] text-[#1C2321] min-h-screen">
       <header className="pt-16 md:pt-20 pb-10 max-w-4xl mx-auto px-6">
-        <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">Series</p>
+        <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">{t('series_label')}</p>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">{displayName}</h1>
         {isMochiSprout && (
           <p className="text-lg text-[#66716C] leading-relaxed max-w-2xl">
@@ -78,7 +81,7 @@ export default async function SeriesDetailPage({ params }: Props) {
                   month: 'long',
                   day: 'numeric',
                 })}
-              {post.read_time_min ? ` · ${post.read_time_min} min read` : ''}
+              {post.read_time_min ? ` · ${t('min_read', { minutes: post.read_time_min })}` : ''}
             </p>
             <h2 className="text-xl font-bold tracking-tight mb-2">{post.title}</h2>
             {post.excerpt && (

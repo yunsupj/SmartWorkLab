@@ -11,11 +11,11 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: 'Series | SmartWorkLab',
+    title: locale === 'ko' ? '연재 시리즈 | SmartWorkLab' : 'Series | SmartWorkLab',
     description:
       locale === 'ko'
-        ? 'SmartWorkLab의 시리즈별 아티클 모음.'
-        : 'SmartWorkLab articles grouped by series.',
+        ? '하나의 주제를 처음부터 차근차근 따라갈 수 있도록 글을 모았습니다.'
+        : 'Articles grouped into ongoing research series.',
     alternates: {
       canonical: `https://smartworklab.store/${locale}/lab/series`,
       languages: {
