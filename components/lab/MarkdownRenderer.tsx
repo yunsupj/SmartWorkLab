@@ -44,7 +44,6 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
       prose-headings:mt-12 prose-headings:mb-6
       prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#1C2321]
       prose-strong:text-[#4C6B59]
-      prose-code:text-[#C2557A] prose-code:bg-[#FFFFFF] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-img:rounded-xl prose-img:border prose-img:border-[#E4E7E2]
       lg:prose-lg
       prose-a:text-[#4C6B59] prose-a:no-underline hover:prose-a:underline
@@ -66,7 +65,12 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
 
             return !className ? (
-              <code className={className} {...props}>{children}</code>
+              <code
+                className="font-mono text-sm text-[#C2557A] bg-[#FFFFFF] border border-[#E4E7E2] rounded px-1.5 py-0.5"
+                {...props}
+              >
+                {children}
+              </code>
             ) : match ? (
               <SyntaxHighlighter
                 style={codeTheme as any}
