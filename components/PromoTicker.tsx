@@ -13,18 +13,18 @@ export default function PromoTicker() {
   const t = useTranslations('PromoTicker');
 
   return (
-    <div className="bg-cyan-900/30 border-b border-[#5FBF8A]/20 text-cyan-300 overflow-hidden relative h-10 flex items-center z-50">
+    <div className="bg-cyan-900/30 border-b border-[#4C6B59]/20 text-cyan-300 overflow-hidden relative h-10 flex items-center z-50">
       <div className="absolute whitespace-nowrap animate-marquee flex gap-8">
         {[...PROMOS, ...PROMOS, ...PROMOS].map((promo, idx) => (
           <div key={idx} className="flex items-center gap-2">
             <Link
               href={promo.link}
-              className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[80vw] md:max-w-none font-mono font-bold tracking-wider hover:text-[#3D2C29] transition-colors"
+              className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[80vw] md:max-w-none font-mono font-bold tracking-wider hover:text-[#1C2321] transition-colors"
             >
               {promo.text}
             </Link>
             {promo.source && (
-               <a href={promo.source} target="_blank" rel="noopener noreferrer" className="ml-2 text-[10px] text-[#7A6A5E] hover:text-[#3E9B6A] flex items-center gap-1 border border-[#DFC9A3]/50 bg-white/70 rounded px-1.5 py-0.5 transition-colors" title={t('source')}>
+               <a href={promo.source} target="_blank" rel="noopener noreferrer" className="ml-2 text-[10px] text-[#66716C] hover:text-[#4C6B59] flex items-center gap-1 border border-[#D5DAD3]/50 bg-white/70 rounded px-1.5 py-0.5 transition-colors" title={t('source')}>
                  <span>ℹ️</span> Details
                </a>
             )}

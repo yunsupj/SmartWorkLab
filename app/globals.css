@@ -1,22 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+ * SmartWorkLab — editorial design tokens.
+ * Minimal engineering journal: calm, readable, light-first.
+ * Palette: background #F7F7F4, surface #FFFFFF, ink #1C2321,
+ * secondary #66716C, accent #4C6B59, borders #E4E7E2.
+ * Contrast: ink on background ~14.5:1, secondary on background ~5.2:1,
+ * accent on background ~5.0:1 — all pass WCAG AA for text.
+ * Dark mode is intentionally not implemented (see design brief §2):
+ * one light theme, shared tokens, no dual-theme complexity.
+ */
 :root {
-  --background: #FFF8EC;   /* sprout cream */
-  --foreground: #3D2C29;   /* sprout ink */
-  /* Mochi Sprout — warm theme tokens (additive, v1).
-     Cream #FFF8EC, warm paper #FDF3E0, ink #3D2C29,
-     sprout green #5FBF8A, light mint #A8E6CF,
-     blush pink #FFC7D6, soft amber #F5B942.
-     Use these for hero badges, CTAs, and the Sprout status card;
-     article pages keep the dark reading surface in v1. */
-  --sprout-cream: #FFF8EC;
-  --sprout-paper: #FDF3E0;
-  --sprout-ink: #3D2C29;
-  --sprout-green: #5FBF8A;
-  --sprout-mint: #A8E6CF;
-  --sprout-blush: #FFC7D6;
-  --sprout-amber: #F5B942;
+  --background: #F7F7F4;
+  --foreground: #1C2321;
+  --surface: #FFFFFF;
+  --secondary: #66716C;
+  --muted: #8A938E;
+  --accent: #4C6B59;
+  --accent-soft: #DCE8DF;
+  --border: #E4E7E2;
+  --border-strong: #D5DAD3;
 }
 
 @theme inline {
@@ -26,23 +30,55 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #FFF8EC;
-    --foreground: #3D2C29;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Geist for Latin; system Korean stacks for KO (no extra font downloads,
+     no licensing risk). Korean renders in Apple SD Gothic Neo / Malgun
+     Gothic / Noto Sans KR from the OS. */
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
+    "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
   max-width: 100%;
   scrollbar-gutter: stable;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* ── Minimal modern scrollbars (warm sprout theme) ── */
+/* Korean typography: generous line height, no mid-word breaks. */
+html[lang="ko"] body {
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+html[lang="ko"] h1,
+html[lang="ko"] h2,
+html[lang="ko"] h3 {
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+/* Visible keyboard focus, accent-colored, everywhere. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Honor reduced-motion preferences: no animation, no smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Minimal modern scrollbars ── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -51,14 +87,14 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(223 201 163 / 0.9);   /* warm sand */
+  background: rgb(213 218 211 / 0.9);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(95 191 138 / 0.9);  /* sprout green */
+  background: rgb(76 107 89 / 0.9);
 }
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(223 201 163 / 0.9) transparent;
+  scrollbar-color: rgb(213 218 211 / 0.9) transparent;
 }

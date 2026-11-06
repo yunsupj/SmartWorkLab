@@ -17,8 +17,8 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
   }
 
   return (
-    <div className="min-h-screen bg-[#FFF8EC] text-[#5C4A42] py-24 px-6">
-      <div className="max-w-3xl mx-auto bg-white/70 p-8 md:p-12 rounded-2xl border border-[#E8D9BE]">
+    <div className="min-h-screen bg-[#F7F7F4] text-[#66716C] py-24 px-6">
+      <div className="max-w-3xl mx-auto bg-white/70 p-8 md:p-12 rounded-2xl border border-[#E4E7E2]">
         <LegalMarkdown content={content} />
       </div>
     </div>

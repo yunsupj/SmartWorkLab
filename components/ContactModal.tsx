@@ -51,20 +51,20 @@ export default function ContactModal({ isOpen, onClose, defaultBrief = '' }: Con
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-[#FFF8EC]/90 backdrop-blur-sm" 
+        className="absolute inset-0 bg-[#F7F7F4]/90 backdrop-blur-sm" 
         onClick={() => status !== 'submitting' && onClose()}
       />
       
       {/* Modal Content container */}
-      <div className="relative w-full max-w-md bg-[#FDF3E0] border border-[#E8D9BE] rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+      <div className="relative w-full max-w-md bg-[#FFFFFF] border border-[#E4E7E2] rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
         
         {/* Header Ribbon */}
-        <div className="flex items-center justify-between p-6 border-b border-[#E8D9BE] bg-white/70">
-          <h3 className="text-xl font-bold text-[#3D2C29] tracking-tight">Project Inquiry</h3>
+        <div className="flex items-center justify-between p-6 border-b border-[#E4E7E2] bg-white/70">
+          <h3 className="text-xl font-bold text-[#1C2321] tracking-tight">Project Inquiry</h3>
           <button 
             onClick={onClose}
             disabled={status === 'submitting'}
-            className="text-[#7A6A5E] hover:text-[#3D2C29] p-2 -mr-2 rounded-full hover:bg-[#F3E6C8] transition-colors disabled:opacity-50"
+            className="text-[#66716C] hover:text-[#1C2321] p-2 -mr-2 rounded-full hover:bg-[#EFF0EB] transition-colors disabled:opacity-50"
           >
             <X className="w-5 h-5" />
           </button>
@@ -74,9 +74,9 @@ export default function ContactModal({ isOpen, onClose, defaultBrief = '' }: Con
         <div className="p-6">
           {status === 'success' ? (
             <div className="flex flex-col items-center justify-center py-8 text-center animate-in fade-in zoom-in duration-300">
-              <CheckCircle2 className="w-16 h-16 text-[#3E9B6A] mb-4 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]" />
-              <h4 className="text-2xl font-bold text-[#3D2C29] mb-2">Inquiry Received</h4>
-              <p className="text-[#7A6A5E] text-sm">We'll get back to you within 24 hours.</p>
+              <CheckCircle2 className="w-16 h-16 text-[#4C6B59] mb-4 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]" />
+              <h4 className="text-2xl font-bold text-[#1C2321] mb-2">Inquiry Received</h4>
+              <p className="text-[#66716C] text-sm">We'll get back to you within 24 hours.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -87,29 +87,29 @@ export default function ContactModal({ isOpen, onClose, defaultBrief = '' }: Con
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-[#5C4A42] mb-1.5">Name</label>
+                <label className="block text-sm font-medium text-[#66716C] mb-1.5">Name</label>
                 <input 
                   type="text" 
                   name="name"
                   required
                   disabled={status === 'submitting'}
-                  className="w-full bg-[#FFF8EC] border border-[#E8D9BE] text-[#5C4A42] px-4 py-3 rounded-xl focus:outline-none focus:border-[#5FBF8A]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#7A6A5E]"
+                  className="w-full bg-[#F7F7F4] border border-[#E4E7E2] text-[#66716C] px-4 py-3 rounded-xl focus:outline-none focus:border-[#4C6B59]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#66716C]"
                   placeholder="Jane Doe"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#5C4A42] mb-1.5">Work Email</label>
+                <label className="block text-sm font-medium text-[#66716C] mb-1.5">Work Email</label>
                 <input 
                   type="email" 
                   name="email"
                   required
                   disabled={status === 'submitting'}
-                  className="w-full bg-[#FFF8EC] border border-[#E8D9BE] text-[#5C4A42] px-4 py-3 rounded-xl focus:outline-none focus:border-[#5FBF8A]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#7A6A5E]"
+                  className="w-full bg-[#F7F7F4] border border-[#E4E7E2] text-[#66716C] px-4 py-3 rounded-xl focus:outline-none focus:border-[#4C6B59]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#66716C]"
                   placeholder="jane@company.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#5C4A42] mb-1.5">Project Brief</label>
+                <label className="block text-sm font-medium text-[#66716C] mb-1.5">Project Brief</label>
                 <textarea 
                   name="brief"
                   required
@@ -117,7 +117,7 @@ export default function ContactModal({ isOpen, onClose, defaultBrief = '' }: Con
                   value={brief}
                   onChange={(e) => setBrief(e.target.value)}
                   rows={4}
-                  className="w-full bg-[#FFF8EC] border border-[#E8D9BE] text-[#5C4A42] px-4 py-3 rounded-xl focus:outline-none focus:border-[#5FBF8A]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#7A6A5E] resize-none"
+                  className="w-full bg-[#F7F7F4] border border-[#E4E7E2] text-[#66716C] px-4 py-3 rounded-xl focus:outline-none focus:border-[#4C6B59]/50 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm placeholder:text-[#66716C] resize-none"
                   placeholder="Tell us about the problem you're trying to solve..."
                 />
               </div>
@@ -128,7 +128,7 @@ export default function ContactModal({ isOpen, onClose, defaultBrief = '' }: Con
                 className="w-full flex items-center justify-center gap-2 mt-2 px-6 py-3.5 text-sm font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-xl hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === 'submitting' ? (
-                  <span className="w-5 h-5 border-2 border-[#E8D9BE]/30 border-t-slate-900 rounded-full animate-spin" />
+                  <span className="w-5 h-5 border-2 border-[#E4E7E2]/30 border-t-slate-900 rounded-full animate-spin" />
                 ) : (
                   <>Send Message <Send className="w-4 h-4 ml-1" /></>
                 )}

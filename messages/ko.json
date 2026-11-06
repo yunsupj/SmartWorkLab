@@ -13,7 +13,12 @@
     "tools": "도구",
     "reviews": "리뷰",
     "metrics": "지표",
-    "getRoiReport": "ROI 보고서 받기"
+    "getRoiReport": "ROI 보고서 받기",
+    "home": "홈",
+    "articles": "아티클",
+    "series": "시리즈",
+    "about": "소개",
+    "menu": "메뉴"
   },
   "SavingsCalculator": {
     "title": "💰 AI 비용 절감 계산기",
@@ -70,19 +75,23 @@
   },
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
-    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
+    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다.",
+    "tagline": "응용 AI, 로보틱스, 엔지니어링 — 실제로 만들고 측정한 작업의 기록.",
+    "explore": "둘러보기",
+    "legal": "법적 고지"
   },
   "Home": {
-    "hero_badge": "모찌 새싹 · Physical AI",
-    "hero_title": "공개적으로 자라는 작은 로봇.",
-    "hero_subtitle": "모찌 새싹은 오픈소스 Physical AI 프로젝트입니다. 완성품이 아니라, MuJoCo의 진자부터 시작해 시뮬레이션하고, 배우고, 평가하고, 반려 로봇을 만듭니다.",
-    "cta_lab": "빌드 로그 보기",
+    "hero_badge": "SmartWorkLab — 응용 AI, 로보틱스, 엔지니어링",
+    "hero_title": "응용 AI와 로보틱스에 대한 엔지니어링 노트.",
+    "hero_subtitle": "SmartWorkLab은 실제 엔지니어링 작업을 기록합니다. 실험, 구현, 실패, 그리고 배운 점 — 오픈소스 Physical AI 로봇부터 시작합니다.",
+    "cta_lab": "아티클 보기",
     "cta_services": "GitHub에서 모찌 새싹 보기",
-    "weekly_top": "추천 빌드 로그",
-    "recent_deep_dives": "최근 빌드 로그",
-    "footer_title": "공부 → 실험 → 빌드 → 평가 → 기록.",
-    "footer_p": "모든 마일스톤은 공부 노트, 코드, 측정된 숫자, 블로그 글을 남깁니다. 가짜 진전은 없습니다.",
-    "footer_cta": "Day 1 읽기"
+    "weekly_top": "추천 글",
+    "recent_deep_dives": "최신 아티클",
+    "featured_series": "추천 시리즈",
+    "view_series": "시리즈 보기",
+    "read_article": "글 읽기",
+    "empty_state": "아직 발행된 글이 없습니다."
   },
   "Services": {
     "hero_badge": "SmartWorkLab · AI 에이전시",

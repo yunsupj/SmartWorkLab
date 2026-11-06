@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'SmartWorkLab — Expert Tech Blog & AI Agency',
+        alt: 'SmartWorkLab — Applied AI, Robotics & Engineering',
       },
     ],
   },
@@ -49,7 +49,7 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#FFF8EC",
+  themeColor: "#F7F7F4",
 };
 
 export default async function LocaleLayout({
@@ -65,7 +65,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#FFF8EC] text-[#3D2C29] flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F7F7F4] text-[#1C2321] flex flex-col min-h-screen`}
       >
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
