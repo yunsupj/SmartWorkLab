@@ -4,6 +4,19 @@
 :root {
   --background: #0f172a;   /* slate-950 — dark B2B base */
   --foreground: #f1f5f9;   /* slate-100 */
+  /* Mochi Sprout — warm theme tokens (additive, v1).
+     Cream #FFF8EC, warm paper #FDF3E0, ink #3D2C29,
+     sprout green #5FBF8A, light mint #A8E6CF,
+     blush pink #FFC7D6, soft amber #F5B942.
+     Use these for hero badges, CTAs, and the Sprout status card;
+     article pages keep the dark reading surface in v1. */
+  --sprout-cream: #FFF8EC;
+  --sprout-paper: #FDF3E0;
+  --sprout-ink: #3D2C29;
+  --sprout-green: #5FBF8A;
+  --sprout-mint: #A8E6CF;
+  --sprout-blush: #FFC7D6;
+  --sprout-amber: #F5B942;
 }
 
 @theme inline {

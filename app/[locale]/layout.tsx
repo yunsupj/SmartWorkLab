@@ -24,11 +24,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://smartworklab.store'),
   title: {
-    default: "SmartWorkLab | Expert Tech Blog & AI Development Agency",
+    default: "SmartWorkLab | Mochi Sprout — Open-Source Physical AI Robot",
     template: "%s | SmartWorkLab"
   },
-  description: "Deep-dive ML implementations, paper reviews, and agentic workflow breakdowns. SmartWorkLab also builds custom AI systems — from RSVP microsites to enterprise RAG pipelines.",
-  keywords: ['ML engineering', 'AI agency', 'RAG chatbots', 'VTON', 'agentic workflows', 'machine learning blog'],
+  description: "Mochi Sprout is an open-source Physical AI project: simulate, learn, evaluate, and build a small companion robot in public. Study → Experiment → Build → Evaluate → Document.",
+  keywords: ['Physical AI', 'MuJoCo', 'robotics simulation', 'Mochi Sprout', 'reinforcement learning', 'ML engineering'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -49,7 +49,7 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#0f172a",
+  themeColor: "#FFF8EC",
 };
 
 export default async function LocaleLayout({

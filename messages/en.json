@@ -73,16 +73,16 @@
     "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
   },
   "Home": {
-    "hero_badge": "SmartWorkLab / Engineering",
-    "hero_title": "Exploring the limits of AI and Frontend Architecture.",
-    "hero_subtitle": "We build, tear down, and analyze high-performance systems. Deep dives, paper implementations, and production-grade architecture.",
-    "cta_lab": "Enter The Lab",
-    "cta_services": "Enterprise Solutions",
-    "weekly_top": "Weekly Top Research",
-    "recent_deep_dives": "Recent Deep Dives",
-    "footer_title": "Production-Ready Engineering.",
-    "footer_p": "Partner with engineers who understand scale. We implement the architectures we research.",
-    "footer_cta": "Contact Engineering Team"
+    "hero_badge": "Mochi Sprout · Physical AI",
+    "hero_title": "A small robot that grows up in public.",
+    "hero_subtitle": "Mochi Sprout is an open-source Physical AI project: simulate, learn, evaluate, and build a companion robot — starting with a pendulum in MuJoCo, not a finished product.",
+    "cta_lab": "Follow the Build Log",
+    "cta_services": "Mochi Sprout on GitHub",
+    "weekly_top": "Featured Build Log",
+    "recent_deep_dives": "Recent Build Logs",
+    "footer_title": "Learn → Experiment → Build → Evaluate → Publish.",
+    "footer_p": "Every milestone leaves study notes, code, measured numbers, and a blog post. No fake progress.",
+    "footer_cta": "Read Day 1"
   },
   "Services": {
     "hero_badge": "SmartWorkLab · AI Agency",

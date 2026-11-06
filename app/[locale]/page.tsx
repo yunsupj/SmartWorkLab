@@ -205,9 +205,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* NEW HERO */}
         <header className="mb-24 max-w-4xl">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-slate-900/80 border border-slate-800 text-xs font-mono font-medium text-slate-400">
-              <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[pulse_2s_infinite] shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-              {t('hero_badge')}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-[#FFF8EC] border border-[#A8E6CF] text-xs font-mono font-medium text-[#3D2C29]">
+              <span className="w-2 h-2 rounded-full bg-[#5FBF8A] animate-[pulse_2s_infinite] shadow-[0_0_10px_rgba(95,191,138,0.8)]" />
+              🌱 {t('hero_badge')}
             </div>
           </FadeIn>
 
@@ -225,14 +225,36 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           {/* DUAL CTAS */}
           <FadeIn delay={0.3} className="flex flex-wrap items-center gap-4">
-            <Link href={`/${locale}/lab`} className="px-6 py-3 bg-white text-slate-950 font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+            <Link href={`/${locale}/lab`} className="px-6 py-3 bg-[#5FBF8A] text-[#3D2C29] font-bold rounded-full hover:bg-[#A8E6CF] transition-colors shadow-[0_0_20px_rgba(95,191,138,0.25)]">
               {t('cta_lab')}
             </Link>
-            <Link href={`/${locale}/services`} className="px-6 py-3 bg-slate-900 text-white font-bold rounded-full border border-slate-800 hover:bg-slate-800 hover:border-slate-700 transition-colors">
+            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-[#FFF8EC] text-[#3D2C29] font-bold rounded-full border border-[#A8E6CF] hover:bg-[#FDF3E0] transition-colors">
               {t('cta_services')}
             </Link>
           </FadeIn>
         </header>
+
+        {/* MOCHI SPROUT — project status (static, no Supabase dependency) */}
+        <section className="mb-16 rounded-2xl border border-[#A8E6CF] bg-[#FFF8EC] p-6 md:p-8 text-[#3D2C29]">
+          <div className="flex flex-wrap items-center gap-3 mb-3">
+            <span className="text-2xl">🌱</span>
+            <h2 className="text-xl md:text-2xl font-bold tracking-tight">Mochi Sprout — Phase 0 · Day 1</h2>
+            <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-[#3D2C29] bg-[#A8E6CF]/60 rounded-full border border-[#5FBF8A]/40">Sim-first · $0</span>
+          </div>
+          <p className="text-sm md:text-base leading-relaxed mb-4 max-w-3xl">
+            {locale === 'ko'
+              ? 'MuJoCo 진자 실험 완료. 같은 초기 상태, 중력 −9.81 대 −3.0, 최대 각도 차이 0.909 rad 측정. 걷기, 제어기, 하드웨어는 아직 없습니다. 다음은 PID와 CartPole입니다.'
+              : 'MuJoCo pendulum done. Same initial state, gravity −9.81 vs −3.0, measured max angle difference 0.909 rad. No walking, no controller, no hardware yet. Next: PID and CartPole.'}
+          </p>
+          <div className="flex flex-wrap gap-4 text-sm font-mono">
+            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="font-bold underline decoration-[#5FBF8A] decoration-2 underline-offset-4 hover:text-[#5FBF8A]">
+              Day 1 →
+            </Link>
+            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="font-bold underline decoration-[#FFC7D6] decoration-2 underline-offset-4 hover:text-[#5FBF8A]">
+              github.com/yunsupj/mochi-sprout →
+            </Link>
+          </div>
+        </section>
 
         {/* DYNAMIC POST FETCHING GRID */}
         <FadeIn delay={0.4}>
@@ -245,7 +267,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <FadeIn delay={0.5} className="mt-12 py-16 border-t border-slate-800/60 text-center flex flex-col items-center">
             <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-white mb-4 tracking-tight">{t('footer_title')}</h3>
             <p className="text-slate-400 mb-8 max-w-md leading-relaxed">{t('footer_p')}</p>
-            <Link href={`/${locale}/services`} className="text-cyan-400 flex items-center gap-2 group font-mono tracking-widest uppercase text-sm font-bold border-b border-cyan-500/30 hover:border-cyan-400 pb-1 transition-colors">
+            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#5FBF8A] flex items-center gap-2 group font-mono tracking-widest uppercase text-sm font-bold border-b border-[#5FBF8A]/30 hover:border-[#5FBF8A] pb-1 transition-colors">
               {t('footer_cta')} <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
         </FadeIn>
