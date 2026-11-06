@@ -45,8 +45,9 @@ export default function AboutPage() {
           <p className="text-base text-[#66716C] leading-relaxed mb-4">
             Mochi Sprout is an open-source Physical AI project: a small companion robot
             that grows — in behavior, not just in code — built in public from a MuJoCo
-            simulation to hardware. Day 1 is done: a pendulum experiment measuring how
-            gravity changes the motion. No walking, no controller, no hardware yet.
+            simulation to hardware. Day 1 compared a pendulum under two gravities;
+            Day 2 compared PID step responses and found PID settled in 3.630 s.
+            No walking, no hardware, no reinforcement learning yet.
           </p>
           <a
             href="https://github.com/yunsupj/mochi-sprout"

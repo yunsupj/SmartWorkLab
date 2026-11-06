@@ -18,7 +18,9 @@
     "articles": "아티클",
     "series": "시리즈",
     "about": "소개",
-    "menu": "메뉴"
+    "menu": "메뉴",
+    "projects": "프로젝트",
+    "services": "서비스"
   },
   "SavingsCalculator": {
     "title": "💰 AI 비용 절감 계산기",
@@ -91,7 +93,8 @@
     "featured_series": "추천 시리즈",
     "view_series": "시리즈 보기",
     "read_article": "글 읽기",
-    "empty_state": "아직 발행된 글이 없습니다."
+    "empty_state": "기술 아티클을 준비하고 있습니다.",
+    "loading": "아티클을 불러오는 중..."
   },
   "Services": {
     "hero_badge": "SmartWorkLab · AI 에이전시",

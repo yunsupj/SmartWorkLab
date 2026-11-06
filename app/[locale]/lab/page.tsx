@@ -49,8 +49,7 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
         {posts.length === 0 ? (
           <div className="text-center py-24 border border-dashed border-[#E4E7E2] rounded-2xl">
             <FlaskConical className="w-12 h-12 text-[#66716C] mx-auto mb-4" />
-            <p className="text-[#8A938E] font-mono text-sm">No posts published yet.</p>
-            <p className="text-[#66716C] text-xs mt-2">Run the seed script or publish via admin.</p>
+            <p className="text-[#8A938E] font-mono text-sm">{locale === 'ko' ? '기술 아티클을 준비하고 있습니다.' : 'Technical articles are being prepared.'}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

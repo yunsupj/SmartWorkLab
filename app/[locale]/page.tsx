@@ -19,7 +19,7 @@ function formatDate(dateStr: string) {
 // Data Fetcher: Loads Research dynamically from tech_posts
 async function LabPostsFetcher({ locale }: { locale: string }) {
   const t = await getTranslations('Home');
-  if (!supabase) return <div className="text-[#8A938E] py-12 text-center">Research lab initializing...</div>;
+  if (!supabase) return <div className="text-[#8A938E] py-12 text-center">{t('loading')}</div>;
 
   // Fetch all published posts to calculate engagement rankings
   const { data: posts, error } = await supabase
@@ -182,11 +182,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* Featured series: Mochi Sprout (static, no Supabase dependency) */}
         <section className="mb-16 rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 text-[#1C2321]">
           <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">{t('featured_series')}</p>
-          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 1</h2>
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 2</h2>
           <p className="text-base leading-relaxed mb-5 max-w-3xl text-[#66716C]">
             {locale === 'ko'
-              ? 'MuJoCo 진자 실험 완료. 같은 초기 상태, 중력 −9.81 대 −3.0, 최대 각도 차이 0.909 rad 측정. 걷기, 제어기, 하드웨어는 아직 없습니다. 다음은 PID와 CartPole입니다.'
-              : 'MuJoCo pendulum done. Same initial state, gravity −9.81 vs −3.0, measured max angle difference 0.909 rad. No walking, no controller, no hardware yet. Next: PID and CartPole.'}
+              ? 'Day 1: 두 중력에서의 진자 비교, 최대 각도 차이 0.909 rad 측정. Day 2: P·PI·PD·PID 스텝 응답 비교 — PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE 0.313°, P와 PI는 진동하며 안정되지 않았습니다. 아직 시뮬레이션만 있습니다. 걷기, 하드웨어, 강화학습은 없습니다. 다음은 게인과 지연에 대한 강건성입니다.'
+              : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning. Next: robustness across gains and delays.'}
           </p>
           <div className="flex flex-wrap gap-6 text-sm font-bold">
             <Link href={`/${locale}/lab/series`} className="text-[#4C6B59] hover:underline underline-offset-4">
@@ -200,7 +200,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* DYNAMIC POST FETCHING GRID */}
         <FadeIn delay={0.4}>
-          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-white/70 animate-pulse border border-[#E4E7E2] flex items-center justify-center text-[#66716C] font-mono">Loading Database...</div>}>
+          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-white/70 animate-pulse border border-[#E4E7E2] flex items-center justify-center text-[#66716C] font-mono">{locale === 'ko' ? '아티클을 불러오는 중...' : 'Loading articles...'}</div>}>
             <LabPostsFetcher locale={locale} />
           </Suspense>
         </FadeIn>

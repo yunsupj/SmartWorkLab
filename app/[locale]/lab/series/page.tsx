@@ -84,8 +84,8 @@ export default async function SeriesIndexPage({ params }: Props) {
           </h2>
           <p className="text-base text-[#66716C] leading-relaxed mb-4 max-w-2xl">
             {locale === 'ko'
-              ? 'MuJoCo 시뮬레이션부터 하드웨어까지, 작은 반려 로봇을 공개적으로 만들어가는 과정. Day 1 진자 실험 완료: 중력 −9.81 대 −3.0, 최대 각도 차이 0.909 rad 측정.'
-              : 'Building a small companion robot in public, from MuJoCo simulation to hardware. Day 1 pendulum experiment done: gravity −9.81 vs −3.0, measured max angle difference 0.909 rad.'}
+              ? 'MuJoCo 시뮬레이션부터 하드웨어까지, 작은 반려 로봇을 공개적으로 만들어가는 과정. Day 1 진자 실험과 Day 2 PID 스텝 응답 비교 완료: PID는 +30° 스텝 후 3.630초 만에 안정, 최종 구간 MAE 0.313°.'
+              : 'Building a small companion robot in public, from MuJoCo simulation to hardware. Day 1 pendulum experiment and Day 2 PID step-response comparison done: PID settled 3.630 s after a +30° step, final-window MAE 0.313°.'}
           </p>
           <div className="flex flex-wrap gap-6 text-sm font-bold">
             {hasMochiSprout ? (

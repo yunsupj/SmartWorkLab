@@ -18,7 +18,9 @@
     "articles": "Articles",
     "series": "Series",
     "about": "About",
-    "menu": "Menu"
+    "menu": "Menu",
+    "projects": "Projects",
+    "services": "Services"
   },
   "SavingsCalculator": {
     "title": "💰 AI Savings Calculator",
@@ -91,7 +93,8 @@
     "featured_series": "Featured series",
     "view_series": "View series",
     "read_article": "Read article",
-    "empty_state": "No articles published yet."
+    "empty_state": "Technical articles are being prepared.",
+    "loading": "Loading articles..."
   },
   "Services": {
     "hero_badge": "SmartWorkLab · AI Agency",

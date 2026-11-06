@@ -96,8 +96,8 @@ export default async function SeriesDetailPage({ params }: Props) {
           <div className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8">
             <p className="text-base text-[#66716C] leading-relaxed mb-4">
               {locale === 'ko'
-                ? 'Day 1 진자 실험은 완료됐고, 첫 아티클은 발행 준비 중입니다. 실험 기록과 코드는 GitHub에서 먼저 볼 수 있습니다.'
-                : 'The Day 1 pendulum experiment is done; the first article is in preparation. Experiment notes and code are on GitHub in the meantime.'}
+                ? 'Day 1 진자 실험과 Day 2 PID 스텝 응답 비교가 완료됐고, 첫 아티클은 발행 준비 중입니다. 실험 기록과 코드는 GitHub에서 먼저 볼 수 있습니다.'
+                : 'The Day 1 pendulum experiment and Day 2 PID step-response comparison are done; the first article is in preparation. Experiment notes and code are on GitHub in the meantime.'}
             </p>
             <a
               href="https://github.com/yunsupj/mochi-sprout"

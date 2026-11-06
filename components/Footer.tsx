@@ -45,9 +45,9 @@ export default function Footer() {
           <nav className="flex gap-12" aria-label="Footer">
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-[#1C2321]">{t('explore')}</h4>
-              <Link href="/" className="hover:text-[#4C6B59] transition-colors">{tn('home')}</Link>
               <Link href="/lab" className="hover:text-[#4C6B59] transition-colors">{tn('articles')}</Link>
-              <Link href="/lab/series" className="hover:text-[#4C6B59] transition-colors">{tn('series')}</Link>
+              <Link href="/projects" className="hover:text-[#4C6B59] transition-colors">{tn('projects')}</Link>
+              <Link href="/services" className="hover:text-[#4C6B59] transition-colors">{tn('services')}</Link>
               <Link href="/about" className="hover:text-[#4C6B59] transition-colors">{tn('about')}</Link>
             </div>
             <div className="flex flex-col gap-2">

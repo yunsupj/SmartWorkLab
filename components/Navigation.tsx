@@ -70,9 +70,9 @@ export default function Navigation() {
 
         {/* Navigation Links (Center Layout) */}
         <div className="hidden lg:flex justify-center gap-8 text-sm font-medium text-[#66716C] shrink-0">
-          <Link href="/" className="hover:text-[#4C6B59] transition-colors">{t('home')}</Link>
           <Link href="/lab" className="hover:text-[#4C6B59] transition-colors">{t('articles')}</Link>
-          <Link href="/lab/series" className="hover:text-[#4C6B59] transition-colors">{t('series')}</Link>
+          <Link href="/projects" className="hover:text-[#4C6B59] transition-colors">{t('projects')}</Link>
+          <Link href="/services" className="hover:text-[#4C6B59] transition-colors">{t('services')}</Link>
           <Link href="/about" className="hover:text-[#4C6B59] transition-colors">{t('about')}</Link>
         </div>
 
@@ -144,16 +144,16 @@ export default function Navigation() {
         </div>
 
         <div className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
-            <span>{t('home')}</span>
-            <span className="text-[#66716C] group-hover:text-[#4C6B59] transition-colors font-mono">&rarr;</span>
-          </Link>
           <Link href="/lab" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
             <span>{t('articles')}</span>
             <span className="text-[#66716C] group-hover:text-[#4C6B59] transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/lab/series" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
-            <span>{t('series')}</span>
+          <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
+            <span>{t('projects')}</span>
+            <span className="text-[#66716C] group-hover:text-[#4C6B59] transition-colors font-mono">&rarr;</span>
+          </Link>
+          <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
+            <span>{t('services')}</span>
             <span className="text-[#66716C] group-hover:text-[#4C6B59] transition-colors font-mono">&rarr;</span>
           </Link>
           <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#66716C] hover:text-[#4C6B59] hover:bg-[#EFF0EB] rounded-lg transition-all flex items-center justify-between group">
