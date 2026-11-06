@@ -122,5 +122,22 @@
     "form_submit": "Send Message",
     "success_title": "Message Sent!",
     "success_desc": "We will get back to you within 24 hours."
+  },
+  "Lab": {
+    "title": "Articles",
+    "subtitle": "Technical essays, learning notes, and engineering deep dives — written by engineers, for engineers.",
+    "read_more": "Read Deep Dive",
+    "series_title": "Series",
+    "series_subtitle": "Articles grouped into ongoing research series.",
+    "prev": "Previous",
+    "next": "Next",
+    "back_to_lab": "Back to The Lab",
+    "min_read": "{minutes} min read",
+    "home": "Home",
+    "the_lab": "The Lab",
+    "interactive_demo": "Interactive Demo",
+    "series_label": "Series",
+    "all_in_series": "All articles in this series",
+    "updated": "Updated"
   }
 }

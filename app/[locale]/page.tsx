@@ -189,6 +189,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning. Next: robustness across gains and delays.'}
           </p>
           <div className="flex flex-wrap gap-6 text-sm font-bold">
+            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#4C6B59] hover:underline underline-offset-4">
+              {locale === 'ko' ? '1편: 첫 물리 시뮬레이션 →' : 'Day 1: First physics simulation →'}
+            </Link>
+            <Link href={`/${locale}/lab/mochi-sprout-day02-feedback-control`} className="text-[#4C6B59] hover:underline underline-offset-4">
+              {locale === 'ko' ? '2편: PID 제어기 비교 →' : 'Day 2: PID controller comparison →'}
+            </Link>
             <Link href={`/${locale}/lab/series`} className="text-[#4C6B59] hover:underline underline-offset-4">
               {t('view_series')} →
             </Link>

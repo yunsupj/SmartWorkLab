@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { seriesSlug } from '../page';
+import { matchesSeries } from '@/lib/series';
 
 interface Props {
   params: Promise<{ locale: string; series: string }>;
@@ -14,11 +14,6 @@ interface TechPost {
   series: string | null;
   read_time_min: number | null;
   published_at: string | null;
-}
-
-function matchesSeries(name: string | null, param: string): boolean {
-  if (!name) return false;
-  return seriesSlug(name) === param;
 }
 
 export async function generateMetadata({ params }: Props) {

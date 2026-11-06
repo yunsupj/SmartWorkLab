@@ -72,7 +72,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 style={atomDark as any}
                 language={match[1]}
                 PreTag="div"
-                className="rounded-xl border border-[#E4E7E2] !bg-white/70 my-6 text-sm"
+                className="rounded-xl border border-white/10 my-6 text-sm"
                 {...props}
               >
                 {String(children).replace(/\n$/, '')}
