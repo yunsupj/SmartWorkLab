@@ -1,0 +1,209 @@
+---
+title: "모찌 새싹 개발기 2편: P·PI·PD·PID 제어기 비교 실험"
+subtitle: "토크 진자, +30° 스텝, 그리고 하나의 게인 세트 — 가정하지 않고 측정한 결과"
+excerpt: "모찌 새싹 프로젝트 Day 2: 재사용 가능한 스칼라 PID 제어기가 MuJoCo 진자를 +30° 스텝으로 움직인다. P와 PI는 진동하며 안정되지 않았고, PD는 중력 오프셋을 남겼고, PID만 안정됐다 — 스텝 후 3.630초, 최종 구간 MAE 0.313°. 시뮬레이션만 있다. 하드웨어, 걷기, 학습된 정책은 아직 없다."
+author: "Yunsup Jung"
+series: "모찌 새싹 — 오픈소스 피지컬 AI 로봇 만들기"
+tags: ["Physical AI", "MuJoCo", "제어 이론", "PID", "모찌 새싹"]
+read_time_min: 12
+has_code: true
+has_latex: true
+is_published: true
+cover_image_url: "/images/lab/mochi-sprout-day02-comparison.svg"
+---
+
+Day 1은 제어기 없는 진자로 끝났다. 중력 두 가지 설정, 측정된 차이 하나, 액추에이터 없음. 당연한 다음 질문은 제어기가 진자를 원하는 각도에 붙잡아둘 수 있는지, 그리고 PID의 각 항이 실제로 무엇을 기여하는지 — 단정하지 말고 측정해서 답하는 것이다.
+
+이 글은 Day 2다. 재사용 가능한 스칼라 PID 제어기, 제어기 출력을 힌지 토크으로 바꾸는 MuJoCo 어댑터, 그리고 같은 모델·같은 게인으로 baseline, P, PI, PD, PID를 비교한 스텝 응답 실험을 더한다. 안정된 제어기는 하나뿐이었다. 나머지는 안정되지 않았고, 실패한 방식이 오히려 흥미로운 부분이다.
+
+여전히 걷는 로봇도, 학습된 정책도, 하드웨어도 없다. 있는 것은 재현 가능한 시뮬레이션, 측정된 숫자, 그리고 재사용할 수 있는 제어기다.
+
+## 1. Day 1이 남긴 문제
+
+Day 1의 진자는 0°, 아래쪽 평형점에 매달려 있다. 그 움직임은 중력과 댐핑에 대한 자유 응답이다. 진자를 +30°에 붙잡아두려면 모터가 계속 중력 유지 토크를 공급해야 한다. 이 모델에서 MuJoCo가 보고한 +30°에서의 유지 토크는 **+1.22625 N·m**이다.
+
+$$\tau_{\text{hold}} = mgL\sin(30°) = 1 \times 9.81 \times 0.25 \times 0.5 = 1.22625\ \text{N·m}$$
+
+여기서 $m = 1$ kg, $g = 9.81$ m/s², $L = 0.25$ m는 힌지에서 질량중심까지의 거리다. 목표 각도에서 1.22625 N·m을 공급하지 못하는 제어기는 붙잡아둘 수 없다. 너무 공격적으로 공급하는 제어기는 오버슈트하고 진동한다. 실험은 각 제어기가 이 두 실패 사이 어디에 떨어지는지 측정한다.
+
+## 2. MuJoCo를 모르는 제어기
+
+제어기는 일부러 시뮬레이터와 무관하게 만들었다. `src/mochi_sprout/control/pid.py`에 있고 MuJoCo를 import하지 않으며, 아는 것은 세 가지뿐이다. 목표값, 측정값, 업데이트 간격. 설정은 고정된(frozen) 데이터클래스다.
+
+```python
+@dataclass(frozen=True)
+class PIDConfig:
+    kp: float
+    ki: float = 0.0
+    kd: float = 0.0
+    output_min: float = -float("inf")
+    output_max: float = float("inf")
+```
+
+`PID` 클래스는 작은 인터페이스를 노출한다. `reset()`, `update(target, measurement, dt)`, 그리고 `saturated` 플래그. 다른 제어기도 물리 모델을 건드리지 않고 이 인터페이스를 구현하면 된다. 그 분리가 핵심이다. 제어기는 범용 코드이고, 로봇에 특화된 부분은 MuJoCo와 연결하는 어댑터다. 어댑터는 §3에서 다룬다.
+
+아래 결과를 읽을 때 중요한 설계 선택이 두 가지 있다.
+
+**오차 기반 미분이 아니라 측정값 기반 미분(derivative on measurement)이다.** 미분 항은 $-\text{Kd} \cdot (\text{측정값} - \text{이전 측정값}) / \text{dt}$이고, 첫 업데이트에서는 미분이 0이다. 목표값이 갑자기 바뀌어도 미분 킥(derivative kick)이 생기지 않는다. 실제 움직임에만 반응한다. 업데이트마다 적용되는 제어 법칙은 다음과 같다.
+
+$$u = K_p e + K_i \int e\,dt - K_d \frac{d\theta}{dt}, \qquad e = \text{목표값} - \theta$$
+
+**조건부 안티 와인드업(conditional anti-windup)이다.** 액추에이터가 낼 수 없는 출력을 요구하는 동안 적분 항이 계속 커지는 현상이 적분 와인드업(integral windup)이다. 이 구현은 요구 출력이 이미 한계를 넘었고, 오차가 그 출력을 한계 밖으로 더 밀어내는 경우에만 적분 업데이트를 건너뛴다. 오차가 출력을 되돌리는 방향이면 적분은 다시 시작한다. 출력은 여전히 한계에서 클램프된다. 안티 와인드업은 제어기 상태를 보호할 뿐, 좋은 응답을 보장하지 않는다.
+
+게인은 유한하고 음이 아니어야 하며, `output_min`은 `output_max`보다 작아야 한다. 설정이 두 조건을 검증한다.
+
+## 3. 제어기를 MuJoCo에 연결하기
+
+어댑터는 `src/mochi_sprout/simulation/controlled_pendulum.py`다. Day 1 MJCF를 재사용하고 직접 구동 힌지 모터 하나를 붙인다. 기어 1이라서 `ctrl` 값 그대로 관절 토크(N·m)가 되고, MuJoCo 자체가 `ctrlrange` ±3 N·m을 강제한다.
+
+```python
+def run_episode(controller, target_at_time, *, duration_s, controller_dt_s, ...):
+    model = make_controlled_model(model_config)
+    physics_dt = float(model.opt.timestep)  # 0.002 s
+    update_steps = round(controller_dt_s / physics_dt)  # 5
+    data = mujoco.MjData(model)  # qpos=qvel=0 is the requested initial state.
+    for step in range(steps):
+        target = target_at_time(step * physics_dt)
+        updated = step % update_steps == 0
+        if updated:
+            data.ctrl[0] = (
+                0.0 if controller is None
+                else controller.update(target, float(data.qpos[0]), controller_dt_s)
+            )
+        rows.append({...})  # time, target, qpos, qvel, error, torque, flags
+        mujoco.mj_step(model, data)
+```
+
+이 루프에서 결과 해석을 좌우하는 사실이 세 가지 있다.
+
+- **물리는 0.002초마다, 제어기는 0.01초마다 업데이트된다.** 토크 명령 하나가 다섯 물리 스텝 동안 유지된다. 물리 스텝과 제어기 업데이트 간격은 정확도와 응답에 영향을 주며 서로 바꿔 쓸 수 있는 값이 아니다.
+- **baseline은 제어기만 뺀 같은 코드다.** `controller=None`이면 토크가 0이다. 10초 윈도우에서의 Day 1 자유 응답이다.
+- **매 물리 스텝을 기록한다.** 조건마다 시간, 목표값, 각도, 각속도, 오차, 유지 토크, 제어기 업데이트 여부, 포화 여부를 담은 5,001개 샘플이 나온다. `experiments/day02/trajectories.csv`에 총 25,005행이다.
+
+## 4. 게인은 어떻게 정했나
+
+게인은 비교 *전에*, 컴파일된 모델에서 정했다. PID가 이기게 맞춘 것이 아니다. MuJoCo가 보고한 유효 힌지 관성은 **0.086392578125 kg·m²**이다. 여기서:
+
+- 고유진동수 8 rad/s 근처: $K_p \approx I \cdot 8^2 = 0.08639 \times 64 \approx 5.53$, 반올림해서 네 제어기 공통 **6 N·m/rad**.
+- 감쇠비 0.7 근처: $K_d \approx 2 \cdot 0.7 \cdot \sqrt{K_p \cdot I} \approx 1.01$, 반올림해서 PD와 PID에 **1 N·m·s/rad**.
+- 적분 시간 $K_p / K_i = 2$초: PI와 PID에 **$K_i = 3$ N·m/(rad·s)**.
+
+```python
+def controller_configs(limit: float) -> dict[str, PIDConfig]:
+    """Common Kp=6; add Ki=3 or Kd=1.0 for PI/PD/PID."""
+    shared = {"kp": 6.0, "output_min": -limit, "output_max": limit}
+    return {
+        "P": PIDConfig(**shared),
+        "PI": PIDConfig(**shared, ki=3.0),
+        "PD": PIDConfig(**shared, kd=1.0),
+        "PID": PIDConfig(**shared, ki=3.0, kd=1.0),
+    }
+```
+
+이것은 문서화된 게인 세트 하나이지, 이기는 제어기를 찾기 위한 탐색도, 최적 튜닝 주장도 아니다. 다른 게인 세트에서는 순위가 바뀔 수 있다. 그것은 나중의 강건성 실험이지, 이번 실험이 아니다.
+
+## 5. 실험 설정
+
+**측정된 설정 (`experiments/day02/README.md`와 `summary.json` 기준):**
+
+| 설정 | 값 |
+|---|---:|
+| 실험 ID | `day02-pid-step-comparison` |
+| 기록 시각 | 2026-11-05 20:47:02 −08:00, America/Los_Angeles |
+| 모델 | Day 1 캡슐+힌지(0.5m, 1kg, 댐핑 0.01, RK4) + 기어 1 토크 모터, ±3 N·m |
+| 초기 상태, 모든 조건 | 각도 0°, 각속도 0 rad/s |
+| 목표값 | 0.5초까지 0°, 이후 10초까지 +30° |
+| 실행 시간 | 10초; 물리 타임스텝 0.002초; 제어기 업데이트 0.01초 |
+| 게인 | 공통 Kp = 6; 해당 시 Ki = 3; 해당 시 Kd = 1 |
+| 환경 | Python 3.11.8, MuJoCo 3.17.0, NumPy 2.4.6, matplotlib 3.11.2, pytest 9.2.0, macOS 26.6.2 ARM64 |
+| 테스트 | Day 1 테스트 5개 포함 16개 통과, 0.57초 |
+
+**실행 전 가설:** P는 중력 관련 오프셋이 있을 수 있고, PI는 오프셋을 줄일 수 있고, PD는 진동을 감쇠할 수 있고, PID는 이 효과를 균형 있게 합칠 수 있다. 가능성일 뿐, 보장된 순위가 아니다.
+
+## 6. 지표의 의미
+
+모든 상태 지표는 0.5초 스텝 이후 샘플을 포함하고, 마지막 10초 샘플도 포함한다.
+
+- **최종 구간 MAE(Final-window MAE)**는 마지막 2초(8–10초) 구간의 평균 절대 각도 오차(도)다. 안정되지 않은 응답에서는 윈도우 통계일 뿐, **정상 상태 오차의 증명이 아니다**.
+- **오버슈트(Overshoot)**는 `max(0, 스텝 이후 최고 각도 − 30°)`(도)다. 고정된 양의 목표 스텝에 적용된다.
+- **정착 시간(Settling time)**은 0.5초 이후부터, 그 뒤의 모든 샘플이 ±2° 안에 머무르기 시작하는 첫 샘플까지의 경과 시간이다. `없음`은 끝까지 정착하지 않았다는 뜻이다. 밴드에 잠깐 들어갔다가 나가는 것은 정착으로 치지 않는다.
+- **RMSE**는 0.5–10초 구간의 각도 오차 제곱평균제곱근(도)이다.
+- **최대 / RMS 토크**는 마지막 끝점을 제외한 5,000개의 유지 명령에 대한 값(N·m)이다.
+- **포화 비율(Saturation fraction)**은 클램프되지 않은 출력이 ±3 N·m을 넘은 제어기 업데이트의 비율이다. 1,000번 업데이트 중, 처음 0.5초를 포함한다.
+
+## 7. 실제 측정된 실험 결과
+
+**측정값 — `experiments/day02/summary.json`의 전체 결과:**
+
+| 제어기 | 최종 구간 MAE (°) | 오버슈트 (°) | 정착 시간 (스텝 후 초) | RMSE (°) | 최대 토크 (N·m) | RMS 토크 (N·m) | 포화 비율 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Baseline | 30.000 | 0.000 | 없음 | 30.000 | 0.000 | 0.000 | 0.0% |
+| P | 33.191 | 40.396 | 없음 | 28.699 | 3.000 | 2.254 | 36.9% |
+| PI | 41.815 | 53.249 | 없음 | 36.796 | 3.000 | 2.426 | 49.8% |
+| PD | 8.560 | 0.000 | 없음 | 9.091 | 3.000 | 0.881 | 0.1% |
+| PID | 0.313 | 0.000 | 3.630 | 4.300 | 3.000 | 1.124 | 0.1% |
+
+![다섯 가지 조건의 힌지 각도(위)와 명령 토크(아래), 10초 동안, experiments/day02/trajectories.csv에서 그림](/images/lab/mochi-sprout-day02-comparison.svg)
+
+*그림: 검증된 `trajectories.csv`(25,005행)에서 그린 다섯 조건의 각도와 명령 토크. 점선은 0.5초 이후의 +30° 목표값이다. 데이터 그래프이지 실제 로봇 사진이 아니다. 실제 로봇은 아직 존재하지 않는다. 원본 PNG는 저장소의 `experiments/day02/comparison.png`에 있다.*
+
+## 8. 결과 읽기
+
+**baseline의 오버슈트 0°는 제어 성공이 아니다.** 토크 없이 아래쪽 평형점에서 시작했기 때문에 0°에 머물렀다. +30° 목표에 다가간 적이 없고 30° 오차가 그대로 남았다. 여기서 오버슈트 0은 잘 제어했다는 뜻이 아니라, 아무것도 움직이지 않았다는 뜻이다.
+
+**P와 PI는 진동하며 안정되지 않았다.** P는 제어기 업데이트의 36.9%, PI는 49.8%에서 포화됐고, 둘 다 목표를 반복해서 넘었다(오버슈트 40.396°와 53.249°). PI의 최종 구간 오차(41.815°)는 P(33.191°)보다 *나빴다*. 이 10초 윈도우에서는 적분만으로는 관측된 오차가 줄지 않았고, 쌓인 적분이 오히려 진동을 키웠다. PI가 오차를 줄일 것이라는 단순한 기대와 정반대였다.
+
+**PD는 움직임을 감쇠했지만 중력 오프셋을 남겼다.** 오버슈트 없음, 포화는 업데이트의 0.1%에 불과, RMS 토크는 네 제어기 중 가장 낮은 0.881 N·m. 그러나 최종 구간 MAE는 8.560°다. 적분 항이 없으면 PD는 1.22625 N·m 유지 토크를 학습할 방법이 없다. 목표 각도에서는 비례 항이 0이 되므로, 진자는 중력 토크와 비례 토크가 균형을 이루는 목표 아래 지점에 머문다.
+
+**정착 규칙을 만족한 것은 PID뿐이다.** 미분 감쇠와 적분 보정을 합쳤다. 스텝 후 3.630초에 정착, 최종 구간 MAE 0.313°, 오버슈트 없음, RMS 토크 1.124 N·m, 포화 0.1%. 이 지표, 이 게인, 이 모델에서는 가장 좋았다. PID가 일반적으로 최고라는 증명이 아니다.
+
+## 9. 토크 그래프가 보여주는 것
+
+그림 아래쪽 패널은 위쪽만큼 정보를 준다. P와 PI는 실행 대부분을 ±3 N·m에 고정된 채 보낸다. 액추에이터가 포화되면 제어기는 응답을 다듬을 여력이 없다. 진자가 흔들리는 동안 한계 사이를 오가는 셈이다. PD와 PID는 거의 포화되지 않고, 토크 곡선은 유지 토크 쪽으로 수렴한다. PD는 0.88 N·m 근처에 머문다(필요한 1.22625 N·m보다 낮고, 각도 오프셋과 일치한다). PID는 1.22 N·m 근처에 머물며 계산된 유지 토크와 일치한다. 노력과 정확도가 맞아떨어진다. PID는 PD보다 토크를 더 썼고(RMS 1.124 대 0.881 N·m), 남은 8°의 정확도를 그만큼의 토크로 샀다.
+
+## 10. 실패, 한계, 배운 점
+
+- **이상화된 모델.** Day 1 막대+힌지에 직접 구동 토크 모터를 더한 것이다. 유효 관성과 중력 유지 토크는 시뮬레이터에서 나온 값이지 하드웨어 측정값이 아니다. 센서 노이즈, 0.01초 업데이트 간격 외의 지연, 관절 댐핑 외의 마찰, 모터 전기 동역학, 기계 백래시, 접촉이 없다.
+- **모든 것이 하나씩.** 초기 상태 하나, 목표 스텝 하나, 게인 세트 하나, 토크 한계 하나. 더 긴 실행이나 다른 게인에서는 비교가 바뀔 수 있다. P/PI 응답은 유한하고 한 바퀴를 넘지 않았지만 안정되지 않았고, 더 긴 윈도우에서 PI가 수렴할 수도, 아닐 수도 있다. 테스트되지 않았다.
+- **결정적 테스트에서 물리적 정확성을 주장할 수는 없다.** 16개 테스트는 제어기, 어댑터, 지표, 실험 러너를 검사한다. 실제 진자와 모델을 비교하지는 않는다. 같은 머신에서 두 번째 실행은 수치 요약값, 25,005행 CSV, 그래프가 완전히 동일했고, 바뀐 것은 요약 기록 시각뿐이었다. 한 머신에서의 반복 가능성은 기준선이지, 물리적 정확성의 증명이 아니다.
+- **프로젝트에 대한 교훈:** 비교하기 *전에* 모델에서 게인을 정하고, 실행하기 *전에* 가설을 적고, 가설과 모순되는 지표(PI가 P보다 나쁨)를 숨기지 말고 보고하라. 지는 제어기를 전부 보여줄 때만 비교가 신뢰할 만하다.
+
+## 11. 재현 방법
+
+저장소 루트에서 Python 3.11과 [uv](https://docs.astral.sh/uv/)가 설치된 상태로 실행한다.
+
+```sh
+uv sync --locked --python 3.11
+uv run --locked --python 3.11 pytest -q
+uv run --locked --python 3.11 python -m mochi_sprout.experiments.day02 --output-dir experiments/day02
+```
+
+타임스탬프는 다시 실행하면 바뀐다. 수치 궤적은 개발 머신에서 재현됐고, 플랫폼에 따라 작은 차이가 날 수 있다. `uv lock --check --python 3.11`이 통과했다.
+
+관련 파일 (머지된 main 커밋 `dc24cd5868e3caf548befe0f8e7c8b1415454437`, PR #1, Day 1 커밋 `b387c803a7ddf6192ace782515fff94377a7ff95` 위에서 빌드):
+
+- [src/mochi_sprout/control/pid.py](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/src/mochi_sprout/control/pid.py)
+- [src/mochi_sprout/simulation/controlled_pendulum.py](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/src/mochi_sprout/simulation/controlled_pendulum.py)
+- [src/mochi_sprout/evaluation/control_metrics.py](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/src/mochi_sprout/evaluation/control_metrics.py)
+- [src/mochi_sprout/experiments/day02.py](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/src/mochi_sprout/experiments/day02.py)
+- [experiments/day02/README.md](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/experiments/day02/README.md)
+- [experiments/day02/summary.json](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/experiments/day02/summary.json)
+- [experiments/day02/trajectories.csv](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/experiments/day02/trajectories.csv)
+- [experiments/day02/comparison.png](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/experiments/day02/comparison.png)
+- [docs/phase0-day2.md](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/docs/phase0-day2.md)
+- [docs/publication/day02-evidence.md](https://github.com/yunsupj/mochi-sprout/blob/dc24cd5868e3caf548befe0f8e7c8b1415454437/docs/publication/day02-evidence.md)
+- [tests/test_pid.py, test_controlled_pendulum.py, test_control_metrics.py, test_day02_experiment.py](https://github.com/yunsupj/mochi-sprout/tree/dc24cd5868e3caf548befe0f8e7c8b1415454437/tests)
+
+## 12. 모듈형 오픈소스 아키텍처
+
+Day 2는 Day 1 구조를 유지하면서 분리 계층 하나를 더한다. 범용 코드는 `src/mochi_sprout/control/`에 있다(PID 클래스, MuJoCo import 없음). 로봇에 특화된 시뮬레이션은 `src/mochi_sprout/simulation/`에 있다(`data.ctrl[0]`을 설정하는 어댑터). 평가는 `src/mochi_sprout/evaluation/`에 있다(궤적을 읽을 뿐 시뮬레이션을 바꾸지 않는다). 실험은 `src/mochi_sprout/experiments/`와 날짜별 실험 폴더(`experiments/` 아래, 각자 README, JSON, CSV, 그래프)에 있다.
+
+다른 제어기도 작은 `reset` / `update` / `saturated` 인터페이스를 구현하면 물리 모델을 수정하지 않고 같은 모델에서 비교할 수 있다. 다음 마일스톤이 쓸 인터페이스가 바로 이것이다. 언젠가 같은 진자에서 학습된 제어기를 비교할 때도 마찬가지다.
+
+저장소는 Apache-2.0이다. 캐릭터 아트워크, 로고, 브랜딩은 별도 라이선스가 필요할 수 있다. 이 릴리스에는 그런 에셋이 포함돼 있지 않다.
+
+## 13. 다음 공학 질문
+
+Day 2는 한 가지 질문에 답한다. 고전 제어기가 이 진자를 +30°에 붙잡아둘 수 있는가. 그리고 다음 질문을 연다. **그 답은 얼마나 강건한가?** PID 결과는 게인 세트 하나, 목표 스텝 하나, 0.01초 업데이트 간격 외의 지연 없음, 모델 불확실성 없음이라는 조건에서 나왔다. 게인을 바꾸고, 센서 지연을 더하고, 모델 파라미터를 흔들면 3.630초와 0.313°가 제어기의 속성인지 설정의 우연인지 드러난다. 그 강건성 작업은 이 Day 2 범위를 벗어난다. 다음 실험이지, 이 글의 주장이 아니다.
+
+[1편: 모찌 새싹 개발기 1편: MuJoCo로 시작하는 첫 물리 시뮬레이션](/ko/lab/mochi-sprout-day01-first-mujoco-simulation)
