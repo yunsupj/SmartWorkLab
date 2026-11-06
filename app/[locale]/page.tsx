@@ -3,7 +3,6 @@ import { supabase } from '@/lib/supabase';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Code2, Flame } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +19,7 @@ function formatDate(dateStr: string) {
 // Data Fetcher: Loads Research dynamically from tech_posts
 async function LabPostsFetcher({ locale }: { locale: string }) {
   const t = await getTranslations('Home');
-  if (!supabase) return <div className="text-[#97897B] py-12 text-center">Research lab initializing...</div>;
+  if (!supabase) return <div className="text-[#8A938E] py-12 text-center">{t('loading')}</div>;
 
   // Fetch all published posts to calculate engagement rankings
   const { data: posts, error } = await supabase
@@ -34,7 +33,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   }
 
   if (!posts || posts.length === 0) {
-    return <div className="text-[#97897B] py-12 text-center">Research DB currently offline.</div>;
+    return <div className="text-[#8A938E] py-12 text-center">{t('empty_state')}</div>;
   }
 
   // Calculate Engagement Scores: Score = (Views * 1) + (Likes * 5)
@@ -49,6 +48,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   );
 
   // 1. Weekly Top Research (Highest score in last 7 days)
+  // eslint-disable-next-line react-hooks/purity -- server component date math, not a hook
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   let featured = rankedPosts.find(p => new Date(p.published_at) >= sevenDaysAgo);
   if (!featured) featured = rankedPosts[0]; // Fallback if no posts in last 7 days
@@ -71,97 +71,63 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   // Safely slice up to 6 items
   const recent = uniquePool.slice(0, 6);
 
-  // Track Top 3 slugs for the Trending badge
-  const top3Slugs = new Set(rankedPosts.slice(0, 3).map(p => p.slug));
-
 
 
   return (
     <div className="w-full">
       {/* Featured Research Card */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#3D2C29]">{t('weekly_top')}</h2>
-        <div className="h-[1px] flex-1 bg-[#F3E6C8]/60" />
+        <h2 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#1C2321]">{t('weekly_top')}</h2>
+        <div className="h-[1px] flex-1 bg-[#E4E7E2]" />
       </div>
 
       <Link href={`/${locale}/lab/${featured.slug}`} className="group block mb-16">
-        <div className="relative rounded-2xl border border-[#E8D9BE] bg-[#FDF3E0] p-1 transition-all duration-300 hover:border-[#5FBF8A]/50 hover:bg-[#FDF3E0]/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] lg:grid lg:grid-cols-2 gap-0 overflow-hidden">
-
-          <div className="lg:order-last p-1">
-            {featured.cover_image_url ? (
-              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full overflow-hidden rounded-xl bg-[#FFF8EC] mb-0">
-                <img src={featured.cover_image_url} alt={featured.title} className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" />
-              </div>
-            ) : (
-              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full rounded-xl bg-gradient-to-br from-[#FDF3E0] to-[#FFF8EC] border-b border-[#E8D9BE] flex items-center justify-center overflow-hidden relative mb-0">
-                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#47556915_1px,transparent_1px),linear-gradient(to_bottom,#47556915_1px,transparent_1px)] bg-[size:24px_24px]" />
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#5FBF8A]/20 blur-3xl rounded-full animate-pulse" />
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full animate-pulse delay-500" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#FFF8EC]/80 to-transparent" />
-                 <Code2 size={64} className="text-[#7A6A5E] relative z-10 opacity-80 shadow-sm" />
-              </div>
-            )}
-          </div>
-
-          <div className="p-6 md:p-8 flex flex-col justify-center">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              {top3Slugs.has(featured.slug) && (
-                <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 rounded-full border border-amber-500/20 flex items-center gap-1.5 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
-                  <Flame className="w-3 h-3 text-amber-500 fill-amber-500/50" />
-                  Trending
-                </span>
-              )}
-              <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-[#3E9B6A] bg-[#A8E6CF]/40 rounded-full border border-[#5FBF8A]/20">
-                Latest Deep Dive
-              </span>
-              <span className="text-xs text-[#97897B] font-mono flex items-center gap-1.5">
-                {formatDate(featured.published_at)} <span className="w-1 h-1 rounded-full bg-slate-700 block"/> {featured.read_time_min} MIN READ
-              </span>
+        <article className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 transition-colors hover:border-[#4C6B59]/60">
+          {featured.cover_image_url && (
+            <div className="mb-6 overflow-hidden rounded-lg">
+              <img src={featured.cover_image_url} alt={featured.title} className="w-full object-cover" />
             </div>
-
-            <h3 className="text-3xl md:text-5xl font-[family-name:var(--font-geist-sans)] font-bold text-[#3D2C29] tracking-tight mb-4 group-hover:text-cyan-50">{featured.title}</h3>
-            <p className="text-lg text-[#7A6A5E] mb-6 max-w-xl leading-relaxed">{featured.excerpt}</p>
-
-            <div className="flex flex-wrap gap-2 mb-8">
-              {featured.tags?.map((tag: string) => (
-                <span key={tag} className="text-xs text-[#7A6A5E] bg-[#FFF8EC] px-3 py-1.5 rounded-md border border-[#E8D9BE] shadow-md">#{tag}</span>
+          )}
+          <p className="text-xs text-[#8A938E] font-mono mb-3">
+            {formatDate(featured.published_at)}{featured.read_time_min ? ` · ${featured.read_time_min} MIN READ` : ''}
+          </p>
+          <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] tracking-tight mb-3 leading-tight">{featured.title}</h3>
+          <p className="text-base text-[#66716C] mb-5 max-w-2xl leading-relaxed">{featured.excerpt}</p>
+          {featured.tags && featured.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-5">
+              {featured.tags.map((tag: string) => (
+                <span key={tag} className="text-xs text-[#66716C] bg-[#F7F7F4] px-2.5 py-1 rounded-md border border-[#E4E7E2]">#{tag}</span>
               ))}
             </div>
-
-            <div className="inline-flex items-center gap-2 text-[#3E9B6A] font-mono text-sm tracking-widest uppercase font-bold border-b border-[#5FBF8A]/50 group-hover:border-[#5FBF8A] pb-1 w-max transition-colors">
-              Read Full Research <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
-          </div>
-        </div>
+          )}
+          <span className="inline-flex items-center gap-2 text-[#4C6B59] text-sm font-bold">
+            {t('read_article')} <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </span>
+        </article>
       </Link>
 
       {/* Recent Deep Dives Grid */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#3D2C29]">{t('recent_deep_dives')}</h2>
-        <div className="h-[1px] flex-1 bg-[#F3E6C8]/60" />
+        <h2 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#1C2321]">{t('recent_deep_dives')}</h2>
+        <div className="h-[1px] flex-1 bg-[#E4E7E2]" />
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
         {recent.map((post) => (
-          <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-2xl border border-[#E8D9BE] bg-[#FDF3E0]/30 p-6 flex flex-col h-full transition-all duration-300 hover:border-slate-600 hover:bg-[#FDF3E0]/60 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)]">
+          <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 flex flex-col h-full transition-colors hover:border-[#4C6B59]/60">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-4">
-                {top3Slugs.has(post.slug) && (
-                  <span className="text-[10px] text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded flex items-center gap-1">
-                    <Flame className="w-2.5 h-2.5 fill-amber-500/50" /> Trending
-                  </span>
-                )}
-                <span className="text-[10px] text-[#97897B] font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
+                <span className="text-[10px] text-[#8A938E] font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
               </div>
-              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#5C4A42] mb-3 group-hover:text-[#3D2C29] transition-colors leading-tight">{post.title}</h4>
-              <p className="text-sm text-[#7A6A5E] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
+              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] mb-3 transition-colors leading-tight">{post.title}</h4>
+              <p className="text-sm text-[#66716C] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[#E8D9BE]">
+            <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[#E4E7E2]">
               {post.tags?.slice(0, 2).map((tag: string) => (
-                <span key={tag} className="text-[10px] text-[#97897B] font-mono uppercase tracking-wider">{tag}</span>
+                <span key={tag} className="text-[10px] text-[#8A938E] font-mono uppercase tracking-wider">{tag}</span>
               ))}
-              {(post.tags?.length || 0) > 2 && <span className="text-[10px] text-[#7A6A5E]">+{post.tags.length - 2}</span>}
+              {(post.tags?.length || 0) > 2 && <span className="text-[10px] text-[#66716C]">+{post.tags.length - 2}</span>}
             </div>
           </Link>
         ))}
@@ -191,65 +157,42 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('Home');
 
   return (
-    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen font-sans selection:bg-[#A8E6CF]/70">
+    <div className="bg-[#F7F7F4] text-[#1C2321] min-h-screen font-sans selection:bg-[#DCE8DF]/70">
+      <div className="max-w-4xl mx-auto px-6 pt-16 md:pt-20 pb-16">
 
-      {/* Background glow establishing deep tech vibe */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-1/4 w-[500px] h-[500px] bg-[#A8E6CF]/50 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
-        <div className="absolute bottom-[-10%] right-1/4 w-[600px] h-[600px] bg-[#FFC7D6]/30 rounded-full blur-[120px] mix-blend-screen"></div>
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-16">
-
-        {/* NEW HERO */}
-        <header className="mb-24 max-w-4xl">
-          <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-[#FFF8EC] border border-[#A8E6CF] text-xs font-mono font-medium text-[#3D2C29]">
-              <span className="w-2 h-2 rounded-full bg-[#5FBF8A] animate-[pulse_2s_infinite] shadow-[0_0_10px_rgba(95,191,138,0.8)]" />
-              🌱 {t('hero_badge')}
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl md:text-7xl font-[family-name:var(--font-geist-sans)] font-bold mb-8 tracking-tight text-[#3D2C29] drop-shadow-sm leading-tight">
-              {t('hero_title')}
-            </h1>
-          </FadeIn>
-
-          <FadeIn delay={0.2}>
-            <p className="text-xl text-[#7A6A5E] mb-10 leading-relaxed max-w-2xl font-light">
-              {t('hero_subtitle')}
-            </p>
-          </FadeIn>
-
-          {/* DUAL CTAS */}
-          <FadeIn delay={0.3} className="flex flex-wrap items-center gap-4">
-            <Link href={`/${locale}/lab`} className="px-6 py-3 bg-[#5FBF8A] text-[#3D2C29] font-bold rounded-full hover:bg-[#A8E6CF] transition-colors shadow-[0_0_20px_rgba(95,191,138,0.25)]">
-              {t('cta_lab')}
+        {/* Editorial masthead */}
+        <header className="mb-14 max-w-3xl border-b border-[#E4E7E2] pb-10">
+          <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-4">{t('hero_badge')}</p>
+          <h1 className="text-4xl md:text-5xl font-[family-name:var(--font-geist-sans)] font-bold mb-5 tracking-tight text-[#1C2321] leading-tight">
+            {t('hero_title')}
+          </h1>
+          <p className="text-lg text-[#66716C] leading-relaxed max-w-2xl">
+            {t('hero_subtitle')}
+          </p>
+          <div className="flex flex-wrap items-center gap-6 mt-7 text-sm font-bold">
+            <Link href={`/${locale}/lab`} className="text-[#4C6B59] hover:underline underline-offset-4">
+              {t('cta_lab')} →
             </Link>
-            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-[#FFF8EC] text-[#3D2C29] font-bold rounded-full border border-[#A8E6CF] hover:bg-[#FDF3E0] transition-colors">
-              {t('cta_services')}
+            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="text-[#66716C] hover:text-[#4C6B59] transition-colors">
+              {t('cta_services')} →
             </Link>
-          </FadeIn>
+          </div>
         </header>
 
-        {/* MOCHI SPROUT — project status (static, no Supabase dependency) */}
-        <section className="mb-16 rounded-2xl border border-[#A8E6CF] bg-[#FFF8EC] p-6 md:p-8 text-[#3D2C29]">
-          <div className="flex flex-wrap items-center gap-3 mb-3">
-            <span className="text-2xl">🌱</span>
-            <h2 className="text-xl md:text-2xl font-bold tracking-tight">Mochi Sprout — Phase 0 · Day 1</h2>
-            <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-[#3D2C29] bg-[#A8E6CF]/60 rounded-full border border-[#5FBF8A]/40">Sim-first · $0</span>
-          </div>
-          <p className="text-sm md:text-base leading-relaxed mb-4 max-w-3xl">
+        {/* Featured series: Mochi Sprout (static, no Supabase dependency) */}
+        <section className="mb-16 rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 text-[#1C2321]">
+          <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">{t('featured_series')}</p>
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 2</h2>
+          <p className="text-base leading-relaxed mb-5 max-w-3xl text-[#66716C]">
             {locale === 'ko'
-              ? 'MuJoCo 진자 실험 완료. 같은 초기 상태, 중력 −9.81 대 −3.0, 최대 각도 차이 0.909 rad 측정. 걷기, 제어기, 하드웨어는 아직 없습니다. 다음은 PID와 CartPole입니다.'
-              : 'MuJoCo pendulum done. Same initial state, gravity −9.81 vs −3.0, measured max angle difference 0.909 rad. No walking, no controller, no hardware yet. Next: PID and CartPole.'}
+              ? 'Day 1: 두 중력에서의 진자 비교, 최대 각도 차이 0.909 rad 측정. Day 2: P·PI·PD·PID 스텝 응답 비교 — PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE 0.313°, P와 PI는 진동하며 안정되지 않았습니다. 아직 시뮬레이션만 있습니다. 걷기, 하드웨어, 강화학습은 없습니다. 다음은 게인과 지연에 대한 강건성입니다.'
+              : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning. Next: robustness across gains and delays.'}
           </p>
-          <div className="flex flex-wrap gap-4 text-sm font-mono">
-            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="font-bold underline decoration-[#5FBF8A] decoration-2 underline-offset-4 hover:text-[#5FBF8A]">
-              Day 1 →
+          <div className="flex flex-wrap gap-6 text-sm font-bold">
+            <Link href={`/${locale}/lab/series`} className="text-[#4C6B59] hover:underline underline-offset-4">
+              {t('view_series')} →
             </Link>
-            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="font-bold underline decoration-[#FFC7D6] decoration-2 underline-offset-4 hover:text-[#5FBF8A]">
+            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="text-[#66716C] hover:text-[#4C6B59] transition-colors">
               github.com/yunsupj/mochi-sprout →
             </Link>
           </div>
@@ -257,19 +200,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* DYNAMIC POST FETCHING GRID */}
         <FadeIn delay={0.4}>
-          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-white/70 animate-pulse border border-[#E8D9BE] flex items-center justify-center text-[#7A6A5E] font-mono">Loading Database...</div>}>
+          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-white/70 animate-pulse border border-[#E4E7E2] flex items-center justify-center text-[#66716C] font-mono">{locale === 'ko' ? '아티클을 불러오는 중...' : 'Loading articles...'}</div>}>
             <LabPostsFetcher locale={locale} />
           </Suspense>
         </FadeIn>
 
-        {/* THE SUBTLE B2B FOOTER */}
-        <FadeIn delay={0.5} className="mt-12 py-16 border-t border-[#E8D9BE] text-center flex flex-col items-center">
-            <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-[#3D2C29] mb-4 tracking-tight">{t('footer_title')}</h3>
-            <p className="text-[#7A6A5E] mb-8 max-w-md leading-relaxed">{t('footer_p')}</p>
-            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#5FBF8A] flex items-center gap-2 group font-mono tracking-widest uppercase text-sm font-bold border-b border-[#5FBF8A]/30 hover:border-[#5FBF8A] pb-1 transition-colors">
-              {t('footer_cta')} <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
-        </FadeIn>
 
       </div>
     </div>

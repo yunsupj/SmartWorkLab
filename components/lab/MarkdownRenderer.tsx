@@ -38,19 +38,21 @@ interface MarkdownRendererProps {
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="
-      prose prose-slate max-w-[85ch] mx-auto
+      prose prose-slate max-w-[68ch] mx-auto
       prose-p:text-lg prose-p:leading-8
       prose-li:text-lg prose-li:leading-8
       prose-headings:mt-12 prose-headings:mb-6
-      prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#3D2C29]
-      prose-strong:text-[#3E9B6A]
-      prose-code:text-[#C2557A] prose-code:bg-[#FDF3E0] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-      prose-img:rounded-xl prose-img:border prose-img:border-[#E8D9BE]
+      prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#1C2321]
+      prose-strong:text-[#4C6B59]
+      prose-code:text-[#C2557A] prose-code:bg-[#FFFFFF] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-img:rounded-xl prose-img:border prose-img:border-[#E4E7E2]
       lg:prose-lg
-      prose-a:text-[#3E9B6A] prose-a:no-underline hover:prose-a:underline
-      prose-blockquote:border-l-[#5FBF8A] prose-blockquote:bg-white/70 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-[#7A6A5E] prose-blockquote:not-italic
-      prose-li:marker:text-[#3E9B6A]
+      prose-a:text-[#4C6B59] prose-a:no-underline hover:prose-a:underline
+      prose-blockquote:border-l-[#4C6B59] prose-blockquote:bg-white/70 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-[#66716C] prose-blockquote:not-italic
+      prose-li:marker:text-[#4C6B59]
       prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-0
+      prose-table:block prose-table:overflow-x-auto prose-table:whitespace-nowrap
+      prose-th:text-[#1C2321] prose-td:text-[#66716C]
     ">
       <ReactMarkdown
         remarkPlugins={[remarkMath, remarkGfm]}
@@ -70,7 +72,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 style={atomDark as any}
                 language={match[1]}
                 PreTag="div"
-                className="rounded-xl border border-[#E8D9BE] !bg-white/70 my-6 text-sm"
+                className="rounded-xl border border-[#E4E7E2] !bg-white/70 my-6 text-sm"
                 {...props}
               >
                 {String(children).replace(/\n$/, '')}
@@ -135,7 +137,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
 
             return (
-              <blockquote className="pl-5 border-l-4 border-[#5FBF8A] bg-white/70 rounded-r-xl py-3 pr-4 my-6 text-[#7A6A5E]">
+              <blockquote className="pl-5 border-l-4 border-[#4C6B59] bg-white/70 rounded-r-xl py-3 pr-4 my-6 text-[#66716C]">
                 {children}
               </blockquote>
             );
@@ -144,21 +146,21 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // Tables with dark theme
           table({ children }: any) {
             return (
-              <div className="overflow-x-auto my-8 rounded-xl border border-[#E8D9BE] px-3">
+              <div className="overflow-x-auto my-8 rounded-xl border border-[#E4E7E2] px-3">
                 <table className="w-full text-sm">{children}</table>
               </div>
             );
           },
           th({ children }: any) {
             return (
-              <th className="px-4 py-3 text-left font-semibold text-[#5C4A42] bg-[#FDF3E0] border-b border-[#DFC9A3]">
+              <th className="px-4 py-3 text-left font-semibold text-[#66716C] bg-[#FFFFFF] border-b border-[#D5DAD3]">
                 {children}
               </th>
             );
           },
           td({ children }: any) {
             return (
-              <td className="px-4 py-3 text-[#7A6A5E] border-b border-[#E8D9BE]">
+              <td className="px-4 py-3 text-[#66716C] border-b border-[#E4E7E2]">
                 {children}
               </td>
             );

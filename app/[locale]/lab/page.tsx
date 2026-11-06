@@ -33,27 +33,23 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
   }
 
   return (
-    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen">
-      {/* Hero */}
-      <header className="pt-24 pb-16 text-center max-w-4xl mx-auto px-6">
-        <div className="inline-block px-4 py-1.5 mb-6 text-xs font-mono text-[#3E9B6A] border border-[#5FBF8A]/50 rounded-full bg-cyan-950/30 uppercase tracking-widest">
-          SmartWorkLab · Deep Dives
-        </div>
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#3D2C29] via-[#5C4A42] to-[#7A6A5E]">
-          The Lab
+    <div className="bg-[#F7F7F4] text-[#1C2321] min-h-screen">
+      {/* Header */}
+      <header className="pt-16 md:pt-20 pb-10 max-w-4xl mx-auto px-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-[#1C2321]">
+          Articles
         </h1>
-        <p className="text-xl text-[#7A6A5E] leading-relaxed max-w-2xl mx-auto">
-          Real ML implementations, paper breakdowns, and agentic workflow walkthroughs — written by engineers, for engineers.
+        <p className="text-lg text-[#66716C] leading-relaxed max-w-2xl">
+          Technical essays, learning notes, and engineering deep dives — written by engineers, for engineers.
         </p>
       </header>
 
       {/* Post Grid */}
       <main className="max-w-7xl mx-auto px-6 pb-24">
         {posts.length === 0 ? (
-          <div className="text-center py-24 border border-dashed border-[#E8D9BE] rounded-2xl">
-            <FlaskConical className="w-12 h-12 text-[#7A6A5E] mx-auto mb-4" />
-            <p className="text-[#97897B] font-mono text-sm">No posts published yet.</p>
-            <p className="text-[#7A6A5E] text-xs mt-2">Run the seed script or publish via admin.</p>
+          <div className="text-center py-24 border border-dashed border-[#E4E7E2] rounded-2xl">
+            <FlaskConical className="w-12 h-12 text-[#66716C] mx-auto mb-4" />
+            <p className="text-[#8A938E] font-mono text-sm">{locale === 'ko' ? '기술 아티클을 준비하고 있습니다.' : 'Technical articles are being prepared.'}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -61,10 +57,10 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
               <Link
                 key={post.id}
                 href={`/${locale}/lab/${post.slug}`}
-                className="group block bg-white/70 backdrop-blur-md border border-[#E8D9BE] rounded-xl p-6 hover:border-[#5FBF8A]/50 transition-all hover:-translate-y-1 relative overflow-hidden"
+                className="group block bg-white/70 backdrop-blur-md border border-[#E4E7E2] rounded-xl p-6 hover:border-[#4C6B59]/50 transition-all hover:-translate-y-1 relative overflow-hidden"
               >
                 {/* Spotlight */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#A8E6CF]/30 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none group-hover:bg-[#A8E6CF]/40 transition-colors" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#DCE8DF]/30 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none group-hover:bg-[#DCE8DF]/40 transition-colors" />
 
                 {/* Series badge */}
                 {post.series && (
@@ -73,12 +69,12 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
                   </span>
                 )}
 
-                <h2 className="text-lg font-bold text-[#3D2C29] mb-3 leading-snug group-hover:text-[#3E9B6A] transition-colors line-clamp-2">
+                <h2 className="text-lg font-bold text-[#1C2321] mb-3 leading-snug group-hover:text-[#4C6B59] transition-colors line-clamp-2">
                   {post.title}
                 </h2>
 
                 {post.excerpt && (
-                  <p className="text-sm text-[#7A6A5E] line-clamp-2 mb-5 leading-relaxed">
+                  <p className="text-sm text-[#66716C] line-clamp-2 mb-5 leading-relaxed">
                     {post.excerpt}
                   </p>
                 )}
@@ -86,23 +82,23 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
                 {/* Tech badges */}
                 <div className="flex items-center gap-3 flex-wrap mb-5">
                   {post.has_code && (
-                    <span className="flex items-center gap-1 text-xs text-[#97897B]">
+                    <span className="flex items-center gap-1 text-xs text-[#8A938E]">
                       <Code2 className="w-3 h-3" /> Code
                     </span>
                   )}
                   {post.has_latex && (
-                    <span className="flex items-center gap-1 text-xs text-[#97897B]">
+                    <span className="flex items-center gap-1 text-xs text-[#8A938E]">
                       <Sigma className="w-3 h-3" /> LaTeX
                     </span>
                   )}
                   {post.read_time_min && (
-                    <span className="flex items-center gap-1 text-xs text-[#97897B]">
+                    <span className="flex items-center gap-1 text-xs text-[#8A938E]">
                       <Clock className="w-3 h-3" /> {post.read_time_min} min
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 text-[#3E9B6A] text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-2 text-[#4C6B59] text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
                   Read Deep Dive <ArrowRight className="w-4 h-4" />
                 </div>
               </Link>

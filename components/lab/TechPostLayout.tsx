@@ -29,6 +29,9 @@ interface TechPostLayoutProps {
   post: TechPost;
   /** Rendered body content (from MarkdownRenderer or MDX) */
   children: React.ReactNode;
+  /** Adjacent articles in the same series (by publication date). */
+  prevPost?: { slug: string; title: string } | null;
+  nextPost?: { slug: string; title: string } | null;
 }
 
 /**
@@ -36,12 +39,12 @@ interface TechPostLayoutProps {
  * Handles: cover image, hero header, meta row (badges),
  * two-column layout (article + TOC sidebar), breadcrumb nav.
  */
-export default function TechPostLayout({ post, children }: TechPostLayoutProps) {
+export default function TechPostLayout({ post, children, prevPost, nextPost }: TechPostLayoutProps) {
   const tocHeadings = post.toc_headings ?? [];
   const hasSidebar = tocHeadings.length > 0;
 
   return (
-    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen">
+    <div className="bg-[#F7F7F4] text-[#1C2321] min-h-screen">
 
       {/* Cover Image with gradient fade */}
       {post.cover_image_url && (
@@ -50,22 +53,22 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             className="absolute inset-0 bg-cover bg-center scale-105"
             style={{ backgroundImage: `url(${post.cover_image_url})`, filter: 'blur(1px)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#FFF8EC]/40 via-[#FFF8EC]/60 to-[#FFF8EC]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F7F7F4]/40 via-[#F7F7F4]/60 to-[#F7F7F4]" />
         </div>
       )}
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 pt-8">
-        <nav className="flex items-center gap-2 text-xs text-[#97897B] font-mono mb-8">
-          <Link href="/" className="hover:text-[#5C4A42] transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-xs text-[#8A938E] font-mono mb-8">
+          <Link href="/" className="hover:text-[#66716C] transition-colors">Home</Link>
           <span>/</span>
-          <Link href={`/${post.locale}/lab`} className="hover:text-[#5C4A42] transition-colors">The Lab</Link>
+          <Link href={`/${post.locale}/lab`} className="hover:text-[#66716C] transition-colors">The Lab</Link>
           {post.series && (
             <>
               <span>/</span>
               <Link
                 href={`/${post.locale}/lab/series/${post.series.toLowerCase().replace(/\s+/g, '-')}`}
-                className="hover:text-[#3E9B6A] transition-colors"
+                className="hover:text-[#4C6B59] transition-colors"
               >
                 {post.series}
               </Link>
@@ -83,13 +86,13 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             {/* Series + capability badges */}
             <div className="flex flex-wrap items-center gap-2.5 mb-5">
               {post.series && (
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-purple-400 bg-purple-950/40 border border-purple-800/40 rounded-full px-3 py-1">
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-[#4C6B59] bg-[#DCE8DF]/60 border border-[#4C6B59]/30 rounded-full px-3 py-1">
                   <Layers className="w-3 h-3" />
                   {post.series}
                 </span>
               )}
               {post.has_svg_demo && (
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-full px-3 py-1">
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-[#8A6D1B] bg-amber-50 border border-amber-200 rounded-full px-3 py-1">
                   <FlaskConical className="w-3 h-3" />
                   Interactive Demo
                 </span>
@@ -97,17 +100,17 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight text-[#3D2C29]">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight text-[#1C2321]">
               {post.title}
             </h1>
 
             {post.subtitle && (
-              <p className="text-xl text-[#7A6A5E] mb-8 leading-relaxed">{post.subtitle}</p>
+              <p className="text-xl text-[#66716C] mb-8 leading-relaxed">{post.subtitle}</p>
             )}
 
             {/* Meta strip */}
-            <div className="flex flex-wrap items-center gap-5 text-sm text-[#97897B] mb-8 pb-8 border-b border-[#E8D9BE]">
-              <span className="font-semibold text-[#5C4A42]">{post.author}</span>
+            <div className="flex flex-wrap items-center gap-5 text-sm text-[#8A938E] mb-8 pb-8 border-b border-[#E4E7E2]">
+              <span className="font-semibold text-[#66716C]">{post.author}</span>
 
               {post.published_at && (
                 <span className="flex items-center gap-1.5">
@@ -124,12 +127,12 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
                 </span>
               )}
               {post.has_code && (
-                <span className="flex items-center gap-1.5 text-[#3E9B6A]/80">
+                <span className="flex items-center gap-1.5 text-[#4C6B59]/80">
                   <Code2 className="w-3.5 h-3.5" /> Code
                 </span>
               )}
               {post.has_latex && (
-                <span className="flex items-center gap-1.5 text-yellow-500/80">
+                <span className="flex items-center gap-1.5 text-[#8A6D1B]">
                   <Sigma className="w-3.5 h-3.5" /> LaTeX
                 </span>
               )}
@@ -141,7 +144,7 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 text-xs text-[#97897B] bg-[#FDF3E0] border border-[#E8D9BE] rounded-full px-2.5 py-1 hover:border-[#DFC9A3] transition-colors"
+                    className="flex items-center gap-1 text-xs text-[#8A938E] bg-[#FFFFFF] border border-[#E4E7E2] rounded-full px-2.5 py-1 hover:border-[#D5DAD3] transition-colors"
                   >
                     <Tag className="w-2.5 h-2.5" /> {tag}
                   </span>
@@ -152,16 +155,34 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             {/* ── Body Content ── */}
             {children}
 
+            {/* Previous / next in series */}
+            {(prevPost || nextPost) && (
+              <nav className="mt-16 pt-8 border-t border-[#E4E7E2] grid sm:grid-cols-2 gap-4" aria-label="Article navigation">
+                {prevPost ? (
+                  <Link href={`/${post.locale}/lab/${prevPost.slug}`} className="group rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4 hover:border-[#4C6B59]/60 transition-colors">
+                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">← Previous</span>
+                    <span className="block text-sm font-bold text-[#1C2321] leading-snug">{prevPost.title}</span>
+                  </Link>
+                ) : <span />}
+                {nextPost && (
+                  <Link href={`/${post.locale}/lab/${nextPost.slug}`} className="group rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4 text-right hover:border-[#4C6B59]/60 transition-colors">
+                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">Next →</span>
+                    <span className="block text-sm font-bold text-[#1C2321] leading-snug">{nextPost.title}</span>
+                  </Link>
+                )}
+              </nav>
+            )}
+
             {/* Footer: Back to Lab */}
-            <div className="mt-16 pt-8 border-t border-[#E8D9BE] flex items-center justify-between">
+            <div className="mt-8 pt-8 border-t border-[#E4E7E2] flex items-center justify-between">
               <Link
                 href={`/${post.locale}/lab`}
-                className="text-sm text-[#97897B] hover:text-[#3E9B6A] transition-colors flex items-center gap-2 font-mono"
+                className="text-sm text-[#8A938E] hover:text-[#4C6B59] transition-colors flex items-center gap-2 font-mono"
               >
                 ← Back to The Lab
               </Link>
               {post.updated_at && (
-                <p className="text-xs text-[#7A6A5E] font-mono">
+                <p className="text-xs text-[#66716C] font-mono">
                   Updated {new Date(post.updated_at).toLocaleDateString()}
                 </p>
               )}
@@ -174,19 +195,21 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
               <div className="sticky top-24 space-y-6">
                 <TableOfContents headings={tocHeadings} />
 
-                {/* CTA card in sidebar */}
-                <div className="rounded-xl border border-green-800/40 bg-green-950/20 p-4">
-                  <p className="text-xs font-bold text-green-400 mb-1">Need this built?</p>
-                  <p className="text-xs text-[#7A6A5E] mb-3 leading-relaxed">
-                    We implement ML systems like this for clients.
-                  </p>
-                  <Link
-                    href={`/${post.locale}/services`}
-                    className="flex items-center gap-1 text-xs text-green-400 hover:text-green-300 font-bold transition-colors"
-                  >
-                    View Services <ExternalLink className="w-3 h-3" />
-                  </Link>
-                </div>
+                {/* Series card in sidebar */}
+                {post.series && (
+                  <div className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4">
+                    <p className="text-xs font-bold text-[#1C2321] mb-1">Series</p>
+                    <p className="text-xs text-[#66716C] mb-3 leading-relaxed">
+                      {post.series}
+                    </p>
+                    <Link
+                      href={`/${post.locale}/lab/series/${post.series.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="flex items-center gap-1 text-xs text-[#4C6B59] hover:underline font-bold transition-colors"
+                    >
+                      All articles in this series <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  </div>
+                )}
               </div>
             </aside>
           )}

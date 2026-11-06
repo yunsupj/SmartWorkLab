@@ -13,7 +13,14 @@
     "tools": "Tools",
     "reviews": "Reviews",
     "metrics": "Metrics",
-    "getRoiReport": "Get ROI Report"
+    "getRoiReport": "Get ROI Report",
+    "home": "Home",
+    "articles": "Articles",
+    "series": "Series",
+    "about": "About",
+    "menu": "Menu",
+    "projects": "Projects",
+    "services": "Services"
   },
   "SavingsCalculator": {
     "title": "💰 AI Savings Calculator",
@@ -70,19 +77,24 @@
   },
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
-    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다."
+    "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다.",
+    "tagline": "Applied AI, robotics & engineering — notes from work that was actually built and measured.",
+    "explore": "Explore",
+    "legal": "Legal"
   },
   "Home": {
-    "hero_badge": "Mochi Sprout · Physical AI",
-    "hero_title": "A small robot that grows up in public.",
-    "hero_subtitle": "Mochi Sprout is an open-source Physical AI project: simulate, learn, evaluate, and build a companion robot — starting with a pendulum in MuJoCo, not a finished product.",
-    "cta_lab": "Follow the Build Log",
+    "hero_badge": "SmartWorkLab — Applied AI, Robotics & Engineering",
+    "hero_title": "Engineering notes on applied AI and robotics.",
+    "hero_subtitle": "SmartWorkLab documents real engineering work: experiments, implementations, failures, and lessons learned — starting with an open-source Physical AI robot.",
+    "cta_lab": "Browse articles",
     "cta_services": "Mochi Sprout on GitHub",
-    "weekly_top": "Featured Build Log",
-    "recent_deep_dives": "Recent Build Logs",
-    "footer_title": "Learn → Experiment → Build → Evaluate → Publish.",
-    "footer_p": "Every milestone leaves study notes, code, measured numbers, and a blog post. No fake progress.",
-    "footer_cta": "Read Day 1"
+    "weekly_top": "Featured",
+    "recent_deep_dives": "Latest articles",
+    "featured_series": "Featured series",
+    "view_series": "View series",
+    "read_article": "Read article",
+    "empty_state": "Technical articles are being prepared.",
+    "loading": "Loading articles..."
   },
   "Services": {
     "hero_badge": "SmartWorkLab · AI Agency",

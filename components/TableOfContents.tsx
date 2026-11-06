@@ -60,8 +60,8 @@ export default function TableOfContents({ content, headings: headingsProp }: Tab
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block sticky top-24 self-start max-h-[80vh] overflow-y-auto w-64 p-4 border-l border-[#E8D9BE]">
-      <h4 className="text-xs font-bold text-[#97897B] uppercase tracking-widest mb-4">
+    <nav className="hidden lg:block sticky top-24 self-start max-h-[80vh] overflow-y-auto w-64 p-4 border-l border-[#E4E7E2]">
+      <h4 className="text-xs font-bold text-[#8A938E] uppercase tracking-widest mb-4">
         On This Page
       </h4>
       <ul className="space-y-3 text-sm">
@@ -79,8 +79,8 @@ export default function TableOfContents({ content, headings: headingsProp }: Tab
                 document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
                 setActiveId(id);
               }}
-              className={`block hover:text-[#3E9B6A] ${
-                activeId === id ? 'text-[#3E9B6A] font-medium' : 'text-[#7A6A5E]'
+              className={`block hover:text-[#4C6B59] ${
+                activeId === id ? 'text-[#4C6B59] font-medium' : 'text-[#66716C]'
               }`}
             >
               {text}

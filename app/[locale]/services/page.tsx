@@ -1,436 +1,156 @@
-import { supabase } from '@/lib/supabase';
-import Link from 'next/link';
-import { ArrowRight, Sparkles, Database, Cpu, ExternalLink, Check, Clock, Users, Zap } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
-import QuoteButton from '@/components/QuoteButton';
-import RsvpDemoModule from '@/components/demos/RsvpDemoModule';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
-  title: 'AI Development Services | SmartWorkLab',
-  description: 'Custom AI development from RSVP microsites to enterprise RAG systems and production ML pipelines. Entry ($299 launch), Growth ($1,500+), and Enterprise tiers — built by ML engineers.',
-  alternates: { canonical: 'https://smartworklab.store/en/services' },
+  title: 'Engineering Services & Technical Collaboration | SmartWorkLab',
+  description:
+    'Practical AI systems, machine learning infrastructure, and software engineering — from early prototypes to production architecture, with measurable results.',
+  alternates: {
+    canonical: 'https://smartworklab.store/en/services',
+    languages: {
+      en: 'https://smartworklab.store/en/services',
+      ko: 'https://smartworklab.store/ko/services',
+    },
+  },
 };
 
-interface AgencyService {
-  id: string;
-  slug: string;
-  tier: string;
-  tier_label: string;
-  name: string;
-  tagline: string | null;
-  description: string | null;
-  price_usd: number | null;
-  price_label: string | null;
-  is_recurring: boolean;
-  billing_cycle: string | null;
-  features: string[] | null;
-  deliverables: string[] | null;
-  timeline_days: number | null;
-  case_study_slug: string | null;
-  demo_url: string | null;
-  status: string;
-  display_order: number;
-  icon_name: string | null;
-  accent_color: string | null;
+interface Area {
+  titleEn: string;
+  titleKo: string;
+  descEn: string;
+  descKo: string;
+  itemsEn: string[];
+  itemsKo: string[];
 }
 
-// Static fallback data (renders before DB is seeded)
-const STATIC_SERVICES: AgencyService[] = [
+const AREAS: Area[] = [
   {
-    id: '1', slug: 'rsvp-event-sites', tier: 'tier_1', tier_label: 'Entry',
-    name: 'RSVP & Event Microsites',
-    tagline: 'Beautiful event sites, built in days.',
-    description: 'Custom-designed event microsites with RSVP forms, photo guestbooks, countdown timers, and automated reminder emails. Get a custom domain like yourname-rsvp.com for maximum charm.',
-    price_usd: 299, price_label: '$299', is_recurring: false, billing_cycle: 'limited launch · scales to $499',
-    features: [
-      'Custom design & branding',
-      'RSVP form + Supabase backend',
-      'Photo guestbook with Polaroid layout',
-      'Automated email reminders (Resend)',
-      'Google Calendar integration',
-      'Mobile-first responsive',
-      'Custom domain (yourname-rsvp.com)',
+    titleEn: 'AI Agents & Automation',
+    titleKo: 'AI 에이전트와 자동화',
+    descEn:
+      'Agent systems that do real work — grounded in your data, observable in production, and evaluated before they are trusted.',
+    descKo:
+      '실제 업무를 수행하는 에이전트 시스템 — 데이터를 기반으로 하고, 프로덕션에서 관찰 가능하며, 신뢰하기 전에 평가합니다.',
+    itemsEn: [
+      'Agent architecture',
+      'RAG and retrieval systems',
+      'Tool integration',
+      'Workflow orchestration',
+      'Agent evaluation and reliability',
     ],
-    deliverables: ['Deployed Next.js site on Vercel', 'Custom domain setup', 'Source code handoff', '30-day support'],
-    timeline_days: 7, case_study_slug: null,
-    demo_url: 'https://ellie-bday-rouge.vercel.app',
-    status: 'available', display_order: 1, icon_name: 'Sparkles', accent_color: 'cyan',
+    itemsKo: [
+      '에이전트 아키텍처',
+      'RAG와 검색 시스템',
+      '도구 통합',
+      '워크플로 오케스트레이션',
+      '에이전트 평가와 신뢰성',
+    ],
   },
   {
-    id: '2', slug: 'rag-chatbots', tier: 'tier_2', tier_label: 'Growth',
-    name: 'RAG Chatbots & Knowledge Bases',
-    tagline: 'Your documents, instantly queryable.',
-    description: 'Production-grade RAG systems built on your private data. SOC 2-ready architecture with encrypted vector storage and role-based access control.',
-    price_usd: null, price_label: 'From $1,500', is_recurring: false, billing_cycle: 'one-time',
-    features: [
-      'Document ingestion (PDF, Notion, Confluence)',
-      'Vector embeddings (pgvector / Pinecone)',
-      'Streaming chat UI with citation display',
-      'Admin dashboard for doc management',
-      'Multi-tenant auth (Supabase)',
-      'Custom LLM routing (GPT-4o / Claude)',
-      '🔐 End-to-end encryption at rest & in transit',
-      '🔐 Role-based access control (RBAC)',
-      '🔐 GDPR-compliant data handling',
-      '🔐 Private VPC deployment available',
+    titleEn: 'ML Systems & Data Infrastructure',
+    titleKo: 'ML 시스템과 데이터 인프라',
+    descEn:
+      'The pipelines and platforms that make machine learning repeatable — from training data to serving and monitoring.',
+    descKo:
+      '머신러닝을 반복 가능하게 만드는 파이프라인과 플랫폼 — 학습 데이터부터 서빙과 모니터링까지.',
+    itemsEn: [
+      'ML data pipelines',
+      'Training and evaluation infrastructure',
+      'Batch and streaming systems',
+      'Inference optimization',
+      'Production observability and performance',
     ],
-    deliverables: ['Deployed RAG application', 'Admin CMS', 'Embedding pipeline', 'Monitoring dashboard', '60-day support'],
-    timeline_days: 21, case_study_slug: null, demo_url: null,
-    status: 'available', display_order: 2, icon_name: 'Database', accent_color: 'purple',
+    itemsKo: [
+      'ML 데이터 파이프라인',
+      '학습·평가 인프라',
+      '배치와 스트리밍 시스템',
+      '추론 최적화',
+      '프로덕션 관찰성과 성능',
+    ],
   },
   {
-    id: '3', slug: 'enterprise-ai-agents', tier: 'tier_3', tier_label: 'Enterprise',
-    name: 'Enterprise AI Agents & Custom ML',
-    tagline: 'Custom models. Real production deployments.',
-    description: 'End-to-end AI agent systems and custom ML implementations — VTON inference pipelines, multi-step agentic workflows, spatial data processing, and fine-tuned model deployment.',
-    price_usd: null, price_label: 'Custom Quote', is_recurring: false, billing_cycle: 'one-time',
-    features: [
-      'Custom ML model development & fine-tuning',
-      'VTON / Diffusion model inference pipelines',
-      'Agentic workflow orchestration (LangGraph / CrewAI)',
-      'Spatial data processing (H3, PostGIS)',
-      'GPU inference deployment (Modal / Replicate)',
-      'Full CI/CD + monitoring stack',
-      'Multi-item VTON with single inference pass',
-      'Model quantization & latency optimization',
-      'Custom training data pipelines',
-      'A/B experiment framework',
-      'Real-time inference API with SLA guarantees',
+    titleEn: 'Technical Consulting & Prototyping',
+    titleKo: '기술 컨설팅과 프로토타이핑',
+    descEn:
+      'Short, focused engagements that answer a concrete question — is this feasible, what will it cost to build, and what could go wrong?',
+    descKo:
+      '구체적인 질문에 답하는 짧고 집중적인 협업 — 실현 가능한지, 구축 비용은 얼마인지, 무엇이 잘못될 수 있는지.',
+    itemsEn: [
+      'Architecture reviews',
+      'Proof of concept development',
+      'Technical feasibility',
+      'Performance analysis',
+      'Evaluation and experimentation',
     ],
-    deliverables: ['Production ML system', 'Model artifacts & weights', 'Inference API', 'Technical documentation', '90-day SLA support'],
-    timeline_days: 60, case_study_slug: 'vton-multi-item-synthesis', demo_url: null,
-    status: 'available', display_order: 3, icon_name: 'Cpu', accent_color: 'green',
+    itemsKo: [
+      '아키텍처 리뷰',
+      '개념 검증(PoC) 개발',
+      '기술 타당성 검토',
+      '성능 분석',
+      '평가와 실험',
+    ],
   },
 ];
 
-const ACCENT: Record<string, {
-  border: string; text: string; bg: string; badge: string;
-  glow: string; btnFrom: string; btnTo: string; btnShadow: string;
-}> = {
-  cyan:   { border:'border-[#5FBF8A]/50',   text:'text-[#3E9B6A]',   bg:'bg-cyan-950/20',   badge:'bg-cyan-950/50 border-cyan-800/40',   glow:'group-hover:shadow-cyan-900/30',   btnFrom:'from-cyan-400',   btnTo:'to-sky-400',    btnShadow:'hover:shadow-cyan-900/50' },
-  purple: { border:'border-purple-500/30', text:'text-purple-400', bg:'bg-purple-950/20', badge:'bg-purple-950/50 border-purple-800/40', glow:'group-hover:shadow-purple-900/30', btnFrom:'from-purple-400', btnTo:'to-violet-400', btnShadow:'hover:shadow-purple-900/50' },
-  green:  { border:'border-green-500/30',  text:'text-green-400',  bg:'bg-green-950/20',  badge:'bg-green-950/50 border-green-800/40',  glow:'group-hover:shadow-green-900/30',  btnFrom:'from-green-400',  btnTo:'to-emerald-400', btnShadow:'hover:shadow-green-900/50' },
-};
-
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = { Sparkles, Database, Cpu };
-
-const TECH_STACKS: Record<string, string[]> = {
-  'rsvp-event-sites':       ['Next.js 15', 'Supabase', 'Resend', 'Vercel'],
-  'rag-chatbots':           ['LangChain', 'pgvector', 'GPT-4o', 'Supabase'],
-  'enterprise-ai-agents':   ['PyTorch', 'LangGraph', 'Modal', 'CrewAI'],
-};
-
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations('Services');
-
-  // NOTE: Always use STATIC_SERVICES as source of truth.
-  // We override explicit fields per-language with next-intl mapping.
-  const services: AgencyService[] = STATIC_SERVICES.map(svc => {
-    if (svc.slug === 'rsvp-event-sites') return { ...svc, tier_label: t('tier_entry'), name: t('svc1_name'), tagline: t('svc1_tagline'), features: t('svc1_features').split('|') };
-    if (svc.slug === 'rag-chatbots') return { ...svc, tier_label: t('tier_growth'), name: t('svc2_name'), tagline: t('svc2_tagline'), features: t('svc2_features').split('|') };
-    if (svc.slug === 'enterprise-ai-agents') return { ...svc, tier_label: t('tier_enterprise'), name: t('svc3_name'), tagline: t('svc3_tagline'), features: t('svc3_features').split('|') };
-    return svc;
-  });
-  // if (supabase) {
-  //   const { data } = await supabase
-  //     .from('agency_services')
-  //     .select('*')
-  //     .eq('status', 'available')
-  //     .order('display_order', { ascending: true });
-  //   if (data && data.length > 0) services = data;
-  // }
+  const ko = locale === 'ko';
 
   return (
-    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen">
-
-      {/* ── Hero ── */}
-      <header className="relative overflow-hidden pt-24 pb-20 text-center">
-        {/* Animated grid background */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{ backgroundImage: 'linear-gradient(rgba(34,211,238,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }}
-          />
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-600/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto px-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-mono text-green-400 border border-green-500/30 rounded-full bg-green-950/30 uppercase tracking-widest">
-            <Sparkles className="w-3 h-3" />
-            {t('hero_badge')}
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3D2C29] via-[#5C4A42] to-[#7A6A5E]">
-              {t('hero_title1')}
-            </span>
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-green-400">
-              {t('hero_title2')}
-            </span>
+    <div className="min-h-screen bg-[#F7F7F4] text-[#1C2321]">
+      <div className="max-w-3xl mx-auto px-6 pt-16 md:pt-20 pb-24">
+        <header className="border-b border-[#E4E7E2] pb-10 mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold mb-5 tracking-tight leading-tight">
+            {ko ? '엔지니어링 서비스 및 기술 협업' : 'Engineering Services & Technical Collaboration'}
           </h1>
-
-          <p className="text-xl text-[#7A6A5E] leading-relaxed max-w-2xl mx-auto mb-10">
-            {t('hero_subtitle')}
+          <p className="text-lg text-[#66716C] leading-relaxed">
+            {ko
+              ? '실제 문제를 해결하는 AI 시스템, 머신러닝 인프라, 소프트웨어 엔지니어링을 다룹니다. 초기 프로토타입부터 프로덕션 아키텍처까지, 측정 가능한 결과와 유지보수 가능한 시스템을 중요하게 생각합니다.'
+              : 'I work on practical AI systems, machine learning infrastructure, and software engineering challenges. From early prototypes to production architecture, my focus is on measurable results, maintainable systems, and responsible engineering.'}
           </p>
+        </header>
 
-          {/* Social proof strip */}
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-[#97897B]">
-            {[
-              { icon: <Zap className="w-4 h-4 text-yellow-400" />, label: '7-day delivery for Tier 1' },
-              { icon: <Users className="w-4 h-4 text-[#3E9B6A]" />, label: 'ML-engineer–led builds' },
-              { icon: <Clock className="w-4 h-4 text-green-400" />, label: 'Response within 24 hours' },
-            ].map(({ icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                {icon}
-                <span>{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </header>
-
-      {/* ── 3-Tier Service Cards ── */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {services.map((svc, idx) => {
-            const a = ACCENT[svc.accent_color ?? 'cyan'] ?? ACCENT.cyan;
-            const Icon = ICON_MAP[svc.icon_name ?? 'Sparkles'] ?? Sparkles;
-            const stack = TECH_STACKS[svc.slug] ?? [];
-            const isEnterprise = idx === 2;
-
-            return (
-              <div
-                key={svc.id}
-                className={`group relative flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} mt-4`}
-              >
-                {/* Background and clipped glow layer */}
-                <div className={`absolute inset-0 bg-[#FDF3E0]/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden pointer-events-none z-0`}>
-                  <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16`} />
-                </div>
-
-                {/* Absolute Floating Badge on Enterprise */}
-                {isEnterprise && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 text-[10px] font-bold font-mono uppercase tracking-widest bg-[#FFF8EC] border border-green-500/50 rounded-full text-green-400 z-20 shadow-[0_0_20px_rgba(34,197,94,0.15)] whitespace-nowrap">
-                    ⭐ Most Advanced
-                  </div>
-                )}
-
-                <div className="relative z-10 p-8 flex flex-col flex-1 h-full">
-                  {/* Expert-Led Implementation Badge */}
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-6 text-[9px] font-mono font-bold uppercase tracking-widest border border-[#DFC9A3]/50 rounded-full text-[#7A6A5E] bg-[#F3E6C8]/30 w-fit">
-                    Expert-Led Implementation
-                  </div>
-
-                  {/* Icon + tier badge */}
-                  <div className="flex items-start justify-between mb-5">
-                    <div className={`w-11 h-11 rounded-xl ${a.badge} border flex items-center justify-center flex-shrink-0`}>
-                      <Icon className={`w-5 h-5 ${a.text}`} />
-                    </div>
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border ${a.badge} ${a.text}`}>
-                      {svc.tier_label}
-                    </span>
-                  </div>
-
-                  {/* Name + tagline */}
-                  <h2 className="text-xl font-bold text-[#3D2C29] mb-1 leading-snug font-[family-name:var(--font-geist-sans)]">{svc.name}</h2>
-                  {svc.tagline && (
-                    <p className={`text-sm font-medium mb-3 ${a.text}`}>{svc.tagline}</p>
-                  )}
-                  {svc.description && (
-                    <p className="text-sm text-[#7A6A5E] leading-relaxed mb-5">{svc.description}</p>
-                  )}
-
-                  {/* Price */}
-                  <div className="mb-5">
-                    <span className={`text-3xl font-bold ${a.text}`}>{svc.price_label}</span>
-                    {svc.billing_cycle && (
-                      <span className="text-xs text-[#97897B] ml-2 font-mono">{svc.billing_cycle}</span>
-                    )}
-                  </div>
-
-                  {/* Features — scrollable on Enterprise to keep grid balanced */}
-                  <div className="flex-grow">
-                    {svc.features && (
-                      <ul className={`space-y-2.5 mb-6 ${
-                        svc.slug === 'enterprise-ai-agents'
-                          ? 'max-h-56 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent'
-                          : ''
-                      }`}>
-                        {svc.features.map((f, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-[#5C4A42] leading-relaxed">
-                            {f.startsWith('🔐') ? (
-                              <span className="flex-shrink-0 mt-0.5 text-base leading-none">{f.slice(0, 2)}</span>
-                            ) : (
-                              <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${a.text}`} />
-                            )}
-                            {f.startsWith('🔐') ? f.slice(2).trim() : f}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-
-                  {/* Tech stack badges */}
-                  {stack.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {stack.map(t => (
-                        <span key={t} className="text-[10px] font-mono text-[#97897B] bg-[#F3E6C8] border border-[#DFC9A3] rounded px-2 py-0.5">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Timeline */}
-                  {svc.timeline_days && (
-                    <p className="text-xs text-[#7A6A5E] mb-6 font-mono">
-                      <Clock className="w-3 h-3 inline mr-1" />
-                      Est. delivery: {svc.timeline_days} days
-                    </p>
-                  )}
-
-                  {/* CTA buttons */}
-                  <div className="mt-auto flex flex-col gap-3">
-                    {/* VTON case study link on Enterprise */}
-                    {svc.case_study_slug && (
-                      <a
-                        href={`/${(svc as any).locale ?? 'en'}/lab/${svc.case_study_slug}`}
-                        className={`inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full text-xs font-mono border ${a.border} ${a.text} hover:${a.bg} transition-all`}
-                      >
-                        📖 Technical Case Study: VTON Multi-Item Synthesis
-                      </a>
-                    )}
-
-                    {/* Live Sample link (replaces Theme Gallery) */}
-                    {svc.demo_url && (
-                      <a
-                        href={svc.demo_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-[#3D2C29] bg-gradient-to-r ${a.btnFrom} ${a.btnTo} transition-all duration-300 hover:shadow-lg ${a.btnShadow} hover:-translate-y-0.5`}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        View Live Sample
-                      </a>
-                    )}
-
-                    {/* Quote CTA Client State Component Wrapper */}
-                    <QuoteButton serviceName={svc.name} label={t('get_quote')} />
-                  </div>
-                </div>
-
-
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-
-      {/* ── Comparison Table ── */}
-      <section className="max-w-4xl mx-auto px-6 pb-2.5">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-[#3D2C29] mb-2">Why Not Just DIY?</h2>
-          <p className="text-[#7A6A5E] text-sm">The real cost of generic tools adds up quickly.</p>
-        </div>
-
-        <div className="rounded-2xl border border-[#E8D9BE] overflow-hidden">
-          {/* Table header */}
-          <div className="grid grid-cols-3 bg-[#FDF3E0] border-b border-[#E8D9BE]">
-            <div className="px-6 py-4 text-xs font-mono text-[#97897B] uppercase tracking-widest">Feature</div>
-            <div className="px-6 py-4 text-xs font-mono text-red-400/80 uppercase tracking-widest border-l border-[#E8D9BE]">
-              DIY / Generic Tools
-            </div>
-            <div className="px-6 py-4 text-xs font-mono text-[#3E9B6A] uppercase tracking-widest border-l border-[#E8D9BE]">
-              SmartWorkLab Build
-            </div>
-          </div>
-
-          {/* Rows */}
-          {[
-            {
-              feature: 'Initial Setup',
-              diy: 'Hours of config & debugging',
-              swl: 'Handled end-to-end by us',
-            },
-            {
-              feature: 'Ongoing Maintenance',
-              diy: 'You own every bug & update',
-              swl: 'No maintenance burden — SLA included',
-            },
-            {
-              feature: 'Performance',
-              diy: 'Generic templates, slow cold starts',
-              swl: 'Optimized for Core Web Vitals & edge delivery',
-            },
-            {
-              feature: 'Custom Domain',
-              diy: 'Extra cost, manual DNS setup',
-              swl: 'Included — yourname-rsvp.com ready to go',
-            },
-            {
-              feature: 'Design Quality',
-              diy: 'Drag-and-drop limitations',
-              swl: 'Pixel-perfect, brand-matched UI',
-            },
-            {
-              feature: 'Security',
-              diy: 'Shared SaaS infrastructure',
-              swl: 'Private Supabase + RBAC + encryption at rest',
-            },
-            {
-              feature: 'Support',
-              diy: 'Community forums / ticket queue',
-              swl: '30–90 day direct engineer support',
-            },
-          ].map(({ feature, diy, swl }, i) => (
-            <div
-              key={feature}
-              className={`grid grid-cols-3 border-b border-[#E8D9BE] last:border-0 ${
-                i % 2 === 0 ? 'bg-[#FFF8EC]/30' : ''
-              }`}
-            >
-              <div className="px-6 py-4 text-sm font-semibold text-[#5C4A42]">{feature}</div>
-              <div className="px-6 py-4 text-sm text-red-400/70 border-l border-[#E8D9BE] flex items-start gap-2">
-                <span className="text-red-500 mt-0.5 flex-shrink-0">✕</span>
-                {diy}
-              </div>
-              <div className="px-6 py-4 text-sm text-cyan-300/90 border-l border-[#E8D9BE] flex items-start gap-2">
-                <span className="text-[#3E9B6A] mt-0.5 flex-shrink-0">✓</span>
-                {swl}
-              </div>
-            </div>
+        <div className="space-y-4 mb-12">
+          {AREAS.map((area) => (
+            <section key={area.titleEn} className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8">
+              <h2 className="text-xl font-bold tracking-tight mb-2">
+                {ko ? area.titleKo : area.titleEn}
+              </h2>
+              <p className="text-base text-[#66716C] leading-relaxed mb-5">
+                {ko ? area.descKo : area.descEn}
+              </p>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+                {(ko ? area.itemsKo : area.itemsEn).map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-[#1C2321]">
+                    <span className="text-[#4C6B59] mt-0.5" aria-hidden="true">—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
         </div>
-      </section>
 
-      {/* ── Process Timeline ── */}
-      <section className="max-w-4xl mx-auto px-6 pt-8 pb-0">
-        <h2 className="text-2xl font-bold text-center mb-12 text-[#3D2C29]">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Connector line */}
-          <div className="hidden md:block absolute top-8 left-1/3 right-1/3 h-px bg-gradient-to-r from-cyan-800/0 via-cyan-600/40 to-green-800/0" />
+        <section className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 mb-12">
+          <h2 className="text-xl font-bold tracking-tight mb-2">
+            {ko ? '로보틱스 연구' : 'Robotics research'}
+          </h2>
+          <p className="text-base text-[#66716C] leading-relaxed">
+            {ko
+              ? '로보틱스는 관심 있는 연구 분야입니다. 모찌 새싹은 오픈소스 연구 프로젝트이며, 상용 하드웨어 개발 서비스가 아닙니다. 연구 협업이나 오픈소스 기여에 대해서는 문의해 주세요.'
+              : 'Robotics is an area of research interest. Mochi Sprout is an open-source research project, not a commercial hardware development service. Research collaboration and open-source contributions are welcome — get in touch.'}
+          </p>
+        </section>
 
-          {[
-            { step: '01', title: 'Discovery', desc: 'We align on scope, tech stack, and design direction. 30-min call or async doc.', color: 'text-[#3E9B6A]' },
-            { step: '02', title: 'Build', desc: 'Engineering sprint with daily async updates. You see real progress, not promises.', color: 'text-purple-400' },
-            { step: '03', title: 'Deploy', desc: 'Production deploy on Vercel + Supabase. Docs handoff. Support period begins.', color: 'text-green-400' },
-          ].map(({ step, title, desc, color }) => (
-            <div key={step} className="text-center flex flex-col items-center">
-              <div className={`w-16 h-16 rounded-2xl bg-[#FDF3E0] border border-[#E8D9BE] flex items-center justify-center mb-4 font-mono font-bold text-xl ${color}`}>
-                {step}
-              </div>
-              <h3 className="font-bold text-[#3D2C29] mb-2">{title}</h3>
-              <p className="text-sm text-[#7A6A5E] leading-relaxed">{desc}</p>
-            </div>
-          ))}
+        <div className="text-center border-t border-[#E4E7E2] pt-10">
+          <a
+            href="mailto:info@yuunchloe.com"
+            className="inline-block px-6 py-3 bg-[#4C6B59] text-white font-bold rounded-lg hover:bg-[#3E5A4A] transition-colors"
+          >
+            {ko ? '프로젝트 문의' : 'Discuss a Project'}
+          </a>
+          <p className="text-sm text-[#8A938E] mt-4">info@yuunchloe.com</p>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

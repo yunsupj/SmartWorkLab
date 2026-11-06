@@ -15,9 +15,9 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#FFF8EC] text-[#3D2C29] p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F7F7F4] text-[#1C2321] p-4">
       <h2 className="text-2xl font-bold mb-4 text-red-500">Something went wrong!</h2>
-      <p className="text-[#7A6A5E] mb-6 max-w-md text-center">
+      <p className="text-[#66716C] mb-6 max-w-md text-center">
         {error.message || "An unexpected error occurred while loading the application."}
       </p>
       <button
@@ -25,7 +25,7 @@ export default function Error({
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
-        className="bg-cyan-600 hover:bg-[#5FBF8A] text-[#3D2C29] font-bold py-2 px-6 rounded transition-colors"
+        className="bg-cyan-600 hover:bg-[#4C6B59] text-[#1C2321] font-bold py-2 px-6 rounded transition-colors"
       >
         Try again
       </button>

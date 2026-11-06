@@ -1,248 +1,192 @@
-import { Sparkles, MapPin, PartyPopper, ArrowRight, BookOpen } from 'lucide-react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Featured Projects | SmartWorkLab',
-  description: 'Explore our latest AI implementations, from real-time computer vision to geospatial ad-networks and interactive event platforms.',
+  title: 'Projects | SmartWorkLab',
+  description:
+    'Projects built at SmartWorkLab: open-source Physical AI research, this engineering journal, and prototypes — with honest status labels.',
+  alternates: {
+    canonical: 'https://smartworklab.store/en/projects',
+    languages: {
+      en: 'https://smartworklab.store/en/projects',
+      ko: 'https://smartworklab.store/ko/projects',
+    },
+  },
 };
 
-const SECONDARY_PROJECTS = [
+type Status = 'In development' | 'Prototype' | 'Research' | 'Deployed' | 'Archived';
+
+interface Project {
+  id: string;
+  name: string;
+  status: Status;
+  statusKo: string;
+  taglineEn: string;
+  taglineKo: string;
+  descEn: string;
+  descKo: string;
+  stack: string[];
+  link?: { label: string; href: string };
+  noteEn?: string;
+  noteKo?: string;
+}
+
+const PROJECTS: Project[] = [
+  {
+    id: 'mochi-sprout',
+    name: 'Mochi Sprout',
+    status: 'In development',
+    statusKo: '개발 중',
+    taglineEn: 'Open-source Physical AI robot, built in public',
+    taglineKo: '공개적으로 만드는 오픈소스 피지컬 AI 로봇',
+    descEn:
+      'A small companion robot that grows in behavior, built from a MuJoCo simulation to hardware. Phase 0 is underway: Day 1 compared a pendulum under two gravities (max angle difference 0.909 rad). Day 2 compared P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning yet.',
+    descKo:
+      '행동이 성장하는 작은 반려 로봇을 MuJoCo 시뮬레이션부터 하드웨어까지 공개적으로 만듭니다. Phase 0 진행 중: Day 1은 두 중력에서의 진자를 비교했고(최대 각도 차이 0.909 rad), Day 2는 P·PI·PD·PID 스텝 응답을 비교했습니다. PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE는 0.313°였으며, P와 PI는 진동하며 안정되지 않았습니다. 아직 시뮬레이션만 있습니다. 걷기, 하드웨어, 강화학습은 없습니다.',
+    stack: ['MuJoCo', 'Python', 'PyTorch (planned)', 'ONNX (planned)'],
+    link: { label: 'github.com/yunsupj/mochi-sprout', href: 'https://github.com/yunsupj/mochi-sprout' },
+  },
+  {
+    id: 'smartworklab',
+    name: 'SmartWorkLab',
+    status: 'In development',
+    statusKo: '개발 중',
+    taglineEn: 'This site — a bilingual engineering research blog',
+    taglineKo: '이 사이트 — 이중언어 엔지니어링 연구 블로그',
+    descEn:
+      'The site you are reading. Being rebuilt from an agency site into a minimal engineering journal: articles, series, and project documentation in English and Korean, with measured results only.',
+    descKo:
+      '지금 보고 있는 사이트입니다. 에이전시 사이트에서 미니멀한 엔지니어링 저널로 다시 만들고 있습니다. 영어·한국어 아티클, 시리즈, 프로젝트 기록을 측정된 결과와 함께 담습니다.',
+    stack: ['Next.js', 'Supabase', 'Vercel', 'next-intl'],
+    link: { label: 'github.com/yunsupj/SmartWorkLab', href: 'https://github.com/yunsupj/SmartWorkLab' },
+  },
+  {
+    id: 'flyalpha',
+    name: 'FlyAlpha',
+    status: 'Prototype',
+    statusKo: '프로토타입',
+    taglineEn: 'AI-assisted swing-trading bot with a deterministic risk engine',
+    taglineKo: '결정적 리스크 엔진을 갖춘 AI 보조 스윙 트레이딩 봇',
+    descEn:
+      'A quantitative trading system: a model proposes candidates, AI signals and risk filters assist, and a deterministic risk engine decides orders and position size. AI never places orders directly. A small live canary has been running since October 2026. No performance claims are made here.',
+    descKo:
+      '퀀트 트레이딩 시스템입니다. 모델이 후보를 만들고 AI 신호와 리스크 필터가 보조하며, 결정적 리스크 엔진이 주문과 포지션 크기를 정합니다. AI가 직접 주문하지는 않습니다. 소액 실거래 카나리가 2026년 10월부터 운영 중입니다. 성과에 대한 주장은 하지 않습니다.',
+    stack: ['Python', 'Robinhood API', 'Point-in-time data'],
+  },
+  {
+    id: 'pickle-ai',
+    name: 'Pickle AI',
+    status: 'Prototype',
+    statusKo: '프로토타입',
+    taglineEn: 'AI shopping agent with virtual try-on',
+    taglineKo: '가상 피팅이 가능한 AI 쇼핑 에이전트',
+    descEn:
+      'A shopping agent prototype: snap a photo, try clothes on virtually, and search by style. Built with a multi-stage virtual try-on pipeline, hybrid vector + time-decay style search, and an iOS app with an Apple Watch companion. Earlier versions of this page quoted 100M DAU and sub-100ms latency — those were design targets, not measured results, and have been removed.',
+    descKo:
+      '쇼핑 에이전트 프로토타입입니다. 사진을 찍으면 가상으로 옷을 입어보고 스타일로 검색합니다. 다단계 가상 피팅 파이프라인, 하이브리드 벡터·시간 감쇠 스타일 검색, Apple Watch 연동 iOS 앱으로 구성했습니다. 이전 페이지의 100M DAU와 100ms 미만 지연은 측정 결과가 아니라 설계 목표였기 때문에 삭제했습니다.',
+    stack: ['React Router v7', 'PostgreSQL', 'Upstash Redis', 'Deno Edge Functions', 'Fashn.ai', 'Capacitor'],
+    noteEn: 'Performance figures previously shown here were design targets, not measured results.',
+    noteKo: '이전에 표시됐던 성능 수치는 측정 결과가 아니라 설계 목표였습니다.',
+  },
   {
     id: 'mapz',
-    title: 'Mapz',
-    tagline: 'High-Throughput Geospatial Ad-Network',
-    icon: MapPin,
-    color: 'purple',
-    problem: 'Rewarding users in real-time for visiting physical coordinates causes massive geospatial database bottlenecks and transaction latency.',
-    solution: "We implemented Uber's H3 spatial sharding index combined with a high-throughput Redis buffer. This isolates concurrent read/writes, enabling the system to securely process thousands of location check-ins per second on Solana without lag.",
+    name: 'Mapz',
+    status: 'Prototype',
+    statusKo: '프로토타입',
+    taglineEn: 'Geospatial rewards prototype',
+    taglineKo: '지리공간 리워드 프로토타입',
+    descEn:
+      'A prototype that rewards users for visiting physical coordinates, using Uber H3 spatial sharding and a Redis write buffer to handle concurrent check-ins. Throughput figures from earlier descriptions were design goals, not measured results.',
+    descKo:
+      '실제 좌표를 방문한 사용자에게 보상하는 프로토타입입니다. Uber H3 공간 샤딩과 Redis 쓰기 버퍼로 동시 체크인을 처리합니다. 이전 설명의 처리량 수치는 설계 목표였고, 측정 결과가 아닙니다.',
     stack: ['Next.js', 'PostGIS', 'H3', 'Solana Web3.js'],
   },
   {
-    id: 'rsvp-product',
-    title: 'Bespoke RSVP Engine',
-    tagline: 'Scaleable Event Infrastructure',
-    icon: PartyPopper,
-    color: 'cyan',
-    problem: 'Generic event platforms look dated, suffer from awful UX, and charge exorbitant fees for basic "premium" features like photo galleries or domain linking.',
-    solution: 'A fully custom, code-driven RSVP pipeline. Engineered with Next.js and Supabase for infinite scale, featuring a dynamic configuration engine that instantly shifts aesthetics, animations, and automated Resend email reminders.',
-    stack: ['React', 'Tailwind', 'Resend', 'Supabase Auth'],
+    id: 'rsvp-engine',
+    name: 'RSVP Engine',
+    status: 'Prototype',
+    statusKo: '프로토타입',
+    taglineEn: 'Code-driven event microsites with RSVP',
+    taglineKo: '코드로 만드는 RSVP 이벤트 마이크로사이트',
+    descEn:
+      'A custom RSVP pipeline: event microsites with RSVP forms, photo guestbooks, and automated email reminders, built with Next.js, Supabase, and Resend. No scale or delivery claims are made here.',
+    descKo:
+      '맞춤형 RSVP 파이프라인입니다. RSVP 폼, 사진 게스트북, 자동 이메일 알림이 있는 이벤트 마이크로사이트를 Next.js, Supabase, Resend로 만듭니다. 규모나 납기에 대한 주장은 하지 않습니다.',
+    stack: ['Next.js', 'Supabase', 'Resend', 'Tailwind'],
   },
 ];
 
-const COLOR_MAP: Record<string, { bg: string; text: string; border: string; glow: string }> = {
-  purple: { bg: 'bg-purple-950/20', text: 'text-purple-400', border: 'border-purple-500/30', glow: 'shadow-purple-900/20' },
-  cyan: { bg: 'bg-cyan-950/20', text: 'text-cyan-400', border: 'border-cyan-500/30', glow: 'shadow-cyan-900/20' },
+const STATUS_STYLE: Record<Status, string> = {
+  'In development': 'text-[#4C6B59] bg-[#DCE8DF]/60 border-[#4C6B59]/30',
+  Prototype: 'text-[#66716C] bg-[#F7F7F4] border-[#D5DAD3]',
+  Research: 'text-[#4C6B59] bg-[#DCE8DF]/60 border-[#4C6B59]/30',
+  Deployed: 'text-[#4C6B59] bg-[#DCE8DF]/60 border-[#4C6B59]/30',
+  Archived: 'text-[#8A938E] bg-[#F7F7F4] border-[#D5DAD3]',
 };
 
-export default function ProjectsPage({ params }: { params: { locale?: string } }) {
-  const locale = params?.locale ?? 'en';
+export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const ko = locale === 'ko';
 
   return (
-    <div className="bg-slate-950 text-slate-400 min-h-screen">
-
-      {/* ── Hero ── */}
-      <header className="relative pt-32 pb-16 text-center overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-mono text-cyan-400 border border-cyan-500/30 rounded-full bg-cyan-950/30 uppercase tracking-widest">
-            <Sparkles className="w-3 h-3" /> Featured Work
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 font-[family-name:var(--font-geist-sans)] text-slate-100 tracking-tight">
-            Proof of <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Work.</span>
+    <div className="min-h-screen bg-[#F7F7F4] text-[#1C2321]">
+      <div className="max-w-3xl mx-auto px-6 pt-16 md:pt-20 pb-24">
+        <header className="border-b border-[#E4E7E2] pb-10 mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            {ko ? '프로젝트' : 'Projects'}
           </h1>
-          <p className="text-xl leading-relaxed max-w-2xl mx-auto">
-            A selection of production-grade systems we've shipped. Real problems, engineered solutions.
+          <p className="text-lg text-[#66716C] leading-relaxed">
+            {ko
+              ? '실제로 만든 것들입니다. 상태는 솔직하게 표시합니다. 연구, 프로토타입, 개발 중, 배포됨, 보관됨.'
+              : 'Things actually built. Status is labeled honestly: research, prototype, in development, deployed, archived.'}
           </p>
-        </div>
-      </header>
+        </header>
 
-      {/* ── Pickle AI Bento Box Flagship ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-20">
-        <div className="relative bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 overflow-hidden shadow-2xl">
-
-          {/* Subtle Accent Glow */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
-
-          {/* Header & Badges */}
-          <div className="relative z-10 mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-geist-sans)] text-slate-100 mb-3 tracking-tight">
-              🥒 Pickle AI: Hyper-Scale AI Shopping Agent & VTON Engine
-            </h2>
-            <p className="text-lg md:text-xl text-slate-300 font-medium mb-6">
-              "Snap. Fit. Jar. — The social identity engine built for 100M DAU."
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              {[
-                '100M DAU Scalable',
-                'Sub-100ms Latency',
-                'pgvector HNSW'
-              ].map(badge => (
-                <span key={badge} className="px-3 py-1 text-xs font-mono font-bold text-cyan-300 border border-cyan-500/50 rounded-md bg-cyan-950/30 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
-                  [{badge}]
+        <div className="space-y-4">
+          {PROJECTS.map((proj) => (
+            <article key={proj.id} className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8">
+              <div className="flex flex-wrap items-center gap-3 mb-2">
+                <h2 className="text-xl font-bold tracking-tight">{proj.name}</h2>
+                <span
+                  className={`px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest rounded-full border ${STATUS_STYLE[proj.status]}`}
+                >
+                  {ko ? proj.statusKo : proj.status}
                 </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Problem vs Solution Grid (gap-8, py-12) */}
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 py-12 border-y border-slate-800/60 mb-10">
-
-            {/* The Problem (Left) */}
-            <div className="bg-rose-950/10 border border-rose-500/30 rounded-2xl p-8 flex flex-col justify-center shadow-[inset_0_0_20px_rgba(244,63,94,0.02)]">
-              <div className="flex items-center gap-2 mb-6">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 text-xs font-bold border border-rose-500/30">✕</span>
-                <h3 className="text-sm font-mono font-bold uppercase tracking-widest text-rose-400">The Problem</h3>
               </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <span className="text-rose-500 mt-1">•</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-slate-200">Latency = Death:</strong> Users drop off if VTON inference takes ~10s.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-rose-500 mt-1">•</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-slate-200">Fragmented OOTD context:</strong> Difficulty stitching scattered wardrobe state across devices.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-rose-500 mt-1">•</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-slate-200">Database row-level locking:</strong> Massive bottlenecks during viral traffic storms rendering standard architectures useless.</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* The Solution (Right) */}
-            <div className="bg-cyan-950/10 border border-cyan-500/30 rounded-2xl p-8 flex flex-col justify-center shadow-[inset_0_0_20px_rgba(34,211,238,0.02)] relative overflow-hidden">
-              <div className="absolute bottom-0 right-0 w-48 h-48 bg-cyan-500/10 blur-3xl rounded-full pointer-events-none" />
-              <div className="flex items-center gap-2 mb-6 relative z-10">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold border border-cyan-500/30">✓</span>
-                <h3 className="text-sm font-mono font-bold uppercase tracking-widest text-cyan-400">The Solution</h3>
+              <p className="text-sm font-bold text-[#4C6B59] mb-3">
+                {ko ? proj.taglineKo : proj.taglineEn}
+              </p>
+              <p className="text-base text-[#66716C] leading-relaxed mb-4">
+                {ko ? proj.descKo : proj.descEn}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {proj.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 text-xs font-mono text-[#66716C] bg-[#F7F7F4] border border-[#E4E7E2] rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
-              <ul className="space-y-4 relative z-10">
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-cyan-100">Ghost Speed:</strong> 13-parallel DB fetches via React Router v7 bypassing waterfalls.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-cyan-100">VTON Chain Orchestration:</strong> Multi-stage Deno Edge Function pipelines with circuit breakers.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-cyan-100">Style DNA:</strong> Hybrid time-decay + vector similarity search in PostgreSQL executing in 50ms.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span className="text-slate-300 leading-relaxed"><strong className="text-cyan-100">Wearable Ecosystem:</strong> iOS Capacitor bridge to Apple Watch creating persistent authentication.</span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-
-          {/* Tech Stack Footer */}
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="flex flex-wrap gap-2">
-              {[
-                'React Router v7', 'PostgreSQL 16', 'Upstash Redis',
-                'Deno Edge Functions', 'Fashn.ai', 'Capacitor 6', 'SwiftUI'
-              ].map(tech => (
-                <span key={tech} className="px-3 py-1.5 text-xs font-mono text-slate-300 bg-slate-800 border border-slate-700/50 rounded-full">
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-              <Link
-                href={`/${locale}/services`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-900 bg-cyan-400 hover:bg-cyan-300 rounded-full transition-colors shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_20px_rgba(34,211,238,0.6)]"
-              >
-                Request an Enterprise Build <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href={`/${locale}/lab`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-slate-300 border border-slate-600 rounded-full hover:border-slate-400 hover:text-white transition-colors"
-              >
-                Read Architecture Deep-Dive <BookOpen className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
+              {proj.link && (
+                <a
+                  href={proj.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold text-[#4C6B59] hover:underline underline-offset-4"
+                >
+                  {proj.link.label} →
+                </a>
+              )}
+              {(ko ? proj.noteKo : proj.noteEn) && (
+                <p className="text-xs text-[#8A938E] mt-3 leading-relaxed">
+                  {ko ? proj.noteKo : proj.noteEn}
+                </p>
+              )}
+            </article>
+          ))}
         </div>
-      </section>
-
-      {/* ── Secondary Projects ── */}
-      <section className="max-w-5xl mx-auto px-6 pb-24 space-y-12">
-        <h3 className="text-2xl font-bold font-[family-name:var(--font-geist-sans)] border-b border-slate-800 pb-4 mb-8 text-slate-100">
-          More Engineering Case Studies
-        </h3>
-
-        {SECONDARY_PROJECTS.map((proj) => {
-          const c = COLOR_MAP[proj.color];
-          const Icon = proj.icon;
-          return (
-            <div key={proj.id} className={`relative bg-slate-900/50 border border-slate-800 rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:${c.glow} group`}>
-
-              <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 opacity-30 blur-[80px] pointer-events-none ${c.bg}`} />
-
-              <div className="relative z-10 p-8 md:p-12">
-                <div className="flex flex-col md:flex-row md:items-start gap-8">
-
-                  {/* Left Column: Title & Stack */}
-                  <div className="md:w-1/3 flex-shrink-0">
-                    <div className={`w-12 h-12 rounded-xl border ${c.border} ${c.bg} flex items-center justify-center mb-6`}>
-                      <Icon className={`w-6 h-6 ${c.text}`} />
-                    </div>
-                    <h2 className="text-2xl font-bold font-[family-name:var(--font-geist-sans)] mb-2 text-slate-100">{proj.title}</h2>
-                    <p className={`text-sm font-semibold font-mono uppercase tracking-widest mb-8 ${c.text}`}>
-                      {proj.tagline}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {proj.stack.map(tech => (
-                        <span key={tech} className="px-3 py-1 text-xs font-mono text-slate-400 bg-slate-950/50 border border-slate-800 rounded-full">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column: Problem / Solution */}
-                  <div className="md:w-2/3 space-y-8 mt-4 md:mt-0">
-                    <div className="bg-slate-950/40 rounded-2xl p-6 border border-slate-800/60">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500/20 text-red-400 text-xs font-bold border border-red-500/30">✕</span>
-                        <h4 className="text-sm font-mono font-bold uppercase tracking-widest text-slate-400">The Problem</h4>
-                      </div>
-                      <p className="text-slate-300 leading-relaxed text-sm md:text-base">
-                        {proj.problem}
-                      </p>
-                    </div>
-
-                    <div className={`bg-gradient-to-br from-slate-900 to-slate-950 rounded-2xl p-6 border ${c.border} relative overflow-hidden`}>
-                      <div className={`absolute top-0 right-0 w-32 h-32 -mr-16 -mt-16 rounded-full blur-3xl opacity-20 pointer-events-none ${c.bg}`} />
-                      <div className="flex items-center gap-2 mb-3 relative z-10">
-                        <span className={`flex items-center justify-center w-6 h-6 rounded-full ${c.bg} ${c.text} text-xs font-bold border ${c.border}`}>✓</span>
-                        <h4 className={`text-sm font-mono font-bold uppercase tracking-widest ${c.text}`}>The Solution</h4>
-                      </div>
-                      <p className="text-slate-200 leading-relaxed font-medium text-sm md:text-base relative z-10">
-                        {proj.solution}
-                      </p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </section>
+      </div>
     </div>
   );
 }
