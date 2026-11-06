@@ -78,14 +78,18 @@
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
     "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다.",
-    "tagline": "응용 AI, 로보틱스, 엔지니어링 — 실제로 만들고 측정한 작업의 기록.",
+    "tagline": "AI와 로보틱스를 직접 만들고 검증한 기록",
     "explore": "둘러보기",
-    "legal": "법적 고지"
+    "legal": "법적 고지",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관",
+    "sitemap": "사이트맵",
+    "copy_email": "이메일 주소 복사"
   },
   "Home": {
-    "hero_badge": "SmartWorkLab — 응용 AI, 로보틱스, 엔지니어링",
-    "hero_title": "응용 AI와 로보틱스에 대한 엔지니어링 노트.",
-    "hero_subtitle": "SmartWorkLab은 실제 엔지니어링 작업을 기록합니다. 실험, 구현, 실패, 그리고 배운 점 — 오픈소스 Physical AI 로봇부터 시작합니다.",
+    "hero_badge": "SmartWorkLab — AI · 로보틱스 · 엔지니어링",
+    "hero_title": "직접 만들고, 실험하고, 기록합니다.",
+    "hero_subtitle": "AI 시스템과 로보틱스를 개발하며 배운 내용을 공유합니다. 잘 작동한 방법뿐 아니라 실패한 실험과 그 이유도 코드와 데이터로 남깁니다.",
     "cta_lab": "아티클 보기",
     "cta_services": "GitHub에서 모찌 새싹 보기",
     "weekly_top": "추천 글",
@@ -124,11 +128,11 @@
     "success_desc": "24시간 이내에 답변 드리겠습니다."
   },
   "Lab": {
-    "title": "아티클",
-    "subtitle": "기술 에세이, 학습 노트, 엔지니어링 딥다이브 — 엔지니어가 쓰고, 엔지니어를 위한 글.",
+    "title": "기술 글",
+    "subtitle": "직접 개발하고 실험하며 배운 내용을 기록합니다. 실제 코드와 측정 결과, 시행착오를 함께 공유합니다.",
     "read_more": "자세히 읽기",
-    "series_title": "시리즈",
-    "series_subtitle": "주제별 시리즈로 묶은 아티클 모음입니다.",
+    "series_title": "연재 시리즈",
+    "series_subtitle": "하나의 주제를 처음부터 차근차근 따라갈 수 있도록 글을 모았습니다.",
     "prev": "이전 글",
     "next": "다음 글",
     "back_to_lab": "아티클 목록으로",

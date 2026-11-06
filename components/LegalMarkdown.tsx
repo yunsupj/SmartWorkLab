@@ -6,18 +6,20 @@ import { ChevronRight, Calendar } from 'lucide-react';
 
 interface LegalMarkdownProps {
   content: string;
+  /** Page locale — drives the "Last updated" / TOC labels. Defaults to 'en'. */
+  locale?: string;
 }
 
-export default function LegalMarkdown({ content }: LegalMarkdownProps) {
+export default function LegalMarkdown({ content, locale = 'en' }: LegalMarkdownProps) {
+  const ko = locale === 'ko';
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeId, setActiveId] = useState<string>('');
 
-  // Extract Last Updated Date
-  const lastUpdatedMatch = content.match(/Last Updated: (.*?)(\n|$)/i);
-  const lastUpdated = lastUpdatedMatch ? lastUpdatedMatch[1] : null;
-
-  // Remove Title and Last Updated from main content for rendering if desired,
-  // or just render as is. We'll render as is but custom style the h1.
+  // Extract the last-updated date from the document itself.
+  // EN docs use "Last Updated: ...", KO docs use "최종 수정일: ...".
+  const lastUpdatedMatch =
+    content.match(/Last Updated:\s*(.*?)(\n|$)/i) ?? content.match(/최종 수정일:\s*(.*?)(\n|$)/);
+  const lastUpdated = lastUpdatedMatch ? lastUpdatedMatch[1].trim().replace(/\*+/g, '') : null;
 
   useEffect(() => {
     // Parse headings for TOC
@@ -33,8 +35,6 @@ export default function LegalMarkdown({ content }: LegalMarkdownProps) {
         const id = text.toLowerCase().replace(/[^a-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+/g, '-').replace(/(^-|-$)/g, '');
 
         if (text.toLowerCase() !== 'last updated' && !text.includes('Terms of Service') && !text.includes('Privacy Policy') && !text.includes('이용약관') && !text.includes('개인정보 처리방침')) {
-             // Skip main title in TOC if it's redundant, but actually typically we want 1. 2. 3.
-             // Let's include everything level 2 and 3 usually
              if (level > 1) {
                  extractedHeadings.push({ id, text, level });
              }
@@ -75,32 +75,34 @@ export default function LegalMarkdown({ content }: LegalMarkdownProps) {
     <div className="relative flex flex-col lg:flex-row gap-12 items-start">
       {/* Main Content */}
       <div className="flex-1 min-w-0">
-        <div className="mb-8 p-6 bg-cyan-950/20 border border-cyan-500/20 rounded-2xl backdrop-blur-sm inline-flex items-center gap-3">
-             <div className="bg-cyan-500/20 p-2 rounded-lg text-cyan-400">
+        <div className="mb-8 p-6 bg-[#DCE8DF]/50 border border-[#4C6B59]/30 rounded-2xl inline-flex items-center gap-3">
+             <div className="bg-[#4C6B59]/15 p-2 rounded-lg text-[#4C6B59]">
                 <Calendar className="w-5 h-5" />
              </div>
              <div>
-                <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">Effective Date</p>
-                <p className="text-slate-300 font-medium">{lastUpdated || 'January 30, 2026'}</p>
+                <p className="text-xs text-[#4C6B59] uppercase tracking-widest font-bold">
+                  {ko ? '최종 수정일' : 'Last updated'}
+                </p>
+                <p className="text-[#1C2321] font-medium">{lastUpdated || 'January 30, 2026'}</p>
              </div>
         </div>
 
-        <article className="prose prose-invert prose-lg max-w-none
-          text-slate-300 leading-loose
-          prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
-          prose-h1:text-4xl prose-h1:mb-10 prose-h1:text-transparent prose-h1:bg-clip-text prose-h1:bg-gradient-to-r prose-h1:from-white prose-h1:to-slate-400
-          prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-slate-800
-          prose-h3:text-xl prose-h3:text-cyan-400 prose-h3:mt-10 prose-h3:mb-4
-          prose-p:text-slate-300 prose-p:leading-loose prose-p:mb-6
-          prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-li:text-slate-300 prose-li:marker:text-slate-500 prose-li:pl-2
+        <article className="prose max-w-none
+          text-[#4A5550] leading-loose
+          prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#1C2321]
+          prose-h1:text-4xl prose-h1:mb-10
+          prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-[#E4E7E2]
+          prose-h3:text-xl prose-h3:text-[#4C6B59] prose-h3:mt-10 prose-h3:mb-4
+          prose-p:text-[#4A5550] prose-p:leading-loose prose-p:mb-6
+          prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-li:text-[#4A5550] prose-li:marker:text-[#8A938E] prose-li:pl-2
           prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:mb-2
-          prose-strong:text-white prose-strong:font-semibold
-          prose-a:text-cyan-400 prose-a:no-underline prose-a:border-b prose-a:border-cyan-500/30 hover:prose-a:border-cyan-400 hover:prose-a:text-cyan-300 transition-all
-          prose-hr:border-slate-800 prose-hr:my-16
+          prose-strong:text-[#1C2321] prose-strong:font-semibold
+          prose-a:text-[#4C6B59] prose-a:no-underline prose-a:border-b prose-a:border-[#4C6B59]/30 hover:prose-a:border-[#4C6B59] transition-all
+          prose-hr:border-[#E4E7E2] prose-hr:my-16
         ">
           <ReactMarkdown
             components={{
-              h1: ({ node, ...props }) => <h1 {...props} />, // Main title usually handled by page, but legal docs have it inline
+              h1: ({ node, ...props }) => <h1 {...props} />,
               h2: ({ node, children, ...props }) => {
                 const text = String(children);
                 const id = text.toLowerCase().replace(/[^a-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+/g, '-').replace(/(^-|-$)/g, '');
@@ -120,8 +122,10 @@ export default function LegalMarkdown({ content }: LegalMarkdownProps) {
 
       {/* Sticky Sidebar (TOC) */}
       <aside className="hidden lg:block w-72 sticky top-32 shrink-0">
-        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-md shadow-2xl">
-          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">On this page</h4>
+        <div className="bg-[#FFFFFF] border border-[#E4E7E2] rounded-2xl p-6 shadow-sm">
+          <h4 className="text-xs font-bold text-[#8A938E] uppercase tracking-widest mb-4">
+            {ko ? '이 페이지에서' : 'On this page'}
+          </h4>
           <nav className="space-y-1">
             {headings.map((heading) => (
               <a
@@ -130,8 +134,8 @@ export default function LegalMarkdown({ content }: LegalMarkdownProps) {
                 onClick={(e) => scrollToSection(e, heading.id)}
                 className={`block text-sm py-2 px-3 rounded-lg transition-all line-clamp-1 border-l-2 ${
                   activeId === heading.id
-                    ? 'bg-cyan-950/30 text-cyan-400 border-cyan-500 font-medium'
-                    : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 border-transparent'
+                    ? 'bg-[#DCE8DF]/60 text-[#4C6B59] border-[#4C6B59] font-medium'
+                    : 'text-[#66716C] hover:text-[#1C2321] hover:bg-[#F7F7F4] border-transparent'
                 }`}
                 style={{ marginLeft: (heading.level - 2) * 12 }}
               >
@@ -140,12 +144,12 @@ export default function LegalMarkdown({ content }: LegalMarkdownProps) {
             ))}
           </nav>
 
-          <div className="mt-8 pt-6 border-t border-slate-800">
-             <a href="/" className="flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors group">
-                <div className="bg-slate-800 p-1.5 rounded group-hover:bg-slate-700 transition-colors">
+          <div className="mt-8 pt-6 border-t border-[#E4E7E2]">
+             <a href={`/${locale}`} className="flex items-center gap-2 text-xs text-[#66716C] hover:text-[#4C6B59] transition-colors group">
+                <div className="bg-[#F7F7F4] border border-[#E4E7E2] p-1.5 rounded group-hover:border-[#4C6B59] transition-colors">
                     <ChevronRight className="w-3 h-3 rotate-180" />
                 </div>
-                Back to Home
+                {ko ? '홈으로' : 'Back to Home'}
              </a>
           </div>
         </div>

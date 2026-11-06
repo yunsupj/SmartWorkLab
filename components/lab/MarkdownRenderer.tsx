@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import codeTheme from '@/lib/codeTheme';
 import CodeBlock from './CodeBlock';
 import 'katex/dist/katex.min.css';
 import SimulationSlot from './SimulationSlot';
@@ -69,10 +69,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               <code className={className} {...props}>{children}</code>
             ) : match ? (
               <SyntaxHighlighter
-                style={atomDark as any}
+                style={codeTheme as any}
                 language={match[1]}
                 PreTag="div"
-                className="rounded-xl border border-white/10 my-6 text-sm"
+                className="rounded-xl border border-[#334155] my-6 text-sm"
                 {...props}
               >
                 {String(children).replace(/\n$/, '')}

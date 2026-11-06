@@ -78,13 +78,17 @@
   "Footer": {
     "disclosure_en": "Disclosure: Some links on this site are affiliate links; we may earn a commission at no extra cost to you.",
     "disclosure_ko": "고지: 본 사이트의 일부 링크는 제휴 링크로, 구매 시 운영자에게 수수료가 지급될 수 있으나 사용자 추가 비용은 없습니다.",
-    "tagline": "Applied AI, robotics & engineering — notes from work that was actually built and measured.",
+    "tagline": "A record of AI and robotics work, built and verified firsthand.",
     "explore": "Explore",
-    "legal": "Legal"
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "sitemap": "Sitemap",
+    "copy_email": "Copy email address"
   },
   "Home": {
     "hero_badge": "SmartWorkLab — Applied AI, Robotics & Engineering",
-    "hero_title": "Engineering notes on applied AI and robotics.",
+    "hero_title": "Building AI systems and robots, in the open.",
     "hero_subtitle": "SmartWorkLab documents real engineering work: experiments, implementations, failures, and lessons learned — starting with an open-source Physical AI robot.",
     "cta_lab": "Browse articles",
     "cta_services": "Mochi Sprout on GitHub",
