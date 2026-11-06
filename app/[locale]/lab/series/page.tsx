@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase';
+import { seriesSlug, isMochiSproutSeries } from '@/lib/series';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -24,16 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-/** Slug for a series display name. 'mochi-sprout' is the stable alias for the Mochi Sprout series. */
-export function seriesSlug(name: string): string {
-  if (name.includes('Mochi Sprout')) return 'mochi-sprout';
-  return name
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s-]/gu, '')
-    .trim()
-    .replace(/\s+/g, '-');
-}
-
 interface SeriesGroup {
   name: string;
   count: number;
@@ -42,6 +34,7 @@ interface SeriesGroup {
 
 export default async function SeriesIndexPage({ params }: Props) {
   const { locale } = await params;
+  const t = await getTranslations('Lab');
 
   const groups = new Map<string, SeriesGroup>();
   if (supabase) {
@@ -60,16 +53,14 @@ export default async function SeriesIndexPage({ params }: Props) {
     }
   }
 
-  const hasMochiSprout = [...groups.keys()].some((n) => n.includes('Mochi Sprout'));
+  const hasMochiSprout = [...groups.keys()].some((n) => isMochiSproutSeries(n));
 
   return (
     <div className="bg-[#F7F7F4] text-[#1C2321] min-h-screen">
       <header className="pt-16 md:pt-20 pb-10 max-w-4xl mx-auto px-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Series</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">{t('series_title')}</h1>
         <p className="text-lg text-[#66716C] leading-relaxed max-w-2xl">
-          {locale === 'ko'
-            ? '주제별 시리즈로 묶은 아티클 모음입니다.'
-            : 'Articles grouped into ongoing research series.'}
+          {t('series_subtitle')}
         </p>
       </header>
 
@@ -104,7 +95,7 @@ export default async function SeriesIndexPage({ params }: Props) {
         </article>
 
         {[...groups.values()]
-          .filter((g) => !g.name.includes('Mochi Sprout'))
+          .filter((g) => !isMochiSproutSeries(g.name))
           .map((g) => (
             <Link
               key={g.name}
@@ -114,7 +105,7 @@ export default async function SeriesIndexPage({ params }: Props) {
               <div className="flex items-baseline justify-between gap-4">
                 <h2 className="text-lg font-bold tracking-tight">{g.name}</h2>
                 <span className="text-sm text-[#8A938E] font-mono whitespace-nowrap">
-                  {g.count} {g.count === 1 ? 'article' : 'articles'}
+                  {locale === 'ko' ? `${g.count}편` : `${g.count} ${g.count === 1 ? 'article' : 'articles'}`}
                 </span>
               </div>
               {g.latest && (

@@ -56,7 +56,7 @@ export default function CodeBlock({ className, children, inline }: CodeBlockProp
   // Inline code (backtick spans inside prose)
   if (inline) {
     return (
-      <code className="font-mono text-sm text-cyan-300 bg-[#FFFFFF] border border-[#E4E7E2] rounded px-1.5 py-0.5">
+      <code className="font-mono text-sm text-[#C2557A] bg-[#FFFFFF] border border-[#E4E7E2] rounded px-1.5 py-0.5">
         {children}
       </code>
     );

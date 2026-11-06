@@ -1,6 +1,8 @@
 import TableOfContents from '@/components/TableOfContents';
 import { Clock, Code2, Sigma, Tag, CalendarDays, Layers, ExternalLink, FlaskConical } from 'lucide-react';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { seriesSlug } from '@/lib/series';
 
 interface Heading { id: string; text: string; level: number; }
 
@@ -39,7 +41,8 @@ interface TechPostLayoutProps {
  * Handles: cover image, hero header, meta row (badges),
  * two-column layout (article + TOC sidebar), breadcrumb nav.
  */
-export default function TechPostLayout({ post, children, prevPost, nextPost }: TechPostLayoutProps) {
+export default async function TechPostLayout({ post, children, prevPost, nextPost }: TechPostLayoutProps) {
+  const t = await getTranslations('Lab');
   const tocHeadings = post.toc_headings ?? [];
   const hasSidebar = tocHeadings.length > 0;
 
@@ -60,14 +63,14 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 pt-8">
         <nav className="flex items-center gap-2 text-xs text-[#8A938E] font-mono mb-8">
-          <Link href="/" className="hover:text-[#66716C] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-[#66716C] transition-colors">{t('home')}</Link>
           <span>/</span>
-          <Link href={`/${post.locale}/lab`} className="hover:text-[#66716C] transition-colors">The Lab</Link>
+          <Link href={`/${post.locale}/lab`} className="hover:text-[#66716C] transition-colors">{t('the_lab')}</Link>
           {post.series && (
             <>
               <span>/</span>
               <Link
-                href={`/${post.locale}/lab/series/${post.series.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/${post.locale}/lab/series/${seriesSlug(post.series)}`}
                 className="hover:text-[#4C6B59] transition-colors"
               >
                 {post.series}
@@ -94,7 +97,7 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
               {post.has_svg_demo && (
                 <span className="inline-flex items-center gap-1.5 text-xs font-mono text-[#8A6D1B] bg-amber-50 border border-amber-200 rounded-full px-3 py-1">
                   <FlaskConical className="w-3 h-3" />
-                  Interactive Demo
+                  {t('interactive_demo')}
                 </span>
               )}
             </div>
@@ -123,7 +126,7 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
               {post.read_time_min && (
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
-                  {post.read_time_min} min read
+                  {t('min_read', { minutes: post.read_time_min })}
                 </span>
               )}
               {post.has_code && (
@@ -160,13 +163,13 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
               <nav className="mt-16 pt-8 border-t border-[#E4E7E2] grid sm:grid-cols-2 gap-4" aria-label="Article navigation">
                 {prevPost ? (
                   <Link href={`/${post.locale}/lab/${prevPost.slug}`} className="group rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4 hover:border-[#4C6B59]/60 transition-colors">
-                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">← Previous</span>
+                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">← {t('prev')}</span>
                     <span className="block text-sm font-bold text-[#1C2321] leading-snug">{prevPost.title}</span>
                   </Link>
                 ) : <span />}
                 {nextPost && (
                   <Link href={`/${post.locale}/lab/${nextPost.slug}`} className="group rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4 text-right hover:border-[#4C6B59]/60 transition-colors">
-                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">Next →</span>
+                    <span className="block text-xs font-mono text-[#8A938E] uppercase tracking-widest mb-1">{t('next')} →</span>
                     <span className="block text-sm font-bold text-[#1C2321] leading-snug">{nextPost.title}</span>
                   </Link>
                 )}
@@ -179,11 +182,11 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
                 href={`/${post.locale}/lab`}
                 className="text-sm text-[#8A938E] hover:text-[#4C6B59] transition-colors flex items-center gap-2 font-mono"
               >
-                ← Back to The Lab
+                ← {t('back_to_lab')}
               </Link>
               {post.updated_at && (
                 <p className="text-xs text-[#66716C] font-mono">
-                  Updated {new Date(post.updated_at).toLocaleDateString()}
+                  {t('updated')} {new Date(post.updated_at).toLocaleDateString()}
                 </p>
               )}
             </div>
@@ -198,15 +201,15 @@ export default function TechPostLayout({ post, children, prevPost, nextPost }: T
                 {/* Series card in sidebar */}
                 {post.series && (
                   <div className="rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-4">
-                    <p className="text-xs font-bold text-[#1C2321] mb-1">Series</p>
+                    <p className="text-xs font-bold text-[#1C2321] mb-1">{t('series_label')}</p>
                     <p className="text-xs text-[#66716C] mb-3 leading-relaxed">
                       {post.series}
                     </p>
                     <Link
-                      href={`/${post.locale}/lab/series/${post.series.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/${post.locale}/lab/series/${seriesSlug(post.series)}`}
                       className="flex items-center gap-1 text-xs text-[#4C6B59] hover:underline font-bold transition-colors"
                     >
-                      All articles in this series <ExternalLink className="w-3 h-3" />
+                      {t('all_in_series')} <ExternalLink className="w-3 h-3" />
                     </Link>
                   </div>
                 )}

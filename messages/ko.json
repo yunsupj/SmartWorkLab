@@ -122,5 +122,22 @@
     "form_submit": "메시지 보내기",
     "success_title": "메시지 전송 완료!",
     "success_desc": "24시간 이내에 답변 드리겠습니다."
+  },
+  "Lab": {
+    "title": "아티클",
+    "subtitle": "기술 에세이, 학습 노트, 엔지니어링 딥다이브 — 엔지니어가 쓰고, 엔지니어를 위한 글.",
+    "read_more": "자세히 읽기",
+    "series_title": "시리즈",
+    "series_subtitle": "주제별 시리즈로 묶은 아티클 모음입니다.",
+    "prev": "이전 글",
+    "next": "다음 글",
+    "back_to_lab": "아티클 목록으로",
+    "min_read": "{minutes}분 읽기",
+    "home": "홈",
+    "the_lab": "아티클",
+    "interactive_demo": "인터랙티브 데모",
+    "series_label": "시리즈",
+    "all_in_series": "이 시리즈의 모든 글",
+    "updated": "업데이트"
   }
 }

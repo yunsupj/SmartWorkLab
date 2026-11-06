@@ -18,6 +18,7 @@ interface TechPost {
 
 export default async function LabPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const t = await getTranslations('Lab');
 
   let posts: TechPost[] = [];
 
@@ -37,10 +38,10 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
       {/* Header */}
       <header className="pt-16 md:pt-20 pb-10 max-w-4xl mx-auto px-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-[#1C2321]">
-          Articles
+          {t('title')}
         </h1>
         <p className="text-lg text-[#66716C] leading-relaxed max-w-2xl">
-          Technical essays, learning notes, and engineering deep dives — written by engineers, for engineers.
+          {t('subtitle')}
         </p>
       </header>
 
@@ -64,7 +65,7 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
 
                 {/* Series badge */}
                 {post.series && (
-                  <span className="inline-block text-xs font-mono text-purple-400 bg-purple-950/40 border border-purple-800/40 rounded-full px-3 py-1 mb-4">
+                  <span className="inline-block text-xs font-mono text-[#4C6B59] bg-[#DCE8DF]/70 border border-[#4C6B59]/30 rounded-full px-3 py-1 mb-4">
                     {post.series}
                   </span>
                 )}
@@ -99,7 +100,7 @@ export default async function LabPage({ params }: { params: Promise<{ locale: st
                 </div>
 
                 <div className="flex items-center gap-2 text-[#4C6B59] text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                  Read Deep Dive <ArrowRight className="w-4 h-4" />
+                  {t('read_more')} <ArrowRight className="w-4 h-4" />
                 </div>
               </Link>
             ))}
