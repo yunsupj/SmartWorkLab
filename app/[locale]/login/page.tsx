@@ -49,15 +49,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
-      <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-xl p-8 text-center shadow-2xl relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-[#FFF8EC] p-4">
+      <div className="max-w-md w-full bg-[#FDF3E0] border border-[#E8D9BE] rounded-xl p-8 text-center shadow-2xl relative overflow-hidden">
         {/* Decorative Background */}
-         <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+         <div className="absolute top-0 right-0 w-32 h-32 bg-[#A8E6CF]/40 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
-        <h1 className="text-2xl font-bold text-white mb-4">
+        <h1 className="text-2xl font-bold text-[#3D2C29] mb-4">
           🔐 {t('title')}
         </h1>
-        <p className="text-slate-400 mb-8">
+        <p className="text-[#7A6A5E] mb-8">
           {t('description')}
         </p>
 
@@ -74,13 +74,13 @@ export default function LoginPage() {
           <button
             onClick={() => handleLogin('discord')}
             disabled={loading === 'discord'}
-            className="w-full bg-[#5865F2] text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-wait"
+            className="w-full bg-[#5865F2] text-[#3D2C29] font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-wait"
           >
              {loading === 'discord' ? 'Connecting...' : t('discord')}
           </button>
         </div>
 
-        <p className="mt-6 text-xs text-slate-500">
+        <p className="mt-6 text-xs text-[#97897B]">
           {t('terms')}
         </p>
       </div>

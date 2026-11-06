@@ -3,7 +3,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://smartworklab.store';
-const LOCALES = ['en', 'ko', 'de'];
+const LOCALES = ['en', 'ko'];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cookieStore = await cookies();

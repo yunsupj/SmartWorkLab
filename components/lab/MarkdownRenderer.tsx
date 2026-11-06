@@ -38,18 +38,18 @@ interface MarkdownRendererProps {
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="
-      prose prose-invert prose-slate max-w-[85ch] mx-auto
+      prose prose-slate max-w-[85ch] mx-auto
       prose-p:text-lg prose-p:leading-8
       prose-li:text-lg prose-li:leading-8
       prose-headings:mt-12 prose-headings:mb-6
-      prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-100
-      prose-strong:text-cyan-400
-      prose-code:text-pink-400 prose-code:bg-slate-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-      prose-img:rounded-xl prose-img:border prose-img:border-slate-800
+      prose-headings:font-[family-name:var(--font-geist-sans)] prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#3D2C29]
+      prose-strong:text-[#3E9B6A]
+      prose-code:text-[#C2557A] prose-code:bg-[#FDF3E0] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-img:rounded-xl prose-img:border prose-img:border-[#E8D9BE]
       lg:prose-lg
-      prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
-      prose-blockquote:border-l-cyan-500 prose-blockquote:bg-slate-900/50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-slate-400 prose-blockquote:not-italic
-      prose-li:marker:text-cyan-500
+      prose-a:text-[#3E9B6A] prose-a:no-underline hover:prose-a:underline
+      prose-blockquote:border-l-[#5FBF8A] prose-blockquote:bg-white/70 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:text-[#7A6A5E] prose-blockquote:not-italic
+      prose-li:marker:text-[#3E9B6A]
       prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-0
     ">
       <ReactMarkdown
@@ -70,7 +70,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 style={atomDark as any}
                 language={match[1]}
                 PreTag="div"
-                className="rounded-xl border border-slate-800 !bg-slate-900/50 my-6 text-sm"
+                className="rounded-xl border border-[#E8D9BE] !bg-white/70 my-6 text-sm"
                 {...props}
               >
                 {String(children).replace(/\n$/, '')}
@@ -135,7 +135,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
 
             return (
-              <blockquote className="pl-5 border-l-4 border-cyan-500 bg-slate-900/50 rounded-r-xl py-3 pr-4 my-6 text-slate-400">
+              <blockquote className="pl-5 border-l-4 border-[#5FBF8A] bg-white/70 rounded-r-xl py-3 pr-4 my-6 text-[#7A6A5E]">
                 {children}
               </blockquote>
             );
@@ -144,21 +144,21 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // Tables with dark theme
           table({ children }: any) {
             return (
-              <div className="overflow-x-auto my-8 rounded-xl border border-slate-800 px-3">
+              <div className="overflow-x-auto my-8 rounded-xl border border-[#E8D9BE] px-3">
                 <table className="w-full text-sm">{children}</table>
               </div>
             );
           },
           th({ children }: any) {
             return (
-              <th className="px-4 py-3 text-left font-semibold text-slate-300 bg-slate-900 border-b border-slate-700">
+              <th className="px-4 py-3 text-left font-semibold text-[#5C4A42] bg-[#FDF3E0] border-b border-[#DFC9A3]">
                 {children}
               </th>
             );
           },
           td({ children }: any) {
             return (
-              <td className="px-4 py-3 text-slate-400 border-b border-slate-800/60">
+              <td className="px-4 py-3 text-[#7A6A5E] border-b border-[#E8D9BE]">
                 {children}
               </td>
             );

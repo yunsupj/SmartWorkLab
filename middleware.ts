@@ -1,7 +1,20 @@
 import createMiddleware from 'next-intl/middleware';
-import {routing} from './i18n/routing';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { routing } from './i18n/routing';
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  // German locale removed (EN/KO only). Send old /de/* URLs to /en/*.
+  if (pathname === '/de' || pathname.startsWith('/de/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/en' + pathname.slice(3);
+    return NextResponse.redirect(url, 301);
+  }
+  return intlMiddleware(request);
+}
 
 export const config = {
   // Match all pathnames except for:

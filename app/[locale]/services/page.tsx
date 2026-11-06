@@ -110,7 +110,7 @@ const ACCENT: Record<string, {
   border: string; text: string; bg: string; badge: string;
   glow: string; btnFrom: string; btnTo: string; btnShadow: string;
 }> = {
-  cyan:   { border:'border-cyan-500/30',   text:'text-cyan-400',   bg:'bg-cyan-950/20',   badge:'bg-cyan-950/50 border-cyan-800/40',   glow:'group-hover:shadow-cyan-900/30',   btnFrom:'from-cyan-400',   btnTo:'to-sky-400',    btnShadow:'hover:shadow-cyan-900/50' },
+  cyan:   { border:'border-[#5FBF8A]/50',   text:'text-[#3E9B6A]',   bg:'bg-cyan-950/20',   badge:'bg-cyan-950/50 border-cyan-800/40',   glow:'group-hover:shadow-cyan-900/30',   btnFrom:'from-cyan-400',   btnTo:'to-sky-400',    btnShadow:'hover:shadow-cyan-900/50' },
   purple: { border:'border-purple-500/30', text:'text-purple-400', bg:'bg-purple-950/20', badge:'bg-purple-950/50 border-purple-800/40', glow:'group-hover:shadow-purple-900/30', btnFrom:'from-purple-400', btnTo:'to-violet-400', btnShadow:'hover:shadow-purple-900/50' },
   green:  { border:'border-green-500/30',  text:'text-green-400',  bg:'bg-green-950/20',  badge:'bg-green-950/50 border-green-800/40',  glow:'group-hover:shadow-green-900/30',  btnFrom:'from-green-400',  btnTo:'to-emerald-400', btnShadow:'hover:shadow-green-900/50' },
 };
@@ -145,7 +145,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   // }
 
   return (
-    <div className="bg-slate-950 text-white min-h-screen">
+    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen">
 
       {/* ── Hero ── */}
       <header className="relative overflow-hidden pt-24 pb-20 text-center">
@@ -165,7 +165,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#3D2C29] via-[#5C4A42] to-[#7A6A5E]">
               {t('hero_title1')}
             </span>
             <br />
@@ -174,15 +174,15 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             </span>
           </h1>
 
-          <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-[#7A6A5E] leading-relaxed max-w-2xl mx-auto mb-10">
             {t('hero_subtitle')}
           </p>
 
           {/* Social proof strip */}
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-500">
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-[#97897B]">
             {[
               { icon: <Zap className="w-4 h-4 text-yellow-400" />, label: '7-day delivery for Tier 1' },
-              { icon: <Users className="w-4 h-4 text-cyan-400" />, label: 'ML-engineer–led builds' },
+              { icon: <Users className="w-4 h-4 text-[#3E9B6A]" />, label: 'ML-engineer–led builds' },
               { icon: <Clock className="w-4 h-4 text-green-400" />, label: 'Response within 24 hours' },
             ].map(({ icon, label }) => (
               <div key={label} className="flex items-center gap-2">
@@ -209,20 +209,20 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 className={`group relative flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${a.glow} mt-4`}
               >
                 {/* Background and clipped glow layer */}
-                <div className={`absolute inset-0 bg-slate-900/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden pointer-events-none z-0`}>
+                <div className={`absolute inset-0 bg-[#FDF3E0]/60 backdrop-blur-sm border ${a.border} rounded-2xl overflow-hidden pointer-events-none z-0`}>
                   <div className={`absolute top-0 right-0 w-48 h-48 ${a.bg} rounded-full blur-3xl -mr-16 -mt-16`} />
                 </div>
 
                 {/* Absolute Floating Badge on Enterprise */}
                 {isEnterprise && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 text-[10px] font-bold font-mono uppercase tracking-widest bg-slate-950 border border-green-500/50 rounded-full text-green-400 z-20 shadow-[0_0_20px_rgba(34,197,94,0.15)] whitespace-nowrap">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 text-[10px] font-bold font-mono uppercase tracking-widest bg-[#FFF8EC] border border-green-500/50 rounded-full text-green-400 z-20 shadow-[0_0_20px_rgba(34,197,94,0.15)] whitespace-nowrap">
                     ⭐ Most Advanced
                   </div>
                 )}
 
                 <div className="relative z-10 p-8 flex flex-col flex-1 h-full">
                   {/* Expert-Led Implementation Badge */}
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-6 text-[9px] font-mono font-bold uppercase tracking-widest border border-slate-700/50 rounded-full text-slate-400 bg-slate-800/30 w-fit">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-6 text-[9px] font-mono font-bold uppercase tracking-widest border border-[#DFC9A3]/50 rounded-full text-[#7A6A5E] bg-[#F3E6C8]/30 w-fit">
                     Expert-Led Implementation
                   </div>
 
@@ -237,19 +237,19 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </div>
 
                   {/* Name + tagline */}
-                  <h2 className="text-xl font-bold text-white mb-1 leading-snug font-[family-name:var(--font-geist-sans)]">{svc.name}</h2>
+                  <h2 className="text-xl font-bold text-[#3D2C29] mb-1 leading-snug font-[family-name:var(--font-geist-sans)]">{svc.name}</h2>
                   {svc.tagline && (
                     <p className={`text-sm font-medium mb-3 ${a.text}`}>{svc.tagline}</p>
                   )}
                   {svc.description && (
-                    <p className="text-sm text-slate-400 leading-relaxed mb-5">{svc.description}</p>
+                    <p className="text-sm text-[#7A6A5E] leading-relaxed mb-5">{svc.description}</p>
                   )}
 
                   {/* Price */}
                   <div className="mb-5">
                     <span className={`text-3xl font-bold ${a.text}`}>{svc.price_label}</span>
                     {svc.billing_cycle && (
-                      <span className="text-xs text-slate-500 ml-2 font-mono">{svc.billing_cycle}</span>
+                      <span className="text-xs text-[#97897B] ml-2 font-mono">{svc.billing_cycle}</span>
                     )}
                   </div>
 
@@ -262,7 +262,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                           : ''
                       }`}>
                         {svc.features.map((f, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300 leading-relaxed">
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-[#5C4A42] leading-relaxed">
                             {f.startsWith('🔐') ? (
                               <span className="flex-shrink-0 mt-0.5 text-base leading-none">{f.slice(0, 2)}</span>
                             ) : (
@@ -279,7 +279,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   {stack.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-6">
                       {stack.map(t => (
-                        <span key={t} className="text-[10px] font-mono text-slate-500 bg-slate-800 border border-slate-700 rounded px-2 py-0.5">
+                        <span key={t} className="text-[10px] font-mono text-[#97897B] bg-[#F3E6C8] border border-[#DFC9A3] rounded px-2 py-0.5">
                           {t}
                         </span>
                       ))}
@@ -288,7 +288,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
                   {/* Timeline */}
                   {svc.timeline_days && (
-                    <p className="text-xs text-slate-600 mb-6 font-mono">
+                    <p className="text-xs text-[#7A6A5E] mb-6 font-mono">
                       <Clock className="w-3 h-3 inline mr-1" />
                       Est. delivery: {svc.timeline_days} days
                     </p>
@@ -312,7 +312,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                         href={svc.demo_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${a.btnFrom} ${a.btnTo} transition-all duration-300 hover:shadow-lg ${a.btnShadow} hover:-translate-y-0.5`}
+                        className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-[#3D2C29] bg-gradient-to-r ${a.btnFrom} ${a.btnTo} transition-all duration-300 hover:shadow-lg ${a.btnShadow} hover:-translate-y-0.5`}
                       >
                         <ExternalLink className="w-4 h-4" />
                         View Live Sample
@@ -335,18 +335,18 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       {/* ── Comparison Table ── */}
       <section className="max-w-4xl mx-auto px-6 pb-2.5">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-white mb-2">Why Not Just DIY?</h2>
-          <p className="text-slate-400 text-sm">The real cost of generic tools adds up quickly.</p>
+          <h2 className="text-2xl font-bold text-[#3D2C29] mb-2">Why Not Just DIY?</h2>
+          <p className="text-[#7A6A5E] text-sm">The real cost of generic tools adds up quickly.</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 overflow-hidden">
+        <div className="rounded-2xl border border-[#E8D9BE] overflow-hidden">
           {/* Table header */}
-          <div className="grid grid-cols-3 bg-slate-900 border-b border-slate-800">
-            <div className="px-6 py-4 text-xs font-mono text-slate-500 uppercase tracking-widest">Feature</div>
-            <div className="px-6 py-4 text-xs font-mono text-red-400/80 uppercase tracking-widest border-l border-slate-800">
+          <div className="grid grid-cols-3 bg-[#FDF3E0] border-b border-[#E8D9BE]">
+            <div className="px-6 py-4 text-xs font-mono text-[#97897B] uppercase tracking-widest">Feature</div>
+            <div className="px-6 py-4 text-xs font-mono text-red-400/80 uppercase tracking-widest border-l border-[#E8D9BE]">
               DIY / Generic Tools
             </div>
-            <div className="px-6 py-4 text-xs font-mono text-cyan-400 uppercase tracking-widest border-l border-slate-800">
+            <div className="px-6 py-4 text-xs font-mono text-[#3E9B6A] uppercase tracking-widest border-l border-[#E8D9BE]">
               SmartWorkLab Build
             </div>
           </div>
@@ -391,17 +391,17 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           ].map(({ feature, diy, swl }, i) => (
             <div
               key={feature}
-              className={`grid grid-cols-3 border-b border-slate-800/60 last:border-0 ${
-                i % 2 === 0 ? 'bg-slate-950/30' : ''
+              className={`grid grid-cols-3 border-b border-[#E8D9BE] last:border-0 ${
+                i % 2 === 0 ? 'bg-[#FFF8EC]/30' : ''
               }`}
             >
-              <div className="px-6 py-4 text-sm font-semibold text-slate-300">{feature}</div>
-              <div className="px-6 py-4 text-sm text-red-400/70 border-l border-slate-800/60 flex items-start gap-2">
+              <div className="px-6 py-4 text-sm font-semibold text-[#5C4A42]">{feature}</div>
+              <div className="px-6 py-4 text-sm text-red-400/70 border-l border-[#E8D9BE] flex items-start gap-2">
                 <span className="text-red-500 mt-0.5 flex-shrink-0">✕</span>
                 {diy}
               </div>
-              <div className="px-6 py-4 text-sm text-cyan-300/90 border-l border-slate-800/60 flex items-start gap-2">
-                <span className="text-cyan-400 mt-0.5 flex-shrink-0">✓</span>
+              <div className="px-6 py-4 text-sm text-cyan-300/90 border-l border-[#E8D9BE] flex items-start gap-2">
+                <span className="text-[#3E9B6A] mt-0.5 flex-shrink-0">✓</span>
                 {swl}
               </div>
             </div>
@@ -411,22 +411,22 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
       {/* ── Process Timeline ── */}
       <section className="max-w-4xl mx-auto px-6 pt-8 pb-0">
-        <h2 className="text-2xl font-bold text-center mb-12 text-white">How It Works</h2>
+        <h2 className="text-2xl font-bold text-center mb-12 text-[#3D2C29]">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connector line */}
           <div className="hidden md:block absolute top-8 left-1/3 right-1/3 h-px bg-gradient-to-r from-cyan-800/0 via-cyan-600/40 to-green-800/0" />
 
           {[
-            { step: '01', title: 'Discovery', desc: 'We align on scope, tech stack, and design direction. 30-min call or async doc.', color: 'text-cyan-400' },
+            { step: '01', title: 'Discovery', desc: 'We align on scope, tech stack, and design direction. 30-min call or async doc.', color: 'text-[#3E9B6A]' },
             { step: '02', title: 'Build', desc: 'Engineering sprint with daily async updates. You see real progress, not promises.', color: 'text-purple-400' },
             { step: '03', title: 'Deploy', desc: 'Production deploy on Vercel + Supabase. Docs handoff. Support period begins.', color: 'text-green-400' },
           ].map(({ step, title, desc, color }) => (
             <div key={step} className="text-center flex flex-col items-center">
-              <div className={`w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-4 font-mono font-bold text-xl ${color}`}>
+              <div className={`w-16 h-16 rounded-2xl bg-[#FDF3E0] border border-[#E8D9BE] flex items-center justify-center mb-4 font-mono font-bold text-xl ${color}`}>
                 {step}
               </div>
-              <h3 className="font-bold text-white mb-2">{title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+              <h3 className="font-bold text-[#3D2C29] mb-2">{title}</h3>
+              <p className="text-sm text-[#7A6A5E] leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>

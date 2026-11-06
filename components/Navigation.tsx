@@ -9,7 +9,6 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const LOCALES = [
   { code: 'en', label: '🇺🇸 EN' },
   { code: 'ko', label: '🇰🇷 KO' },
-  { code: 'de', label: '🇩🇪 DE' },
 ];
 
 export default function Navigation() {
@@ -58,22 +57,22 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="flex items-center justify-between px-4 py-3 sm:py-4 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 w-full box-border">
+      <nav className="flex items-center justify-between px-4 py-3 sm:py-4 border-b border-[#E8D9BE] bg-[#FFF8EC]/90 backdrop-blur-md sticky top-0 z-40 w-full box-border">
         
         {/* Logo (Left, responsive layout push element) */}
         <div className="flex lg:flex-1 items-center shrink-0">
-          <Link href="/" className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent flex items-center">
+          <Link href="/" className="text-lg sm:text-xl font-bold bg-gradient-to-r from-[#3E9B6A] to-[#5FBF8A] bg-clip-text text-transparent flex items-center">
             <span className="hidden min-[380px]:inline">SmartWorkLab</span>
             <span className="inline min-[380px]:hidden">SWL</span>
           </Link>
         </div>
 
         {/* Navigation Links (Center Layout) */}
-        <div className="hidden lg:flex justify-center gap-8 text-sm font-medium text-slate-400 shrink-0">
-          <Link href="/lab" className="hover:text-cyan-400 transition-colors">Lab</Link>
-          <Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link>
-          <Link href="/projects" className="hover:text-cyan-400 transition-colors">Projects</Link>
-          <Link href="/about" className="hover:text-cyan-400 transition-colors">Contact</Link>
+        <div className="hidden lg:flex justify-center gap-8 text-sm font-medium text-[#7A6A5E] shrink-0">
+          <Link href="/lab" className="hover:text-[#3E9B6A] transition-colors">Lab</Link>
+          <Link href="/services" className="hover:text-[#3E9B6A] transition-colors">Services</Link>
+          <Link href="/projects" className="hover:text-[#3E9B6A] transition-colors">Projects</Link>
+          <Link href="/about" className="hover:text-[#3E9B6A] transition-colors">Contact</Link>
         </div>
 
         {/* Actions (Right, symmetric width response) */}
@@ -83,21 +82,21 @@ export default function Navigation() {
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
               disabled={isPending}
-              className="bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded-md px-3 py-1.5 flex items-center gap-2 hover:bg-slate-800 transition-colors disabled:opacity-50"
+              className="bg-[#FDF3E0] border border-[#DFC9A3] text-[#5C4A42] text-xs rounded-md px-3 py-1.5 flex items-center gap-2 hover:bg-[#F3E6C8] transition-colors disabled:opacity-50"
             >
               <span>{LOCALES.find(l => l.code === locale)?.label || '🇺🇸 EN'}</span>
-              <ChevronDown className="w-3 h-3 text-slate-500" />
+              <ChevronDown className="w-3 h-3 text-[#97897B]" />
             </button>
 
             {isLangOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setIsLangOpen(false)}></div>
-                <div className="absolute top-full right-0 mt-2 bg-slate-900 border border-slate-700 rounded-lg shadow-xl flex flex-col z-50 min-w-[120px] overflow-hidden">
+                <div className="absolute top-full right-0 mt-2 bg-[#FDF3E0] border border-[#DFC9A3] rounded-lg shadow-xl flex flex-col z-50 min-w-[120px] overflow-hidden">
                   {LOCALES.map(l => (
                     <button
                       key={l.code}
                       onClick={() => handleLocaleSelect(l.code)}
-                      className={`text-left px-4 py-3 text-sm hover:bg-slate-800 transition-colors whitespace-nowrap ${locale === l.code ? 'text-cyan-400 font-bold bg-slate-800/50' : 'text-slate-300'}`}
+                      className={`text-left px-4 py-3 text-sm hover:bg-[#F3E6C8] transition-colors whitespace-nowrap ${locale === l.code ? 'text-[#3E9B6A] font-bold bg-[#F3E6C8]' : 'text-[#5C4A42]'}`}
                     >
                       {l.label}
                     </button>
@@ -109,7 +108,7 @@ export default function Navigation() {
 
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="flex lg:hidden text-slate-400 hover:text-white p-1 ml-1"
+            className="flex lg:hidden text-[#7A6A5E] hover:text-[#3D2C29] p-1 ml-1"
             title="Menu"
           >
             <Menu className="w-5 h-5 shrink-0" />
@@ -120,45 +119,45 @@ export default function Navigation() {
       {/* Mobile Menu Backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[100] bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-300 lg:hidden"
+          className="fixed inset-0 z-[100] bg-[#FFF8EC]/80 backdrop-blur-sm animate-in fade-in duration-300 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       {/* Mobile Menu Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 z-[101] w-64 max-w-[80vw] bg-slate-900 border-l border-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${
+        className={`fixed top-0 right-0 bottom-0 z-[101] w-64 max-w-[80vw] bg-[#FDF3E0] border-l border-[#E8D9BE] shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-800">
-          <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        <div className="flex items-center justify-between p-4 border-b border-[#E8D9BE]">
+          <span className="text-lg font-bold bg-gradient-to-r from-[#3E9B6A] to-[#5FBF8A] bg-clip-text text-transparent">
             Menu
           </span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors"
+            className="text-[#7A6A5E] hover:text-[#3D2C29] p-2 rounded-full hover:bg-[#F3E6C8] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
-          <Link href="/lab" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+          <Link href="/lab" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#5C4A42] hover:text-[#3E9B6A] hover:bg-[#F3E6C8] rounded-lg transition-all flex items-center justify-between group">
             <span>Lab</span>
-            <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
+            <span className="text-[#7A6A5E] group-hover:text-[#3E9B6A] transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+          <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#5C4A42] hover:text-[#3E9B6A] hover:bg-[#F3E6C8] rounded-lg transition-all flex items-center justify-between group">
             <span>Services</span>
-            <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
+            <span className="text-[#7A6A5E] group-hover:text-[#3E9B6A] transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+          <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#5C4A42] hover:text-[#3E9B6A] hover:bg-[#F3E6C8] rounded-lg transition-all flex items-center justify-between group">
             <span>Projects</span>
-            <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
+            <span className="text-[#7A6A5E] group-hover:text-[#3E9B6A] transition-colors font-mono">&rarr;</span>
           </Link>
-          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all flex items-center justify-between group">
+          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-base font-medium text-[#5C4A42] hover:text-[#3E9B6A] hover:bg-[#F3E6C8] rounded-lg transition-all flex items-center justify-between group">
             <span>Contact</span>
-            <span className="text-slate-600 group-hover:text-cyan-500 transition-colors font-mono">&rarr;</span>
+            <span className="text-[#7A6A5E] group-hover:text-[#3E9B6A] transition-colors font-mono">&rarr;</span>
           </Link>
         </div>
       </div>

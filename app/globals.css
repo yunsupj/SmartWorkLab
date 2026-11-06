@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #0f172a;   /* slate-950 — dark B2B base */
-  --foreground: #f1f5f9;   /* slate-100 */
+  --background: #FFF8EC;   /* sprout cream */
+  --foreground: #3D2C29;   /* sprout ink */
   /* Mochi Sprout — warm theme tokens (additive, v1).
      Cream #FFF8EC, warm paper #FDF3E0, ink #3D2C29,
      sprout green #5FBF8A, light mint #A8E6CF,
@@ -28,8 +28,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #FFF8EC;
+    --foreground: #3D2C29;
   }
 }
 
@@ -42,7 +42,7 @@ body {
   scrollbar-gutter: stable;
 }
 
-/* ── Minimal modern scrollbars (dark B2B theme) ── */
+/* ── Minimal modern scrollbars (warm sprout theme) ── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -51,14 +51,14 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(51 65 85 / 0.7);   /* slate-700/70 */
+  background: rgb(223 201 163 / 0.9);   /* warm sand */
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(71 85 105 / 0.9);  /* slate-600/90 */
+  background: rgb(95 191 138 / 0.9);  /* sprout green */
 }
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(51 65 85 / 0.7) transparent;
+  scrollbar-color: rgb(223 201 163 / 0.9) transparent;
 }

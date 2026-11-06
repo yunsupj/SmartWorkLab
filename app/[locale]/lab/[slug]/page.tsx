@@ -38,7 +38,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         'en': `https://smartworklab.store/en/lab/${slug}`,
         'ko': `https://smartworklab.store/ko/lab/${slug}`,
-        'de': `https://smartworklab.store/de/lab/${slug}`,
       }
     },
   };
@@ -49,7 +48,7 @@ export default async function LabPostPage({ params }: Props) {
 
   if (!supabase) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-red-400 font-mono">
+      <div className="min-h-screen bg-[#FFF8EC] flex items-center justify-center text-red-400 font-mono">
         Database connection missing.
       </div>
     );
@@ -77,9 +76,9 @@ export default async function LabPostPage({ params }: Props) {
       {post.body_mdx ? (
         <MarkdownRenderer content={post.body_mdx} />
       ) : (
-        <div className="text-center py-24 border border-dashed border-slate-800 rounded-xl my-8">
-          <p className="text-slate-500 font-mono text-sm">Content coming soon.</p>
-          <p className="text-slate-700 text-xs mt-2">Seed via Supabase admin → body_mdx field.</p>
+        <div className="text-center py-24 border border-dashed border-[#E8D9BE] rounded-xl my-8">
+          <p className="text-[#97897B] font-mono text-sm">Content coming soon.</p>
+          <p className="text-[#7A6A5E] text-xs mt-2">Seed via Supabase admin → body_mdx field.</p>
         </div>
       )}
     </TechPostLayout>

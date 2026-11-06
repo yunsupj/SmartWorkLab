@@ -20,7 +20,7 @@ function formatDate(dateStr: string) {
 // Data Fetcher: Loads Research dynamically from tech_posts
 async function LabPostsFetcher({ locale }: { locale: string }) {
   const t = await getTranslations('Home');
-  if (!supabase) return <div className="text-slate-500 py-12 text-center">Research lab initializing...</div>;
+  if (!supabase) return <div className="text-[#97897B] py-12 text-center">Research lab initializing...</div>;
 
   // Fetch all published posts to calculate engagement rankings
   const { data: posts, error } = await supabase
@@ -34,7 +34,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   }
 
   if (!posts || posts.length === 0) {
-    return <div className="text-slate-500 py-12 text-center">Research DB currently offline.</div>;
+    return <div className="text-[#97897B] py-12 text-center">Research DB currently offline.</div>;
   }
 
   // Calculate Engagement Scores: Score = (Views * 1) + (Likes * 5)
@@ -80,25 +80,25 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
     <div className="w-full">
       {/* Featured Research Card */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">{t('weekly_top')}</h2>
-        <div className="h-[1px] flex-1 bg-slate-800/60" />
+        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#3D2C29]">{t('weekly_top')}</h2>
+        <div className="h-[1px] flex-1 bg-[#F3E6C8]/60" />
       </div>
 
       <Link href={`/${locale}/lab/${featured.slug}`} className="group block mb-16">
-        <div className="relative rounded-2xl border border-slate-800 bg-slate-900/40 p-1 transition-all duration-300 hover:border-cyan-500/30 hover:bg-slate-900/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] lg:grid lg:grid-cols-2 gap-0 overflow-hidden">
+        <div className="relative rounded-2xl border border-[#E8D9BE] bg-[#FDF3E0] p-1 transition-all duration-300 hover:border-[#5FBF8A]/50 hover:bg-[#FDF3E0]/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] lg:grid lg:grid-cols-2 gap-0 overflow-hidden">
 
           <div className="lg:order-last p-1">
             {featured.cover_image_url ? (
-              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full overflow-hidden rounded-xl bg-slate-950 mb-0">
+              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full overflow-hidden rounded-xl bg-[#FFF8EC] mb-0">
                 <img src={featured.cover_image_url} alt={featured.title} className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" />
               </div>
             ) : (
-              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full rounded-xl bg-gradient-to-br from-slate-900 to-slate-950 border-b border-slate-800/50 flex items-center justify-center overflow-hidden relative mb-0">
+              <div className="aspect-[2/1] lg:aspect-auto lg:h-full lg:min-h-[320px] w-full rounded-xl bg-gradient-to-br from-[#FDF3E0] to-[#FFF8EC] border-b border-[#E8D9BE] flex items-center justify-center overflow-hidden relative mb-0">
                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#47556915_1px,transparent_1px),linear-gradient(to_bottom,#47556915_1px,transparent_1px)] bg-[size:24px_24px]" />
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/20 blur-3xl rounded-full animate-pulse" />
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#5FBF8A]/20 blur-3xl rounded-full animate-pulse" />
                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full animate-pulse delay-500" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
-                 <Code2 size={64} className="text-slate-700 relative z-10 opacity-80 shadow-sm" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#FFF8EC]/80 to-transparent" />
+                 <Code2 size={64} className="text-[#7A6A5E] relative z-10 opacity-80 shadow-sm" />
               </div>
             )}
           </div>
@@ -111,24 +111,24 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
                   Trending
                 </span>
               )}
-              <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400 bg-cyan-500/10 rounded-full border border-cyan-500/20">
+              <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-widest text-[#3E9B6A] bg-[#A8E6CF]/40 rounded-full border border-[#5FBF8A]/20">
                 Latest Deep Dive
               </span>
-              <span className="text-xs text-slate-500 font-mono flex items-center gap-1.5">
+              <span className="text-xs text-[#97897B] font-mono flex items-center gap-1.5">
                 {formatDate(featured.published_at)} <span className="w-1 h-1 rounded-full bg-slate-700 block"/> {featured.read_time_min} MIN READ
               </span>
             </div>
 
-            <h3 className="text-3xl md:text-5xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-100 tracking-tight mb-4 group-hover:text-cyan-50">{featured.title}</h3>
-            <p className="text-lg text-slate-400 mb-6 max-w-xl leading-relaxed">{featured.excerpt}</p>
+            <h3 className="text-3xl md:text-5xl font-[family-name:var(--font-geist-sans)] font-bold text-[#3D2C29] tracking-tight mb-4 group-hover:text-cyan-50">{featured.title}</h3>
+            <p className="text-lg text-[#7A6A5E] mb-6 max-w-xl leading-relaxed">{featured.excerpt}</p>
 
             <div className="flex flex-wrap gap-2 mb-8">
               {featured.tags?.map((tag: string) => (
-                <span key={tag} className="text-xs text-slate-400 bg-slate-950 px-3 py-1.5 rounded-md border border-slate-800/80 shadow-md">#{tag}</span>
+                <span key={tag} className="text-xs text-[#7A6A5E] bg-[#FFF8EC] px-3 py-1.5 rounded-md border border-[#E8D9BE] shadow-md">#{tag}</span>
               ))}
             </div>
 
-            <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-sm tracking-widest uppercase font-bold border-b border-cyan-500/30 group-hover:border-cyan-400 pb-1 w-max transition-colors">
+            <div className="inline-flex items-center gap-2 text-[#3E9B6A] font-mono text-sm tracking-widest uppercase font-bold border-b border-[#5FBF8A]/50 group-hover:border-[#5FBF8A] pb-1 w-max transition-colors">
               Read Full Research <span className="group-hover:translate-x-1 transition-transform">→</span>
             </div>
           </div>
@@ -137,13 +137,13 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
 
       {/* Recent Deep Dives Grid */}
       <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-white">{t('recent_deep_dives')}</h2>
-        <div className="h-[1px] flex-1 bg-slate-800/60" />
+        <h2 className="text-2xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#3D2C29]">{t('recent_deep_dives')}</h2>
+        <div className="h-[1px] flex-1 bg-[#F3E6C8]/60" />
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
         {recent.map((post) => (
-          <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-2xl border border-slate-800 bg-slate-900/30 p-6 flex flex-col h-full transition-all duration-300 hover:border-slate-600 hover:bg-slate-900/60 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)]">
+          <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-2xl border border-[#E8D9BE] bg-[#FDF3E0]/30 p-6 flex flex-col h-full transition-all duration-300 hover:border-slate-600 hover:bg-[#FDF3E0]/60 hover:shadow-[0_0_20px_rgba(255,255,255,0.02)]">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-4">
                 {top3Slugs.has(post.slug) && (
@@ -151,17 +151,17 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
                     <Flame className="w-2.5 h-2.5 fill-amber-500/50" /> Trending
                   </span>
                 )}
-                <span className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
+                <span className="text-[10px] text-[#97897B] font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
               </div>
-              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-slate-200 mb-3 group-hover:text-white transition-colors leading-tight">{post.title}</h4>
-              <p className="text-sm text-slate-400 leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
+              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#5C4A42] mb-3 group-hover:text-[#3D2C29] transition-colors leading-tight">{post.title}</h4>
+              <p className="text-sm text-[#7A6A5E] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-800/50">
+            <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[#E8D9BE]">
               {post.tags?.slice(0, 2).map((tag: string) => (
-                <span key={tag} className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">{tag}</span>
+                <span key={tag} className="text-[10px] text-[#97897B] font-mono uppercase tracking-wider">{tag}</span>
               ))}
-              {(post.tags?.length || 0) > 2 && <span className="text-[10px] text-slate-600">+{post.tags.length - 2}</span>}
+              {(post.tags?.length || 0) > 2 && <span className="text-[10px] text-[#7A6A5E]">+{post.tags.length - 2}</span>}
             </div>
           </Link>
         ))}
@@ -181,7 +181,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       languages: {
         'en': `https://smartworklab.store/en`,
         'ko': `https://smartworklab.store/ko`,
-        'de': `https://smartworklab.store/de`,
       }
     }
   };
@@ -192,12 +191,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('Home');
 
   return (
-    <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-cyan-500/30">
+    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen font-sans selection:bg-[#A8E6CF]/70">
 
       {/* Background glow establishing deep tech vibe */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-1/4 w-[500px] h-[500px] bg-cyan-900/10 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
-        <div className="absolute bottom-[-10%] right-1/4 w-[600px] h-[600px] bg-slate-800/20 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div className="absolute top-[-10%] left-1/4 w-[500px] h-[500px] bg-[#A8E6CF]/50 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
+        <div className="absolute bottom-[-10%] right-1/4 w-[600px] h-[600px] bg-[#FFC7D6]/30 rounded-full blur-[120px] mix-blend-screen"></div>
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-16">
@@ -212,13 +211,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <h1 className="text-5xl md:text-7xl font-[family-name:var(--font-geist-sans)] font-bold mb-8 tracking-tight text-white drop-shadow-sm leading-tight">
+            <h1 className="text-5xl md:text-7xl font-[family-name:var(--font-geist-sans)] font-bold mb-8 tracking-tight text-[#3D2C29] drop-shadow-sm leading-tight">
               {t('hero_title')}
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.2}>
-            <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl font-light">
+            <p className="text-xl text-[#7A6A5E] mb-10 leading-relaxed max-w-2xl font-light">
               {t('hero_subtitle')}
             </p>
           </FadeIn>
@@ -258,15 +257,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* DYNAMIC POST FETCHING GRID */}
         <FadeIn delay={0.4}>
-          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-slate-900/50 animate-pulse border border-slate-800 flex items-center justify-center text-slate-600 font-mono">Loading Database...</div>}>
+          <Suspense fallback={<div className="h-96 w-full rounded-2xl bg-white/70 animate-pulse border border-[#E8D9BE] flex items-center justify-center text-[#7A6A5E] font-mono">Loading Database...</div>}>
             <LabPostsFetcher locale={locale} />
           </Suspense>
         </FadeIn>
 
         {/* THE SUBTLE B2B FOOTER */}
-        <FadeIn delay={0.5} className="mt-12 py-16 border-t border-slate-800/60 text-center flex flex-col items-center">
-            <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-white mb-4 tracking-tight">{t('footer_title')}</h3>
-            <p className="text-slate-400 mb-8 max-w-md leading-relaxed">{t('footer_p')}</p>
+        <FadeIn delay={0.5} className="mt-12 py-16 border-t border-[#E8D9BE] text-center flex flex-col items-center">
+            <h3 className="text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-[#3D2C29] mb-4 tracking-tight">{t('footer_title')}</h3>
+            <p className="text-[#7A6A5E] mb-8 max-w-md leading-relaxed">{t('footer_p')}</p>
             <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#5FBF8A] flex items-center gap-2 group font-mono tracking-widest uppercase text-sm font-bold border-b border-[#5FBF8A]/30 hover:border-[#5FBF8A] pb-1 transition-colors">
               {t('footer_cta')} <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>

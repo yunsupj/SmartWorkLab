@@ -65,7 +65,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#FFF8EC] text-[#3D2C29] flex flex-col min-h-screen`}
       >
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>

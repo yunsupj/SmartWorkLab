@@ -46,8 +46,8 @@ async function syncLabPosts() {
   for (const item of filesToSync) {
     const fileContent = fs.readFileSync(item.filePath, 'utf-8');
     const { data: frontmatter, content } = matter(fileContent);
-    // Explicitly strip -ko or -de from the filename
-    const slug = (frontmatter.slug || item.file.replace('.mdx', '')).replace(/-ko$/, '').replace(/-de$/, '').replace(/-en$/, '');
+    // Explicitly strip -ko from the filename
+    const slug = (frontmatter.slug || item.file.replace('.mdx', '')).replace(/-ko$/, '').replace(/-en$/, '');
 
     // 1. Check existing data
     const { data: existing } = await supabase

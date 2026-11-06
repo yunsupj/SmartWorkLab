@@ -41,7 +41,7 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
   const hasSidebar = tocHeadings.length > 0;
 
   return (
-    <div className="bg-slate-950 text-white min-h-screen">
+    <div className="bg-[#FFF8EC] text-[#3D2C29] min-h-screen">
 
       {/* Cover Image with gradient fade */}
       {post.cover_image_url && (
@@ -50,22 +50,22 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             className="absolute inset-0 bg-cover bg-center scale-105"
             style={{ backgroundImage: `url(${post.cover_image_url})`, filter: 'blur(1px)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/60 to-slate-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FFF8EC]/40 via-[#FFF8EC]/60 to-[#FFF8EC]" />
         </div>
       )}
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 pt-8">
-        <nav className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-8">
-          <Link href="/" className="hover:text-slate-300 transition-colors">Home</Link>
+        <nav className="flex items-center gap-2 text-xs text-[#97897B] font-mono mb-8">
+          <Link href="/" className="hover:text-[#5C4A42] transition-colors">Home</Link>
           <span>/</span>
-          <Link href={`/${post.locale}/lab`} className="hover:text-slate-300 transition-colors">The Lab</Link>
+          <Link href={`/${post.locale}/lab`} className="hover:text-[#5C4A42] transition-colors">The Lab</Link>
           {post.series && (
             <>
               <span>/</span>
               <Link
                 href={`/${post.locale}/lab/series/${post.series.toLowerCase().replace(/\s+/g, '-')}`}
-                className="hover:text-cyan-400 transition-colors"
+                className="hover:text-[#3E9B6A] transition-colors"
               >
                 {post.series}
               </Link>
@@ -97,17 +97,17 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight text-white">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight text-[#3D2C29]">
               {post.title}
             </h1>
 
             {post.subtitle && (
-              <p className="text-xl text-slate-400 mb-8 leading-relaxed">{post.subtitle}</p>
+              <p className="text-xl text-[#7A6A5E] mb-8 leading-relaxed">{post.subtitle}</p>
             )}
 
             {/* Meta strip */}
-            <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 mb-8 pb-8 border-b border-slate-800">
-              <span className="font-semibold text-slate-300">{post.author}</span>
+            <div className="flex flex-wrap items-center gap-5 text-sm text-[#97897B] mb-8 pb-8 border-b border-[#E8D9BE]">
+              <span className="font-semibold text-[#5C4A42]">{post.author}</span>
 
               {post.published_at && (
                 <span className="flex items-center gap-1.5">
@@ -124,7 +124,7 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
                 </span>
               )}
               {post.has_code && (
-                <span className="flex items-center gap-1.5 text-cyan-500/80">
+                <span className="flex items-center gap-1.5 text-[#3E9B6A]/80">
                   <Code2 className="w-3.5 h-3.5" /> Code
                 </span>
               )}
@@ -141,7 +141,7 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 text-xs text-slate-500 bg-slate-900 border border-slate-800 rounded-full px-2.5 py-1 hover:border-slate-700 transition-colors"
+                    className="flex items-center gap-1 text-xs text-[#97897B] bg-[#FDF3E0] border border-[#E8D9BE] rounded-full px-2.5 py-1 hover:border-[#DFC9A3] transition-colors"
                   >
                     <Tag className="w-2.5 h-2.5" /> {tag}
                   </span>
@@ -153,15 +153,15 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
             {children}
 
             {/* Footer: Back to Lab */}
-            <div className="mt-16 pt-8 border-t border-slate-800 flex items-center justify-between">
+            <div className="mt-16 pt-8 border-t border-[#E8D9BE] flex items-center justify-between">
               <Link
                 href={`/${post.locale}/lab`}
-                className="text-sm text-slate-500 hover:text-cyan-400 transition-colors flex items-center gap-2 font-mono"
+                className="text-sm text-[#97897B] hover:text-[#3E9B6A] transition-colors flex items-center gap-2 font-mono"
               >
                 ← Back to The Lab
               </Link>
               {post.updated_at && (
-                <p className="text-xs text-slate-700 font-mono">
+                <p className="text-xs text-[#7A6A5E] font-mono">
                   Updated {new Date(post.updated_at).toLocaleDateString()}
                 </p>
               )}
@@ -177,7 +177,7 @@ export default function TechPostLayout({ post, children }: TechPostLayoutProps) 
                 {/* CTA card in sidebar */}
                 <div className="rounded-xl border border-green-800/40 bg-green-950/20 p-4">
                   <p className="text-xs font-bold text-green-400 mb-1">Need this built?</p>
-                  <p className="text-xs text-slate-400 mb-3 leading-relaxed">
+                  <p className="text-xs text-[#7A6A5E] mb-3 leading-relaxed">
                     We implement ML systems like this for clients.
                   </p>
                   <Link

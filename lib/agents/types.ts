@@ -32,7 +32,7 @@ export interface AnalysisResult {
 }
 
 export interface ContentDraft {
-  locale: 'en' | 'ko' | 'de';
+  locale: 'en' | 'ko';
   title: string;
   body: string; // Markdown
   summary: string;
