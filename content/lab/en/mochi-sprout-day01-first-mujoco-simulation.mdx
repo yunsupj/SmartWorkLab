@@ -1,0 +1,236 @@
+---
+title: "Building Mochi Sprout: My First Physics Simulation with MuJoCo"
+subtitle: "A one-hinge pendulum, two gravity settings, and the baseline every later robot decision will be measured against"
+excerpt: "Day 1 of the Mochi Sprout project: a reproducible MuJoCo pendulum experiment. Same initial state, two gravity values, 21 recorded samples each — and a measured 0.909 rad maximum angle difference. No walking, no controller, no hardware yet."
+author: "Yunsup Jung"
+series: "Mochi Sprout — Building an Open-Source Physical AI Robot"
+tags: ["Physical AI", "MuJoCo", "Robotics Simulation", "Reinforcement Learning", "Mochi Sprout"]
+read_time_min: 10
+has_code: true
+has_latex: true
+is_published: true
+cover_image_url: "/images/lab/mochi-sprout-day01-pendulum-qpos.svg"
+---
+
+## 1. Why I started Mochi Sprout
+
+I have spent eight years building ML systems in software — Hulu, HBO Max, Nike, Meta, CloudBees — mostly data pipelines, evaluation, and AI agents. The work I am best at is making a system measurable: define a task, log trajectories, evaluate against a fixed test set, and decide from the numbers.
+
+Mochi Sprout is my attempt to move that skill into the physical world, in public, as open source. The long-term goal is a small, original, bipedal companion robot that grows: it starts by walking, then follows, then learns what its owner prefers, and unlocks new behaviors only when measured thresholds are met. The character is a round cream body with screen eyes and a small sprout on its head — original, not a copy of any existing character.
+
+The project is deliberately not a robot-arm demo. Arms are a solved-looking demo with a hard tail of grasping problems. A small companion that has to balance, fall, recover, and be personalised is a better test of the skills Physical AI actually hires for: simulation, dynamics, control, evaluation, and sim-to-real.
+
+## 2. Physical AI career goals
+
+This series is a career-change portfolio, not a product launch. The target, in order, is:
+
+1. **Robotics Simulation / Evaluation / AI Infrastructure Engineer** — build simulators, test harnesses, and evaluation that other engineers can trust.
+2. **Embodied AI / Robot Learning Engineer** — connect perception, behaviour selection, and learned policies.
+3. **Physical AI Engineer** — own a robot from learning in simulation through deployment on real hardware.
+
+That order matters. It uses what I already have — ML pipelines, agent evaluation, backend systems — and adds robot dynamics, control, simulation, sensors, and hardware experience on top of it, instead of discarding eight years and starting over.
+
+Every milestone in this project follows the same mandatory workflow:
+
+**Study → Experiment → Build → Evaluate → Document**
+
+A milestone does not pass until the study is written down in my own words, a small experiment changes one parameter and compares the result, the code is committed, the numbers are measured, and the blog post exists. Study without a code change does not count. A build without a write-up does not count.
+
+## 3. Why simulation comes before hardware
+
+A 25 cm biped under 1 kg is a hard hardware problem: joint torque, centre of mass, foot contact, battery weight, and foot size all interact. Simulation does not solve that, but it makes the first failures cheap.
+
+The order for this project is therefore: **CartPole → simple biped → Mochi Sprout model**. First prove balance and learning on a simple system, then prove movement on a simple biped with no character shell, then adapt the same control structure to the sprout's mass, joints, and centre of mass — and record what changed and how performance changed.
+
+Day 1 is one step before CartPole: prove that the toolchain itself is reproducible. If I cannot run the same pendulum twice and get the same numbers, nothing later — PPO, reward shaping, domain randomisation — is trustworthy.
+
+## 4. MuJoCo and the development environment
+
+**MEASURED environment (from the experiment record):** Python 3.11.8, MuJoCo 3.17.0, macOS 26.6.2 ARM64. The repository is [yunsupj/mochi-sprout](https://github.com/yunsupj/mochi-sprout), commit `b387c803a7ddf6192ace782515fff94377a7ff95`, with `uv.lock` pinning dependency versions.
+
+MuJoCo was chosen over heavier simulators for Day 1 because it is a small, fast, contact-capable physics engine with official Python bindings, and it is the same engine the Microduck project uses for MuJoCo + PPO training. Isaac Lab is a later step, after one behaviour is verified in MuJoCo — not a Day 1 requirement.
+
+The project layout follows the plan in the repository:
+
+```text
+mochi-sprout/
+├── README.md
+├── docs/
+│   ├── phase0-day1.md
+│   ├── learning-gates.md
+│   └── day1-handoff.md
+├── experiments/day01/
+│   ├── README.md
+│   └── results.json
+├── src/mochi_sprout/simulation/pendulum.py
+└── tests/test_pendulum.py
+```
+
+## 5. Understanding generalized coordinates
+
+A **generalized coordinate** is the smallest set of variables needed to describe a system's configuration. This pendulum has one hinge, so it needs one angle. That is the whole configuration: if you know the angle, you know where the rod is.
+
+MuJoCo splits the world into two objects, and the distinction matters for everything later:
+
+- `MjModel` holds geometry and options — what the system *is*.
+- `MjData` holds changing state — what the system *is doing right now*.
+
+The angle lives in `data.qpos[0]`, measured in radians. Its rate of change, angular velocity, lives in `data.qvel[0]`, in radians per second. Acceleration is the rate of change of velocity; MuJoCo computes it from forces, constraints, and the current state each time it steps the model. `data.ctrl` would hold actuator commands — but this model has no actuator, so `data.ctrl` has length zero and no command is applied.
+
+## 6. `qpos`, `qvel`, and simulation state
+
+The model in `src/mochi_sprout/simulation/pendulum.py` is explicit MJCF, not a downloaded asset:
+
+```xml
+<mujoco model="day01_pendulum">
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4"/>
+  <worldbody>
+    <body name="bob" pos="0 0 0">
+      <joint name="hinge" type="hinge" axis="0 1 0" damping="0.01"/>
+      <geom name="rod" type="capsule" fromto="0 0 0 0 0 -0.5"
+            size="0.025" mass="1"/>
+    </body>
+  </worldbody>
+</mujoco>
+```
+
+That is a 0.5 m, 1 kg capsule attached to a hinge about the y axis, with joint damping 0.01. The runner sets the initial state, then calls `mj_step` 1,000 times at a 0.002 s timestep to reach 2 s, recording the state at t = 0 and every 50 steps (every 0.1 s):
+
+```python
+def simulate(gravity_z: float = -9.81) -> list[dict[str, float]]:
+    model = make_model(gravity_z)
+    data = mujoco.MjData(model)
+    data.qpos[0] = INITIAL_ANGLE_RAD   # 0.5 rad
+    data.qvel[0] = INITIAL_VELOCITY_RAD_S  # 0 rad/s
+    mujoco.mj_forward(model, data)
+    steps = round(DURATION_S / model.opt.timestep)  # 1000
+    trajectory = [_sample(data)]
+    for step in range(1, steps + 1):
+        mujoco.mj_step(model, data)
+        if step % SAMPLE_EVERY_STEPS == 0 or step == steps:
+            trajectory.append(_sample(data))
+    return trajectory
+```
+
+**INTERPRETATION:** `qpos` and `qvel` are the state. Nothing else is needed to restart this exact simulation from a recorded sample — that is why the experiment record stores both, at every sample.
+
+## 7. Gravity, torque, and pendulum dynamics
+
+Gravity pulls on the rod's mass. When the rod is tilted, that pull has a turning effect — **torque** — about the hinge. A stronger gravity setting produces a stronger restoring torque at the same angle, so the rod swings faster and with a different phase. Joint damping resists the motion, which is why the swing does not grow without bound in the record.
+
+For a simple pendulum, the textbook form of that idea is:
+
+$$I\ddot{q} + b\dot{q} + mgL\sin q = 0$$
+
+where $q$ is the angle, $I$ is inertia, $b$ is damping, $m$ is mass, $g$ is gravity, and $L$ is the distance to the centre of mass. **INTERPRETATION, not a measured fit:** this model is a capsule, not a point mass, so its exact $I$ and centre of mass differ from the textbook point-mass case. I am not claiming this equation reproduces MuJoCo's numbers coefficient-for-coefficient — MuJoCo computes acceleration from forces and constraints each step. The equation is here because it is the mental model the learning gate required: gravity → torque → angular acceleration → new `qvel` → new `qpos`.
+
+Two control terms that matter for the whole project, learned here before any controller exists:
+
+- **Open-loop** control chooses commands without using observed state to correct them.
+- **Closed-loop** control reads state or sensors and adjusts future commands.
+
+Day 1 uses no controller and no actuator. Its motion is the free response to gravity and damping — the baseline against which any future controller will be compared.
+
+## 8. Experimental setup
+
+**MEASURED setup (from `experiments/day01/README.md` and `results.json`):**
+
+| Setting | Value |
+|---|---:|
+| Experiment ID | `day01-pendulum-gravity` |
+| Recorded | 2026-11-04 19:16:10 −08:00, America/Los_Angeles |
+| Model | 1 y-axis hinge; 0.5 m, 1 kg capsule; damping 0.01; RK4 |
+| Initial state, both runs | `qpos = 0.5 rad`, `qvel = 0 rad/s` |
+| Timestep | 0.002 s; duration 2 s (1,000 steps) |
+| Sampling | t = 0, then every 50 steps (0.1 s); 21 samples per run |
+| Run A gravity | `(0, 0, −9.81)` m/s² |
+| Run B gravity | `(0, 0, −3.0)` m/s² |
+| Control | No actuator, no applied `ctrl` |
+| Tests | 5 pytest checks, see §10 |
+
+**EXPECTED before the run:** changing gravity would change the trajectory. **NOT VERIFIED before the run:** by how much, or at which time the difference would be largest. The numerical values below are the measurement, not a prediction I wrote in advance.
+
+## 9. Actual measured experiment results
+
+**MEASURED — final sample, t ≈ 2.0 s:**
+
+| Gravity z (m/s²) | `qpos` (rad) | `qvel` (rad/s) |
+|---:|---:|---:|
+| −9.81 (A) | −0.21383601484656056 | 2.069170516798967 |
+| −3.0 (B) | 0.3920126521060395 | 0.587366201059721 |
+
+**MEASURED — largest sampled angle difference:** **0.9085448978228956 rad**, at t = 1.2 s (A: 0.466074 rad, B: −0.442471 rad). Both trajectories began identically at `qpos = 0.5 rad`, `qvel = 0 rad/s`.
+
+Selected samples, rounded to 6 decimals from `results.json` (full 21-sample trajectories are in the repository):
+
+| t (s) | A `qpos` | A `qvel` | B `qpos` | B `qvel` | \|Δq\| |
+|---:|---:|---:|---:|---:|---:|
+| 0.0 | 0.500000 | 0.000000 | 0.500000 | 0.000000 | 0.000000 |
+| 0.5 | −0.419636 | −1.254904 | 0.068491 | −1.406207 | 0.488126 |
+| 1.0 | 0.237389 | 2.131831 | −0.455974 | −0.322051 | 0.693363 |
+| 1.2 | 0.466074 | −0.041050 | −0.442471 | 0.450545 | 0.908545 |
+| 1.5 | −0.005433 | −2.418169 | −0.169465 | 1.250993 | 0.164032 |
+| 2.0 | −0.213836 | 2.069171 | 0.392013 | 0.587366 | 0.605849 |
+
+![Pendulum angle over time, generated from experiments/day01/results.json](/images/lab/mochi-sprout-day01-pendulum-qpos.svg)
+
+*Figure: `qpos` vs time for both runs, plotted from the verified `results.json` trajectories. Run A (Earth gravity) swings faster and further out of phase than Run B (reduced gravity). This is a data plot, not a photo of a physical robot — no physical robot exists yet.*
+
+I independently recomputed the final values and the maximum difference from the checked-in `results.json` trajectories; they match the `observations` block in that file exactly. The JSON file itself was recorded on 2026-11-04 and is part of commit `b387c80`.
+
+## 10. Technical interpretation
+
+Three things are worth taking from a deliberately simple experiment:
+
+1. **The same state, different physics, different outcome.** The two runs differ in exactly one input — gravity — and by t = 1.2 s their angles are 0.91 rad apart, nearly opposite sides of the vertical. That is the whole point of a controlled experiment: one variable, everything else held fixed.
+2. **Phase matters more than the endpoint.** At t = 2.0 s the difference is 0.61 rad; at t = 1.2 s it is 0.91 rad. Judging only the final angle would understate how different the two swings are. Later, when a walking policy is evaluated, the same lesson applies: report the trajectory, not just the final state.
+3. **Determinism is a feature of the setup, not of reality.** The five pytest checks — model loads (`nq == 1`, `nv == 1`), time advances to 2 s, state stays finite, repeated runs agree to 1e−12 absolute tolerance, and gravity changes the trajectory by more than 0.01 rad — passed: **5 passed in 3.68s** on the original run (a later finalisation run reported 5 passed in 0.18s on the same machine; the difference is machine timing, not a different result). Repeatability on one machine is the baseline. It is not proof of physical accuracy, and it is not bitwise identity across platforms.
+
+## 11. Failures, limitations, and lessons learned
+
+- **Setup failure, then retry.** The first dependency install could not reach PyPI from the development sandbox (DNS failure). Retrying with approved network access succeeded, and `uv`'s default cache was inaccessible, so setup used a temporary cache. This is recorded in the experiment README, not hidden — environment failures are part of reproducibility.
+- **Idealised model.** One rigid capsule, one ideal hinge, no motor, no sensor, no contact, no manufacturing tolerance, no measured hardware parameter. I have not compared against a real pendulum.
+- **No timestep-convergence check.** A smaller timestep may change numerical error and computing cost; it is not itself proof of physical accuracy. That check belongs to a later experiment.
+- **Sampling can miss peaks.** The record samples every 0.1 s while physics advances every 0.002 s, so the reported maximum difference (0.9085 rad) is the maximum *among recorded samples*. A larger difference between samples is possible and is **NOT VERIFIED**.
+- **Cross-platform drift is expected.** The README states that other hardware and MuJoCo builds may give small numerical differences. If you reproduce this and get −0.214 instead of −0.213836 at t = 2 s, that is within the expected range; if you get a qualitatively different swing, something in the setup differs.
+- **Lesson for the project:** write the experiment record *before* the blog post, and make the blog post cite the record. That order is what keeps this series honest as it grows.
+
+## 12. Reproducibility
+
+From the repository root, with Python 3.11 and [uv](https://docs.astral.sh/uv/) installed:
+
+```sh
+uv sync --locked --python 3.11
+uv run --locked --python 3.11 pytest -q
+uv run --locked --python 3.11 python -m mochi_sprout.simulation.pendulum --output experiments/day01/results.json
+```
+
+The last command regenerates `results.json` with a new recording timestamp. Compare the trajectory values with the checked-in record; minor floating-point differences across platforms are possible. `uv.lock` records dependency versions. **NOT VERIFIED in this article's review:** I inspected the code and recomputed the observations from the checked-in JSON, but I did not re-run MuJoCo in this review environment (it has Python 3.12 and no `uv` installed, while the project requires Python 3.11). Re-running the three commands above on a Python 3.11 machine is the remaining independent reproduction step, and it is left to the reader and to the next review.
+
+Relevant files (commit `b387c80`):
+
+- [README.md](https://github.com/yunsupj/mochi-sprout/blob/main/README.md)
+- [src/mochi_sprout/simulation/pendulum.py](https://github.com/yunsupj/mochi-sprout/blob/main/src/mochi_sprout/simulation/pendulum.py)
+- [experiments/day01/README.md](https://github.com/yunsupj/mochi-sprout/blob/main/experiments/day01/README.md)
+- [experiments/day01/results.json](https://github.com/yunsupj/mochi-sprout/blob/main/experiments/day01/results.json)
+- [tests/test_pendulum.py](https://github.com/yunsupj/mochi-sprout/blob/main/tests/test_pendulum.py)
+- [docs/phase0-day1.md](https://github.com/yunsupj/mochi-sprout/blob/main/docs/phase0-day1.md)
+- [docs/learning-gates.md](https://github.com/yunsupj/mochi-sprout/blob/main/docs/learning-gates.md)
+
+## 13. Modular open-source architecture
+
+Day 1 is intentionally small, but the structure is the structure the whole project will grow in. The simulation module (`src/mochi_sprout/simulation/`) holds models and runners; `experiments/` holds one folder per dated experiment with its own README and JSON; `docs/` holds learning gates and method notes; `tests/` holds the checks that must keep passing as models change.
+
+You can reproduce the pendulum experiment, explore the source, modify the gravity or initial angle in the configuration, run the automated tests, and contribute improvements — see [CONTRIBUTING.md](https://github.com/yunsupj/mochi-sprout/blob/main/CONTRIBUTING.md). Small, evidence-backed changes are welcome. What you cannot do yet — because it does not exist — is run a walking policy, an embodied agent, or any hardware. Do not advertise those as available; they are proposals in the roadmap, not present capabilities.
+
+The repository is Apache-2.0. Character artwork, logos, and branding may require separate licensing; this release includes no such assets.
+
+## 14. Next learning milestone
+
+The Day 1 learning gate is recorded as **passed**, confirmed by the project owner during Day 1 finalisation. The five self-check questions are retained in `docs/learning-gates.md` for new contributors: why one generalized coordinate suffices and where it is stored; what `qvel[0]` means and how acceleration relates to it; why changing gravity alters later `qpos` from the same start; how many `mj_step` calls make 2 s at a 0.002 s timestep and what changing the timestep affects; and what `ctrl` would contain with a motor, and how open-loop differs from closed-loop control.
+
+The next learning topic is **PID and feedback control**. The next implementation step is CartPole: apply PID, then compare PID against a learned controller on the same simple system, and record the difference in logs — not in adjectives.
+
+That is the next article. Not a robot. A controller, measured.
+
+**Update (November 2026):** that controller article is now published — [Mochi Sprout Learns Feedback: Comparing P, PI, PD, and PID](/en/lab/mochi-sprout-day02-feedback-control).
