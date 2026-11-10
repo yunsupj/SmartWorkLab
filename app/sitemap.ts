@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://smartworklab.store';
+// Canonical host is fixed: production serves www; the apex domain 307-redirects to www.
+const BASE_URL = 'https://www.smartworklab.store';
 const LOCALES = ['en', 'ko'];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

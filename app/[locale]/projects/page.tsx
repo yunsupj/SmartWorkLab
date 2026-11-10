@@ -1,17 +1,30 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Projects | SmartWorkLab',
-  description:
-    'Projects built at SmartWorkLab: open-source Physical AI research, this engineering journal, and prototypes — with honest status labels.',
-  alternates: {
-    canonical: 'https://smartworklab.store/en/projects',
-    languages: {
-      en: 'https://smartworklab.store/en/projects',
-      ko: 'https://smartworklab.store/ko/projects',
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: locale === 'ko' ? '프로젝트 | SmartWorkLab' : 'Projects | SmartWorkLab',
+    description:
+      locale === 'ko'
+        ? 'SmartWorkLab에서 만드는 프로젝트: 오픈소스 피지컬 AI 연구, 이 엔지니어링 저널, 프로토타입 — 솔직한 상태 표시와 함께.'
+        : 'Projects built at SmartWorkLab: open-source Physical AI research, this engineering journal, and prototypes — with honest status labels.',
+    openGraph: {
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      url: `https://www.smartworklab.store/${locale}/projects`,
     },
-  },
-};
+    alternates: {
+      canonical: `https://www.smartworklab.store/${locale}/projects`,
+      languages: {
+        en: 'https://www.smartworklab.store/en/projects',
+        ko: 'https://www.smartworklab.store/ko/projects',
+      },
+    },
+  };
+}
 
 type Status = 'In development' | 'Prototype' | 'Research' | 'Deployed' | 'Archived';
 
@@ -39,9 +52,9 @@ const PROJECTS: Project[] = [
     taglineEn: 'Open-source Physical AI robot, built in public',
     taglineKo: '공개적으로 만드는 오픈소스 피지컬 AI 로봇',
     descEn:
-      'A small companion robot that grows in behavior, built from a MuJoCo simulation to hardware. Phase 0 is underway: Day 1 compared a pendulum under two gravities (max angle difference 0.909 rad). Day 2 compared P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning yet.',
+      'A small companion robot that grows in behavior, built from a MuJoCo simulation to hardware. Phase 0 is underway: Day 1 compared a pendulum under two gravities (max angle difference 0.909 rad). Day 2 compared P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Day 3 tested the same gains against uncertain inertia, noisy sensors, and delayed observations: 2× inertia barely moved the final error (0.320°), 0.4° noise drove command-change RMS from 0.099 to 1.715 N·m, and only the combined case overshot (1.477°). Still simulation only: no walking, no hardware, no reinforcement learning yet.',
     descKo:
-      '행동이 성장하는 작은 반려 로봇을 MuJoCo 시뮬레이션부터 하드웨어까지 공개적으로 만듭니다. Phase 0 진행 중: Day 1은 두 중력에서의 진자를 비교했고(최대 각도 차이 0.909 rad), Day 2는 P·PI·PD·PID 스텝 응답을 비교했습니다. PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE는 0.313°였으며, P와 PI는 진동하며 안정되지 않았습니다. 아직 시뮬레이션만 있습니다. 걷기, 하드웨어, 강화학습은 없습니다.',
+      '행동이 성장하는 작은 반려 로봇을 MuJoCo 시뮬레이션부터 하드웨어까지 공개적으로 만듭니다. Phase 0 진행 중: Day 1은 두 중력에서의 진자를 비교했고(최대 각도 차이 0.909 rad), Day 2는 P·PI·PD·PID 스텝 응답을 비교했습니다. PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE는 0.313°였으며, P와 PI는 진동하며 안정되지 않았습니다. Day 3은 같은 게인으로 불확실한 관성, 노이즈 섞인 센서, 측정값이 늦게 도착하는 상황에 대한 강건성을 테스트했습니다. 관성 2배에도 마지막 2초간 평균 절대 오차(MAE)는 0.320°로 거의 안 변했고, 0.4° 노이즈는 제어 명령 변화 RMS를 0.099에서 1.715 N·m로 밀어 올렸고, 복합 케이스에서만 오버슈트 1.477°가 나왔습니다. 아직 실제 하드웨어에서는 검증하지 않았습니다. 걷기, 하드웨어, 강화학습은 없습니다.',
     stack: ['MuJoCo', 'Python', 'PyTorch (planned)', 'ONNX (planned)'],
     link: { label: 'github.com/yunsupj/mochi-sprout', href: 'https://github.com/yunsupj/mochi-sprout' },
   },

@@ -23,10 +23,10 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: locale === 'ko' ? `${display} | SmartWorkLab` : `Series: ${display} | SmartWorkLab`,
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/lab/series/${series}`,
+      canonical: `https://www.smartworklab.store/${locale}/lab/series/${series}`,
       languages: {
-        en: `https://smartworklab.store/en/lab/series/${series}`,
-        ko: `https://smartworklab.store/ko/lab/series/${series}`,
+        en: `https://www.smartworklab.store/en/lab/series/${series}`,
+        ko: `https://www.smartworklab.store/ko/lab/series/${series}`,
       },
     },
   };

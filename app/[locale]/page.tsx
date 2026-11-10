@@ -6,11 +6,11 @@ import { getTranslations } from 'next-intl/server';
 
 export const dynamic = 'force-dynamic';
 
-// Helper to format dates for deep dive metadata
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', {
+// Helper to format dates for deep dive metadata (locale-aware)
+function formatDate(dateStr: string, locale: string) {
+  return new Date(dateStr).toLocaleDateString(locale === 'ko' ? 'ko-KR' : 'en-US', {
     timeZone: 'America/Los_Angeles',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
     year: 'numeric'
   });
@@ -19,6 +19,7 @@ function formatDate(dateStr: string) {
 // Data Fetcher: Loads Research dynamically from tech_posts
 async function LabPostsFetcher({ locale }: { locale: string }) {
   const t = await getTranslations('Home');
+  const tLab = await getTranslations('Lab');
   if (!supabase) return <div className="text-[#8A938E] py-12 text-center">{t('loading')}</div>;
 
   // Fetch all published posts to calculate engagement rankings
@@ -89,7 +90,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
             </div>
           )}
           <p className="text-xs text-[#8A938E] font-mono mb-3">
-            {formatDate(featured.published_at)}{featured.read_time_min ? ` · ${featured.read_time_min} MIN READ` : ''}
+            {formatDate(featured.published_at, locale)}{featured.read_time_min ? ` · ${tLab('min_read', { minutes: featured.read_time_min })}` : ''}
           </p>
           <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] tracking-tight mb-3 leading-tight">{featured.title}</h3>
           <p className="text-base text-[#66716C] mb-5 max-w-2xl leading-relaxed">{featured.excerpt}</p>
@@ -117,7 +118,7 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
           <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 flex flex-col h-full transition-colors hover:border-[#4C6B59]/60">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[10px] text-[#8A938E] font-mono tracking-widest uppercase">{formatDate(post.published_at)}</span>
+                <span className="text-[10px] text-[#8A938E] font-mono tracking-widest uppercase">{formatDate(post.published_at, locale)}</span>
               </div>
               <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] mb-3 transition-colors leading-tight">{post.title}</h4>
               <p className="text-sm text-[#66716C] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
@@ -143,11 +144,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     alternates: {
-      canonical: `https://smartworklab.store/${locale}`,
+      canonical: `https://www.smartworklab.store/${locale}`,
       languages: {
-        'en': `https://smartworklab.store/en`,
-        'ko': `https://smartworklab.store/ko`,
+        'en': `https://www.smartworklab.store/en`,
+        'ko': `https://www.smartworklab.store/ko`,
       }
+    },
+    openGraph: {
+      url: `https://www.smartworklab.store/${locale}`,
+      type: 'website',
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      siteName: 'SmartWorkLab',
     }
   };
 }
@@ -182,11 +189,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* Featured series: Mochi Sprout (static, no Supabase dependency) */}
         <section className="mb-16 rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 text-[#1C2321]">
           <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">{t('featured_series')}</p>
-          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 2</h2>
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 3</h2>
           <p className="text-base leading-relaxed mb-5 max-w-3xl text-[#66716C]">
             {locale === 'ko'
-              ? 'Day 1: 두 중력에서의 진자 비교, 최대 각도 차이 0.909 rad 측정. Day 2: P·PI·PD·PID 스텝 응답 비교 — PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE 0.313°, P와 PI는 진동하며 안정되지 않았습니다. 아직 시뮬레이션만 있습니다. 걷기, 하드웨어, 강화학습은 없습니다. 다음은 게인과 지연에 대한 강건성입니다.'
-              : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Still simulation only: no walking, no hardware, no reinforcement learning. Next: robustness across gains and delays.'}
+              ? 'Day 1: 두 중력에서의 진자 비교, 최대 각도 차이 0.909 rad 측정. Day 2: P·PI·PD·PID 스텝 응답 비교 — PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE 0.313°, P와 PI는 진동하며 안정되지 않았습니다. Day 3: 같은 게인으로 관성·센서 노이즈·지연에 대한 강건성 실험 — 관성 2배에도 마지막 2초간 평균 절대 오차(MAE)는 0.320°로 거의 안 변했고, 0.4° 노이즈는 제어 명령 변화 RMS를 0.099에서 1.715 N·m로 밀어 올렸고, 복합 케이스에서만 오버슈트 1.477°가 나왔다. 아직 실제 하드웨어에서는 검증하지 않았습니다. 걷기, 하드웨어, 강화학습은 없습니다. Day 4는 아직 시작하지 않았습니다.'
+              : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Day 3: robustness of the same gains to inertia, sensor noise, and delay — 2× inertia barely moved the final error (0.320°), 0.4° noise drove command-change RMS from 0.099 to 1.715 N·m, and only the combined case overshot (1.477°). Still simulation only: no walking, no hardware, no reinforcement learning. Day 4 is not started yet.'}
           </p>
           <div className="flex flex-wrap gap-6 text-sm font-bold">
             <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#4C6B59] hover:underline underline-offset-4">
@@ -194,6 +201,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </Link>
             <Link href={`/${locale}/lab/mochi-sprout-day02-feedback-control`} className="text-[#4C6B59] hover:underline underline-offset-4">
               {locale === 'ko' ? '2편: PID 제어기 비교 →' : 'Day 2: PID controller comparison →'}
+            </Link>
+            <Link href={`/${locale}/lab/mochi-sprout-day03-pid-robustness`} className="text-[#4C6B59] hover:underline underline-offset-4">
+              {locale === 'ko' ? '3편: PID 강건성 실험 →' : 'Day 3: PID robustness →'}
             </Link>
             <Link href={`/${locale}/lab/series`} className="text-[#4C6B59] hover:underline underline-offset-4">
               {t('view_series')} →

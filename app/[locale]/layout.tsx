@@ -21,29 +21,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://smartworklab.store'),
-  title: {
-    default: "SmartWorkLab | Mochi Sprout — Open-Source Physical AI Robot",
-    template: "%s | SmartWorkLab"
-  },
-  description: "Mochi Sprout is an open-source Physical AI project: simulate, learn, evaluate, and build a small companion robot in public. Study → Experiment → Build → Evaluate → Document.",
-  keywords: ['Physical AI', 'MuJoCo', 'robotics simulation', 'Mochi Sprout', 'reinforcement learning', 'ML engineering'],
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://smartworklab.store',
-    siteName: 'SmartWorkLab',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'SmartWorkLab — Applied AI, Robotics & Engineering',
-      },
-    ],
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const ogLocale = locale === 'ko' ? 'ko_KR' : 'en_US';
+  return {
+    metadataBase: new URL('https://www.smartworklab.store'),
+    title: {
+      default: locale === 'ko'
+        ? "SmartWorkLab | 모찌 새싹 — 오픈소스 피지컬 AI 로봇"
+        : "SmartWorkLab | Mochi Sprout — Open-Source Physical AI Robot",
+      template: "%s | SmartWorkLab"
+    },
+    description: locale === 'ko'
+      ? '모찌 새싹은 오픈소스 피지컬 AI 프로젝트입니다. 작은 반려 로봇을 시뮬레이션하고, 배우고, 평가하고, 공개적으로 만듭니다. 공부 → 실험 → 구축 → 평가 → 기록.'
+      : "Mochi Sprout is an open-source Physical AI project: simulate, learn, evaluate, and build a small companion robot in public. Study → Experiment → Build → Evaluate → Document.",
+    keywords: ['Physical AI', 'MuJoCo', 'robotics simulation', 'Mochi Sprout', 'reinforcement learning', 'ML engineering'],
+    openGraph: {
+      type: 'website',
+      locale: ogLocale,
+      siteName: 'SmartWorkLab',
+    },
+  };
+}
 
 export const viewport = {
   width: 'device-width',

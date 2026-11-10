@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? '하나의 주제를 처음부터 차근차근 따라갈 수 있도록 글을 모았습니다.'
         : 'Articles grouped into ongoing research series.',
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/lab/series`,
+      canonical: `https://www.smartworklab.store/${locale}/lab/series`,
       languages: {
-        en: 'https://smartworklab.store/en/lab/series',
-        ko: 'https://smartworklab.store/ko/lab/series',
+        en: 'https://www.smartworklab.store/en/lab/series',
+        ko: 'https://www.smartworklab.store/ko/lab/series',
       },
     },
   };

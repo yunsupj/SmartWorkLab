@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://smartworklab.store';
+  // Canonical host is fixed: production serves www; the apex domain 307-redirects to www.
+  const BASE_URL = 'https://www.smartworklab.store';
 
   return {
     rules: {

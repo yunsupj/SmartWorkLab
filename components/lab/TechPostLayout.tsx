@@ -186,7 +186,9 @@ export default async function TechPostLayout({ post, children, prevPost, nextPos
               </Link>
               {post.updated_at && (
                 <p className="text-xs text-[#66716C] font-mono">
-                  {t('updated')} {new Date(post.updated_at).toLocaleDateString()}
+                  {t('updated')} {new Date(post.updated_at).toLocaleDateString(post.locale, {
+                    year: 'numeric', month: 'long', day: 'numeric',
+                  })}
                 </p>
               )}
             </div>

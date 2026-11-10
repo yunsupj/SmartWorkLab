@@ -1,44 +1,68 @@
 # SmartWorkLab Deployment Guide
 
-This project is optimized for **Cloudflare Pages** (Edge Runtime) but compatible with Vercel.
+Deployment is **Vercel**. Cloudflare Pages is a legacy integration that is no longer used (see §4).
 
-## 1. Environment Variables
-Ensure these keys are set in your deployment project (Cloudflare Pages Dashboard > Settings > Environment Variables):
+## 1. Where it runs
 
-| Key | Description |
-| :--- | :--- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase Project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase Anon Key |
-| `SUPABASE_SERVICE_ROLE_KEY` | (Optional) Service Role for Admin/Cron Jobs |
+- **Production:** https://smartworklab.store (also https://www.smartworklab.store)
+- **Vercel project:** `smart-work-lab` — auto-deploys on push to `main`.
+- **Preview deployments:** behind Vercel SSO deployment protection. A `302 → vercel.com/sso-api` on a preview URL is expected, not an error. Verify against production or a local build instead.
 
-> **Note**: For Cloudflare Pages, keys like `service_role` might not be safe to expose unless used strictly in secured Edge Functions or via separate Workers.
+## 2. Environment variables
 
-## 2. Cloudflare Pages Deployment (Recommended)
-This project uses `@cloudflare/next-on-pages`.
+Set in Vercel (production + preview):
 
-### Configuration
-*   **Build Command**: `npx @cloudflare/next-on-pages`
-*   **Output Directory**: `.vercel/output/static`
-*   **Node.js Version**: 20+
+| Key | Value / notes |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://fjjptyonjjaotyebhmej.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 
-### Edge Runtime
-All dynamic routes have `export const runtime = 'edge'` injected.
-The `middleware.ts` handles i18n routing on the edge.
+Canonical host is hardcoded to `https://www.smartworklab.store` in the code (metadata, sitemap, robots); the apex domain 307-redirects to www. `NEXT_PUBLIC_SITE_URL` is no longer read — safe to delete from Vercel.
 
-### Git Integration
-1.  Push to `main`.
-2.  Cloudflare Pages will automatically detect the commit and start the build.
-3.  Monitor "Deployments" tab for success.
+Local builds can use dummy Supabase values (the build itself does not need a live database):
 
-## 3. Database Integrity
-*   **Tables**: Ensure `products`, `expert_reports`, `metrics` exist.
-*   **RLS**: RLS is enabled. Public can read `expert_reports` where `status = 'published'`.
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://dummy.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY=dummy \
+  NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 npm run build
+```
 
-## 4. Troubleshooting
-*   **"Missing @swc/helpers"**: This was fixed by syncing `package-lock.json`. If it recurs, run `npm ci` locally and push the lockfile.
-*   **"node:path not found"**: Ensure `PublisherAgent` is not running file-system code on the Edge. (Features like Git Commit are disabled for Edge).
+## 3. Deploy flow
 
-## 5. Post-Launch Verification
-1.  Visit `/en` and `/ko` to verify i18n.
-2.  Visit `/en/reviews/[id]` to verify Supabase connectivity.
-3.  Check the "Expert Analysis" section for the LaTeX ROI formula.
+1. Push to `main` (directly or by merging a PR). Vercel builds and deploys automatically.
+2. Wait for the production deployment to report READY.
+3. Verify on production (see §5). Do not assume a merge equals a correct deploy.
+
+Useful local checks before pushing:
+
+```bash
+npx tsc --noEmit   # typecheck
+npm run lint       # eslint
+npm run build      # production build (use the dummy-env command above)
+npx ts-node --project tsconfig.json scripts/audit-localization.ts  # EN/KO audit (needs a live URL)
+```
+
+If a local `next-server` process squats on port 3100/3200, kill it before starting a dev server.
+
+## 4. Cloudflare Pages (legacy — do not use)
+
+The old guide recommended Cloudflare Pages (`@cloudflare/next-on-pages`, edge runtime). That integration is legacy: its check fails on every push. It does not affect Vercel production and does not block merges. **Do not disconnect it without explicit approval** (undecided), and do not follow the old Cloudflare instructions.
+
+## 5. Database and content sync
+
+- Content source of truth is Supabase `tech_posts`. Article pages render only rows with `is_published = true`.
+- Sync new/changed MDX with the **targeted sync only**:
+  ```bash
+  npx ts-node --project tsconfig.json scripts/sync-targeted.ts content/lab/en/<slug>.mdx content/lab/ko/<slug>.mdx
+  ```
+  Run from a local checkout with the service key. It upserts only the named files, preserves an existing row's `published_at`, and upserts by `(locale, slug)` (no duplicates).
+- **Never run `npm run sync:lab`** (full sync): it syncs every MDX file and would republish deliberately deleted articles.
+- Current DB state: `tech_posts` live; `post_interactions` kept; `expert_reports` and `products` emptied 2026-11-05; `agency_services` dead (archiving needs an approved migration).
+
+## 6. Post-deploy verification
+
+1. Homepage `/en` and `/ko`: hero copy, featured series card, lab grid links (server-rendered).
+2. New/changed article URLs in both locales: HTTP 200, correct title/excerpt, figures render, code blocks readable (dark background, no white strips), tables scroll, KaTeX renders.
+3. Series page: all articles listed in publication order; prev/next navigation works between them.
+4. Metadata: per-locale canonical, reciprocal `en`/`ko` hreflang, no German alternate, `og:image` present, `BlogPosting` JSON-LD.
+5. `sitemap.xml` includes new slugs; `robots.txt` serves.
+6. Old routes still 301: `/[locale]/reviews` → `/lab`, `/[locale]/compare/:pair` → `/services`, `/[locale]/metrics` → `/services`.
