@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { ArrowRight, Clock, Code2, FlaskConical, Sigma } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 
 interface TechPost {
   id: string;
@@ -14,6 +15,28 @@ interface TechPost {
   has_latex: boolean;
   has_code: boolean;
   published_at: string | null;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: locale === 'ko' ? '기술 글 | SmartWorkLab' : 'Articles | SmartWorkLab',
+    description:
+      locale === 'ko'
+        ? '직접 개발하고 실험하며 배운 내용을 기록합니다. 실제 코드와 측정 결과, 시행착오를 함께 공유합니다.'
+        : 'Technical essays, learning notes, and engineering deep dives — written by engineers, for engineers.',
+    openGraph: {
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      url: `https://smartworklab.store/${locale}/lab`,
+    },
+    alternates: {
+      canonical: `https://smartworklab.store/${locale}/lab`,
+      languages: {
+        en: 'https://smartworklab.store/en/lab',
+        ko: 'https://smartworklab.store/ko/lab',
+      },
+    },
+  };
 }
 
 export default async function LabPage({ params }: { params: Promise<{ locale: string }> }) {

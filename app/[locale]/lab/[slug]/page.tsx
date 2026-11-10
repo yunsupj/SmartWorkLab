@@ -44,6 +44,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt ?? undefined,
       images: post.cover_image_url ? [post.cover_image_url] : [],
       type: 'article',
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      url: `https://smartworklab.store/${locale}/lab/${slug}`,
     },
     alternates: {
       canonical: `https://smartworklab.store/${locale}/lab/${slug}`,

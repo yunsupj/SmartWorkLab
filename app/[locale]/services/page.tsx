@@ -1,17 +1,33 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Engineering Services & Technical Collaboration | SmartWorkLab',
-  description:
-    'Practical AI systems, machine learning infrastructure, and software engineering — from early prototypes to production architecture, with measurable results.',
-  alternates: {
-    canonical: 'https://smartworklab.store/en/services',
-    languages: {
-      en: 'https://smartworklab.store/en/services',
-      ko: 'https://smartworklab.store/ko/services',
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title:
+      locale === 'ko'
+        ? '엔지니어링 서비스와 기술 협업 | SmartWorkLab'
+        : 'Engineering Services & Technical Collaboration | SmartWorkLab',
+    description:
+      locale === 'ko'
+        ? '실용적인 AI 시스템, 머신러닝 인프라, 소프트웨어 엔지니어링 — 초기 프로토타입부터 프로덕션 아키텍처까지, 측정 가능한 결과와 함께.'
+        : 'Practical AI systems, machine learning infrastructure, and software engineering — from early prototypes to production architecture, with measurable results.',
+    openGraph: {
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      url: `https://smartworklab.store/${locale}/services`,
     },
-  },
-};
+    alternates: {
+      canonical: `https://smartworklab.store/${locale}/services`,
+      languages: {
+        en: 'https://smartworklab.store/en/services',
+        ko: 'https://smartworklab.store/ko/services',
+      },
+    },
+  };
+}
 
 interface Area {
   titleEn: string;

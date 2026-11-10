@@ -13,6 +13,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale === 'ko'
         ? 'SmartWorkLab은 엔지니어링 연구 블로그입니다. 응용 AI, 로보틱스, 인프라 분야에서 실제로 한 일을 측정 결과와 함께 기록합니다.'
         : 'SmartWorkLab is an engineering research blog: applied AI, robotics, and engineering — documented with measured results.',
+    openGraph: {
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      url: `https://smartworklab.store/${locale}/about`,
+    },
+    alternates: {
+      canonical: `https://smartworklab.store/${locale}/about`,
+      languages: {
+        en: 'https://smartworklab.store/en/about',
+        ko: 'https://smartworklab.store/ko/about',
+      },
+    },
   };
 }
 
