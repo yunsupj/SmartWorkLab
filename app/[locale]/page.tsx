@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
+import { selectHomepageArticles } from '@/lib/homepage';
+import { FEATURED_SERIES } from '@/lib/featuredSeries';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
@@ -7,7 +9,8 @@ import { getTranslations } from 'next-intl/server';
 export const dynamic = 'force-dynamic';
 
 // Helper to format dates for deep dive metadata (locale-aware)
-function formatDate(dateStr: string, locale: string) {
+function formatDate(dateStr: string | null, locale: string) {
+  if (!dateStr) return '';
   return new Date(dateStr).toLocaleDateString(locale === 'ko' ? 'ko-KR' : 'en-US', {
     timeZone: 'America/Los_Angeles',
     month: 'long',
@@ -22,57 +25,27 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
   const tLab = await getTranslations('Lab');
   if (!supabase) return <div className="text-[#8A938E] py-12 text-center">{t('loading')}</div>;
 
-  // Fetch all published posts to calculate engagement rankings
+  // Only the fields the homepage renders — never body_mdx. Ordering matches
+  // the selection contract in lib/homepage.ts (published_at desc, slug asc).
   const { data: posts, error } = await supabase
     .from('tech_posts')
-    .select('*')
+    .select('slug, title, excerpt, cover_image_url, published_at, read_time_min, tags, locale, is_published')
     .eq('is_published', true)
-    .eq('locale', locale);
+    .eq('locale', locale)
+    .order('published_at', { ascending: false })
+    .order('slug', { ascending: true });
 
   if (error) {
     console.error('Supabase fetch error:', error);
   }
 
-  if (!posts || posts.length === 0) {
+  // Featured = most recently published article in this locale.
+  // Latest = the remaining published articles, newest first (max 6).
+  const { featured, latest } = selectHomepageArticles(posts ?? [], locale);
+
+  if (!featured) {
     return <div className="text-[#8A938E] py-12 text-center">{t('empty_state')}</div>;
   }
-
-  // Calculate Engagement Scores: Score = (Views * 1) + (Likes * 5)
-  const rankedPosts = [...posts].sort((a, b) => {
-    const scoreA = (a.view_count || 0) + ((a.like_count || 0) * 5);
-    const scoreB = (b.view_count || 0) + ((b.like_count || 0) * 5);
-    return scoreB - scoreA;
-  });
-
-  const recentPosts = [...posts].sort((a, b) =>
-    new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-  );
-
-  // 1. Weekly Top Research (Highest score in last 7 days)
-  // eslint-disable-next-line react-hooks/purity -- server component date math, not a hook
-  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-  let featured = rankedPosts.find(p => new Date(p.published_at) >= sevenDaysAgo);
-  if (!featured) featured = rankedPosts[0]; // Fallback if no posts in last 7 days
-
-  // 2. 50/50 Mix for Recent Deep Dives
-  const otherRanked = rankedPosts.filter(p => p.slug !== featured.slug);
-  const otherRecent = recentPosts.filter(p => p.slug !== featured.slug);
-
-  // Dynamically alternate between recent and ranked posts
-  const combined = [];
-  const maxLength = Math.max(otherRecent.length, otherRanked.length);
-  for (let i = 0; i < maxLength; i++) {
-    if (otherRecent[i]) combined.push(otherRecent[i]);
-    if (otherRanked[i]) combined.push(otherRanked[i]);
-  }
-
-  // Deduplicate by object reference using Set
-  const uniquePool = Array.from(new Set(combined)).filter(Boolean);
-
-  // Safely slice up to 6 items
-  const recent = uniquePool.slice(0, 6);
-
-
 
   return (
     <div className="w-full">
@@ -108,33 +81,36 @@ async function LabPostsFetcher({ locale }: { locale: string }) {
       </Link>
 
       {/* Recent Deep Dives Grid */}
-      <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#1C2321]">{t('recent_deep_dives')}</h2>
-        <div className="h-[1px] flex-1 bg-[#E4E7E2]" />
-      </div>
+      {latest.length > 0 && (
+        <>
+          <div className="mb-8 flex items-center gap-4">
+            <h2 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold tracking-tight text-[#1C2321]">{t('recent_deep_dives')}</h2>
+            <div className="h-[1px] flex-1 bg-[#E4E7E2]" />
+          </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-        {recent.map((post) => (
-          <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 flex flex-col h-full transition-colors hover:border-[#4C6B59]/60">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-[10px] text-[#8A938E] font-mono tracking-widest uppercase">{formatDate(post.published_at, locale)}</span>
-              </div>
-              <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] mb-3 transition-colors leading-tight">{post.title}</h4>
-              <p className="text-sm text-[#66716C] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+            {latest.map((post) => (
+              <Link key={post.slug} href={`/${locale}/lab/${post.slug}`} className="group relative rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 flex flex-col h-full transition-colors hover:border-[#4C6B59]/60">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-[10px] text-[#8A938E] font-mono tracking-widest uppercase">{formatDate(post.published_at, locale)}</span>
+                  </div>
+                  <h4 className="text-xl font-[family-name:var(--font-geist-sans)] font-bold text-[#1C2321] mb-3 transition-colors leading-tight">{post.title}</h4>
+                  <p className="text-sm text-[#66716C] leading-relaxed mb-6 line-clamp-3">{post.excerpt}</p>
+                </div>
 
-            <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[#E4E7E2]">
-              {post.tags?.slice(0, 2).map((tag: string) => (
-                <span key={tag} className="text-[10px] text-[#8A938E] font-mono uppercase tracking-wider">{tag}</span>
-              ))}
-              {(post.tags?.length || 0) > 2 && <span className="text-[10px] text-[#66716C]">+{post.tags.length - 2}</span>}
-            </div>
-          </Link>
-        ))}
+                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[#E4E7E2]">
+                  {post.tags?.slice(0, 2).map((tag: string) => (
+                    <span key={tag} className="text-[10px] text-[#8A938E] font-mono uppercase tracking-wider">{tag}</span>
+                  ))}
+                  {(post.tags?.length ?? 0) > 2 && <span className="text-[10px] text-[#66716C]">+{(post.tags?.length ?? 0) - 2}</span>}
+                </div>
+              </Link>
+            ))}
 
-
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -186,30 +162,24 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </header>
 
-        {/* Featured series: Mochi Sprout (static, no Supabase dependency) */}
+        {/* Featured series: Mochi Sprout (curated config in lib/featuredSeries.ts) */}
         <section className="mb-16 rounded-xl border border-[#E4E7E2] bg-[#FFFFFF] p-6 md:p-8 text-[#1C2321]">
           <p className="text-xs font-mono uppercase tracking-widest text-[#4C6B59] mb-3">{t('featured_series')}</p>
-          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">Mochi Sprout — Phase 0 · Day 3</h2>
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-3">{FEATURED_SERIES.title}</h2>
           <p className="text-base leading-relaxed mb-5 max-w-3xl text-[#66716C]">
-            {locale === 'ko'
-              ? 'Day 1: 두 중력에서의 진자 비교, 최대 각도 차이 0.909 rad 측정. Day 2: P·PI·PD·PID 스텝 응답 비교 — PID는 +30° 스텝 후 3.630초 만에 안정됐고 최종 구간 MAE 0.313°, P와 PI는 진동하며 안정되지 않았습니다. Day 3: 같은 게인으로 관성·센서 노이즈·지연에 대한 강건성 실험 — 관성 2배에도 마지막 2초간 평균 절대 오차(MAE)는 0.320°로 거의 안 변했고, 0.4° 노이즈는 제어 명령 변화 RMS를 0.099에서 1.715 N·m로 밀어 올렸고, 복합 케이스에서만 오버슈트 1.477°가 나왔다. 아직 실제 하드웨어에서는 검증하지 않았습니다. 걷기, 하드웨어, 강화학습은 없습니다. Day 4는 아직 시작하지 않았습니다.'
-              : 'Day 1: pendulum under two gravities, max angle difference 0.909 rad. Day 2: P, PI, PD, and PID step responses — PID settled 3.630 s after a +30° step with final-window MAE 0.313°, while P and PI oscillated and never settled. Day 3: robustness of the same gains to inertia, sensor noise, and delay — 2× inertia barely moved the final error (0.320°), 0.4° noise drove command-change RMS from 0.099 to 1.715 N·m, and only the combined case overshot (1.477°). Still simulation only: no walking, no hardware, no reinforcement learning. Day 4 is not started yet.'}
+            {locale === 'ko' ? FEATURED_SERIES.description.ko : FEATURED_SERIES.description.en}
           </p>
           <div className="flex flex-wrap gap-6 text-sm font-bold">
-            <Link href={`/${locale}/lab/mochi-sprout-day01-first-mujoco-simulation`} className="text-[#4C6B59] hover:underline underline-offset-4">
-              {locale === 'ko' ? '1편: 첫 물리 시뮬레이션 →' : 'Day 1: First physics simulation →'}
-            </Link>
-            <Link href={`/${locale}/lab/mochi-sprout-day02-feedback-control`} className="text-[#4C6B59] hover:underline underline-offset-4">
-              {locale === 'ko' ? '2편: PID 제어기 비교 →' : 'Day 2: PID controller comparison →'}
-            </Link>
-            <Link href={`/${locale}/lab/mochi-sprout-day03-pid-robustness`} className="text-[#4C6B59] hover:underline underline-offset-4">
-              {locale === 'ko' ? '3편: PID 강건성 실험 →' : 'Day 3: PID robustness →'}
-            </Link>
+            {FEATURED_SERIES.days.map((day) => (
+              <Link key={day.slug} href={`/${locale}/lab/${day.slug}`} className="text-[#4C6B59] hover:underline underline-offset-4">
+                {locale === 'ko' ? day.labelKo : day.labelEn} →
+              </Link>
+            ))}
             <Link href={`/${locale}/lab/series`} className="text-[#4C6B59] hover:underline underline-offset-4">
               {t('view_series')} →
             </Link>
-            <Link href="https://github.com/yunsupj/mochi-sprout" target="_blank" rel="noopener noreferrer" className="text-[#66716C] hover:text-[#4C6B59] transition-colors">
-              github.com/yunsupj/mochi-sprout →
+            <Link href={FEATURED_SERIES.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[#66716C] hover:text-[#4C6B59] transition-colors">
+              {FEATURED_SERIES.githubLabel} →
             </Link>
           </div>
         </section>
