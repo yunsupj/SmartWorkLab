@@ -17,13 +17,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : 'Practical AI systems, machine learning infrastructure, and software engineering — from early prototypes to production architecture, with measurable results.',
     openGraph: {
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      url: `https://smartworklab.store/${locale}/services`,
+      url: `https://www.smartworklab.store/${locale}/services`,
     },
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/services`,
+      canonical: `https://www.smartworklab.store/${locale}/services`,
       languages: {
-        en: 'https://smartworklab.store/en/services',
-        ko: 'https://smartworklab.store/ko/services',
+        en: 'https://www.smartworklab.store/en/services',
+        ko: 'https://www.smartworklab.store/ko/services',
       },
     },
   };

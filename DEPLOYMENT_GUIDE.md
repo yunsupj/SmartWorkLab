@@ -16,7 +16,8 @@ Set in Vercel (production + preview):
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://fjjptyonjjaotyebhmej.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
-| `NEXT_PUBLIC_SITE_URL` | `https://smartworklab.store` |
+
+Canonical host is hardcoded to `https://www.smartworklab.store` in the code (metadata, sitemap, robots); the apex domain 307-redirects to www. `NEXT_PUBLIC_SITE_URL` is no longer read — safe to delete from Vercel.
 
 Local builds can use dummy Supabase values (the build itself does not need a live database):
 

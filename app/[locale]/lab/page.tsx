@@ -27,13 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         : 'Technical essays, learning notes, and engineering deep dives — written by engineers, for engineers.',
     openGraph: {
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      url: `https://smartworklab.store/${locale}/lab`,
+      url: `https://www.smartworklab.store/${locale}/lab`,
     },
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/lab`,
+      canonical: `https://www.smartworklab.store/${locale}/lab`,
       languages: {
-        en: 'https://smartworklab.store/en/lab',
-        ko: 'https://smartworklab.store/ko/lab',
+        en: 'https://www.smartworklab.store/en/lab',
+        ko: 'https://www.smartworklab.store/ko/lab',
       },
     },
   };

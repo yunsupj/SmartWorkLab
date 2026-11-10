@@ -21,7 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq('is_published', true)
     .single();
 
-  if (!post) return {};
+  // Unknown slug: keep the page out of search indexes. (Next.js also emits
+  // robots noindex for the not-found render; this makes the intent explicit
+  // in code. The HTTP status stays 200 here because the layout shell streams
+  // before the data check throws notFound() — see not-found.tsx.)
+  if (!post) return { robots: { index: false, follow: false } };
 
   // hreflang only for locales where this article actually exists.
   const { data: translations } = await supabase
@@ -32,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .in('locale', ['en', 'ko']);
   const languages: Record<string, string> = {};
   for (const t of translations ?? []) {
-    languages[t.locale] = `https://smartworklab.store/${t.locale}/lab/${slug}`;
+    languages[t.locale] = `https://www.smartworklab.store/${t.locale}/lab/${slug}`;
   }
 
   return {
@@ -45,10 +49,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: post.cover_image_url ? [post.cover_image_url] : [],
       type: 'article',
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      url: `https://smartworklab.store/${locale}/lab/${slug}`,
+      url: `https://www.smartworklab.store/${locale}/lab/${slug}`,
     },
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/lab/${slug}`,
+      canonical: `https://www.smartworklab.store/${locale}/lab/${slug}`,
       languages,
     },
   };
@@ -102,7 +106,7 @@ export default async function LabPostPage({ params }: Props) {
     author: { '@type': 'Person', name: post.author },
     datePublished: post.published_at ?? undefined,
     dateModified: post.updated_at ?? undefined,
-    mainEntityOfPage: `https://smartworklab.store/${locale}/lab/${slug}`,
+    mainEntityOfPage: `https://www.smartworklab.store/${locale}/lab/${slug}`,
   };
 
   return (

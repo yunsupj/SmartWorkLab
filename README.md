@@ -129,8 +129,9 @@ NEXT_PUBLIC_SUPABASE_URL=https://dummy.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://fjjptyonjjaotyebhmej.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-NEXT_PUBLIC_SITE_URL=https://smartworklab.store
 ```
+
+Canonical host is hardcoded to `https://www.smartworklab.store` in the code (metadata, sitemap, robots). The apex domain 307-redirects to www at the hosting level.
 
 ---
 

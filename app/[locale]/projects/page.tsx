@@ -14,13 +14,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : 'Projects built at SmartWorkLab: open-source Physical AI research, this engineering journal, and prototypes — with honest status labels.',
     openGraph: {
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      url: `https://smartworklab.store/${locale}/projects`,
+      url: `https://www.smartworklab.store/${locale}/projects`,
     },
     alternates: {
-      canonical: `https://smartworklab.store/${locale}/projects`,
+      canonical: `https://www.smartworklab.store/${locale}/projects`,
       languages: {
-        en: 'https://smartworklab.store/en/projects',
-        ko: 'https://smartworklab.store/ko/projects',
+        en: 'https://www.smartworklab.store/en/projects',
+        ko: 'https://www.smartworklab.store/ko/projects',
       },
     },
   };

@@ -144,14 +144,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     alternates: {
-      canonical: `https://smartworklab.store/${locale}`,
+      canonical: `https://www.smartworklab.store/${locale}`,
       languages: {
-        'en': `https://smartworklab.store/en`,
-        'ko': `https://smartworklab.store/ko`,
+        'en': `https://www.smartworklab.store/en`,
+        'ko': `https://www.smartworklab.store/ko`,
       }
     },
     openGraph: {
-      url: `https://smartworklab.store/${locale}`,
+      url: `https://www.smartworklab.store/${locale}`,
       type: 'website',
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       siteName: 'SmartWorkLab',

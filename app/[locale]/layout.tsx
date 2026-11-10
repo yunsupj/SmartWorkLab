@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const ogLocale = locale === 'ko' ? 'ko_KR' : 'en_US';
   return {
-    metadataBase: new URL('https://smartworklab.store'),
+    metadataBase: new URL('https://www.smartworklab.store'),
     title: {
       default: locale === 'ko'
         ? "SmartWorkLab | 모찌 새싹 — 오픈소스 피지컬 AI 로봇"
