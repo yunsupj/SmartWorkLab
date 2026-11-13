@@ -1,0 +1,138 @@
+---
+title: "When Sensor Filtering Destabilizes PID Control: A MuJoCo Experiment"
+subtitle: "Mochi Sprout — Day 4 · A smoother command under sensor noise became an unstable response when measurements arrived irregularly"
+excerpt: "Mochi Sprout Day 4 tests EMA filtering and variable sensor delay on the same MuJoCo pendulum and fixed PID gains. Filtering reduced command variation under 0.4° noise, but EMA 0.2 with jitter sent four of five simulated runs past ±360°. Timestamp and controller traces explain this bounded failure; no hardware safety claim follows."
+author: "Yunsup Jung"
+series: "Mochi Sprout — Building an Open-Source Physical AI Robot"
+tags: ["Physical AI", "MuJoCo", "PID", "Sensor Filtering", "Mochi Sprout"]
+read_time_min: 13
+has_code: true
+has_latex: false
+is_published: true
+cover_image_url: "https://raw.githubusercontent.com/yunsupj/mochi-sprout/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/combined_tracking.png"
+---
+
+Day 3 left us with an awkward result. Our PID-controlled pendulum still tracked a +30° target with noisy angle measurements, but its command changed sharply between updates. At 0.4° sensor-noise standard deviation, the RMS change between adjacent torque commands rose from **0.099 to 1.715 N·m**. Day 4 asks whether a small filter can quiet that command without giving away tracking performance.
+
+Under noise alone, it often did. With an exponential moving average (EMA) set to alpha 0.2, command-change RMS fell to **0.245 N·m** across five seeds. Then we combined the same filter with irregular sensor delivery. Four of five simulated trajectories passed ±360°; the fifth did not settle within ten seconds. We kept the failed runs and traced what the controller actually saw.
+
+This is a one-hinge MuJoCo experiment, not a robot joint validated for hardware. The value of the result is that the sensor, delivery queue, filter, controller, and physical state were recorded separately enough to investigate the failure.
+
+## A controlled starting point
+
+We kept the Day 2/3 model and PID: a 1 kg, 0.5 m pendulum, gravity −9.81 m/s², a 2 ms RK4 physics step, and a 10 ms controller update. The target moves from 0° to +30° at 0.5 s; each run lasts 10 s. Torque is limited to ±3 N·m. Gains remain **Kp=6, Ki=3, Kd=1** throughout. The clean Day 3 response reappears exactly: final-window mean absolute error (MAE) **0.313°** and settling **3.630 s after the target step**.
+
+Physical tracking metrics always use MuJoCo's true `qpos`. Final-window MAE averages absolute error over 8–10 s; post-step RMSE covers 0.5–10 s. Settling means every later physics sample remains within ±2° of the target. Command-change RMS measures differences between adjacent 10 ms controller commands, in N·m. A smooth command alone cannot tell us whether the pendulum tracks.
+
+For stochastic cases we used five fixed seeds: **11, 23, 37, 53, 71**. The values below are five-seed means unless a row says it is deterministic. Individual seeds, population standard deviations, and observed ranges are in the [committed result JSON](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/summary.json).
+
+## Filtering helped one comparison, then lag mattered
+
+At each controller update, we generate independent zero-mean Gaussian angle noise with 0.4° standard deviation. The EMA processes only an **accepted** measurement:
+
+```python
+self.value = (value if self.value is None else
+              self.alpha * value + (1 - self.alpha) * self.value)
+```
+
+That is the [actual filter implementation](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/src/mochi_sprout/simulation/observation.py). Its first accepted value initializes it; alpha 1 is an identity filter. Smaller alpha retains more history. At a fixed 10 ms update interval, that can suppress noise while delaying real motion.
+
+| 0.4° noise case | Final-window MAE | Post-step RMSE | Command-change RMS |
+|---|---:|---:|---:|
+| No filter, alpha 1 | 0.390° | 4.396° | 1.715 N·m |
+| EMA 0.8 | 0.319° | 4.323° | 1.242 N·m |
+| EMA 0.2 | 0.296° | 4.126° | 0.245 N·m |
+| EMA 0.1 | 0.289° | 4.450° | 0.150 N·m |
+
+Alpha 0.1 produced the smallest final-window MAE and the smoothest command in this five-seed sample. Yet its post-step RMSE was worse than alpha 0.2, and its current-time filtered-angle error RMS was **2.050° versus 0.695°**. The filter was also lagging the physical movement. Choosing a setting by the final two seconds or torque smoothness alone would miss that trade-off.
+
+![True, raw, and filtered angle at 10 ms controller updates, noise 0.4°, EMA 0.2, seed 11](/images/lab/mochi-sprout-day04-raw-filtered-angle.png)
+
+*Figure 1. Seed 11, noise-only EMA 0.2: the raw angle moves around the true angle; the filter suppresses some variation and follows motion with lag. Original committed plot.*
+
+![PID torque under 0.4° noise for no filter and EMA 0.8, 0.2, and 0.1, seed 11](/images/lab/mochi-sprout-day04-filter-torque.png)
+
+*Figure 2. Seed 11 torque commands at 10 ms intervals. The five-seed RMS values in the table are the quantitative comparison.*
+
+![Ground-truth angle under noise across EMA choices, seed 11](/images/lab/mochi-sprout-day04-filter-tracking.png)
+
+*Figure 3. Seed 11 physical angle, scored from MuJoCo state rather than filtered observations.*
+
+## Arrival time is part of the measurement
+
+The next experiment changed timing. Each measurement is generated at a controller tick, then assigned a delivery delay chosen uniformly from **10, 30, 50, 70, or 90 ms**. The nominal mean is 50 ms, comparable to our fixed-50-ms case; the measured five-seed mean scheduled delay was **50.048 ms**. A pending sample cannot be used before arrival. At each decision, simultaneous arrivals are processed by arrival time and generation order. An older generation timestamp cannot overwrite a newer accepted measurement:
+
+```python
+while self.pending and self.pending[0][0] <= decision_time_s + 1e-12:
+    arrival_time, _, measurement_time, value = heappop(self.pending)
+    if self.has_measurement and measurement_time <= self.latest_time_s:
+        dropped += 1
+        out_of_order += 1
+        continue
+```
+
+These lines come from the [timestamped delivery pipeline](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/src/mochi_sprout/simulation/observation.py). Before the first delayed sample arrives, the experiment uses a flagged, known zero-angle initial prior. There is no real-time sleep and no future-state access.
+
+With jitter but no sensor noise or filter, all five runs settled; their mean post-step RMSE was **4.463°**, compared with **4.177°** for the single deterministic fixed-50-ms run. Jitter is not simply “50 ms delay with randomness added”: the ordering policy affects which measurements are accepted and how old the controller's current information is.
+
+![Ground-truth angle with clean baseline, fixed 50 ms delay, and variable delay, seed 11](/images/lab/mochi-sprout-day04-delay-tracking.png)
+
+*Figure 4. Seed 11 physical trajectories. The fixed-delay case is deterministic; jitter statistics use all five seeds.*
+
+## The combined run failed
+
+Noise plus variable delay **without** EMA settled in all five seeds. Adding EMA 0.2 changed only observation processing; gains and torque limits stayed fixed. Final-window MAE averaged **241.722°** over five runs, with an observed range **197.658–290.467°**. Four runs crossed ±360° of true, unwrapped joint angle; the fifth remained finite but unsettled. This was not a plotting wrap or a bad unit conversion. The MuJoCo hinge has no angle limit.
+
+![Ground-truth angle for clean baseline, noise plus jitter, and noise plus jitter with EMA 0.2, seed 11](/images/lab/mochi-sprout-day04-combined-tracking.png)
+
+*Figure 5. Seed 11 physical state. The filtered case crosses ±360°; the unfiltered case settles. This is a simulation failure, not a hardware observation.*
+
+We audited the queue before blaming the filter. Each jitter run generated **1,000** samples. **995** had arrived by the last controller decision at 9.99 s; five were still pending. Depending on the seed, **542–570 of the delivered samples** were rejected because a newer measurement had already been accepted. The mean was **550.8 rejected**, or **55.36% of delivered samples**. That denominator is 995 delivered samples per run, not 1,000 controller decisions. Independent replay reproduced the acceptance and rejection counts; we found no timestamp or queue defect.
+
+Accepted measurement timestamps were about **22–23 ms apart on average**, with gaps reaching **70–80 ms**, while the PID still decided every 10 ms. EMA 0.2 updated on accepted measurements only. The [PID derivative-on-measurement implementation](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/src/mochi_sprout/control/pid.py) uses the fixed decision interval:
+
+```python
+derivative = (
+    0.0 if self.previous_measurement is None
+    else -(measurement - self.previous_measurement) / dt
+)
+```
+
+On a stale tick the filtered input does not move, so this contribution can be zero. An accepted sample can move the filtered input sharply, concentrating a derivative response into one 10 ms update.
+
+## The first divergence, not just the final number
+
+We defined onset as the **first physics sample after the target step at which the filtered run's true angle differed from the paired unfiltered run by at least 5°**. It occurred at **0.686 s for seed 11** and **0.684 s for seed 23**. The two runs in each pair used the same sampled delay schedule and the same noise residuals.
+
+At **0.690 s in seed 11**, the true angle was **28.04°** and rising at **3.23 rad/s**. The accepted measurement had been generated at 0.660 s, but the EMA output was only **11.89°**. No new sample was accepted at that controller tick. P still contributed **+1.896 N·m**, candidate I **+0.156 N·m**, D **0**, and the applied command was **+2.052 N·m**. At 0.740 s, a nearby accepted update produced **−5.681 N·m** of derivative contribution; the command clipped at **−3 N·m**. The [onset trace](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/diagnostic_onsets.csv) records the surrounding updates for seeds 11 and 23. The integral contribution was small near onset; it is not the primary observed driver.
+
+To isolate the interaction, we kept the five seeds and added only three diagnostic cases:
+
+| Diagnostic comparison | Outcome across five seeds |
+|---|---|
+| Variable delay + EMA 0.2, **no noise** | All five exceeded ±360° |
+| Noise + **fixed** 50 ms + EMA 0.2 | All five finite but unsettled |
+| Noise + variable delay + EMA 0.8 | All five settled |
+| Original noise + variable delay, **no EMA** | All five settled |
+
+The evidence points to filter memory interacting with irregular accepted timing under these fixed PID gains. It does **not** show that EMA is generally unsafe. We did not tune gains to erase the failure, and we did not add a state estimator after this result. The failed configuration is **not validated for hardware use**.
+
+## What this changes for Mochi Sprout
+
+The reusable observation pipeline does not import MuJoCo. It preserves generation, arrival, and decision times, and keeps ground truth separate from what the controller saw. That separation will matter when future interchangeable limbs have different sensors or timing. It does not mean this pendulum is already a humanoid limb.
+
+You can reproduce the study and its diagnosis from the [Day 4 merged research commit](https://github.com/yunsupj/mochi-sprout/commit/fd02d251f1304ba92e37a0a95d6a8f77a344d57c):
+
+```sh
+uv sync --locked --python 3.11
+uv lock --check --python 3.11
+uv run --locked --python 3.11 pytest -q
+uv run --locked --python 3.11 python -m mochi_sprout.experiments.day04 --output-dir experiments/day04
+uv run --locked --python 3.11 python -m mochi_sprout.experiments.day04_diagnostics --output-dir experiments/day04
+```
+
+The merged full suite reported **37 passed**. The [scenario record](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/README.md), [per-seed metrics](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/summary.json), and [diagnostic audit](https://github.com/yunsupj/mochi-sprout/blob/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04/diagnostics.json) make the claims checkable. The five figures above are unchanged copies of the [committed Day 4 PNGs](https://github.com/yunsupj/mochi-sprout/tree/fd02d251f1304ba92e37a0a95d6a8f77a344d57c/experiments/day04). The cover is the commit-pinned combined plot.
+
+The limits are substantial: one idealized pendulum, one +30° step, a 10 s horizon, five stochastic seeds, one variable-delay distribution, fixed gains, and no modeled motor electrical dynamics or contact. There is no physical robot test, sim-to-real validation, or demonstrated safe hardware controller. A future, bounded experiment could test timestamp-aware filtering or a capped velocity estimate. Neither has been implemented here.
+
+*Series: [Day 1 — first MuJoCo simulation](/en/lab/mochi-sprout-day01-first-mujoco-simulation) → [Day 2 — feedback control](/en/lab/mochi-sprout-day02-feedback-control) → [Day 3 — PID robustness](/en/lab/mochi-sprout-day03-pid-robustness) → Day 4.*

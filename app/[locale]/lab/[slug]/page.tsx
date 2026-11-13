@@ -100,7 +100,7 @@ export default async function LabPostPage({ params }: Props) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt ?? undefined,
     author: { '@type': 'Person', name: post.author },
